@@ -24,7 +24,7 @@ class Costs {
         self.idCosts = dictionary["idCosts"] as? String ?? ""
         self.idUser = dictionary["idUser"] as? String ?? ""
         self.nameCosts = dictionary["nameCosts"] as? String ?? ""
-        self.priceCosts = dictionary["priceCosts"] as? Double ?? 0.0
+        self.priceCosts = dictionary["priceCosts"] as? Double ?? nil
         self.placeCosts = dictionary["placeCosts"] as? String ?? ""
         self.categoryCosts = dictionary["categoryCosts"] as? String ?? ""
         self.dateTimeCostsString = dictionary["dateTimeCostsString"] as? String ?? ""

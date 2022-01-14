@@ -8,30 +8,43 @@
 import Foundation
 
 class TransactionUser {
-
-    var CheckNumber: String!
-    var DateTransaction: String!
-    var IdClient: String!
-    var IdTransaction: String!
-    var IdArrayNameServies: [String]!
-    var GeneralPriceServies: String!
-    var TextServies: String!
-    var CashOrCard: String!
-    var Tax: String!
-    var Gender:String!
+    
+    var idTransaction: String!
+    var idUserAdministrator: String!
+    var idUserMaster: String!
+    var checkNumber: String!
+    var dateTransaction: String!
+    var idClient: String!
+    var genderClient:String!
+    var ageClient:Int!
+    var dictServies: [Price]!
+    var commitServies: String!
+    var cash: Bool!
+    var card: Bool!
+    var tax: Double!
+    var cashPrice: Double!
+    var cardPrice: Double!
   
     init(dictionary: [String: Any]) {
 
-        self.CheckNumber = dictionary["CheckNumber"] as? String ?? ""
-        self.DateTransaction = dictionary["DateTransaction"] as? String ?? ""
-        self.IdClient = dictionary["IdClient"] as? String ?? ""
-        self.IdTransaction = dictionary["IdTransaction"] as? String ?? ""
-        self.IdArrayNameServies = dictionary["IdArrayNameServies"] as? [String] ?? [""]
-        self.GeneralPriceServies = dictionary["GeneralPriceServies"] as? String ?? ""
-        self.TextServies = dictionary["TextServies"] as? String ?? ""
-        self.CashOrCard = dictionary["CashOrCard"] as? String ?? ""
-        self.Tax = dictionary["Tax"] as? String ?? ""
-        self.Gender = dictionary["Gender"] as? String ?? ""
+        self.idTransaction = dictionary["idTransaction"] as? String ?? ""
+        self.idUserAdministrator = dictionary["idUserAdministrator"] as? String ?? ""
+        self.idUserMaster = dictionary["idUserMaster"] as? String ?? ""
+        self.checkNumber = dictionary["checkNumber"] as? String ?? ""
+        self.dateTransaction = dictionary["dateTransaction"] as? String ?? ""
+        self.idClient = dictionary["idClient"] as? String ?? ""
+        self.genderClient = dictionary["genderClient"] as? String ?? ""
+        self.ageClient = dictionary["ageClient"] as? Int ?? nil
+        self.dictServies = dictionary["dictServies"] as? [Price] ?? nil
+        self.commitServies = dictionary["commitServies"] as? String ?? ""
+        self.cash = dictionary["cash"] as? Bool ?? nil
+        self.card = dictionary["card"] as? Bool ?? nil
+        self.tax = dictionary["tax"] as? Double ?? nil
+        self.cashPrice = dictionary["cashPrice"] as? Double ?? nil
+        self.cardPrice = dictionary["cardPrice"] as? Double ?? nil
+        
+        
+       
     }
   
 }

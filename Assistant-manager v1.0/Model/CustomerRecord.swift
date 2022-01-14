@@ -9,48 +9,36 @@ import Foundation
 
 class CustomerRecord {
     
-    var dateTimeEndService: String!
-    var dateTimeStartService: String!
-    var idClient: String!
     var idRecord: String!
-    var idService: String!
-    var linkPhotoClient: String!
-    var nameClient: String!
+    var idUserAdministrator: String!
+    var idMaster: String!
+    var dateTimeStartService: String!
+    var dateTimeEndService: String!
+    var fullDateTimeStartServiceForFilter: String!
+    var idClient: String!
+    var genderClient: String!
+    var ageClient:Int!
     var periodNextRecord: String!
-    var price: String!
-    var service: String!
-    var surnameClient: String!
-    var сheckNumber: String!
-    var commentText: String!
-    var dateFormatterM: String!
-    var dateFormatterYar: String!
-    var dateTimeSecondForFilter: String!
+    var commit: String!
     var idAllServiceArray: [String]!
-    var gender: String!
+    var anUnfulfilledRecord: Bool!
     
     init(dictionary: [String: Any]) {
 
-        self.dateTimeEndService = dictionary["dateTimeEndService"] as? String ?? ""
-        self.dateTimeStartService = dictionary["dateTimeStartService"] as? String ?? ""
-        self.idClient = dictionary["idClient"] as? String ?? ""
         self.idRecord = dictionary["idRecord"] as? String ?? ""
-        self.idService = dictionary["idService"] as? String ?? ""
-        self.linkPhotoClient = dictionary["linkPhotoClient"] as? String ?? ""
-        self.nameClient = dictionary["nameClient"] as? String ?? ""
+        self.idUserAdministrator = dictionary["idUserAdministrator"] as? String ?? ""
+        self.idMaster = dictionary["idMaster"] as? String ?? ""
+        self.dateTimeStartService = dictionary["dateTimeStartService"] as? String ?? ""
+        self.dateTimeEndService = dictionary["dateTimeEndService"] as? String ?? ""
+        self.fullDateTimeStartServiceForFilter = dictionary["fullDateTimeStartServiceForFilter"] as? String ?? ""
+        self.idClient = dictionary["idClient"] as? String ?? ""
+        self.genderClient = dictionary["genderClient"] as? String ?? ""
+        self.ageClient = dictionary["ageClient"] as? Int ?? nil
         self.periodNextRecord = dictionary["periodNextRecord"] as? String ?? ""
-        self.price = dictionary["price"] as? String ?? ""
-        self.service = dictionary["service"] as? String ?? ""
-        self.surnameClient = dictionary["surnameClient"] as? String ?? ""
-        self.сheckNumber = dictionary["сheckNumber"] as? String ?? ""
-        self.commentText = dictionary["commentText"] as? String ?? ""
-        self.dateFormatterM = dictionary["dateFormatterM"] as? String ?? ""
-        self.dateFormatterYar = dictionary["dateFormatterYar"] as? String ?? ""
-        self.dateTimeSecondForFilter = dictionary["dateTimeSecondForFilter"] as? String ?? ""
+        self.commit = dictionary["commit"] as? String ?? ""
         self.idAllServiceArray = dictionary["idAllServiceArray"] as? [String] ?? [""]
-        self.gender = dictionary["gender"] as? String ?? ""
-       
+        self.anUnfulfilledRecord = dictionary["anUnfulfilledRecord"] as? Bool ?? nil
     }
- 
 }
 
 

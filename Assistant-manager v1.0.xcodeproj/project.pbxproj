@@ -30,6 +30,7 @@
 		8A8E456D2791923600828B7E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456C2791923600828B7E /* Team.swift */; };
 		8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456E2791927F00828B7E /* TransactionUser.swift */; };
 		8A8E45712791936500828B7E /* Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45702791936500828B7E /* Costs.swift */; };
+		8A8E45732791AFE700828B7E /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45722791AFE700828B7E /* Reminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		8A8E456C2791923600828B7E /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		8A8E456E2791927F00828B7E /* TransactionUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionUser.swift; sourceTree = "<group>"; };
 		8A8E45702791936500828B7E /* Costs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costs.swift; sourceTree = "<group>"; };
+		8A8E45722791AFE700828B7E /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				8A8E456A2791916800828B7E /* CustomerRecord.swift */,
 				8A8E456E2791927F00828B7E /* TransactionUser.swift */,
 				8A8E45702791936500828B7E /* Costs.swift */,
+				8A8E45722791AFE700828B7E /* Reminder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8A8E45712791936500828B7E /* Costs.swift in Sources */,
+				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
 				8A8E453A2791873900828B7E /* ViewController.swift in Sources */,
