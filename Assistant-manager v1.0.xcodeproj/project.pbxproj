@@ -31,6 +31,8 @@
 		8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456E2791927F00828B7E /* TransactionUser.swift */; };
 		8A8E45712791936500828B7E /* Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45702791936500828B7E /* Costs.swift */; };
 		8A8E45732791AFE700828B7E /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45722791AFE700828B7E /* Reminder.swift */; };
+		8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45842791E20D00828B7E /* LoadImageExtension.swift */; };
+		8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45862791E22A00828B7E /* FirestoreExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		8A8E456E2791927F00828B7E /* TransactionUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionUser.swift; sourceTree = "<group>"; };
 		8A8E45702791936500828B7E /* Costs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costs.swift; sourceTree = "<group>"; };
 		8A8E45722791AFE700828B7E /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		8A8E45842791E20D00828B7E /* LoadImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageExtension.swift; sourceTree = "<group>"; };
+		8A8E45862791E22A00828B7E /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,9 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A8E45832791E19300828B7E /* GlobalExtension */,
+				8A8E45822791E13D00828B7E /* Presenter */,
+				8A8E45812791E12500828B7E /* API */,
 				8A8E456127918F4C00828B7E /* Model */,
 				8A8E45352791873900828B7E /* AppDelegate.swift */,
 				8A8E45372791873900828B7E /* SceneDelegate.swift */,
@@ -119,6 +126,29 @@
 				8A8E45722791AFE700828B7E /* Reminder.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8A8E45812791E12500828B7E /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8A8E45822791E13D00828B7E /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A8E45832791E19300828B7E /* GlobalExtension */ = {
+			isa = PBXGroup;
+			children = (
+				8A8E45842791E20D00828B7E /* LoadImageExtension.swift */,
+				8A8E45862791E22A00828B7E /* FirestoreExtension.swift */,
+			);
+			path = GlobalExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +237,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
+				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
+				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A8E45712791936500828B7E /* Costs.swift in Sources */,
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
