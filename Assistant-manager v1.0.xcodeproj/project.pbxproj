@@ -14,7 +14,6 @@
 		8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E453E2791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld */; };
 		8A8E45422791873B00828B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E45412791873B00828B7E /* Assets.xcassets */; };
 		8A8E45452791873B00828B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E45432791873B00828B7E /* LaunchScreen.storyboard */; };
-		8A8E454D2791896A00828B7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E454C2791896A00828B7E /* GoogleService-Info.plist */; };
 		8A8E455027918AA400828B7E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8E454F27918AA400828B7E /* FirebaseAnalytics */; };
 		8A8E455227918AA400828B7E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8E455127918AA400828B7E /* FirebaseAuth */; };
 		8A8E455427918AA400828B7E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8E455327918AA400828B7E /* FirebaseDatabase */; };
@@ -23,6 +22,14 @@
 		8A8E455A27918AA400828B7E /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8E455927918AA400828B7E /* FirebaseInstallations */; };
 		8A8E455C27918AA400828B7E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8E455B27918AA400828B7E /* FirebaseMessaging */; };
 		8A8E455E27918AA400828B7E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8E455D27918AA400828B7E /* FirebaseStorage */; };
+		8A8E456027918E2F00828B7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E455F27918E2F00828B7E /* GoogleService-Info.plist */; };
+		8A8E4563279190E100828B7E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E4562279190E100828B7E /* User.swift */; };
+		8A8E45652791911600828B7E /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45642791911600828B7E /* Client.swift */; };
+		8A8E45672791913D00828B7E /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45662791913C00828B7E /* Price.swift */; };
+		8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456A2791916800828B7E /* CustomerRecord.swift */; };
+		8A8E456D2791923600828B7E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456C2791923600828B7E /* Team.swift */; };
+		8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456E2791927F00828B7E /* TransactionUser.swift */; };
+		8A8E45712791936500828B7E /* Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45702791936500828B7E /* Costs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +42,14 @@
 		8A8E45412791873B00828B7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A8E45442791873B00828B7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A8E45462791873B00828B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8A8E454C2791896A00828B7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8A8E455F27918E2F00828B7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8A8E4562279190E100828B7E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8A8E45642791911600828B7E /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		8A8E45662791913C00828B7E /* Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
+		8A8E456A2791916800828B7E /* CustomerRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRecord.swift; sourceTree = "<group>"; };
+		8A8E456C2791923600828B7E /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		8A8E456E2791927F00828B7E /* TransactionUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionUser.swift; sourceTree = "<group>"; };
+		8A8E45702791936500828B7E /* Costs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +90,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A8E456127918F4C00828B7E /* Model */,
 				8A8E45352791873900828B7E /* AppDelegate.swift */,
 				8A8E45372791873900828B7E /* SceneDelegate.swift */,
 				8A8E45392791873900828B7E /* ViewController.swift */,
@@ -83,10 +98,24 @@
 				8A8E45412791873B00828B7E /* Assets.xcassets */,
 				8A8E45432791873B00828B7E /* LaunchScreen.storyboard */,
 				8A8E45462791873B00828B7E /* Info.plist */,
-				8A8E454C2791896A00828B7E /* GoogleService-Info.plist */,
+				8A8E455F27918E2F00828B7E /* GoogleService-Info.plist */,
 				8A8E453E2791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld */,
 			);
 			path = "Assistant-manager v1.0";
+			sourceTree = "<group>";
+		};
+		8A8E456127918F4C00828B7E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8A8E4562279190E100828B7E /* User.swift */,
+				8A8E45642791911600828B7E /* Client.swift */,
+				8A8E456C2791923600828B7E /* Team.swift */,
+				8A8E45662791913C00828B7E /* Price.swift */,
+				8A8E456A2791916800828B7E /* CustomerRecord.swift */,
+				8A8E456E2791927F00828B7E /* TransactionUser.swift */,
+				8A8E45702791936500828B7E /* Costs.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,7 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A8E45452791873B00828B7E /* LaunchScreen.storyboard in Resources */,
-				8A8E454D2791896A00828B7E /* GoogleService-Info.plist in Resources */,
+				8A8E456027918E2F00828B7E /* GoogleService-Info.plist in Resources */,
 				8A8E45422791873B00828B7E /* Assets.xcassets in Resources */,
 				8A8E453D2791873900828B7E /* Main.storyboard in Resources */,
 			);
@@ -174,10 +203,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A8E456D2791923600828B7E /* Team.swift in Sources */,
+				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
+				8A8E45712791936500828B7E /* Costs.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
+				8A8E45672791913D00828B7E /* Price.swift in Sources */,
 				8A8E453A2791873900828B7E /* ViewController.swift in Sources */,
+				8A8E45652791911600828B7E /* Client.swift in Sources */,
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
+				8A8E4563279190E100828B7E /* User.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
+				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
