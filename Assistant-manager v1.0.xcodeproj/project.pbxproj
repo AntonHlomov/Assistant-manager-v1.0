@@ -33,6 +33,11 @@
 		8A8E45732791AFE700828B7E /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45722791AFE700828B7E /* Reminder.swift */; };
 		8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45842791E20D00828B7E /* LoadImageExtension.swift */; };
 		8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45862791E22A00828B7E /* FirestoreExtension.swift */; };
+		8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E458A2791E54800828B7E /* LoginControler.swift */; };
+		8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E458C2791E5B300828B7E /* ButtonExtension.swift */; };
+		8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E458E2791E5F500828B7E /* SetupTextFieldExtension.swift */; };
+		8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45902791E6FA00828B7E /* ColorExtension.swift */; };
+		8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +61,11 @@
 		8A8E45722791AFE700828B7E /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		8A8E45842791E20D00828B7E /* LoadImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageExtension.swift; sourceTree = "<group>"; };
 		8A8E45862791E22A00828B7E /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
+		8A8E458A2791E54800828B7E /* LoginControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginControler.swift; sourceTree = "<group>"; };
+		8A8E458C2791E5B300828B7E /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
+		8A8E458E2791E5F500828B7E /* SetupTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupTextFieldExtension.swift; sourceTree = "<group>"; };
+		8A8E45902791E6FA00828B7E /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraintsExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				8A8E45832791E19300828B7E /* GlobalExtension */,
+				8A8E45892791E31700828B7E /* View */,
 				8A8E45822791E13D00828B7E /* Presenter */,
 				8A8E45812791E12500828B7E /* API */,
 				8A8E456127918F4C00828B7E /* Model */,
@@ -147,8 +158,20 @@
 			children = (
 				8A8E45842791E20D00828B7E /* LoadImageExtension.swift */,
 				8A8E45862791E22A00828B7E /* FirestoreExtension.swift */,
+				8A8E458C2791E5B300828B7E /* ButtonExtension.swift */,
+				8A8E458E2791E5F500828B7E /* SetupTextFieldExtension.swift */,
+				8A8E45902791E6FA00828B7E /* ColorExtension.swift */,
+				8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */,
 			);
 			path = GlobalExtension;
+			sourceTree = "<group>";
+		};
+		8A8E45892791E31700828B7E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A8E458A2791E54800828B7E /* LoginControler.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,11 +262,16 @@
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
+				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A8E45712791936500828B7E /* Costs.swift in Sources */,
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
+				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
+				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
+				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
+				8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */,
 				8A8E453A2791873900828B7E /* ViewController.swift in Sources */,
 				8A8E45652791911600828B7E /* Client.swift in Sources */,
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
