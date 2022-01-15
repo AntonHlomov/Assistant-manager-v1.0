@@ -14,7 +14,6 @@ class User {
     var name: String!
     var fullName: String!
     var profileImage: String!
-    var textreminder: String!
     var categoryUser: String!
     var teacherUser: Bool!
     var lincUser: String!
@@ -30,7 +29,6 @@ class User {
         self.profileImage = dictionary["profileImageUrl"] as? String ?? ""
         self.uid = dictionary["uid"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
-        self.textreminder = dictionary["textreminder"] as? String ?? ""
         self.categoryUser = dictionary["categoryUser"] as? String ?? ""
         self.teacherUser = dictionary["teacherUser"] as? Bool ?? nil
         self.lincUser = dictionary["lincUser"] as? String ?? ""

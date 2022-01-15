@@ -13,7 +13,6 @@ class CustomTextField: UITextField{
     init(padding:CGFloat) {
         self.padding = padding
         super.init(frame: .zero)
-        
     }
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: padding, dy: 0)
@@ -30,13 +29,15 @@ class CustomTextField: UITextField{
 }
 // функция для поля текст филд
 extension UITextField{
-    class func setupTextField(title: String, hideText: Bool) -> UITextField {
+    class func setupTextField(title: String, hideText: Bool, enabled: Bool) -> UITextField {
         let tf = CustomTextField(padding: 16)
         tf.placeholder = title
-        tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
+        tf.backgroundColor = UIColor(white: 1, alpha: 0.7)
         tf.layer.cornerRadius = 5
-        tf.font = UIFont .systemFont(ofSize: 18)
+        tf.font = UIFont .systemFont(ofSize: 16)
+        tf.textColor = .darkText
         tf.isSecureTextEntry = hideText         // скрытие пороля
+        tf.isEnabled = enabled
         return tf
     }
 }
