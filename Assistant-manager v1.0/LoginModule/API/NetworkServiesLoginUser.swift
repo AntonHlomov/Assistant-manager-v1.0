@@ -12,7 +12,6 @@ protocol NetworkServiesLoginUserProtocol{
     func loginUser (emailAuth: String, passwordAuth: String) -> Bool
 }
 class LoginAPI {
- 
 
     func loginUser (emailAuth: String, passwordAuth: String) -> Bool {
         var statusLogin = false

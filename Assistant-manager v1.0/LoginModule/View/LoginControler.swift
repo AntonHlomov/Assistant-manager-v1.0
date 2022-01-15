@@ -103,8 +103,8 @@ class LoginControler: UIViewController {
     @objc fileprivate func handleLogin() {
         guard let email = emailTextfield.text else {return}
         guard let password = passwordTextField.text else {return}
-        // говорим презентеру наменя тапнули сделай эту бизнес логику
-        self.presenter.showLoginIndicator()
+        // говорим презентеру на меня тапнули сделай эту бизнес логику
+        self.presenter.showLoginIndicator(emailAuth: email, passwordAuth: password)
       
     }
 
@@ -176,12 +176,20 @@ extension LoginControler{
 
  //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension LoginControler: LoginViewProtocol {
-    func setLoginIndicator(indicator: Bool) {
+ 
+    func setLoginIndicator(indicator: Bool, error: String) {
         //передаем  индикатор в вью значение индикатора из презентера
         self.indicatorLogin = indicator
         if indicator == true {
-        alertRegistrationControllerMassage(title: "OK", message: "//передаем  индикатор в вью значение индикатора из презентера")
+           let view = MainViewControler()
+           let navController = UINavigationController(rootViewController: view)
+           navController.modalPresentationStyle = .fullScreen
+           present(navController, animated: true, completion: nil)
+       
+        } else {
+            alertRegistrationControllerMassage(title: "Error", message: error)
         }
+    
     }
 }
 
