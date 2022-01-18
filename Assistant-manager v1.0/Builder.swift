@@ -8,19 +8,28 @@
 import UIKit
 
 protocol Builder{
-    static func createMainModule() -> UIViewController
+    static func createLoginModule() -> UIViewController
+    static func createRegistrationModule() -> UIViewController
 }
 // сборщик
 class ModelBuilder: Builder{
     // в призентер инжектим вью и модель
-    static func createMainModule() -> UIViewController {
+    static func createLoginModule() -> UIViewController {
        // let user = User(dictionary: [String : Any]
         let view = LoginControler()
         //let presenter = LoginPresentor(view: view, user: user)
         let presenter = LoginPresentor(view: view)
         view.presenter = presenter
         return view
-    }
+  }
+   static func createRegistrationModule() -> UIViewController {
+      // let user = User(dictionary: [String : Any]
+       let view = RegistrationController()
+       //let presenter = LoginPresentor(view: view, user: user)
+       let presenter = RegistrationPresentor(view: view)
+       view.presenter = presenter
+       return view
+   }
     // другой модуль напримр Модуль Регистрации
   // static func createSecendModule() -> UIViewController {
   //    // let user = User(dictionary: [String : Any]

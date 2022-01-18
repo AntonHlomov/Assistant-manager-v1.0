@@ -9,10 +9,9 @@ import UIKit
 
 
 
-class LoginControler: UIViewController {
+class LoginControler: UIViewController,UINavigationControllerDelegate {
     
     var indicatorLogin = false
-    
     // подключаемся к презентеру через протокол чтобы передавать нажатия итд из этого view
     var presenter: LoginViewPresenterProtocol!
 
@@ -122,10 +121,8 @@ class LoginControler: UIViewController {
     }
 
     @objc fileprivate func goToRegistration(){
-         let view = RegistrationController()
-         let navController = UINavigationController(rootViewController: view)
-        navController.modalPresentationStyle = .fullScreen
-        present(navController, animated: true, completion: nil)
+        let registrastionControlrer = ModelBuilder.createRegistrationModule()
+        navigationController?.pushViewController(registrastionControlrer, animated: true)
 }
     // MARK: - Keyboard
 
@@ -176,20 +173,21 @@ extension LoginControler{
 
  //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension LoginControler: LoginViewProtocol {
- 
     func setLoginIndicator(indicator: Bool, error: String) {
         //передаем  индикатор в вью значение индикатора из презентера
         self.indicatorLogin = indicator
         if indicator == true {
-           let view = MainViewControler()
-           let navController = UINavigationController(rootViewController: view)
-           navController.modalPresentationStyle = .fullScreen
-           present(navController, animated: true, completion: nil)
-       
+        //   let view = MainViewControler()
+        //   let navController = UINavigationController(rootViewController: view)
+        //   navController.modalPresentationStyle = .fullScreen
+        //   present(navController, animated: true, completion: nil)
+            
+        //    let registrastionControlrer = ModelBuilder.createRegistrationModule()
+        //    navigationController?.pushViewController(registrastionControlrer, animated: true)
+       print("написать переход через билдер на главную страницу")
         } else {
             alertRegistrationControllerMassage(title: "Error", message: error)
         }
-    
     }
 }
 

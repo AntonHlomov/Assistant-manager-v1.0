@@ -9,11 +9,12 @@ var userApp: User?
 import Foundation
 
 class User {
-
+    
     var uid: String!
     var name: String!
     var fullName: String!
     var profileImage: String!
+    var email: String!
     var categoryUser: String!
     var teacherUser: Bool!
     var lincUser: String!
@@ -28,6 +29,7 @@ class User {
         self.name = dictionary["name"] as? String ?? ""
         self.profileImage = dictionary["profileImageUrl"] as? String ?? ""
         self.uid = dictionary["uid"] as? String ?? ""
+        self.email = dictionary["email"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
         self.categoryUser = dictionary["categoryUser"] as? String ?? ""
         self.teacherUser = dictionary["teacherUser"] as? Bool ?? nil

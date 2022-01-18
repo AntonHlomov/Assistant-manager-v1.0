@@ -10,20 +10,20 @@ import Firebase
 
 // отправляет сообщение LoginView о входе  и не входе (аунтификация пользователя)
 //outPut
-protocol LoginViewProtocol: class {
+protocol LoginViewProtocol: AnyObject {
     func setLoginIndicator(indicator: Bool, error: String)
 }
 
 // делаем протокол который завязываемся не на View а нв протоколе LoginViewProtocol и делаем инициализатор которой захватывает ссылку на View принцип  Solid сохряняем уровень абстракции
 //inPut
-protocol LoginViewPresenterProtocol: class {
+protocol LoginViewPresenterProtocol: AnyObject {
    // init(view: LoginViewProtocol,user: User)
     init(view: LoginViewProtocol)
     func showLoginIndicator(emailAuth: String, passwordAuth: String)
 }
 // заввязываемся на протоколе
 class LoginPresentor: LoginViewPresenterProtocol{
-    let view: LoginViewProtocol
+    let view: LoginViewProtocol?
    // let user: User
    // required init(view: LoginViewProtocol, user: User)
     required init(view: LoginViewProtocol) {
@@ -41,13 +41,13 @@ class LoginPresentor: LoginViewPresenterProtocol{
                 errForAlert = "\(err.localizedDescription)"
                 indicator = false
                 // здесь презентер говорит вьюхе(абстрактной) что ей сделать
-                self.view.setLoginIndicator(indicator: indicator, error: errForAlert)
+                self.view?.setLoginIndicator(indicator: indicator, error: errForAlert)
                 return
         }
             print("Successfuly signed user in")
             indicator = true
             // здесь презентер говорит вьюхе(абстрактной) что ей сделать
-            self.view.setLoginIndicator(indicator: indicator, error: errForAlert)
+            self.view?.setLoginIndicator(indicator: indicator, error: errForAlert)
         }
     }
 }

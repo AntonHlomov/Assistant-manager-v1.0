@@ -6,9 +6,13 @@
 //
 
 import UIKit
-import Firebase
+
 
 class RegistrationController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    var indicatorLogin = false
+    // подключаемся к презентеру через протокол чтобы передавать нажатия итд из этого view
+    var presenter: RegistrationViewPresenterProtocol!
+ 
     
     var gradePicker: UIPickerView!
     
@@ -86,11 +90,16 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func handleSignUp(){
-        self.handleTapDismiss() //при нажатии кнопки регистрация убераеться клава
-    //   guard let email = emailTexfield.text?.lowercased() else {return}
-    //   guard let password = passwordTexfield.text else {return}
-    //   guard let fullName = nameTexfield.text else {return}
-        printContent("проверка входа")
+     //   self.handleTapDismiss() //при нажатии кнопки регистрация убераеться клава
+        guard let email = emailTexfield.text?.lowercased() else {return}
+        guard let password = passwordTexfield.text else {return}
+        guard let name = nameTexfield.text else {return}
+        guard let profileImage = self.selectPhotoButton.imageView?.image else {return}
+
+        print("проверка данных для регистрации")
+        // говорим презентеру на меня тапнули сделай эту бизнес логику
+        self.presenter.showRegistrationInformation(photoUser: profileImage, emailAuth: email, name: name, passwordAuth: password)
+       
     }
      //проверка заполнености полей
     @objc fileprivate func formValidation(){
@@ -176,5 +185,23 @@ extension RegistrationController{
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
+  
+}
+
+//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
+extension RegistrationController: RegistrationProtocol {
+   func setRegistrationIndicator(indicator: Bool, error: String) {
+       //передаем  индикатор в вью значение индикатора из презентера
+       self.indicatorLogin = indicator
+       if indicator == true {
+          let view = MainViewControler()
+          let navController = UINavigationController(rootViewController: view)
+          navController.modalPresentationStyle = .fullScreen
+          present(navController, animated: true, completion: nil)
+      
+       } else {
+           alertRegistrationControllerMassage(title: "Error", message: error)
+       }
+   }
 }
 
