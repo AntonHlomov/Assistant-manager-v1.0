@@ -143,10 +143,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func goToSingIn(){
-      //  dismiss(animated: true, completion: nil)
-      //  let loginControler = ModelBuilder.createLoginModule()
-        navigationController?.popToRootViewController(animated: true)
-   
+        _ = navigationController?.popViewController(animated: true)
+        
     }
     //MARK: - Клавиатура
     fileprivate func  setupNotificationObserver(){
@@ -197,10 +195,7 @@ extension RegistrationController: RegistrationProtocol {
        //передаем  индикатор в вью значение индикатора из презентера
        self.indicatorLogin = indicator
        if indicator == true {
-          let view = MainViewControler()
-          let navController = UINavigationController(rootViewController: view)
-          navController.modalPresentationStyle = .fullScreen
-          present(navController, animated: true, completion: nil)
+           _ = navigationController?.popToRootViewController(animated: true)
       
        } else {
            alertRegistrationControllerMassage(title: "Error", message: error)

@@ -44,6 +44,11 @@
 		8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */; };
 		8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B827974642007315DE /* ScreensaverViewController.swift */; };
 		8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98BA27974673007315DE /* ScreensaverPresenter.swift */; };
+		8AAF98BF279770A7007315DE /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98BE279770A7007315DE /* MainTabVC.swift */; };
+		8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98CC279774D4007315DE /* CalendarViewController.swift */; };
+		8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98CE2797750D007315DE /* ExpensesViewController.swift */; };
+		8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D027977578007315DE /* StatistikViewController.swift */; };
+		8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D22797759B007315DE /* StartWorckViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +83,11 @@
 		8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
 		8AAF98B827974642007315DE /* ScreensaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreensaverViewController.swift; sourceTree = "<group>"; };
 		8AAF98BA27974673007315DE /* ScreensaverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreensaverPresenter.swift; sourceTree = "<group>"; };
+		8AAF98BE279770A7007315DE /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
+		8AAF98CC279774D4007315DE /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		8AAF98CE2797750D007315DE /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
+		8AAF98D027977578007315DE /* StatistikViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikViewController.swift; sourceTree = "<group>"; };
+		8AAF98D22797759B007315DE /* StartWorckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +131,7 @@
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
+				8AAF98D4279775E9007315DE /* CollectionViewController */,
 				8A8E456127918F4C00828B7E /* Model */,
 				8A8E45832791E19300828B7E /* GlobalExtension */,
 				8AAF98B127938713007315DE /* MainViewControler.swift */,
@@ -240,6 +251,114 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		8AAF98C02797736E007315DE /* CalendarModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98C42797740F007315DE /* View */,
+				8AAF98C82797743F007315DE /* Presenter */,
+			);
+			path = CalendarModule;
+			sourceTree = "<group>";
+		};
+		8AAF98C127977391007315DE /* StartWorckModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98C62797742A007315DE /* View */,
+				8AAF98CA2797745E007315DE /* Presenter */,
+			);
+			path = StartWorckModule;
+			sourceTree = "<group>";
+		};
+		8AAF98C2279773B2007315DE /* StatistikModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98C727977430007315DE /* View */,
+				8AAF98CB2797746A007315DE /* Presenter */,
+			);
+			path = StatistikModule;
+			sourceTree = "<group>";
+		};
+		8AAF98C3279773C2007315DE /* ExpensesModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98C527977425007315DE /* View */,
+				8AAF98C927977457007315DE /* Presenter */,
+			);
+			path = ExpensesModule;
+			sourceTree = "<group>";
+		};
+		8AAF98C42797740F007315DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98CC279774D4007315DE /* CalendarViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AAF98C527977425007315DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98CE2797750D007315DE /* ExpensesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AAF98C62797742A007315DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98D22797759B007315DE /* StartWorckViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AAF98C727977430007315DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98D027977578007315DE /* StatistikViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AAF98C82797743F007315DE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AAF98C927977457007315DE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AAF98CA2797745E007315DE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AAF98CB2797746A007315DE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AAF98D4279775E9007315DE /* CollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98BE279770A7007315DE /* MainTabVC.swift */,
+				8AAF98C02797736E007315DE /* CalendarModule */,
+				8AAF98C3279773C2007315DE /* ExpensesModule */,
+				8AAF98C127977391007315DE /* StartWorckModule */,
+				8AAF98C2279773B2007315DE /* StatistikModule */,
+			);
+			path = CollectionViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -326,10 +445,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
+				8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
+				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
 				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
@@ -340,6 +461,7 @@
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
+				8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */,
 				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
@@ -348,6 +470,8 @@
 				8A8E45652791911600828B7E /* Client.swift in Sources */,
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
 				8A8E4563279190E100828B7E /* User.swift in Sources */,
+				8AAF98BF279770A7007315DE /* MainTabVC.swift in Sources */,
+				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
 				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
 			);

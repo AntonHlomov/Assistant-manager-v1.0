@@ -10,6 +10,8 @@ import UIKit
 protocol Builder{
     static func createLoginModule() -> UIViewController
     static func createRegistrationModule() -> UIViewController
+    
+    static func createScreensaverModule() -> UIViewController
 }
 // сборщик
 class ModelBuilder: Builder{
@@ -23,13 +25,18 @@ class ModelBuilder: Builder{
         return view
   }
    static func createRegistrationModule() -> UIViewController {
-      // let user = User(dictionary: [String : Any]
        let view = RegistrationController()
-       //let presenter = LoginPresentor(view: view, user: user)
        let presenter = RegistrationPresentor(view: view)
        view.presenter = presenter
        return view
    }
+    
+    static func createScreensaverModule() -> UIViewController {
+        let view = ScreensaverViewController()
+        let presenter = ScreensaverPresentor(view: view)
+        view.presenter = presenter
+        return view
+    }
     // другой модуль напримр Модуль Регистрации
   // static func createSecendModule() -> UIViewController {
   //    // let user = User(dictionary: [String : Any]
