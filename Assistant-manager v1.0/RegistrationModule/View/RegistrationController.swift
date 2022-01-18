@@ -143,7 +143,10 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func goToSingIn(){
-        dismiss(animated: true, completion: nil)
+      //  dismiss(animated: true, completion: nil)
+      //  let loginControler = ModelBuilder.createLoginModule()
+        navigationController?.popToRootViewController(animated: true)
+   
     }
     //MARK: - Клавиатура
     fileprivate func  setupNotificationObserver(){

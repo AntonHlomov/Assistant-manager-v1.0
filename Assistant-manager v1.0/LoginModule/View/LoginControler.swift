@@ -177,10 +177,10 @@ extension LoginControler: LoginViewProtocol {
         //передаем  индикатор в вью значение индикатора из презентера
         self.indicatorLogin = indicator
         if indicator == true {
-        //   let view = MainViewControler()
-        //   let navController = UINavigationController(rootViewController: view)
-        //   navController.modalPresentationStyle = .fullScreen
-        //   present(navController, animated: true, completion: nil)
+         let view = MainViewControler()
+         let navController = UINavigationController(rootViewController: view)
+         navController.modalPresentationStyle = .fullScreen
+         present(navController, animated: true, completion: nil)
             
         //    let registrastionControlrer = ModelBuilder.createRegistrationModule()
         //    navigationController?.pushViewController(registrastionControlrer, animated: true)

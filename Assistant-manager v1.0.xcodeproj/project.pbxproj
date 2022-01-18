@@ -42,6 +42,8 @@
 		8AAF98B02793494E007315DE /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98AF2793494E007315DE /* Builder.swift */; };
 		8AAF98B227938713007315DE /* MainViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B127938713007315DE /* MainViewControler.swift */; };
 		8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */; };
+		8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B827974642007315DE /* ScreensaverViewController.swift */; };
+		8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98BA27974673007315DE /* ScreensaverPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,8 @@
 		8AAF98AF2793494E007315DE /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		8AAF98B127938713007315DE /* MainViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControler.swift; sourceTree = "<group>"; };
 		8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
+		8AAF98B827974642007315DE /* ScreensaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreensaverViewController.swift; sourceTree = "<group>"; };
+		8AAF98BA27974673007315DE /* ScreensaverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreensaverPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +120,10 @@
 			children = (
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
+				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8A8E456127918F4C00828B7E /* Model */,
 				8A8E45832791E19300828B7E /* GlobalExtension */,
+				8AAF98B127938713007315DE /* MainViewControler.swift */,
 				8A8E45352791873900828B7E /* AppDelegate.swift */,
 				8A8E45372791873900828B7E /* SceneDelegate.swift */,
 				8AAF98AF2793494E007315DE /* Builder.swift */,
@@ -157,7 +163,6 @@
 		8A8E45832791E19300828B7E /* GlobalExtension */ = {
 			isa = PBXGroup;
 			children = (
-				8AAF98B127938713007315DE /* MainViewControler.swift */,
 				8A8E45842791E20D00828B7E /* LoadImageExtension.swift */,
 				8A8E45862791E22A00828B7E /* FirestoreExtension.swift */,
 				8A8E458C2791E5B300828B7E /* ButtonExtension.swift */,
@@ -206,6 +211,31 @@
 			isa = PBXGroup;
 			children = (
 				8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AAF98B7279745C9007315DE /* ScreensaverModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98BC27974680007315DE /* View */,
+				8AAF98BD2797468D007315DE /* Presenter */,
+			);
+			path = ScreensaverModule;
+			sourceTree = "<group>";
+		};
+		8AAF98BC27974680007315DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98B827974642007315DE /* ScreensaverViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AAF98BD2797468D007315DE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98BA27974673007315DE /* ScreensaverPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -297,6 +327,7 @@
 			files = (
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
+				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
@@ -311,6 +342,7 @@
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
 				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
+				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
 				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
 				8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */,
 				8A8E45652791911600828B7E /* Client.swift in Sources */,
