@@ -177,14 +177,26 @@ extension LoginControler: LoginViewProtocol {
         //передаем  индикатор в вью значение индикатора из презентера
         self.indicatorLogin = indicator
         if indicator == true {
-         let view = MainViewControler()
-         let navController = UINavigationController(rootViewController: view)
-         navController.modalPresentationStyle = .fullScreen
-         present(navController, animated: true, completion: nil)
+            //установить рут контролер
+            guard let window = UIApplication.shared.keyWindow else {
+                return
+           }
+            guard let rootViewController = window.rootViewController else {
+                return
+           }
+            let vc = MainTabVC()
+            vc.view.frame = rootViewController.view.frame
+            vc.view.layoutIfNeeded()
+
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                window.rootViewController = vc
+             }, completion: { completed in
+                // maybe do something here
+            })
             
         //    let registrastionControlrer = ModelBuilder.createRegistrationModule()
         //    navigationController?.pushViewController(registrastionControlrer, animated: true)
-       print("написать переход через билдер на главную страницу")
+        print("написать переход через билдер на главную страницу")
         } else {
             alertRegistrationControllerMassage(title: "Error", message: error)
         }

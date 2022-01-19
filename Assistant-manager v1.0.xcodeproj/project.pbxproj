@@ -49,6 +49,11 @@
 		8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98CE2797750D007315DE /* ExpensesViewController.swift */; };
 		8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D027977578007315DE /* StatistikViewController.swift */; };
 		8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D22797759B007315DE /* StartWorckViewController.swift */; };
+		8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */; };
+		8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */; };
+		8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */; };
+		8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C6022798078100BE414A /* CalendarForDayCell.swift */; };
+		8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +93,11 @@
 		8AAF98CE2797750D007315DE /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		8AAF98D027977578007315DE /* StatistikViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikViewController.swift; sourceTree = "<group>"; };
 		8AAF98D22797759B007315DE /* StartWorckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckViewController.swift; sourceTree = "<group>"; };
+		8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCell.swift; sourceTree = "<group>"; };
+		8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCalendarModuleCell.swift; sourceTree = "<group>"; };
+		8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReminderClientsCell.swift; sourceTree = "<group>"; };
+		8AD0C6022798078100BE414A /* CalendarForDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForDayCell.swift; sourceTree = "<group>"; };
+		8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCalendarCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +264,7 @@
 		8AAF98C02797736E007315DE /* CalendarModule */ = {
 			isa = PBXGroup;
 			children = (
+				8AD0C5F7279805BE00BE414A /* Cell */,
 				8AAF98C42797740F007315DE /* View */,
 				8AAF98C82797743F007315DE /* Presenter */,
 			);
@@ -359,6 +370,58 @@
 			path = CollectionViewController;
 			sourceTree = "<group>";
 		};
+		8AD0C5F7279805BE00BE414A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8AD0C6042798079900BE414A /* EmptyCalendarCell */,
+				8AD0C6012798073F00BE414A /* CalendarForDayModule */,
+				8AD0C5FE279806DB00BE414A /* SliderReminderClientsModule */,
+				8AD0C5FB2798063B00BE414A /* SearchBarModule */,
+				8AD0C5F8279805DD00BE414A /* HeaderModule */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		8AD0C5F8279805DD00BE414A /* HeaderModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */,
+			);
+			path = HeaderModule;
+			sourceTree = "<group>";
+		};
+		8AD0C5FB2798063B00BE414A /* SearchBarModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */,
+			);
+			path = SearchBarModule;
+			sourceTree = "<group>";
+		};
+		8AD0C5FE279806DB00BE414A /* SliderReminderClientsModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */,
+			);
+			path = SliderReminderClientsModule;
+			sourceTree = "<group>";
+		};
+		8AD0C6012798073F00BE414A /* CalendarForDayModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AD0C6022798078100BE414A /* CalendarForDayCell.swift */,
+			);
+			path = CalendarForDayModule;
+			sourceTree = "<group>";
+		};
+		8AD0C6042798079900BE414A /* EmptyCalendarCell */ = {
+			isa = PBXGroup;
+			children = (
+				8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */,
+			);
+			path = EmptyCalendarCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -448,6 +511,7 @@
 				8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
+				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
@@ -459,11 +523,14 @@
 				8A8E45712791936500828B7E /* Costs.swift in Sources */,
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
+				8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
+				8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
 				8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */,
 				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
+				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
 				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
 				8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */,
@@ -474,6 +541,7 @@
 				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
 				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
+				8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

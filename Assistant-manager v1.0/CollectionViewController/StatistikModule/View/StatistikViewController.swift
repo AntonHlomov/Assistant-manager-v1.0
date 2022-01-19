@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "Cell"
 
@@ -13,7 +14,11 @@ class StatistikViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        do{
+            try Auth.auth().signOut()
+        } catch {
+            print("Faild to sign out Выйти")
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

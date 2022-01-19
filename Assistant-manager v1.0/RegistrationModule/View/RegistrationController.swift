@@ -55,6 +55,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true   //что бы не появлялся навигейшен бар
         NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
         configureViewComponents()
         setupNotificationObserver()
@@ -119,9 +121,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     
     fileprivate func configureViewComponents(){
         
-        view.backgroundColor = .white
-        navigationController?.navigationBar.isHidden = true   //что бы не появлялся навигейшен бар
-
         view.addSubview(selectPhotoButton)
         selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/13, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/3.9, height: view.frame.height/3.9))
         selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true //выстовляет по середине экрана
@@ -195,7 +194,23 @@ extension RegistrationController: RegistrationProtocol {
        //передаем  индикатор в вью значение индикатора из презентера
        self.indicatorLogin = indicator
        if indicator == true {
-           _ = navigationController?.popToRootViewController(animated: true)
+       //  _ = navigationController?.popToRootViewController(animated: true)
+           //установить рут контролер
+           guard let window = UIApplication.shared.keyWindow else {
+               return
+          }
+           guard let rootViewController = window.rootViewController else {
+               return
+          }
+           let vc = MainTabVC()
+           vc.view.frame = rootViewController.view.frame
+           vc.view.layoutIfNeeded()
+
+           UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+               window.rootViewController = vc
+            }, completion: { completed in
+               // maybe do something here
+           })
       
        } else {
            alertRegistrationControllerMassage(title: "Error", message: error)
