@@ -67,7 +67,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
           // slaider.count
         case 1:  return 0
     
-        case 2 where calendarToday.isEmpty == true: return 0
+        case 2 where calendarToday.isEmpty == true: return 1
             // calendar.isEmpty
         case 2 where calendarToday.isEmpty != true: return 10
             // calendar.count
@@ -135,12 +135,18 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         switch indexPath.section {
         case 0:  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reminderSlaiderIdentifier, for: indexPath) as! SliderReminderClientsCell
             cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+            if reminderSlaider.flatMap({$0}).isEmpty == true {
+                cell.textEmpty.text = "У вас пока нет активных напоминаний"
+                cell.addSubview(cell.textEmpty)
+                cell.textEmpty.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: nil, trailing: cell.trailingAnchor, pading: .init(top: 43, left: 90, bottom: 0, right: 10))}
+            else{
+                 cell.textEmpty.removeFromSuperview()
+                }
             return cell
             
         case 1 where calendarToday.isEmpty == true,
              2 where calendarToday.isEmpty == true:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellIdentifier, for: indexPath) as! EmptyCalendarCell
-            cell.backgroundColor = UIColor.appColor(.grenAssistant)
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: calendarIdentifier, for: indexPath) as! CalendarForDayCell
@@ -149,6 +155,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     }
     // нажатие на ячейки календаря
    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       print("нажал\(indexPath)")
    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){

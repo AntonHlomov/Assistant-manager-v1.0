@@ -22,6 +22,15 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
     }
     //MARK: - оформление ячейки слайдера
 
+    let textEmpty: UILabel = {
+        let Label = UILabel()
+        Label.textAlignment = .center
+        Label.text = ""
+        Label.font = UIFont.systemFont(ofSize:18)
+        Label.textColor = UIColor.rgb(red: 31, green: 152, blue: 233)
+        Label.numberOfLines = 0
+        return Label
+    }()
     
     let zigzag180ContainerView = SketchBorderView()
     
@@ -102,7 +111,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
          func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
              switch section {
              case 0: return 1
-             case 1:  return 10
+             case 1:  return 0
              default: return 0
              }
          }
@@ -111,6 +120,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
     
           // нажатие на ячейки напоминания
           func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+              print("нажал\(indexPath)")
           }
     
     
