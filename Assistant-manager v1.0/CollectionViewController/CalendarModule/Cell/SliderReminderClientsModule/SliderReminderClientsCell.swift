@@ -210,7 +210,7 @@ class AppCellСlReminder: UICollectionViewCell {
             clientButton.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
            
             addSubview(nameLebelCB)
-            nameLebelCB.anchor(top: clientButton.bottomAnchor, leading: nil,bottom: nil, trailing: nil, pading: .init(top: 3, left: 0,bottom: 0, right: 0), size: .init(width: frame.size.width + 5,height: 0))
+            nameLebelCB.anchor(top: clientButton.bottomAnchor, leading: nil,bottom: nil, trailing: nil, pading: .init(top: 5, left: 0,bottom: 0, right: 0), size: .init(width: frame.size.width + 5,height: 0))
             nameLebelCB.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
                 
             }

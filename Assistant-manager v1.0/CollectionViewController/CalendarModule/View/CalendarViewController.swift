@@ -13,7 +13,7 @@ private let searchBarCalendarIdentifier = "SearchBarCalendarCell"
 private let calendarIdentifier = "CalendarIdentifierCell"
 private let emptyCellIdentifier = "emptyCellCell"
 
-class CalendarViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
+class CalendarViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
 
     var reminderSlaider = [[Client]]()
     var calendarToday = [CustomerRecord]()
@@ -21,8 +21,8 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     var expenses = 0.0    //расходы
     var profit = 0.0     //прибыль
     var searchBar: UISearchBar = {
-        let s = UISearchBar()
-        return s
+        let search = UISearchBar()
+        return search
     }()
     
     
@@ -30,32 +30,30 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
-      
-    
         navigationController?.setNavigationBarHidden(true, animated: true)
        
-
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         self.collectionView.register(SliderReminderClientsCell.self, forCellWithReuseIdentifier: reminderSlaiderIdentifier)
         self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
         self.collectionView.register(EmptyCalendarCell.self, forCellWithReuseIdentifier: emptyCellIdentifier)
         self.collectionView.register(CalendarForDayCell.self, forCellWithReuseIdentifier: calendarIdentifier)
-        // Do any additional setup after loading the view.
+        searchBar = UISearchBar()
+        searchBar.placeholder = "Поиск"
+        searchBar.delegate = self
+        searchBar.tintColor = UIColor.appColor(.blueAssistantFon)
+        searchBar.barTintColor = UIColor.appColor(.whiteAssistantFon)// color you like
+        searchBar.barStyle = .black
+        searchBar.sizeToFit()
+        searchBar.searchTextField.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        let textField = searchBar.value(forKey: "searchField") as! UITextField
+        let glassIconView = textField.leftView as! UIImageView
+        glassIconView.image = glassIconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
+        //кнопка готово в клавеатуре
+        addDoneButtonOnKeyboard()
     }
  
     
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -125,7 +123,10 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             return header
             
         default: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
-            header.backgroundColor = UIColor.appColor(.redAssistant)
+            header.backgroundColor = UIColor.appColor(.blueAssistantFon)
+            
+            header.addSubview(searchBar)
+            searchBar.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor,pading: .init(top: 5, left: 0, bottom: 15, right: 0))
             return header
         }
     }
@@ -153,7 +154,19 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
 
     }
-
-
-
+    
+    func addDoneButtonOnKeyboard(){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(self.doneButtonAction))
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        searchBar.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction(){
+        searchBar.resignFirstResponder()
+    }
 }
