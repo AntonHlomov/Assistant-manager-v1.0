@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "opBlanco.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "opBlanco@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icons8-настройки-96.png",
+      "filename" : "opBlanco@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

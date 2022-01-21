@@ -14,7 +14,7 @@ class ScreensaverViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.rgb(red: 31, green: 152, blue: 233)
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         logoImageViw.contentMode = .scaleAspectFill
 
         view.addSubview(logoImageViw)

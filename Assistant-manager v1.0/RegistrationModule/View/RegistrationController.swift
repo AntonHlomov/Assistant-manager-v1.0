@@ -55,7 +55,7 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         navigationController?.navigationBar.isHidden = true   //что бы не появлялся навигейшен бар
         NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
         configureViewComponents()

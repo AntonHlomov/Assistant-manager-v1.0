@@ -12,9 +12,11 @@ protocol Builder{
     static func createRegistrationModule() -> UIViewController
     
     static func createScreensaverModule() -> UIViewController
+   
 }
 // сборщик
 class ModelBuilder: Builder{
+    
     // в призентер инжектим вью и модель
     static func createLoginModule() -> UIViewController {
        // let user = User(dictionary: [String : Any]
@@ -37,6 +39,8 @@ class ModelBuilder: Builder{
         view.presenter = presenter
         return view
     }
+    
+ 
     // другой модуль напримр Модуль Регистрации
   // static func createSecendModule() -> UIViewController {
   //    // let user = User(dictionary: [String : Any]

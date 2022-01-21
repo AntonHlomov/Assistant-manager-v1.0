@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "buttonAddCL.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "buttonAddCL@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icons8-настройки-96.png",
+      "filename" : "buttonAddCL@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

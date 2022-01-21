@@ -20,17 +20,25 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     private let logoContainerView: UIView = {
         let view = UIView()
         let logoImageViw = UIImageView(image: #imageLiteral(resourceName: "Assistant").withRenderingMode(.alwaysOriginal))
-        let zigzagImageView = UIImageView(image: #imageLiteral(resourceName: "BlueFonZigZag").withRenderingMode(.alwaysOriginal))
+       // let zigzagImageView = UIImageView(image: #imageLiteral(resourceName: "BlueFonZigZag").withRenderingMode(.alwaysOriginal))
+        let image = UIView()
+        image.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        
         logoImageViw.contentMode = .scaleAspectFill
-        view.addSubview(zigzagImageView)
+        view.addSubview(image)
+      
         view.addSubview(logoImageViw)
-        zigzagImageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0)) // примагничиваем "зигзаг" к краям
-        zigzagImageView.centerInSuperview()
+        image.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0)) // примагничиваем "зигзаг" к краям
+        image.centerInSuperview()
         logoImageViw.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 50))
         logoImageViw.centerInSuperview()
         view.backgroundColor = UIColor.init(white: 0, alpha: 0)
         return view
     }()
+    var zigzagContainerView = SketchBorderView()
+       
+       
+  
     //MARK: - Properties Body
     private let textEnter: UILabel = {
         let text = UILabel()
@@ -63,7 +71,8 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+   
+        view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         navigationController?.navigationBar.isHidden = true // скрыть навигейшн бар
         setupNotificationObserver()
         configureViewComponents()
@@ -75,12 +84,16 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     fileprivate func configureViewComponents(){
         view.addSubview(logoContainerView)
         logoContainerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,  size: .init(width: 0, height: view.frame.height / 3.5))
-         
+        
+       
+        view.addSubview(zigzagContainerView)
+        zigzagContainerView.anchor(top: logoContainerView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: -5, left: -10, bottom: 0, right: -10), size: .init(width: 0, height: 30))
+        
         stacUpElementsView.axis = .horizontal
         stacUpElementsView.distribution = .fillEqually
              
         view.addSubview(stacUpElementsView)
-        stacUpElementsView.anchor(top: logoContainerView.bottomAnchor,leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,pading: .init(top: view.frame.height/15, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: 44))
+        stacUpElementsView.anchor(top: zigzagContainerView.bottomAnchor,leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,pading: .init(top: view.frame.height/15, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: 44))
         
         stackView.axis = .vertical
         stackView.spacing = view.frame.height/25
@@ -95,6 +108,7 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     
     // MARK: - Handlers
     fileprivate func handlers(){
+       
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged )
         emailTextfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
