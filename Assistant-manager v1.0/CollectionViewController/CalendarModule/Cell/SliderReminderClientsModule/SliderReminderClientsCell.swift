@@ -36,7 +36,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
     let layout = UICollectionViewFlowLayout()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 100, height: 115)
+        layout.itemSize = CGSize(width: 100, height: 120)
         layout.sectionInset = UIEdgeInsets(top: 30, left: 2, bottom: 5, right: 0)
         
         collectionView.showsHorizontalScrollIndicator = false
@@ -64,7 +64,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
          centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     
          addSubview(zigzag180ContainerView)
-        zigzag180ContainerView.anchor(top: appsCollectionView.bottomAnchor, leading: leadingAnchor, bottom:  bottomAnchor, trailing: trailingAnchor, pading: .init(top: 10,  left: -10, bottom: -10, right: -10),size: .init(width: 0 , height: 0))
+        zigzag180ContainerView.anchor(top: appsCollectionView.bottomAnchor, leading: leadingAnchor, bottom:  bottomAnchor, trailing: trailingAnchor, pading: .init(top: 17,  left: -10, bottom: -10, right: -10),size: .init(width: 0 , height: 0))
         
     }
     // MARK: - Ячейки
@@ -155,10 +155,10 @@ class AppCellСlReminder: UICollectionViewCell {
 
     let nameLebel: UILabel = {
         let Label = UILabel()
-        Label.text = "Имя Клиента"
+        Label.text = "Имя"+"\n"+"Клиента"
         Label.textAlignment = .center
         Label.textColor = .darkGray
-        Label.font = UIFont.boldSystemFont(ofSize: 14)
+        Label.font = UIFont.boldSystemFont(ofSize: 12)
         Label.numberOfLines = 2
         return Label
     }()
