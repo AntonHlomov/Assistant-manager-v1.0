@@ -11,7 +11,6 @@ import UIKit
 
 class LoginControler: UIViewController,UINavigationControllerDelegate {
     
-    var indicatorLogin = false
     // подключаемся к презентеру через протокол чтобы передавать нажатия итд из этого view
     var presenter: LoginViewPresenterProtocol!
 
@@ -20,7 +19,6 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     private let logoContainerView: UIView = {
         let view = UIView()
         let logoImageViw = UIImageView(image: #imageLiteral(resourceName: "Assistant").withRenderingMode(.alwaysOriginal))
-       // let zigzagImageView = UIImageView(image: #imageLiteral(resourceName: "BlueFonZigZag").withRenderingMode(.alwaysOriginal))
         let image = UIView()
         image.backgroundColor = UIColor.appColor(.blueAssistantFon)
         
@@ -36,9 +34,6 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         return view
     }()
     var zigzagContainerView = SketchBorderView()
-       
-       
-  
     //MARK: - Properties Body
     private let textEnter: UILabel = {
         let text = UILabel()
@@ -71,14 +66,12 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-   
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         navigationController?.navigationBar.isHidden = true // скрыть навигейшн бар
         setupNotificationObserver()
         configureViewComponents()
         setupTapGesture()
         handlers()
-        
     }
     // MARK: - ConfigureView
     fileprivate func configureViewComponents(){
@@ -108,7 +101,6 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     
     // MARK: - Handlers
     fileprivate func handlers(){
-       
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged )
         emailTextfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -118,7 +110,6 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         guard let password = passwordTextField.text else {return}
         // говорим презентеру на меня тапнули сделай эту бизнес логику
         self.presenter.authorisation(emailAuth: email, passwordAuth: password)
-      
     }
 
     @objc fileprivate func formValidation() {
@@ -146,10 +137,11 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         // следит когда пbcxtpftn
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwowHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-   override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
+    
+    override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
+         super.viewWillDisappear(animated)
+         NotificationCenter.default.removeObserver(self)
+     }
     
     //размеры клавиатуры
     @objc fileprivate func handleKeyboardSwow(notification: Notification){
@@ -205,9 +197,7 @@ extension LoginControler: LoginViewProtocol {
              }, completion: { completed in
                 // maybe do something here
             })
-            
-        //    let registrastionControlrer = ModelBuilder.createRegistrationModule()
-        //    navigationController?.pushViewController(registrastionControlrer, animated: true)
+        
         print("написать переход через билдер на главную страницу")
         }
     }
