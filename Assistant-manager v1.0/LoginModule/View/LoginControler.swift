@@ -117,7 +117,7 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         guard let email = emailTextfield.text else {return}
         guard let password = passwordTextField.text else {return}
         // говорим презентеру на меня тапнули сделай эту бизнес логику
-        self.presenter.showLoginIndicator(emailAuth: email, passwordAuth: password)
+        self.presenter.authorisation(emailAuth: email, passwordAuth: password)
       
     }
 
@@ -187,10 +187,8 @@ extension LoginControler{
 
  //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension LoginControler: LoginViewProtocol {
-    func setLoginIndicator(indicator: Bool, error: String) {
-        //передаем  индикатор в вью значение индикатора из презентера
-        self.indicatorLogin = indicator
-        if indicator == true {
+    func success(authUser: Bool) {
+        if authUser == true {
             //установить рут контролер
             guard let window = UIApplication.shared.keyWindow else {
                 return
@@ -211,9 +209,12 @@ extension LoginControler: LoginViewProtocol {
         //    let registrastionControlrer = ModelBuilder.createRegistrationModule()
         //    navigationController?.pushViewController(registrastionControlrer, animated: true)
         print("написать переход через билдер на главную страницу")
-        } else {
-            alertRegistrationControllerMassage(title: "Error", message: error)
         }
+    }
+    
+    func failure(error: Error) {
+        let error = "\(error.localizedDescription)"
+        alertRegistrationControllerMassage(title: "Error", message: error)
     }
 }
 

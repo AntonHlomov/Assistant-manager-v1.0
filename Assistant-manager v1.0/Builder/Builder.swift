@@ -16,13 +16,11 @@ protocol Builder{
 }
 // сборщик
 class ModelBuilder: Builder{
-    
-    // в призентер инжектим вью и модель
+   
     static func createLoginModule() -> UIViewController {
-       // let user = User(dictionary: [String : Any]
         let view = LoginControler()
-        //let presenter = LoginPresentor(view: view, user: user)
-        let presenter = LoginPresentor(view: view)
+        let networkService = APILoginService()
+        let presenter = LoginPresentor(view: view, networkService: networkService)
         view.presenter = presenter
         return view
   }
@@ -39,15 +37,4 @@ class ModelBuilder: Builder{
         view.presenter = presenter
         return view
     }
-    
- 
-    // другой модуль напримр Модуль Регистрации
-  // static func createSecendModule() -> UIViewController {
-  //    // let user = User(dictionary: [String : Any]
-  //     let view = LoginControler()
-  //     //let presenter = LoginPresentor(view: view, user: user)
-  //     let presenter = LoginPresentor(view: view)
-  //     view.presenter = presenter
-  //     return view
-  // }
 }

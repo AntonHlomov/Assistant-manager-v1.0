@@ -8,46 +8,33 @@
 import Foundation
 import Firebase
 
-// отправляет сообщение LoginView о входе  и не входе (аунтификация пользователя)
-//outPut
 protocol LoginViewProtocol: AnyObject {
-    func setLoginIndicator(indicator: Bool, error: String)
+    func success(authUser:Bool)
+    func failure(error:Error)
+}
+protocol LoginViewPresenterProtocol: AnyObject {
+    init(view: LoginViewProtocol,networkService: APILoginServiceProtocol)
+    func authorisation(emailAuth: String, passwordAuth: String)
 }
 
-// делаем протокол который завязываемся не на View а нв протоколе LoginViewProtocol и делаем инициализатор которой захватывает ссылку на View принцип  Solid сохряняем уровень абстракции
-//inPut
-protocol LoginViewPresenterProtocol: AnyObject {
-   // init(view: LoginViewProtocol,user: User)
-    init(view: LoginViewProtocol)
-    func showLoginIndicator(emailAuth: String, passwordAuth: String)
-}
-// заввязываемся на протоколе
 class LoginPresentor: LoginViewPresenterProtocol{
-    let view: LoginViewProtocol?
-   // let user: User
-   // required init(view: LoginViewProtocol, user: User)
-    required init(view: LoginViewProtocol) {
+    weak var view: LoginViewProtocol?
+    let networkService:APILoginServiceProtocol!
+    required init(view: LoginViewProtocol,networkService:APILoginServiceProtocol) {
         self.view = view
-       // self.user = user
+        self.networkService = networkService
     }
-    
-    func showLoginIndicator(emailAuth: String, passwordAuth: String) {
-    // здесь делаем бизнес логику
-        var indicator = false
-        var errForAlert = ""
-        Auth.auth().signIn(withEmail: emailAuth, password: passwordAuth) { (user, err) in
-            if let err = err {
-                print("!!!!!!!Filed to login with error", err.localizedDescription)
-                errForAlert = "\(err.localizedDescription)"
-                indicator = false
-                // здесь презентер говорит вьюхе(абстрактной) что ей сделать
-                self.view?.setLoginIndicator(indicator: indicator, error: errForAlert)
-                return
-        }
-            print("Successfuly signed user in")
-            indicator = true
-            // здесь презентер говорит вьюхе(абстрактной) что ей сделать
-            self.view?.setLoginIndicator(indicator: indicator, error: errForAlert)
+    func authorisation(emailAuth: String, passwordAuth: String) {
+        networkService.login(emailAuth: emailAuth, passwordAuth: passwordAuth) {[weak self] result in
+        guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch result{
+            case.success(let authUser):
+                self.view?.success(authUser: authUser)
+            case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
         }
     }
 }

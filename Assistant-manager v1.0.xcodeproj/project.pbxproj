@@ -40,6 +40,7 @@
 		8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45942791E8B000828B7E /* LoginPresenter.swift */; };
 		8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45982791F01E00828B7E /* RegistrationController.swift */; };
 		8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */; };
+		8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA756AC27BD208D00E89C4E /* APILogin.swift */; };
 		8AAF98B02793494E007315DE /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98AF2793494E007315DE /* Builder.swift */; };
 		8AAF98B227938713007315DE /* MainViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B127938713007315DE /* MainViewControler.swift */; };
 		8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */; };
@@ -56,6 +57,7 @@
 		8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */; };
 		8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C6022798078100BE414A /* CalendarForDayCell.swift */; };
 		8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */; };
+		8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,7 @@
 		8A8E45942791E8B000828B7E /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		8A8E45982791F01E00828B7E /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchBorderView.swift; sourceTree = "<group>"; };
+		8AA756AC27BD208D00E89C4E /* APILogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APILogin.swift; sourceTree = "<group>"; };
 		8AAF98AF2793494E007315DE /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		8AAF98B127938713007315DE /* MainViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControler.swift; sourceTree = "<group>"; };
 		8AAF98B32796C1ED007315DE /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReminderClientsCell.swift; sourceTree = "<group>"; };
 		8AD0C6022798078100BE414A /* CalendarForDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForDayCell.swift; sourceTree = "<group>"; };
 		8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCalendarCell.swift; sourceTree = "<group>"; };
+		8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
@@ -151,7 +156,6 @@
 				8AAF98B127938713007315DE /* MainViewControler.swift */,
 				8A8E45352791873900828B7E /* AppDelegate.swift */,
 				8A8E45372791873900828B7E /* SceneDelegate.swift */,
-				8AAF98AF2793494E007315DE /* Builder.swift */,
 				8A8E453B2791873900828B7E /* Main.storyboard */,
 				8A8E45412791873B00828B7E /* Assets.xcassets */,
 				8A8E45432791873B00828B7E /* LaunchScreen.storyboard */,
@@ -208,9 +212,26 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8AA756A827BD1F1200E89C4E /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				8AAF98AF2793494E007315DE /* Builder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		8AA756A927BD1F8200E89C4E /* APILogin */ = {
+			isa = PBXGroup;
+			children = (
+				8AA756AC27BD208D00E89C4E /* APILogin.swift */,
+			);
+			path = APILogin;
+			sourceTree = "<group>";
+		};
 		8AAF98AA279336A0007315DE /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
+				8AA756A927BD1F8200E89C4E /* APILogin */,
 				8A8E45892791E31700828B7E /* View */,
 				8A8E45822791E13D00828B7E /* Presenter */,
 			);
@@ -339,6 +360,7 @@
 		8AAF98C82797743F007315DE /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -513,6 +535,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */,
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
@@ -529,6 +552,7 @@
 				8A8E45712791936500828B7E /* Costs.swift in Sources */,
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
+				8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */,
 				8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */,
 				8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,

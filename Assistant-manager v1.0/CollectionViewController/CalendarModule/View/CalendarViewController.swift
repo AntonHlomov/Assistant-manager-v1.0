@@ -14,11 +14,13 @@ private let calendarIdentifier = "CalendarIdentifierCell"
 private let emptyCellIdentifier = "emptyCellCell"
 
 class CalendarViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
+    
+    var presenter: CalendadrViewPresenterProtocol!
 
     var reminderSlaider = [[Client]]()
     var calendarToday = [CustomerRecord]()
     var revenue = 0.0    //выручка
-    var expenses = 0.0    //расходы
+    var expenses = 0.0   //расходы
     var profit = 0.0     //прибыль
     var searchBar: UISearchBar = {
         let search = UISearchBar()
@@ -177,3 +179,8 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         searchBar.resignFirstResponder()
     }
 }
+
+//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
+//extension CalendarViewController: CalendarViewProtocol {
+//
+//}
