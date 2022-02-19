@@ -24,49 +24,15 @@ class ScreensaverViewController: UIViewController {
     
     }
     override func viewDidAppear(_ animated: Bool) {
-        sleep(4)
+        sleep(1)
         self.presenter.authCheck()
-
+   
     }
-
 }
 
 extension ScreensaverViewController: ScreensaverViewProtocol {
-    func authScreensaverViewIndicator(indicator: Bool) {
-        
-        self.indicatorAUTH = indicator
-        if indicator == true {
-          //  _ = navigationController?.popToRootViewController(animated: true)
-            
-           //установить рут контролер
-           guard let window = UIApplication.shared.keyWindow else {
-               return
-          }
-
-           guard let rootViewController = window.rootViewController else {
-               return
-          }
-
-           let vc = MainTabVC()
-           vc.view.frame = rootViewController.view.frame
-           vc.view.layoutIfNeeded()
-
-           UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
-               window.rootViewController = vc
-            }, completion: { completed in
-               // maybe do something here
-           })
-            
-        } else {
-        
-            let viewModule = ModelBuilder.createLoginModule()
-            navigationController?.pushViewController(viewModule, animated: true)
-            }
-            
-        }
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
     }
 
-
-
-
-
+}

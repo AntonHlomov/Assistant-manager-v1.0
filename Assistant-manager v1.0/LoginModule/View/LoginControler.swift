@@ -126,8 +126,9 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     }
 
     @objc fileprivate func goToRegistration(){
-        let registrastionControlrer = ModelBuilder.createRegistrationModule()
-        navigationController?.pushViewController(registrastionControlrer, animated: true)
+        presenter.goToRegistarasionControler()
+      //  let registrastionControlrer = //AsselderModelBuilder.createRegistrationModule()
+      //  navigationController?.pushViewController(registrastionControlrer, animated: //true)
 }
     // MARK: - Keyboard
 
@@ -179,32 +180,14 @@ extension LoginControler{
 
  //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension LoginControler: LoginViewProtocol {
-    func success(authUser: Bool) {
-        if authUser == true {
-            //установить рут контролер
-            guard let window = UIApplication.shared.keyWindow else {
-                return
-           }
-            guard let rootViewController = window.rootViewController else {
-                return
-           }
-            let vc = MainTabVC()
-            vc.view.frame = rootViewController.view.frame
-            vc.view.layoutIfNeeded()
-
-            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                window.rootViewController = vc
-             }, completion: { completed in
-                // maybe do something here
-            })
-        
-        print("написать переход через билдер на главную страницу")
-        }
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
     }
-    
+
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)
+   
     }
 }
 

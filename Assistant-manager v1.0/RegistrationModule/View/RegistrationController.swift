@@ -142,7 +142,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func goToSingIn(){
-        _ = navigationController?.popViewController(animated: true)
+       // _ = navigationController?.popViewController(animated: true)
+        presenter.goToLoginControler()
         
     }
     //MARK: - Клавиатура
@@ -190,31 +191,12 @@ extension RegistrationController{
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension RegistrationController: RegistrationProtocol {
-   func setRegistrationIndicator(indicator: Bool, error: String) {
-       //передаем  индикатор в вью значение индикатора из презентера
-       self.indicatorLogin = indicator
-       if indicator == true {
-       //  _ = navigationController?.popToRootViewController(animated: true)
-           //установить рут контролер
-           guard let window = UIApplication.shared.keyWindow else {
-               return
-          }
-           guard let rootViewController = window.rootViewController else {
-               return
-          }
-           let vc = MainTabVC()
-           vc.view.frame = rootViewController.view.frame
-           vc.view.layoutIfNeeded()
-
-           UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
-               window.rootViewController = vc
-            }, completion: { completed in
-               // maybe do something here
-           })
-      
-       } else {
-           alertRegistrationControllerMassage(title: "Error", message: error)
-       }
-   }
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func failure(error: Error) {
+        alertRegistrationControllerMassage(title: "Error", message: "\(error.localizedDescription)")
+    }
 }
 

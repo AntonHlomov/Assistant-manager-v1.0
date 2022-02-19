@@ -10,29 +10,32 @@ import Firebase
 
 //outPut
 protocol ScreensaverViewProtocol: AnyObject {
-    func authScreensaverViewIndicator(indicator: Bool)
+    func dismiss()
+  
 }
-
 //inPut
 protocol ScreensaverPresenterProtocol: AnyObject {
-    init(view: ScreensaverViewProtocol)
+    init(view: ScreensaverViewProtocol,router: LoginRouterProtocol)
     func authCheck()
 }
-
 class ScreensaverPresentor: ScreensaverPresenterProtocol{
-    let view: ScreensaverViewProtocol?
+    weak var view: ScreensaverViewProtocol?
+    var router: LoginRouterProtocol?
     
-    required init(view: ScreensaverViewProtocol) {
+    required init(view: ScreensaverViewProtocol, router: LoginRouterProtocol) {
         self.view = view
+        self.router = router
     }
-    
+  
     func authCheck() {
-       
         if Auth.auth().currentUser != nil{
-            self.view?.authScreensaverViewIndicator(indicator: true)
-            print(Auth.auth().currentUser ?? "")
+            // переход с удалением предыдущего контролера
+          print("Переходим в Таб бар контролер")
+          router?.initalMainTabControler()
         } else {
-            self.view?.authScreensaverViewIndicator(indicator: false)
+            router?.initalLoginViewControler()
+            self.view?.dismiss()
         }
+       
     }
 }

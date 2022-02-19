@@ -7,34 +7,44 @@
 
 import UIKit
 
-protocol Builder{
-    static func createLoginModule() -> UIViewController
-    static func createRegistrationModule() -> UIViewController
-    
-    static func createScreensaverModule() -> UIViewController
+protocol AsselderBuilderProtocol{
+    func createLoginModule(router: LoginRouterProtocol) -> UIViewController
+    func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController
+    func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController
+ //   func createMainTabModul() -> UIViewController
    
 }
 // сборщик
-class ModelBuilder: Builder{
-   
-    static func createLoginModule() -> UIViewController {
+class AsselderModelBuilder: AsselderBuilderProtocol{
+    
+
+    func createLoginModule(router: LoginRouterProtocol) -> UIViewController {
         let view = LoginControler()
         let networkService = APILoginService()
-        let presenter = LoginPresentor(view: view, networkService: networkService)
-        view.presenter = presenter
-        return view
-  }
-   static func createRegistrationModule() -> UIViewController {
-       let view = RegistrationController()
-       let presenter = RegistrationPresentor(view: view)
-       view.presenter = presenter
-       return view
-   }
-    
-    static func createScreensaverModule() -> UIViewController {
-        let view = ScreensaverViewController()
-        let presenter = ScreensaverPresentor(view: view)
+        let presenter = LoginPresentor(view: view, networkService: networkService, router: router)
         view.presenter = presenter
         return view
     }
+    
+    func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController {
+        let view = RegistrationController()
+        let networkService = APIRegistrationService()
+        let presenter = RegistrationPresentor(view: view, networkService: networkService,router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+     func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController {
+        let view = ScreensaverViewController()
+        let presenter = ScreensaverPresentor(view: view, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+ // func createMainTabModul(router: LoginRouterProtocol) -> UIViewController{
+ //     //Календарь
+ //
+ //    }
+  
 }
+

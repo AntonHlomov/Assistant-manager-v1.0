@@ -8,18 +8,20 @@
 import UIKit
 
 class MainTabVC: UITabBarController, UITabBarControllerDelegate {
-    
+   
+  //  var presenter: MainTabVCPresenterProtocol!
  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         tabBar.tintColor = UIColor.rgb(red: 245, green: 196, blue: 80)// цвет шрифта в таб баре
         tabBar.unselectedItemTintColor = UIColor.rgb(red: 245, green: 196, blue: 80)// цвет шрифта в таб баре
+        
         // функция кнопки навинатора
         configure()
     }
     
-    func configure(){
+    func configure()  {
         //Календарь
         let CalendarButtom = createNavController(viewController: CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
         //Рассходы
@@ -28,8 +30,8 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
         let StartButtom = createNavController(viewController: StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
         //Стстистика
         let StatistikButtom = createNavController(viewController: StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
-       viewControllers = [CalendarButtom, ExpensesButtom,  StartButtom, StatistikButtom]
-        
+         viewControllers = [CalendarButtom, ExpensesButtom,  StartButtom, StatistikButtom]
+      
     }
     
     fileprivate func createNavController(viewController: UIViewController, title: String, selectadImage: UIImage, unselectedImage: UIImage) -> UIViewController {
@@ -55,3 +57,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     }
 
 }
+//
+//extension MainTabVC: MainTabVCProtocol {
+//
+//}
