@@ -4,7 +4,7 @@
 //
 //  Created by Anton Khlomov on 18/01/2022.
 //
-
+import Foundation
 import UIKit
 
 private let headerIdentifier = "HeaderIdentifierCell"
@@ -31,16 +31,18 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-    
+       
       
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
-       // navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
        
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         self.collectionView.register(SliderReminderClientsCell.self, forCellWithReuseIdentifier: reminderSlaiderIdentifier)
         self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
         self.collectionView.register(EmptyCalendarCell.self, forCellWithReuseIdentifier: emptyCellIdentifier)
         self.collectionView.register(CalendarForDayCell.self, forCellWithReuseIdentifier: calendarIdentifier)
+        
+        
         searchBar = UISearchBar()
         searchBar.placeholder = "Поиск"
         searchBar.delegate = self
@@ -55,11 +57,14 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
         //кнопка готово в клавеатуре
         addDoneButtonOnKeyboard()
-    }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.collectionView.collectionViewLayout.invalidateLayout()
-    }
+     }
+  //   override func viewWillLayoutSubviews() {
+  //       super.viewWillLayoutSubviews()
+  //       //self.collectionView.collectionViewLayout.invalidateLayout()
+  //      print("перевернул")
+  //  }
+    
+
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -40,6 +40,7 @@
 		8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45942791E8B000828B7E /* LoginPresenter.swift */; };
 		8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45982791F01E00828B7E /* RegistrationController.swift */; };
 		8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A927E5E27C14DC200737A8E /* APiRegistration.swift */; };
+		8A927E6127C1604300737A8E /* ExpensesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A927E6027C1604300737A8E /* ExpensesPresenter.swift */; };
 		8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */; };
 		8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA756AC27BD208D00E89C4E /* APILogin.swift */; };
 		8AA756AF27BD3DB400E89C4E /* Rouetr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA756AE27BD3DB400E89C4E /* Rouetr.swift */; };
@@ -91,6 +92,7 @@
 		8A8E45942791E8B000828B7E /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		8A8E45982791F01E00828B7E /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		8A927E5E27C14DC200737A8E /* APiRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiRegistration.swift; sourceTree = "<group>"; };
+		8A927E6027C1604300737A8E /* ExpensesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesPresenter.swift; sourceTree = "<group>"; };
 		8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchBorderView.swift; sourceTree = "<group>"; };
 		8AA756AC27BD208D00E89C4E /* APILogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APILogin.swift; sourceTree = "<group>"; };
 		8AA756AE27BD3DB400E89C4E /* Rouetr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rouetr.swift; sourceTree = "<group>"; };
@@ -158,7 +160,7 @@
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
-				8AAF98D4279775E9007315DE /* CollectionViewController */,
+				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
 				8AAF98C127977391007315DE /* StartWorckModule */,
 				8AAF98C2279773B2007315DE /* StatistikModule */,
@@ -412,6 +414,7 @@
 		8AAF98C927977457007315DE /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				8A927E6027C1604300737A8E /* ExpensesPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -430,13 +433,13 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		8AAF98D4279775E9007315DE /* CollectionViewController */ = {
+		8AAF98D4279775E9007315DE /* CalendarModule */ = {
 			isa = PBXGroup;
 			children = (
 				8AAF98C82797743F007315DE /* Presenter */,
 				8AAF98C02797736E007315DE /* CalendarModule */,
 			);
-			path = CollectionViewController;
+			path = CalendarModule;
 			sourceTree = "<group>";
 		};
 		8AD0C5F7279805BE00BE414A /* Cell */ = {
@@ -595,6 +598,7 @@
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
 				8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */,
+				8A927E6127C1604300737A8E /* ExpensesPresenter.swift in Sources */,
 				8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */,
 				8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,

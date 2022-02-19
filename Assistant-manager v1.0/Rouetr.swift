@@ -58,17 +58,9 @@ class Router: LoginRouterProtocol{
      
         //tabBarControler?.setViewControllers([ferst,secend], animated: true)
         if let tabBarControler = tabBarControler , let navigationControler = navigationControler {
-            tabBarControler.view.backgroundColor = .blue
+          //  tabBarControler.view.backgroundColor = .blue
             
-         //  let ferst = LoginControler()
-         //  ferst.tabBarItem.title = "Login"
-         //  let secend = RegistrationController()
-         //  secend.tabBarItem.title = "Registration"
-         //  let controllers = [ferst,secend]
-         //  tabBarControler.setViewControllers(controllers, animated: true)
-         //  navigationControler.viewControllers = [tabBarControler]
-            
-            
+            let CalendarButtom = createNavController(viewController: CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
             //Рассходы
             let ExpensesButtom = createNavController(viewController: ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-прибыльность-96"), unselectedImage: #imageLiteral(resourceName: "icons8-прибыльность-96"))
             //В работе      касса
@@ -76,36 +68,13 @@ class Router: LoginRouterProtocol{
             //Стстистика
             let StatistikButtom = createNavController(viewController: StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
             
-            let CalendarButtom = createNavController(viewController: CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
             
-            let controllers = [ ExpensesButtom,  StartButtom, StatistikButtom,CalendarButtom]
+            
+            let controllers = [CalendarButtom, ExpensesButtom,  StartButtom, StatistikButtom]
             tabBarControler.setViewControllers(controllers, animated: true)
             navigationControler.viewControllers = [tabBarControler]
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-           
+  
         }
-   
-    //        DispatchQueue.main.async {
-    //
-    //            let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first
-    //            if let maintabVC = keyWindow?.rootViewController as? MainTabVC {
-    //                maintabVC.configure()
-    //                // первая общая загрузка из базы данных
-    //
-    //             }
-    //          //  self.dismiss(animated: true, completion: nil)
-    //    }
     }
   
 //   func showDetailUserController(user: User?) {
@@ -138,13 +107,12 @@ class Router: LoginRouterProtocol{
     func createNavController(viewController: UIViewController, title: String, selectadImage: UIImage, unselectedImage: UIImage) -> UIViewController {
         
         let navController = UINavigationController(rootViewController: viewController)
-      //  navigationControler.viewControllers = [rootViewController]
-        //navigationController?.navigationBar.backgroundColor =  .clear
+      //navigationController?.navigationBar.backgroundColor =  .clear
         navController.tabBarItem.title = title       // название в навигешн баре в низу
         viewController.navigationItem.title = title // название в навигешн баре в верху
         navController.tabBarItem.image = unselectedImage
         navController.tabBarItem.selectedImage = selectadImage
-      //  tabBar.barTintColor = .white
+      //tabBar.barTintColor = .white
         // убираем стандартную настройку прозрачности таб бара и делаем ее не прозрачной
         if #available(iOS 13.0, *) {
             let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()

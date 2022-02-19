@@ -10,28 +10,15 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ExpensesViewController: UICollectionViewController {
+    var presenter: ExpensesViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarItem.title = "Expenses"
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
+       
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        // Do any additional setup after loading the view.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -85,4 +72,25 @@ class ExpensesViewController: UICollectionViewController {
     }
     */
 
+}
+extension ExpensesViewController{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
+
+//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
+extension ExpensesViewController: ExpensesViewProtocol {
+    func success() {
+        
+    }
+
+   func failure(error: Error) {
+       let error = "\(error.localizedDescription)"
+       alertRegistrationControllerMassage(title: "Error", message: error)
+  
+   }
 }
