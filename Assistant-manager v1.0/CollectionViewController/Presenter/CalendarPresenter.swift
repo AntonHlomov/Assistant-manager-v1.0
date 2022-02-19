@@ -17,15 +17,15 @@ protocol CalendadrViewProtocol: AnyObject {
 //inPut
 protocol CalendadrViewPresenterProtocol: AnyObject {
    // init(view: LoginViewProtocol,user: User)
-    init(view: CalendarViewController)
+    init(view: CalendadrViewProtocol)
    // func showLoginIndicator(emailAuth: String, passwordAuth: String)
 }
 
 // заввязываемся на протоколе
 class CalendadrPresentor: CalendadrViewPresenterProtocol{
     var view: CalendadrViewProtocol?
-    required init(view: CalendarViewController) {
-        self.view = view as! CalendadrViewProtocol
+    required init(view: CalendadrViewProtocol) {
+        self.view = view
     }
    // let user: User
    // required init(view: LoginViewProtocol, user: User)

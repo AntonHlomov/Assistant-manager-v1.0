@@ -18,10 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let screensaverVC = ModelBuilder.createScreensaverModule()
-        let navBar = UINavigationController(rootViewController: screensaverVC)
-        window?.rootViewController = navBar
+        let navigationControler = UINavigationController()
+        let tabBarControler = UITabBarController()
+        let assemblyBuilder = AsselderModelBuilder()
+        let router = Router(navigationControler: navigationControler,tabBarControler: tabBarControler,assemblyBuilder: assemblyBuilder)
+        router.initalScreensaverControler()
+        window?.rootViewController = navigationControler
         window?.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -15,7 +15,7 @@ private let emptyCellIdentifier = "emptyCellCell"
 
 class CalendarViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     
-    var presenter: CalendadrViewPresenterProtocol!
+   var presenter: CalendadrViewPresenterProtocol!
 
     var reminderSlaider = [[Client]]()
     var calendarToday = [CustomerRecord]()
@@ -31,8 +31,10 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+    
+      
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        navigationController?.setNavigationBarHidden(true, animated: true)
+       // navigationController?.setNavigationBarHidden(true, animated: true)
        
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         self.collectionView.register(SliderReminderClientsCell.self, forCellWithReuseIdentifier: reminderSlaiderIdentifier)
@@ -54,8 +56,10 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         //кнопка готово в клавеатуре
         addDoneButtonOnKeyboard()
     }
- 
-    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -181,6 +185,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
 }
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
-//extension CalendarViewController: CalendarViewProtocol {
-//
-//}
+extension CalendarViewController: CalendadrViewProtocol {
+
+}
