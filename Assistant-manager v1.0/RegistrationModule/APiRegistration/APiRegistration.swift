@@ -28,10 +28,11 @@ class APIRegistrationService:APIRegistrationProtocol {
                 //качество фото при загрузка в базу данных
                 guard let uploadDataPhoto = photoUser.jpegData(compressionQuality: 0.3)  else {return}
                 //NSUUID() -  это рандомное имя
-                let idPhoto = NSUUID().uuidString
+                guard let uid = Auth.auth().currentUser?.uid else {return}
+                let idPhoto = uid//NSUUID().uuidString
                 //код загрузки фото
                 let storageRef = Storage.storage().reference().child("user_profile_image").child(idPhoto)
-                storageRef.putData(uploadDataPhoto, metadata: nil) { (_, error) in
+                storageRef.putData(uploadDataPhoto, metadata: nil) { (self, error) in
                     if let error = error {
                         print("!!!!!!!Filed error", error.localizedDescription)
                         completion(.failure(error))
