@@ -32,7 +32,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.getUserData()
+        
     
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -132,7 +132,13 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         switch indexPath.section {
         case 0: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
             header.backgroundColor = UIColor.appColor(.whiteAssistantFon)
-            header.profitCLL.text = "0"
+            self.presenter.getUserData{ []  (user) in
+                guard let user = user else { return }
+                header.user = user
+            }
+            
+            
+           
             
           
             return header
