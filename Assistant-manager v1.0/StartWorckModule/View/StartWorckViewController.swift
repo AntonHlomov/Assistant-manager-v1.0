@@ -10,6 +10,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class StartWorckViewController: UICollectionViewController {
+    var presenter: StartWorckViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,4 +86,24 @@ class StartWorckViewController: UICollectionViewController {
     }
     */
 
+}
+extension StartWorckViewController{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
+
+extension StartWorckViewController: StartWorckViewProtocol {
+    func success() {
+        
+    }
+
+   func failure(error: Error) {
+       let error = "\(error.localizedDescription)"
+       alertRegistrationControllerMassage(title: "Error", message: error)
+  
+   }
 }

@@ -30,9 +30,8 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-       
-      
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
         navigationController?.setNavigationBarHidden(true, animated: true)
        
@@ -41,6 +40,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
         self.collectionView.register(EmptyCalendarCell.self, forCellWithReuseIdentifier: emptyCellIdentifier)
         self.collectionView.register(CalendarForDayCell.self, forCellWithReuseIdentifier: calendarIdentifier)
+        
         
         
         searchBar = UISearchBar()
@@ -128,9 +128,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         switch indexPath.section {
         case 0: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
             header.backgroundColor = UIColor.appColor(.whiteAssistantFon)
-           
+            header.profitCLL.text = "0"
+            
           
-           
             return header
             
         default: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
@@ -188,8 +188,26 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         searchBar.resignFirstResponder()
     }
 }
+extension CalendarViewController{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension CalendarViewController: CalendadrViewProtocol {
+    func successUserData(user: User?) {
+        print(user?.name ?? "")
+        print("successUserData")
+    }
+    
+    func failure(error: Error) {
+        let error = "\(error.localizedDescription)"
+        alertRegistrationControllerMassage(title: "Error", message: error)
+   
+    }
 
 }

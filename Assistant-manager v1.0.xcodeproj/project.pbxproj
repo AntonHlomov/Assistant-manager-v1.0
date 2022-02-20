@@ -62,6 +62,9 @@
 		8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C6022798078100BE414A /* CalendarForDayCell.swift */; };
 		8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */; };
 		8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */; };
+		8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */; };
+		8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */; };
+		8AFFA1B927C1A39A0045E3D6 /* APIUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B827C1A39A0045E3D6 /* APIUserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +117,9 @@
 		8AD0C6022798078100BE414A /* CalendarForDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForDayCell.swift; sourceTree = "<group>"; };
 		8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCalendarCell.swift; sourceTree = "<group>"; };
 		8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
+		8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckPresenter.swift; sourceTree = "<group>"; };
+		8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikPresenter.swift; sourceTree = "<group>"; };
+		8AFFA1B827C1A39A0045E3D6 /* APIUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +428,7 @@
 		8AAF98CA2797745E007315DE /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -429,6 +436,7 @@
 		8AAF98CB2797746A007315DE /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -436,6 +444,7 @@
 		8AAF98D4279775E9007315DE /* CalendarModule */ = {
 			isa = PBXGroup;
 			children = (
+				8AFFA1B727C1A3770045E3D6 /* APIUserData */,
 				8AAF98C82797743F007315DE /* Presenter */,
 				8AAF98C02797736E007315DE /* CalendarModule */,
 			);
@@ -492,6 +501,14 @@
 				8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */,
 			);
 			path = EmptyCalendarCell;
+			sourceTree = "<group>";
+		};
+		8AFFA1B727C1A3770045E3D6 /* APIUserData */ = {
+			isa = PBXGroup;
+			children = (
+				8AFFA1B827C1A39A0045E3D6 /* APIUserData.swift */,
+			);
+			path = APIUserData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -582,6 +599,7 @@
 				8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */,
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */,
+				8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
@@ -591,6 +609,7 @@
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
 				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
 				8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */,
+				8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */,
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */,
@@ -598,6 +617,7 @@
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
 				8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */,
+				8AFFA1B927C1A39A0045E3D6 /* APIUserData.swift in Sources */,
 				8A927E6127C1604300737A8E /* ExpensesPresenter.swift in Sources */,
 				8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */,
 				8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */,

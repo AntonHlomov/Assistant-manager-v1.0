@@ -4,7 +4,7 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-var userApp: User?
+//var userApp: User?
 
 import Foundation
 

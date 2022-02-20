@@ -128,7 +128,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         return button
     }()
     
-    let profileImageView = CustomUIimageView(frame: .zero )
+    lazy var profileImageView = CustomUIimageView(frame: .zero )
     
     let nameLabel: UILabel = {
         let label = UILabel()

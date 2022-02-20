@@ -11,6 +11,7 @@ import Firebase
 private let reuseIdentifier = "Cell"
 
 class StatistikViewController: UICollectionViewController {
+    var presenter: StatistikViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,4 +91,25 @@ class StatistikViewController: UICollectionViewController {
     }
     */
 
+}
+
+extension StatistikViewController{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
+
+extension StatistikViewController: StatistikViewProtocol {
+    func success() {
+        
+    }
+
+   func failure(error: Error) {
+       let error = "\(error.localizedDescription)"
+       alertRegistrationControllerMassage(title: "Error", message: error)
+  
+   }
 }
