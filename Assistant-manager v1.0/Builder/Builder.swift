@@ -48,16 +48,16 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     
     // for TabBarControler
     func createCalendarModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController) {
-       let view = CalendarViewController()
-       let CalendarButtom = createNavController(viewController: CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
+       let view = CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let networkService = APIUserDataService()
        let presenter = CalendadrPresentor(view: view, networkService: networkService, router: router )
        view.presenter = presenter
+        let CalendarButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
        return (view:view, buuton: CalendarButtom)
     }
     
     func createExpensesModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)  {
-       let view = ExpensesViewController()
+       let view = ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let ExpensesButtom = createNavController(viewController: ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-прибыльность-96"), unselectedImage: #imageLiteral(resourceName: "icons8-прибыльность-96"))
        let networkService = APILoginService()
        let presenter = ExpensesPresentor(view: view, networkService: networkService, router: router)
@@ -66,19 +66,18 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     }
     
     func createStartWorckModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController) {
-       let view = StartWorckViewController()
-       let StartButtom = createNavController(viewController: StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
+       let view = StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let presenter = StartWorckPresentor(view: view, router: router)
        view.presenter = presenter
+       let StartButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
        return (view:view, buuton: StartButtom)
     }
     
     func createStatistikModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController) {
-       let view = StatistikViewController()
-       let StatistikButtom = createNavController(viewController: StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
+       let view = StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let presenter = StatistikPresentor(view: view, router: router)
        view.presenter = presenter
-      
+       let StatistikButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
        return (view:view, buuton: StatistikButtom)
     }
     

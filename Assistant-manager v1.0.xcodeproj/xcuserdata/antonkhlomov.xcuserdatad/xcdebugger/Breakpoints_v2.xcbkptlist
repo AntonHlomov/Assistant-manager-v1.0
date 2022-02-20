@@ -7,140 +7,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "96878545-C6A9-4F93-A6A2-5522A2023F50"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/CalendarModule/APIUserData/APIUserData.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "fetchCurrentUser(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2A05F529-A726-4298-96C2-548D97DA3135"
+            uuid = "BA487863-A3BB-411E-ABC8-8DE5FE3F2BC4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assistant-manager v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "CalendarViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - f33f15b94289e8e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.presenter.getter : Swift.Optional&lt;Assistant_manager_v1_0.CalendadrViewPresenterProtocol&gt;"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "103">
-               </Location>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - 428917b5e17dd39a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.presenter.setter : Swift.Optional&lt;Assistant_manager_v1_0.CalendadrViewPresenterProtocol&gt;"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "132">
-               </Location>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - 68938557f804a399"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.presenter.modify : Swift.Optional&lt;Assistant_manager_v1_0.CalendadrViewPresenterProtocol&gt;"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "27">
-               </Location>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - 79ab21cff8fde62b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.presenter.modify : Swift.Optional&lt;Assistant_manager_v1_0.CalendadrViewPresenterProtocol&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "15">
-               </Location>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - ef0c3db9353f595d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.init(collectionViewLayout: __C.UICollectionViewLayout) -&gt; Assistant_manager_v1_0.CalendarViewController"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "124">
-               </Location>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - 932a0f9bf6febfe4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Assistant_manager_v1_0.CalendarViewController"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "177">
-               </Location>
-               <Location
-                  uuid = "2A05F529-A726-4298-96C2-548D97DA3135 - 688e2d42ac0db9ae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Assistant_manager_v1_0.CalendarViewController&gt;"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/CalendarModule/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "134">
-               </Location>
-            </Locations>
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

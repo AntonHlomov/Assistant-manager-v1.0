@@ -15,7 +15,9 @@ private let emptyCellIdentifier = "emptyCellCell"
 
 class CalendarViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     
+    
    var presenter: CalendadrViewPresenterProtocol!
+    
 
     var reminderSlaider = [[Client]]()
     var calendarToday = [CustomerRecord]()
@@ -30,7 +32,8 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        presenter.getUserData()
+    
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -41,6 +44,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         self.collectionView.register(EmptyCalendarCell.self, forCellWithReuseIdentifier: emptyCellIdentifier)
         self.collectionView.register(CalendarForDayCell.self, forCellWithReuseIdentifier: calendarIdentifier)
         
+       
         
         
         searchBar = UISearchBar()
