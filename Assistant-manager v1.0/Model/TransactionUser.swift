@@ -13,7 +13,10 @@ class TransactionUser {
     var idUserAdministrator: String!
     var idUserMaster: String!
     var checkNumber: String!
-    var dateTransaction: String!
+    var dateTransactionFormatDDMMYYYYHHMMSS: String!
+    var dateTransactionFormatDDMMYYYY: String!
+    var dateTransactionFormatMMYYYY: String!
+    var dateTransactionFormatYYYY: String!
     var idClient: String!
     var genderClient:String!
     var ageClient:Int!
@@ -31,7 +34,10 @@ class TransactionUser {
         self.idUserAdministrator = dictionary["idUserAdministrator"] as? String ?? ""
         self.idUserMaster = dictionary["idUserMaster"] as? String ?? ""
         self.checkNumber = dictionary["checkNumber"] as? String ?? ""
-        self.dateTransaction = dictionary["dateTransaction"] as? String ?? ""
+        self.dateTransactionFormatDDMMYYYYHHMMSS = dictionary["dateTransactionFormatDDMMYYYYHHMMSS"] as? String ?? ""
+        self.dateTransactionFormatDDMMYYYY = dictionary["dateTransactionFormatDDMMYYYY"] as? String ?? ""
+        self.dateTransactionFormatMMYYYY = dictionary["dateTransactionFormatMMYYYY"] as? String ?? ""
+        self.dateTransactionFormatYYYY = dictionary["dateTransactionFormatYYYY"] as? String ?? ""
         self.idClient = dictionary["idClient"] as? String ?? ""
         self.genderClient = dictionary["genderClient"] as? String ?? ""
         self.ageClient = dictionary["ageClient"] as? Int ?? nil
@@ -40,8 +46,8 @@ class TransactionUser {
         self.cash = dictionary["cash"] as? Bool ?? nil
         self.card = dictionary["card"] as? Bool ?? nil
         self.tax = dictionary["tax"] as? Double ?? nil
-        self.cashPrice = dictionary["cashPrice"] as? Double ?? nil
-        self.cardPrice = dictionary["cardPrice"] as? Double ?? nil
+        self.cashPrice = dictionary["cashPrice"] as? Double ?? 0.0
+        self.cardPrice = dictionary["cardPrice"] as? Double ??  0.0
         
         
        

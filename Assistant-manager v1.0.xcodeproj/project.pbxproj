@@ -55,6 +55,7 @@
 		8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98CE2797750D007315DE /* ExpensesViewController.swift */; };
 		8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D027977578007315DE /* StatistikViewController.swift */; };
 		8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D22797759B007315DE /* StartWorckViewController.swift */; };
+		8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */; };
 		8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2DE327999A03009539BD /* CustomUIimageView.swift */; };
 		8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */; };
 		8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */; };
@@ -110,6 +111,7 @@
 		8AAF98CE2797750D007315DE /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		8AAF98D027977578007315DE /* StatistikViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikViewController.swift; sourceTree = "<group>"; };
 		8AAF98D22797759B007315DE /* StartWorckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckViewController.swift; sourceTree = "<group>"; };
+		8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiStatistikMoney.swift; sourceTree = "<group>"; };
 		8ACD2DE327999A03009539BD /* CustomUIimageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIimageView.swift; sourceTree = "<group>"; };
 		8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCell.swift; sourceTree = "<group>"; };
 		8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCalendarModuleCell.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				8A8E45462791873B00828B7E /* Info.plist */,
 				8A8E455F27918E2F00828B7E /* GoogleService-Info.plist */,
 				8A8E453E2791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld */,
+				8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */,
 			);
 			path = "Assistant-manager v1.0";
 			sourceTree = "<group>";
@@ -341,13 +344,13 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		8AAF98C02797736E007315DE /* CalendarModule */ = {
+		8AAF98C02797736E007315DE /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				8AD0C5F7279805BE00BE414A /* Cell */,
 				8AAF98C42797740F007315DE /* View */,
+				8AD0C5F7279805BE00BE414A /* Cell */,
 			);
-			path = CalendarModule;
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		8AAF98C127977391007315DE /* StartWorckModule */ = {
@@ -446,7 +449,7 @@
 			children = (
 				8AFFA1B727C1A3770045E3D6 /* APIUserData */,
 				8AAF98C82797743F007315DE /* Presenter */,
-				8AAF98C02797736E007315DE /* CalendarModule */,
+				8AAF98C02797736E007315DE /* CollectionView */,
 			);
 			path = CalendarModule;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
 				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
+				8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */,
 				8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

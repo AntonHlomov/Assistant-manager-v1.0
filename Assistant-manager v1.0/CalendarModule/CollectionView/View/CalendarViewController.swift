@@ -21,8 +21,8 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
 
     var reminderSlaider = [[Client]]()
     var calendarToday = [CustomerRecord]()
-    var revenue = 0.0    //выручка
-    var expenses = 0.0   //расходы
+    lazy var revenue = 0.0   //выручка
+    lazy var expenses = 0.0    //расходы
     var profit = 0.0     //прибыль
     var searchBar: UISearchBar = {
         let search = UISearchBar()
@@ -62,6 +62,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         //кнопка готово в клавеатуре
         addDoneButtonOnKeyboard()
      }
+    override func viewDidAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
   //   override func viewWillLayoutSubviews() {
   //       super.viewWillLayoutSubviews()
   //       //self.collectionView.collectionViewLayout.invalidateLayout()
@@ -132,11 +135,22 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         switch indexPath.section {
         case 0: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
             header.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+            
             self.presenter.getUserData{ []  (user) in
                 guard let user = user else { return }
                 header.user = user
             }
             
+            self.presenter.getStatistic(indicatorPeriod: "today"){ []  (proceedsToday) in
+                guard let proceedsToday = proceedsToday else { return }
+                header.revenueCell.text = String(format: "%.1f",proceedsToday)
+            }
+            
+            
+            
+        //   // header.revenueCell.text = String(format: "%.1f",self.revenue ?? 0.0 as CVarArg)
+        //    header.revenueCell.text = String(format: "%.1f",self.revenue)
+        //    header.expensesCell.text = String(format: "%.1f",self.expenses)
             
            
             
@@ -212,6 +226,7 @@ extension CalendarViewController: CalendadrViewProtocol {
     func successUserData(user: User?) {
         print(user?.name ?? "")
         print("successUserData")
+        collectionView.reloadData()
     }
     
     func failure(error: Error) {

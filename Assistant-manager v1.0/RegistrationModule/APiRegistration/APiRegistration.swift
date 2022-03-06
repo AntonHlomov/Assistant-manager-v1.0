@@ -10,11 +10,11 @@ import Firebase
 
 
 protocol APIRegistrationProtocol {
-    func registration(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func registration(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String,statusBoss:Bool,completion: @escaping (Result<Bool,Error>) -> Void)
 }
 
 class APIRegistrationService:APIRegistrationProtocol {
-    func registration(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func registration(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String,statusBoss:Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         DispatchQueue.global(qos: .utility).async {
             
             Auth.auth().createUser(withEmail: emailAuth, password: passwordAuth) {
@@ -50,7 +50,7 @@ class APIRegistrationService:APIRegistrationProtocol {
                     }
                         print("Успешна получина ссылка на картинку")
                         guard let uid = Auth.auth().currentUser?.uid else {return}
-                        let docData = ["uid": uid,"name": name, "email": emailAuth, "profileImageUrl": profileImageUrl]
+                        let docData = ["uid": uid,"name": name, "email": emailAuth, "profileImageUrl": profileImageUrl,"statusBoss": statusBoss] as [String : Any]
                         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
                             if let error = error {
                                 print("!!!!!!!Filed error", error.localizedDescription)

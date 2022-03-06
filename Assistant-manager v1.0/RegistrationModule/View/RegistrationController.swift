@@ -100,7 +100,7 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
 
         print("проверка данных для регистрации")
         // говорим презентеру на меня тапнули сделай эту бизнес логику
-        self.presenter.showRegistrationInformation(photoUser: profileImage, emailAuth: email, name: name, passwordAuth: password)
+        self.presenter.showRegistrationInformation(photoUser: profileImage, emailAuth: email, name: name, passwordAuth: password,statusBoss: true)
        
     }
      //проверка заполнености полей
