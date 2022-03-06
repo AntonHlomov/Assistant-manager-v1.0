@@ -141,20 +141,19 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 header.user = user
             }
             
-            self.presenter.getStatistic(indicatorPeriod: "today"){ []  (proceedsToday) in
-                guard let proceedsToday = proceedsToday else { return }
-                header.revenueCell.text = String(format: "%.1f",proceedsToday)
+            self.presenter.getRevenueStatistic(indicatorPeriod: "today"){ []  (revenueToday) in
+                guard let revenueToday = revenueToday else { return }
+                header.revenueCell.text = String(format: "%.1f",revenueToday)
             }
             
-            
-            
-        //   // header.revenueCell.text = String(format: "%.1f",self.revenue ?? 0.0 as CVarArg)
-        //    header.revenueCell.text = String(format: "%.1f",self.revenue)
-        //    header.expensesCell.text = String(format: "%.1f",self.expenses)
-            
-           
-            
-          
+            self.presenter.getExpensesStatistic(indicatorPeriod: "today"){ []  (expensesToday) in
+                guard let expensesToday = expensesToday else { return }
+                header.expensesCell.text = String(format: "%.1f",expensesToday)
+            }
+            self.presenter.getProfitStatistic{ []  (profit) in
+                header.profitCLL.text = String(format: "%.1f",profit as! CVarArg)
+            }
+         // header.revenueCell.text = String(format: "%.1f",self.revenue ?? 0.0 as CVarArg)
             return header
             
         default: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell

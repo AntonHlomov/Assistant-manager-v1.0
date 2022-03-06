@@ -28,7 +28,7 @@
 		8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456A2791916800828B7E /* CustomerRecord.swift */; };
 		8A8E456D2791923600828B7E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456C2791923600828B7E /* Team.swift */; };
 		8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E456E2791927F00828B7E /* TransactionUser.swift */; };
-		8A8E45712791936500828B7E /* Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45702791936500828B7E /* Costs.swift */; };
+		8A8E45712791936500828B7E /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45702791936500828B7E /* Expense.swift */; };
 		8A8E45732791AFE700828B7E /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45722791AFE700828B7E /* Reminder.swift */; };
 		8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45842791E20D00828B7E /* LoadImageExtension.swift */; };
 		8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45862791E22A00828B7E /* FirestoreExtension.swift */; };
@@ -85,7 +85,7 @@
 		8A8E456A2791916800828B7E /* CustomerRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRecord.swift; sourceTree = "<group>"; };
 		8A8E456C2791923600828B7E /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		8A8E456E2791927F00828B7E /* TransactionUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionUser.swift; sourceTree = "<group>"; };
-		8A8E45702791936500828B7E /* Costs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costs.swift; sourceTree = "<group>"; };
+		8A8E45702791936500828B7E /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		8A8E45722791AFE700828B7E /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		8A8E45842791E20D00828B7E /* LoadImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageExtension.swift; sourceTree = "<group>"; };
 		8A8E45862791E22A00828B7E /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				8A8E45662791913C00828B7E /* Price.swift */,
 				8A8E456A2791916800828B7E /* CustomerRecord.swift */,
 				8A8E456E2791927F00828B7E /* TransactionUser.swift */,
-				8A8E45702791936500828B7E /* Costs.swift */,
+				8A8E45702791936500828B7E /* Expense.swift */,
 				8A8E45722791AFE700828B7E /* Reminder.swift */,
 			);
 			path = Model;
@@ -619,7 +619,7 @@
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */,
-				8A8E45712791936500828B7E /* Costs.swift in Sources */,
+				8A8E45712791936500828B7E /* Expense.swift in Sources */,
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
 				8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */,

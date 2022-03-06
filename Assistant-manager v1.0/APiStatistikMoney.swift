@@ -22,6 +22,7 @@ protocol APiStatistikMoneyServiceProtocol {
  //   var expensesAlltime: Double? { get set }
 
     func getRevenue(indicatorPeriod: String,completion: @escaping (Result<Double?,Error>) -> Void)
+    func getExpenses(indicatorPeriod: String, completion: @escaping (Result<Double?, Error>) -> Void) 
 }
 
 class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
@@ -56,6 +57,40 @@ class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
             
                 })
                 completion(.success(proceedsToday))
+                print("ok")
+            }
+        }
+    }
+    
+    func getExpenses(indicatorPeriod: String, completion: @escaping (Result<Double?, Error>) -> Void) {
+        var daterevenue = ""
+        switch indicatorPeriod  {
+        case "today":
+            daterevenue = Date().todayDMYFormat()
+        case "month":
+            daterevenue = Date().todayMonthFormat()
+        case "yar":
+            daterevenue = Date().todayYarFormat()
+        default:
+            return
+        }
+
+        DispatchQueue.global(qos: .utility).async {
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            Firestore.firestore().collection("users").document(uid).collection("Expenses").whereField("dateExpenseFormatDDMMYYYY", isEqualTo: daterevenue).getDocuments { (snapshot, error) in
+                if let error = error{
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                    return
+                }
+                var expensesToday = 0.0
+                snapshot?.documents.forEach({ (documentSnapshot) in
+                    let transactionDictionary = documentSnapshot.data()
+                    let transaction = Expense(dictionary: transactionDictionary)
+                    expensesToday += transaction.priceExpense
+            
+                })
+                completion(.success(expensesToday))
                 print("ok")
             }
         }
