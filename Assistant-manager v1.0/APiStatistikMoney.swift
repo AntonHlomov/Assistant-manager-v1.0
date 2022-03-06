@@ -31,14 +31,11 @@ class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
         var daterevenue = ""
         switch indicatorPeriod  {
         case "today":
-            let today = "21.02.2022"
-            daterevenue = today
+            daterevenue = Date().todayDMYFormat()
         case "month":
-            let month = "02.2022"
-            daterevenue = month
+            daterevenue = Date().todayMonthFormat()
         case "yar":
-            let yar = "2022"
-            daterevenue = yar
+            daterevenue = Date().todayYarFormat()
         default:
             return
         }

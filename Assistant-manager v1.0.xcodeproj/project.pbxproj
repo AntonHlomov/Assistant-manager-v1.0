@@ -62,6 +62,7 @@
 		8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */; };
 		8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C6022798078100BE414A /* CalendarForDayCell.swift */; };
 		8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */; };
+		8AD1508927D4EA3100FE8AB0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */; };
 		8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */; };
 		8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */; };
 		8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */; };
@@ -118,6 +119,7 @@
 		8AD0C5FF2798072D00BE414A /* SliderReminderClientsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReminderClientsCell.swift; sourceTree = "<group>"; };
 		8AD0C6022798078100BE414A /* CalendarForDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForDayCell.swift; sourceTree = "<group>"; };
 		8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCalendarCell.swift; sourceTree = "<group>"; };
+		8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
 		8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckPresenter.swift; sourceTree = "<group>"; };
 		8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikPresenter.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */,
 				8ACD2DE327999A03009539BD /* CustomUIimageView.swift */,
 				8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */,
+				8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				8A927E6127C1604300737A8E /* ExpensesPresenter.swift in Sources */,
 				8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */,
 				8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */,
+				8AD1508927D4EA3100FE8AB0 /* DateExtension.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
 				8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
