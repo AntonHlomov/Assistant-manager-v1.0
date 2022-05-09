@@ -7,7 +7,7 @@
 
 import Foundation
 
-// отправляет сообщение LoginView о входе  и не входе (аунтификация пользователя)
+// отправляет сообщение в View о входе  и не входе (аунтификация пользователя)
 //outPut
 protocol CalendadrViewProtocol: AnyObject {
     func successUserData(user: User?)
@@ -15,7 +15,7 @@ protocol CalendadrViewProtocol: AnyObject {
    
 }
 
-// делаем протокол который завязываемся не на View а на протоколе LoginViewProtocol и делаем инициализатор которой захватывает ссылку на View принцип  Solid сохряняем уровень абстракции
+// делаем протокол который завязываемся не на View а на протоколе ViewProtocol и делаем инициализатор которой захватывает ссылку на View принцип  Solid сохряняем уровень абстракции
 //inPut
 protocol CalendadrViewPresenterProtocol: AnyObject {
 
@@ -25,10 +25,13 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getProfitStatistic(completion: @escaping (Double?) ->())
+    func getStatistic()
     
     var user: User? { get set }
+    var profit: Double? { get set } //прибыль
     var revenueToday: Double? { get set } //выручка
     var expensesToday: Double? { get set } //расходы
+   
 }
 
 // заввязываемся на протоколе
@@ -37,6 +40,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    var user: User?
    var revenueToday: Double?
    var expensesToday: Double?
+   var profit: Double?
     
    weak var view: CalendadrViewProtocol?
    var router: LoginRouterProtocol?
@@ -50,6 +54,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.networkServiceStatistic = networkServiceStatistic
         self.expensesToday = 0.0
         self.revenueToday = 0.0
+        self.profit = 0.0
    
     }
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
@@ -82,18 +87,49 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
     }
     func getProfitStatistic(completion: @escaping (Double?) ->()){
-        guard let revenueToday = revenueToday else {
+        DispatchQueue.main.async(flags: .barrier) { [  self] in
+            guard let revenueToday = self.revenueToday else {
             return
         }
-        guard let expensesToday = expensesToday else {
+            guard let expensesToday = self.expensesToday else {
             return
         }
-
 
         let profit = revenueToday - expensesToday
         completion(profit)
+        }
     }
-    
+    func getStatistic(){
+        DispatchQueue.main.async {
+            
+            self.networkServiceStatistic.getRevenue(indicatorPeriod: "today"){[] result in
+                switch result{
+                case.success(let revenueToday):
+                    self.revenueToday = revenueToday
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+            self.networkServiceStatistic.getExpenses(indicatorPeriod: "today"){[] result in
+                switch result{
+                case.success(let expensesToday):
+                    self.expensesToday = expensesToday
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                    
+                }
+           
+        }
+            guard let revenueToday = self.revenueToday else {
+            return
+        }
+            guard let expensesToday = self.expensesToday else {
+            return
+        }
+            self.profit = revenueToday - expensesToday
+           
+    }
+}
 
 
     func getUserData(completion: @escaping (User?) ->()){

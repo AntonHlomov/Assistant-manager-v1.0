@@ -141,18 +141,32 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 header.user = user
             }
             
-            self.presenter.getRevenueStatistic(indicatorPeriod: "today"){ []  (revenueToday) in
-                guard let revenueToday = revenueToday else { return }
-                header.revenueCell.text = String(format: "%.1f",revenueToday)
-            }
             
-            self.presenter.getExpensesStatistic(indicatorPeriod: "today"){ []  (expensesToday) in
-                guard let expensesToday = expensesToday else { return }
-                header.expensesCell.text = String(format: "%.1f",expensesToday)
-            }
-            self.presenter.getProfitStatistic{ []  (profit) in
-                header.profitCLL.text = String(format: "%.1f",profit as! CVarArg)
-            }
+              
+            header.profitCLL.text = String(format: "%.1f",presenter.profit!)
+            header.revenueCell.text = String(format: "%.1f",presenter.revenueToday!)
+            header.expensesCell.text = String(format: "%.1f",presenter.expensesToday!)
+            
+            self.presenter.getStatistic()
+
+            
+            
+            
+            
+            
+           
+   //         self.presenter.getRevenueStatistic(indicatorPeriod: "today"){ []  (revenueToday) in
+   //             guard let revenueToday = revenueToday else { return }
+   //             header.revenueCell.text = String(format: "%.1f",revenueToday)
+   //         }
+   //
+   //         self.presenter.getExpensesStatistic(indicatorPeriod: "today"){ []  (expensesToday) in
+   //             guard let expensesToday = expensesToday else { return }
+   //             header.expensesCell.text = String(format: "%.1f",expensesToday)
+   //         }
+   //         self.presenter.getProfitStatistic{ []  (profit) in
+   //             header.profitCLL.text = String(format: "%.1f",profit!)
+   //         }
          // header.revenueCell.text = String(format: "%.1f",self.revenue ?? 0.0 as CVarArg)
             return header
             
@@ -169,6 +183,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         switch indexPath.section {
         case 0:  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reminderSlaiderIdentifier, for: indexPath) as! SliderReminderClientsCell
             cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+            
             if reminderSlaider.flatMap({$0}).isEmpty == true {
                 cell.textEmpty.text = "У вас пока нет активных напоминаний"
                 cell.addSubview(cell.textEmpty)
@@ -225,7 +240,7 @@ extension CalendarViewController: CalendadrViewProtocol {
     func successUserData(user: User?) {
         print(user?.name ?? "")
         print("successUserData")
-        collectionView.reloadData()
+      //  collectionView.reloadData()
     }
     
     func failure(error: Error) {

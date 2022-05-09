@@ -228,15 +228,4 @@ class AppCellСlReminder: UICollectionViewCell {
     
     
     
-          
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

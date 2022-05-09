@@ -21,12 +21,10 @@ class ScreensaverViewController: UIViewController {
         logoImageViw.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 50))
         logoImageViw.centerInSuperview() //выстовляет по середине экрана
     
-    
     }
     override func viewDidAppear(_ animated: Bool) {
         sleep(1)
         self.presenter.authCheck()
-   
     }
 }
 

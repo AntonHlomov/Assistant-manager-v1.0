@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */; };
 		8A8E45362791873900828B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45352791873900828B7E /* AppDelegate.swift */; };
 		8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45372791873900828B7E /* SceneDelegate.swift */; };
 		8A8E453D2791873900828B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E453B2791873900828B7E /* Main.storyboard */; };
@@ -70,6 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTableViewController.swift; sourceTree = "<group>"; };
 		8A8E45322791873900828B7E /* Assistant-manager v1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assistant-manager v1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8E45352791873900828B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A8E45372791873900828B7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +147,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A7D48EA2829C0A000017870 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
 		8A8E45292791873900828B7E = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +180,7 @@
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
+				8A7D48EA2829C0A000017870 /* Clients */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
 				8AAF98C127977391007315DE /* StartWorckModule */,
@@ -631,6 +642,7 @@
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
 				8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
+				8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */,
 				8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */,
 				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
