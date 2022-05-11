@@ -46,7 +46,7 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Registration", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.rgb(red: 170, green: 92, blue: 178) ])
         button.setAttributedTitle(attributedTitle, for: .normal)
-        button.addTarget(self, action: #selector(goToRegistration), for: .touchUpInside)
+        button.addTarget(LoginControler.self, action: #selector(goToRegistration), for: .touchUpInside)
         return button
     }()
     fileprivate let emailTextfield = UITextField.setupTextField(title: "Email..", hideText: false, enabled: true)

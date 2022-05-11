@@ -104,7 +104,7 @@ class Router: LoginRouterProtocol{
     }
     func showClientsTableViewController() {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createRegistrationModule(router: self) else {return}
+            guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

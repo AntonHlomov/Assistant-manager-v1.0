@@ -147,6 +147,12 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             header.revenueCell.text = String(format: "%.1f",presenter.revenueToday!)
             header.expensesCell.text = String(format: "%.1f",presenter.expensesToday!)
             
+            //связь с кнопкой запись клиента в хидере
+            header.clientButton.addTarget(self, action: #selector(goToClientTable), for: .touchUpInside)
+           
+            //связь с кнопкой настройки в хидере
+            header.optionButton.addTarget(self, action: #selector(goToOptions), for: .touchUpInside)
+            
             self.presenter.getStatistic()
 
             
@@ -225,6 +231,21 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     @objc func doneButtonAction(){
         searchBar.resignFirstResponder()
     }
+    
+    // MARK: - действие кнопки
+    @objc fileprivate func goToClientTable(){
+        // print("Клиенты")
+        self.presenter.pushClientsButton()
+       
+        
+    }
+    // MARK: - Мой код  создаем селектор для нопка настройки
+    @objc fileprivate func goToOptions(){
+       // print("Настройки")
+        self.presenter.pushOptionsButton()
+    
+    }
+    
 }
 extension CalendarViewController{
     func alertRegistrationControllerMassage(title: String, message: String){

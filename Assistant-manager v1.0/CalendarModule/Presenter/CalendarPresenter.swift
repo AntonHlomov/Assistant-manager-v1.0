@@ -26,6 +26,8 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getProfitStatistic(completion: @escaping (Double?) ->())
     func getStatistic()
+    func pushClientsButton()
+    func pushOptionsButton()
     
     var user: User? { get set }
     var profit: Double? { get set } //прибыль
@@ -146,6 +148,14 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
         }
     }
+    
+    func pushClientsButton() {
+           print("Push Clients Button")
+        self.router?.showClientsTableViewController()
+       }
+    func pushOptionsButton() {
+           print("Push Options Button")
+       }
     
     
    // let user: User
