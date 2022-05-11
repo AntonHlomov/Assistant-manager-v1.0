@@ -19,8 +19,10 @@ protocol LoginRouterProtocol: RouterLogin {
     //  func showDetailUserController(user:User?)
     func showRegistrationController()
     func showLoginController()
+    func showClientsTableViewController()
     func initalLoginViewControler()
     func initalMainTabControler()
+    func initalClientsTableViewController()
 
   
     func popToRoot()
@@ -28,6 +30,8 @@ protocol LoginRouterProtocol: RouterLogin {
 }
 
 class Router: LoginRouterProtocol{
+   
+    
         
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
@@ -54,6 +58,14 @@ class Router: LoginRouterProtocol{
             navigationControler.viewControllers = [MainViewControler]
         }
     }
+    
+    func initalClientsTableViewController() {
+        if let navigationControler = navigationControler{
+            guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self) else {return}
+            navigationControler.viewControllers = [MainViewControler]
+        }
+    }
+
     func initalMainTabControler() {
      
       
@@ -85,6 +97,12 @@ class Router: LoginRouterProtocol{
         }
     }
     func showRegistrationController() {
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.createRegistrationModule(router: self) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    func showClientsTableViewController() {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createRegistrationModule(router: self) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)

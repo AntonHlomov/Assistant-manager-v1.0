@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */; };
+		8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */; };
 		8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */; };
 		8A8E45362791873900828B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45352791873900828B7E /* AppDelegate.swift */; };
 		8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45372791873900828B7E /* SceneDelegate.swift */; };
@@ -71,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTabPresenter.swift; sourceTree = "<group>"; };
+		8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAllClients.swift; sourceTree = "<group>"; };
 		8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTableViewController.swift; sourceTree = "<group>"; };
 		8A8E45322791873900828B7E /* Assistant-manager v1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assistant-manager v1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8E45352791873900828B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */,
+				8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */,
+				8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 				8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */,
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */,
+				8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */,
 				8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
@@ -648,6 +655,7 @@
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
 				8AA756AF27BD3DB400E89C4E /* Rouetr.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
+				8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */,
 				8AA756B427BD892100E89C4E /* PresenterMainTabVC.swift in Sources */,
 				8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,

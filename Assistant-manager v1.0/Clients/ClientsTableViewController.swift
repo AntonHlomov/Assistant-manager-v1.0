@@ -9,6 +9,8 @@
 import UIKit
 
 class ClientsTableViewController: UITableViewController {
+    
+    var presenter: ClientsTabViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +26,12 @@ class ClientsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 00
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 10
     }
 
     /*
@@ -86,5 +88,12 @@ class ClientsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
+extension ClientsTableViewController: ClientsTabViewProtocol {
+   
+    
 
 }
