@@ -3,7 +3,8 @@
 //  Assistant-manager v1.0
 //
 //  Created by Anton Khlomov on 09/05/2022.
-//
+//  Table clients(Таблийца клиентов)
+
 
 import UIKit
 
@@ -23,7 +24,7 @@ class ClientsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 00
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
