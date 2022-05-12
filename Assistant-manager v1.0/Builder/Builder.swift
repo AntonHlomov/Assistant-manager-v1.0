@@ -17,7 +17,6 @@ protocol AsselderBuilderProtocol{
     func createExpensesModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)
     func createStartWorckModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)
     func createStatistikModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)
- //   func createMainTabModul() -> UIViewController
    
 }
 // сборщик
@@ -31,7 +30,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         return view
     }
     
- 
     func createLoginModule(router: LoginRouterProtocol) -> UIViewController {
         let view = LoginControler()
         let networkService = APILoginService()
@@ -55,7 +53,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         return view
     }
     
-    // for TabBarControler
     func createCalendarModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController) {
        let view = CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let networkService = APIUserDataService()
@@ -114,15 +111,7 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         }
         return navController
     }
-    
-    
-    
-    
-    
- // func createMainTabModul(router: LoginRouterProtocol) -> UIViewController{
- //     //Календарь
- //
- //    }
+
   
 }
 

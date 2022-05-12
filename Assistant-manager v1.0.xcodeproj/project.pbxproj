@@ -42,6 +42,8 @@
 		8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */; };
 		8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45942791E8B000828B7E /* LoginPresenter.swift */; };
 		8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45982791F01E00828B7E /* RegistrationController.swift */; };
+		8A91A82D282D9ABB006F1FFD /* OptionesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91A82C282D9ABB006F1FFD /* OptionesController.swift */; };
+		8A91A82F282D9B00006F1FFD /* OptionesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91A82E282D9B00006F1FFD /* OptionesPresenter.swift */; };
 		8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A927E5E27C14DC200737A8E /* APiRegistration.swift */; };
 		8A927E6127C1604300737A8E /* ExpensesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A927E6027C1604300737A8E /* ExpensesPresenter.swift */; };
 		8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */; };
@@ -102,6 +104,8 @@
 		8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraintsExtension.swift; sourceTree = "<group>"; };
 		8A8E45942791E8B000828B7E /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		8A8E45982791F01E00828B7E /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		8A91A82C282D9ABB006F1FFD /* OptionesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesController.swift; sourceTree = "<group>"; };
+		8A91A82E282D9B00006F1FFD /* OptionesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesPresenter.swift; sourceTree = "<group>"; };
 		8A927E5E27C14DC200737A8E /* APiRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiRegistration.swift; sourceTree = "<group>"; };
 		8A927E6027C1604300737A8E /* ExpensesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesPresenter.swift; sourceTree = "<group>"; };
 		8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchBorderView.swift; sourceTree = "<group>"; };
@@ -154,9 +158,9 @@
 		8A7D48EA2829C0A000017870 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */,
-				8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */,
-				8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */,
+				8A91A827282D98C6006F1FFD /* API */,
+				8A91A825282D98A6006F1FFD /* View */,
+				8A91A826282D98BA006F1FFD /* Presenter */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -187,6 +191,7 @@
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
 				8A7D48EA2829C0A000017870 /* Clients */,
+				8A91A828282D99B3006F1FFD /* Options settings */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
 				8AAF98C127977391007315DE /* StartWorckModule */,
@@ -252,6 +257,63 @@
 				8A8E458A2791E54800828B7E /* LoginControler.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8A91A825282D98A6006F1FFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A91A826282D98BA006F1FFD /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A91A827282D98C6006F1FFD /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8A91A828282D99B3006F1FFD /* Options settings */ = {
+			isa = PBXGroup;
+			children = (
+				8A91A82B282D9A33006F1FFD /* API */,
+				8A91A829282D9A1D006F1FFD /* View */,
+				8A91A82A282D9A24006F1FFD /* Presenter */,
+			);
+			path = "Options settings";
+			sourceTree = "<group>";
+		};
+		8A91A829282D9A1D006F1FFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A91A82C282D9ABB006F1FFD /* OptionesController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A91A82A282D9A24006F1FFD /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A91A82E282D9B00006F1FFD /* OptionesPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A91A82B282D9A33006F1FFD /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		8A927E5D27C14D9500737A8E /* APiRegistration */ = {
@@ -468,8 +530,8 @@
 			isa = PBXGroup;
 			children = (
 				8AFFA1B727C1A3770045E3D6 /* APIUserData */,
-				8AAF98C82797743F007315DE /* Presenter */,
 				8AAF98C02797736E007315DE /* CollectionView */,
+				8AAF98C82797743F007315DE /* Presenter */,
 			);
 			path = CalendarModule;
 			sourceTree = "<group>";
@@ -632,6 +694,7 @@
 				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
 				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
+				8A91A82F282D9B00006F1FFD /* OptionesPresenter.swift in Sources */,
 				8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */,
 				8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */,
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
@@ -667,6 +730,7 @@
 				8AAF98BF279770A7007315DE /* MainTabVC.swift in Sources */,
 				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
+				8A91A82D282D9ABB006F1FFD /* OptionesController.swift in Sources */,
 				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
 				8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */,
 				8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */,

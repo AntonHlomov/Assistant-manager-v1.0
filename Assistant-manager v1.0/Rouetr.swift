@@ -23,16 +23,12 @@ protocol LoginRouterProtocol: RouterLogin {
     func initalLoginViewControler()
     func initalMainTabControler()
     func initalClientsTableViewController()
-
-  
     func popToRoot()
     
 }
 
 class Router: LoginRouterProtocol{
-   
-    
-        
+
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
     var assemblyBuilder: AsselderBuilderProtocol?
@@ -42,16 +38,14 @@ class Router: LoginRouterProtocol{
         self.tabBarControler = tabBarControler
         self.assemblyBuilder = assemblyBuilder
     }
- 
-   
-    
-    
+
     func initalScreensaverControler() {
         if let navigationControler = navigationControler{
             guard let MainViewControler = assemblyBuilder?.createScreensaverModule(router: self) else {return}
             navigationControler.viewControllers = [MainViewControler]
         }
     }
+    
     func initalLoginViewControler() {
         if let navigationControler = navigationControler{
             guard let MainViewControler = assemblyBuilder?.createLoginModule(router: self) else {return}
@@ -67,15 +61,12 @@ class Router: LoginRouterProtocol{
     }
 
     func initalMainTabControler() {
-     
-      
         if let tabBarControler = tabBarControler , let navigationControler = navigationControler {
             //tabBarControler.view.backgroundColor = .blue
             guard let CalendarControler = assemblyBuilder?.createCalendarModule(router: self) else {return}
             guard let ExpensesControler = assemblyBuilder?.createExpensesModule(router: self) else {return}
             guard let StartControler = assemblyBuilder?.createStartWorckModule(router: self) else {return}
             guard let StatistikControler = assemblyBuilder?.createStatistikModule(router: self) else {return}
-            
             let controllers = [CalendarControler.buuton, ExpensesControler.buuton, StartControler.buuton, StatistikControler.buuton]
             tabBarControler.setViewControllers(controllers, animated: true)
             navigationControler.viewControllers = [tabBarControler]
@@ -114,18 +105,6 @@ class Router: LoginRouterProtocol{
         }
     }
     
-    
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
+
     
 }

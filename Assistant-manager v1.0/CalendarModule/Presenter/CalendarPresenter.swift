@@ -120,7 +120,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                     self.view?.failure(error: error)
                     
                 }
-           
         }
             guard let revenueToday = self.revenueToday else {
             return
@@ -130,10 +129,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
             self.profit = revenueToday - expensesToday
            
+      }
     }
-}
-
-
+    
     func getUserData(completion: @escaping (User?) ->()){
         DispatchQueue.main.async {
             self.networkService.fetchCurrentUser{[weak self] result in
@@ -153,6 +151,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
            print("Push Clients Button")
         self.router?.showClientsTableViewController()
        }
+    
     func pushOptionsButton() {
            print("Push Options Button")
        }
