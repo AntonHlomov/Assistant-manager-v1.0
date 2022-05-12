@@ -20,14 +20,18 @@ protocol LoginRouterProtocol: RouterLogin {
     func showRegistrationController()
     func showLoginController()
     func showClientsTableViewController()
+    func showOptionesViewController()
     func initalLoginViewControler()
     func initalMainTabControler()
     func initalClientsTableViewController()
     func popToRoot()
+    func backTappedFromRight()
     
 }
 
 class Router: LoginRouterProtocol{
+    
+    
 
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
@@ -99,12 +103,44 @@ class Router: LoginRouterProtocol{
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
+    func showOptionesViewController() {
+            if let navigationControler = navigationControler{
+                guard let registrationControler = assemblyBuilder?.createOptionesModule(router: self) else {return}
+              //  navigationControler.pushViewController(registrationControler, animated: true)
+                navigationControler.customPopViewFromLeft(registrationControler)
+            }
+        }
     func popToRoot() {
         if let navigationControler = navigationControler{
             navigationControler.popToRootViewController(animated: true)
         }
     }
     
+    func backTappedFromRight(){
+        if let navigationControler = navigationControler{
+            navigationControler.customBackTappedViewFromRight()
+        }
+    }
+    
 
     
+}
+
+extension UINavigationController {
+    func customPopViewFromLeft(_ viewController: UIViewController) {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        view.layer.add(transition, forKey: nil)
+        pushViewController(viewController, animated: false)
+    }
+    func customBackTappedViewFromRight() {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        view.layer.add(transition, forKey: nil)
+        popToRootViewController(animated: true)
+    }
 }

@@ -12,6 +12,7 @@ protocol AsselderBuilderProtocol{
     func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController
     func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController
     func createClientsTableModule(router: LoginRouterProtocol) -> UIViewController
+    func createOptionesModule(router: LoginRouterProtocol) -> UIViewController
     
     func createCalendarModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)
     func createExpensesModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)
@@ -26,6 +27,14 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         let view = ClientsTableViewController()
         let networkService = ApiAllClientsDataService()
         let presenter = ClientsTabPresentor(view: view, networkService: networkService, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createOptionesModule(router: LoginRouterProtocol) -> UIViewController {
+        let view = OptionesController()
+        let networkService = APIOptionesDataService()
+        let presenter = OptionesViewPresentor(view: view, networkService: networkService, router: router)
         view.presenter = presenter
         return view
     }

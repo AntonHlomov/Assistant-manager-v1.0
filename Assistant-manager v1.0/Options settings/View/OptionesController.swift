@@ -8,12 +8,14 @@
 import UIKit
 
 class OptionesController: UIViewController {
+    var presenter: OptionesViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backTapped))
     }
+    
     
 
     /*
@@ -25,5 +27,11 @@ class OptionesController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @objc func backTapped() {
+        presenter.goToBackTappedViewFromRight()
+    }
+}
+//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
+extension OptionesController: OptionesViewProtocol {
 
 }
