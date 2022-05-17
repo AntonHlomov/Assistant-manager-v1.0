@@ -9,12 +9,20 @@
 import UIKit
 
 class ClientsTableViewController: UITableViewController {
+    let clientCellId = "ClientCellId"
+    var clients = [Client]()
+    var filterClients = [Client]()
     
     var presenter: ClientsTabViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.appColor(.blueAssistantFon)      // Uncomment the following line to preserve selection between presentations
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+       // tableView.refreshControl = dataRefresher
+        tableView.register(TableClientCell.self, forCellReuseIdentifier: clientCellId)
+        tableView.separatorColor = .red //линии между ячейками цвет
+        
+        // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -25,12 +33,24 @@ class ClientsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 10//clients.count
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      76
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: clientCellId, for: indexPath) as! TableClientCell
+        //передаем массив в ячейку таблицы  [indexPath.row]- распределяем по ячейкам
+       // cell.client = filterClients[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
+
+        return cell
     }
 
     /*
