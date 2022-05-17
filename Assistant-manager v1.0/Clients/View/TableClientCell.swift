@@ -22,18 +22,20 @@ class TableClientCell: UITableViewCell {
         }
     }
     let  profileImageView = CustomUIimageView(frame: .zero)
-    let circleView: UIImageView = {
+
+    lazy var  circleView: UIImageView = {
         let circl = UIImageView()
-        circl.backgroundColor = .white
-        circl.layer.borderWidth = 2
-        circl.layer.borderColor = UIColor.rgb(red: 31, green: 152, blue: 233) .cgColor
+        circl.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        circl.layer.cornerRadius = 70
+        circl.layer.borderWidth = 2.5
+        circl.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
+        
          return circl
      }()
-    let lineView: UIImageView = {
-        let line = UIImageView()
-        line.backgroundColor = .lightGray
-         return line
-     }()
+   
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.circleView.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,38 +51,28 @@ class TableClientCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        
-        addSubview(lineView)
-        
-        lineView.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: -5, left: 26, bottom: 0, right: 0),size: .init(width: 1, height: 76))
-        
+    
         addSubview(circleView)
-        
-        circleView.anchor(top: nil , leading: lineView.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 0, left: -5.5, bottom: 0, right: 0),size: .init(width: 11, height: 11))
-        circleView.layer.cornerRadius = 11/2
+        circleView.anchor(top: nil , leading: safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 0, left: 10, bottom: 0, right: 0),size: .init(width: 70, height: 70) )
+        circleView.layer.cornerRadius = 70/2
         circleView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        
         addSubview(profileImageView)
-        
-        profileImageView.anchor(top: nil, leading: lineView.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 0, left: 20, bottom: 0, right: 0),size: .init(width: 60, height: 60))
+        profileImageView.anchor(top: circleView.topAnchor, leading: circleView.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 5, left: 5, bottom: 0, right: 0),size: .init(width: 60, height: 60))
         profileImageView.layer.cornerRadius = 60/2
         profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
         textLabel?.text = ""
         detailTextLabel?.text = ""
-        
-        
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        textLabel?.frame = CGRect(x: 117, y: textLabel!.frame.origin.y - 2, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
-        detailTextLabel?.frame = CGRect(x: 117, y: textLabel!.frame.origin.y + 20, width: frame.width - 200, height: (detailTextLabel?.frame.height)!)
+        textLabel?.frame = CGRect(x: 110, y: textLabel!.frame.origin.y - 2, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
+        detailTextLabel?.frame = CGRect(x: 110, y: textLabel!.frame.origin.y + 20, width: frame.width - 200, height: (detailTextLabel?.frame.height)!)
         textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        textLabel?.textColor = .white
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
-        detailTextLabel?.textColor = .systemGray2
-    }
+        detailTextLabel?.textColor = .white
+     }
     
     required init?(coder: NSCoder) {
           fatalError("init(coder:) has not been implemented")

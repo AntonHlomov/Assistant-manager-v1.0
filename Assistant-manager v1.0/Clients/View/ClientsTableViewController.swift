@@ -20,7 +20,7 @@ class ClientsTableViewController: UITableViewController {
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
        // tableView.refreshControl = dataRefresher
         tableView.register(TableClientCell.self, forCellReuseIdentifier: clientCellId)
-        tableView.separatorColor = .red //линии между ячейками цвет
+        tableView.separatorColor = .clear //линии между ячейками цвет
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -41,11 +41,14 @@ class ClientsTableViewController: UITableViewController {
         return 10//clients.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      76
+      85
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: clientCellId, for: indexPath) as! TableClientCell
+        cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
+        cell.textLabel?.text = "Khlomov Anton"
+        cell.detailTextLabel?.text = "Тестовый клиент. Пришел через instagram"
         //передаем массив в ячейку таблицы  [indexPath.row]- распределяем по ячейкам
        // cell.client = filterClients[indexPath.row]
         cell.accessoryType = .disclosureIndicator
