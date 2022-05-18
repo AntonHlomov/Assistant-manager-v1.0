@@ -22,6 +22,7 @@ enum AssetsColor {
    case whiteAssistant
    case redAssistant
    case grenAssistant
+   case whiteAndBlueAssistantFon
 
 }
 
@@ -44,6 +45,15 @@ extension UIColor {
                 switch traitCollection.userInterfaceStyle {
                     case .dark:
                     return UIColor.rgb(red: 41, green: 42, blue: 47)
+                default:
+                    return UIColor.rgb(red: 255, green: 255, blue: 255)
+                    }
+                  }
+        case .whiteAndBlueAssistantFon:
+            return UIColor { traitCollection in
+                switch traitCollection.userInterfaceStyle {
+                    case .dark:
+                    return UIColor.rgb(red: 31, green: 152, blue: 233)
                 default:
                     return UIColor.rgb(red: 255, green: 255, blue: 255)
                     }
