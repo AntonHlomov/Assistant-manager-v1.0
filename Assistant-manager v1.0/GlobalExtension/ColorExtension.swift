@@ -15,15 +15,16 @@ extension UIColor{
 }
 
 enum AssetsColor {
-   case blueAssistantFon
-   case whiteAssistantFon
-   case whiteAndPinkDetailsAssistant
-   case darkAssistant
-   case whiteAssistant
-   case redAssistant
-   case grenAssistant
-   case whiteAndBlueAssistantFon
-
+    case blueAssistantFon
+    case whiteAssistantFon
+    case whiteAndPinkDetailsAssistant
+    case darkAssistant
+    case whiteAssistant
+    case redAssistant
+    case grenAssistant
+    case whiteAndBlueAssistantFon
+    case pinkAssistant
+    case blueAssistant
 }
 
 extension UIColor {
@@ -74,11 +75,14 @@ extension UIColor {
             
         case .whiteAssistant:
             return  UIColor.rgb(red: 255, green: 255, blue: 255)
-            
         case .redAssistant:
             return  UIColor.rgb(red: 190, green: 140, blue: 196)
         case .grenAssistant:
             return  UIColor.rgb(red: 140, green: 190, blue: 166)
+        case .pinkAssistant:
+            return  UIColor.rgb(red: 190, green: 140, blue: 196)
+        case .blueAssistant:
+            return  UIColor.rgb(red: 31, green: 152, blue: 233)
    
         }
     }

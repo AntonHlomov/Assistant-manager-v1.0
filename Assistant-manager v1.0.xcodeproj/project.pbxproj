@@ -228,7 +228,6 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				8A007645284351AB00FF73FD /* ClientPage */,
 				8AA756AE27BD3DB400E89C4E /* Rouetr.swift */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
@@ -236,6 +235,7 @@
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
 				8A7D48EA2829C0A000017870 /* Clients */,
+				8A007645284351AB00FF73FD /* ClientPage */,
 				8A91A828282D99B3006F1FFD /* Options settings */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
