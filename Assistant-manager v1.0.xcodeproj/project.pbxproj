@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A00764A2843524A00FF73FD /* ClientPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0076492843524A00FF73FD /* ClientPage.swift */; };
+		8A00764C2843531A00FF73FD /* ClientPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00764B2843531A00FF73FD /* ClientPagePresenter.swift */; };
+		8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00764D284355F600FF73FD /* APIClientPage.swift */; };
 		8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */; };
 		8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */; };
 		8A7AD74F2834176200B12E3F /* TableClientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AD74E2834176200B12E3F /* TableClientCell.swift */; };
@@ -77,6 +80,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A0076492843524A00FF73FD /* ClientPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientPage.swift; sourceTree = "<group>"; };
+		8A00764B2843531A00FF73FD /* ClientPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientPagePresenter.swift; sourceTree = "<group>"; };
+		8A00764D284355F600FF73FD /* APIClientPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientPage.swift; sourceTree = "<group>"; };
 		8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTabPresenter.swift; sourceTree = "<group>"; };
 		8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAllClients.swift; sourceTree = "<group>"; };
 		8A7AD74E2834176200B12E3F /* TableClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableClientCell.swift; sourceTree = "<group>"; };
@@ -159,6 +165,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A007645284351AB00FF73FD /* ClientPage */ = {
+			isa = PBXGroup;
+			children = (
+				8A007646284351BE00FF73FD /* API */,
+				8A007647284351D300FF73FD /* View */,
+				8A007648284351DC00FF73FD /* Presenter */,
+			);
+			path = ClientPage;
+			sourceTree = "<group>";
+		};
+		8A007646284351BE00FF73FD /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8A00764D284355F600FF73FD /* APIClientPage.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8A007647284351D300FF73FD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A0076492843524A00FF73FD /* ClientPage.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A007648284351DC00FF73FD /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A00764B2843531A00FF73FD /* ClientPagePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		8A7D48EA2829C0A000017870 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +228,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A007645284351AB00FF73FD /* ClientPage */,
 				8AA756AE27BD3DB400E89C4E /* Rouetr.swift */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
@@ -697,12 +738,15 @@
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
+				8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
 				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
 				8A91A82F282D9B00006F1FFD /* OptionesPresenter.swift in Sources */,
+				8A00764A2843524A00FF73FD /* ClientPage.swift in Sources */,
 				8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */,
+				8A00764C2843531A00FF73FD /* ClientPagePresenter.swift in Sources */,
 				8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */,
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,

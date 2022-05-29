@@ -20,6 +20,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showRegistrationController()
     func showLoginController()
     func showClientsTableViewController()
+    func showClientPage()
     func showOptionesViewController()
     func initalLoginViewControler()
     func initalMainTabControler()
@@ -100,6 +101,12 @@ class Router: LoginRouterProtocol{
     func showClientsTableViewController() {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    func showClientPage(){
+        if let navigationControler = navigationControler {
+          guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

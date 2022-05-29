@@ -17,6 +17,8 @@ protocol ClientsTabViewProtocol: AnyObject {
 protocol ClientsTabViewPresenterProtocol: AnyObject {
 
     init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol)
+    func goToPageClient(indexPathRowClient:Int)
+    
 
     
 }
@@ -24,8 +26,6 @@ protocol ClientsTabViewPresenterProtocol: AnyObject {
 // заввязываемся на протоколе
 class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
    
-    
-  
    weak var view: ClientsTabViewProtocol?
    var router: LoginRouterProtocol?
    let networkService:ApiAllClientsDataServiceProtocol!
@@ -36,8 +36,11 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
         self.networkService = networkService
  
     }
-   
-   // let user: User
+    func goToPageClient(indexPathRowClient: Int) {
+        print("открыть клиента",indexPathRowClient)
+        self.router?.showClientPage()
+    }
+   // let user: User:
    // required init(view: LoginViewProtocol, user: User)
   
 }
