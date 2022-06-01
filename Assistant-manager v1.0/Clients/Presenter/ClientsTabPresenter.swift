@@ -38,7 +38,8 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     }
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
-        self.router?.showClientPage()
+        var client:Client?
+        self.router?.showClientPage(client: client)
     }
    // let user: User:
    // required init(view: LoginViewProtocol, user: User)

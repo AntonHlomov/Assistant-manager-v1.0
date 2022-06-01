@@ -10,6 +10,7 @@ import UIKit
 class ClientPage: UIViewController {
     var presenter: ClientPagePresenterProtocol!
     
+ 
     lazy var zigzagContainerView = SketchBorderView()
 
     let fonBlue: UIImageView = {
@@ -36,7 +37,7 @@ class ClientPage: UIViewController {
     
     lazy var profileImageView = CustomUIimageView(frame: .zero )
     
-    let nameClient: UILabel = {
+    lazy var nameClient: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "Name Client"
@@ -119,6 +120,7 @@ class ClientPage: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.setClient()
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         configureNavigationBar()
         configureUI()
@@ -198,41 +200,33 @@ class ClientPage: UIViewController {
     
     }
     @objc fileprivate func pressСlientInvitationButton(){
-        let idClient = "0000000000001"
-        presenter.pressСlientInvitationButton(idClient: idClient)
+        presenter.pressСlientInvitationButton()
     }
     @objc fileprivate func pressСallButton(){
-        let idClient = "0000000000001"
-        presenter.pressСallButton(idClient: idClient)
+        presenter.pressСallButton()
     }
     @objc fileprivate func goToVisitStatisyc(){
-        let idClient = "0000000000001"
-        presenter.goToVisitStatisyc(idClient: idClient)
+        presenter.goToVisitStatisyc()
     }
     @objc fileprivate func goToFinansStatisyc(){
-        let idClient = "0000000000001"
-        presenter.goToFinansStatisyc(idClient: idClient)
+        presenter.goToFinansStatisyc()
     }
     @objc fileprivate func goToWorck(){
-        let idClient = "0000000000001"
-        presenter.goToWorck(idClient: idClient)
+        presenter.goToWorck()
     }
     @objc fileprivate func visitDates(){
-        let idClient = "0000000000001"
-        presenter.visitDates(idClient: idClient)
+        presenter.visitDates()
     }
     @objc fileprivate func reminder(){
-        let idClient = "0000000000001"
-        presenter.reminder(idClient: idClient)
+        presenter.reminder()
     }
     
     func checkAllIndicator(){
-        let idClient = "0000000000001"
-        presenter.checkIndicatorVisitDates(idClient: idClient)
-        presenter.checkIndicatorReminder(idClient: idClient)
-        presenter.checkIndicatorVisitStatisyc(idClient: idClient)
-        presenter.checkIndicatorFinansStatisyc(idClient: idClient)
-        presenter.checkIndicatorGoToWorck(idClient: idClient)
+        presenter.checkIndicatorVisitDates()
+        presenter.checkIndicatorReminder()
+        presenter.checkIndicatorVisitStatisyc()
+        presenter.checkIndicatorFinansStatisyc()
+        presenter.checkIndicatorGoToWorck()
     }
   
 
@@ -248,6 +242,18 @@ extension ClientPage{
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientPage: ClientPageProtocol {
+    func setClient(client: Client?) {
+  
+        profileImageView.loadImage(with: client?.profileImageClientUrl ?? "")
+        guard let name = client?.nameClient else {return}
+        guard let fullName = client?.fullName else {return}
+        guard let textAboutClient =  client?.textAboutClient else {return}
+        nameClient.text = name.capitalized + " " + fullName.capitalized
+        abautCient.text = textAboutClient
+     
+    
+    }
+    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)

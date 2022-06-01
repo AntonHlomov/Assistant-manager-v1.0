@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ClientPageProtocol: AnyObject {
+    func setClient(client: Client?)
     func failure(error: Error)
     func changeVisitDates(indicatorVisits: Bool)
     func changeReminder(indicatorReminder: Bool)
@@ -18,78 +19,84 @@ protocol ClientPageProtocol: AnyObject {
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
-    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol)
-    func pressСlientInvitationButton(idClient: String)
-    func pressСallButton(idClient: String)
-    func goToVisitStatisyc(idClient: String)
-    func goToFinansStatisyc(idClient: String)
-    func goToWorck(idClient: String)
-    func visitDates(idClient: String)
-    func reminder(idClient: String)
-    func checkIndicatorGoToWorck(idClient: String)
-    func checkIndicatorVisitDates(idClient: String)
-    func checkIndicatorReminder(idClient: String)
-    func checkIndicatorVisitStatisyc(idClient: String)
-    func checkIndicatorFinansStatisyc(idClient: String)
+    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?)
+    func setClient()
+    func pressСlientInvitationButton()
+    func pressСallButton()
+    func goToVisitStatisyc()
+    func goToFinansStatisyc()
+    func goToWorck()
+    func visitDates()
+    func reminder()
+    func checkIndicatorGoToWorck()
+    func checkIndicatorVisitDates()
+    func checkIndicatorReminder()
+    func checkIndicatorVisitStatisyc()
+    func checkIndicatorFinansStatisyc()
    
 }
 
 class ClientPagePresenter: ClientPagePresenterProtocol{
- 
+  
     weak var view: ClientPageProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiAllClientPageServiceProtocol!
+    var client: Client?
     
-    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol) {
+    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?) {
         self.view = view
         self.router = router
         self.networkService = networkService
+        self.client = client
     }
-    func pressСlientInvitationButton(idClient: String) {
-        print("pressСlientInvitationButton",idClient)
+    func setClient() {
+        self.view?.setClient(client: client)
+    }
+    func pressСlientInvitationButton() {
+        print("pressСlientInvitationButton")
     }
     
-    func pressСallButton(idClient: String) {
-        print("pressСallButton",idClient)
+    func pressСallButton() {
+        print("pressСallButton")
     }
-    func goToVisitStatisyc(idClient: String) {
-        print("goToVisitStatisyc",idClient)
+    func goToVisitStatisyc() {
+        print("goToVisitStatisyc")
     }
        
-    func goToFinansStatisyc(idClient: String) {
-        print("goToFinansStatisyc",idClient)
+    func goToFinansStatisyc() {
+        print("goToFinansStatisyc")
     }
-    func goToWorck(idClient: String){
-        print("goToWorck",idClient)
+    func goToWorck(){
+        print("goToWorck")
     }
-    func visitDates(idClient: String){
-        print("visitDates",idClient)
+    func visitDates(){
+        print("visitDates")
     }
-    func reminder(idClient: String){
-        print("reminder",idClient)
+    func reminder(){
+        print("reminder")
     }
     
-    func checkIndicatorVisitDates(idClient: String) {
-        print("checkIndicatorVisitDates",idClient)
+    func checkIndicatorVisitDates() {
+        print("checkIndicatorVisitDates")
         self.view?.changeVisitDates(indicatorVisits: true)
     }
     
-    func checkIndicatorReminder(idClient: String) {
-        print("checkIndicatorReminder",idClient)
+    func checkIndicatorReminder() {
+        print("checkIndicatorReminder")
         self.view?.changeReminder(indicatorReminder: true)
     }
     
-    func checkIndicatorVisitStatisyc(idClient: String) {
-        print("checkIndicatorVisitStatisyc",idClient)
+    func checkIndicatorVisitStatisyc() {
+        print("checkIndicatorVisitStatisyc")
         self.view?.changeVisitStatisyc(countVisits: "22")
     }
     
-    func checkIndicatorFinansStatisyc(idClient: String) {
-        print("checkIndicatorFinansStatisyc",idClient)
+    func checkIndicatorFinansStatisyc() {
+        print("checkIndicatorFinansStatisyc")
         self.view?.changeFinansStatisyc(countAverageBill: "250")
     }
-    func checkIndicatorGoToWorck(idClient: String) {
-        print("checkIndicatorGoToWorck",idClient)
+    func checkIndicatorGoToWorck() {
+        print("checkIndicatorGoToWorck")
         self.view?.changeGoToWorck(indicatorWorck: true)
     }
     
