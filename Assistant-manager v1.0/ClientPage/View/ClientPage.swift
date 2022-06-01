@@ -42,11 +42,10 @@ class ClientPage: UIViewController {
         label.text = "Name Client"
         label.font = UIFont.boldSystemFont(ofSize: 25)
         label.textColor = UIColor.appColor(.whiteAssistant)
-         return label
+        return label
      }()
     
     lazy var abautCient: UITextView = {
-       
         var text = UITextView()
         text.textAlignment = .center
         text.text = "Text abaut cient"
@@ -55,8 +54,7 @@ class ClientPage: UIViewController {
         text.backgroundColor = UIColor.appColor(.blueAssistantFon)
         //нельзя редактировать
         text.isEditable = false
-
-             return text
+        return text
     }()
     fileprivate let clientInvitationButton =    UIButton.setupButton(title: "New visit", color: UIColor.appColor(.blueAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor:  UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
     
@@ -76,7 +74,7 @@ class ClientPage: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "ИСТОРИЯ\nВИЗИТОВ",  attributes: [.font: UIFont.systemFont(ofSize: 20),NSAttributedString.Key.foregroundColor: UIColor.appColor(.blueAssistant)!]))
+        let attributedText = (NSAttributedString(string: "HISTORY\nOF VISITS",  attributes: [.font: UIFont.systemFont(ofSize: 20),NSAttributedString.Key.foregroundColor: UIColor.appColor(.blueAssistant)!]))
         label.attributedText = attributedText
         return label
     }()
@@ -94,7 +92,7 @@ class ClientPage: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "СРЕДНИЙ\nЧЕК",  attributes: [.font: UIFont.systemFont(ofSize: 20),NSAttributedString.Key.foregroundColor: UIColor.appColor(.blueAssistant)!]))
+        let attributedText = (NSAttributedString(string: "AVERAGE\nBILL",  attributes: [.font: UIFont.systemFont(ofSize: 20),NSAttributedString.Key.foregroundColor: UIColor.appColor(.blueAssistant)!]))
         label.attributedText = attributedText
         return label
     }()
@@ -114,6 +112,10 @@ class ClientPage: UIViewController {
         button.addTarget(self, action: #selector(goToWorck), for: .touchUpInside)
         return button
     }()
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            self.circlForAvaViewBlue.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
+        }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,23 +124,22 @@ class ClientPage: UIViewController {
         configureUI()
         handlers()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkAllIndicator()
+       }
     fileprivate func handlers(){
         clientInvitationButton.addTarget(self, action: #selector(pressСlientInvitationButton), for: .touchUpInside)
         callButton.addTarget(self, action: #selector(pressСallButton), for: .touchUpInside)
     }
     // MARK: - NavigationBar
     fileprivate func configureNavigationBar(){
-      
-        let visitDatesButton : UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "CAlBLue").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(visitDates))
-              
-        let reminderButton : UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "SCOL").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))
+        let visitDatesButton : UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "calBL").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(visitDates))
+        let reminderButton : UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "SB").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))
         let buttons : NSArray = [ reminderButton,visitDatesButton]
         self.navigationItem.rightBarButtonItems = (buttons as! [UIBarButtonItem])
-        navigationItem.leftBarButtonItem?.tintColor = .black // меняем цвет кнопки выйти
     }
-    
     fileprivate func configureUI() {
-   
         view.addSubview(boxViewBlue)
         boxViewBlue.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: view.frame.height/4))
         boxViewBlue.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -224,11 +225,59 @@ class ClientPage: UIViewController {
         let idClient = "0000000000001"
         presenter.reminder(idClient: idClient)
     }
+    
+    func checkAllIndicator(){
+        let idClient = "0000000000001"
+        presenter.checkIndicatorVisitDates(idClient: idClient)
+        presenter.checkIndicatorReminder(idClient: idClient)
+        presenter.checkIndicatorVisitStatisyc(idClient: idClient)
+        presenter.checkIndicatorFinansStatisyc(idClient: idClient)
+        presenter.checkIndicatorGoToWorck(idClient: idClient)
+    }
   
 
 }
+// alert
+extension ClientPage{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientPage: ClientPageProtocol {
+    func failure(error: Error) {
+        let error = "\(error.localizedDescription)"
+        alertRegistrationControllerMassage(title: "Error", message: error)
+    }
+    func changeVisitDates(indicatorVisits: Bool){
+        guard indicatorVisits == true else {return}
+        self.navigationItem.rightBarButtonItems?[1] = UIBarButtonItem(image: #imageLiteral(resourceName: "CAlBLue").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(visitDates))
+    }
+    func changeReminder(indicatorReminder: Bool){
+        guard indicatorReminder == true else {return}
+        self.navigationItem.rightBarButtonItems?[0] = UIBarButtonItem(image: #imageLiteral(resourceName: "SCOL").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))
+       
+    }
+    func changeVisitStatisyc(countVisits: String){
+        let attributedTitleMonyComeClient = NSMutableAttributedString(string: countVisits, attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
+        self.countComeClient.setAttributedTitle(attributedTitleMonyComeClient, for: .normal)
+        
+    }
+    func changeFinansStatisyc(countAverageBill: String){
+        let attributedTitleMonyComeClient = NSMutableAttributedString(string: countAverageBill, attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
+        self.monyComeClient.setAttributedTitle(attributedTitleMonyComeClient, for: .normal)
+        
+    }
+    func changeGoToWorck(indicatorWorck: Bool){
+        guard indicatorWorck == true else {return}
+        self.goToWorckButton.layer.borderColor = UIColor.appColor(.pinkAssistant)!.cgColor
+       
+    }
+    
+    
    
     
 

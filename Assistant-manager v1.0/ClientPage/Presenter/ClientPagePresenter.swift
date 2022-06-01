@@ -8,6 +8,12 @@
 import Foundation
 
 protocol ClientPageProtocol: AnyObject {
+    func failure(error: Error)
+    func changeVisitDates(indicatorVisits: Bool)
+    func changeReminder(indicatorReminder: Bool)
+    func changeVisitStatisyc(countVisits: String)
+    func changeFinansStatisyc(countAverageBill: String)
+    func changeGoToWorck(indicatorWorck: Bool)
     
 }
  
@@ -20,13 +26,16 @@ protocol ClientPagePresenterProtocol: AnyObject{
     func goToWorck(idClient: String)
     func visitDates(idClient: String)
     func reminder(idClient: String)
+    func checkIndicatorGoToWorck(idClient: String)
+    func checkIndicatorVisitDates(idClient: String)
+    func checkIndicatorReminder(idClient: String)
+    func checkIndicatorVisitStatisyc(idClient: String)
+    func checkIndicatorFinansStatisyc(idClient: String)
    
 }
 
 class ClientPagePresenter: ClientPagePresenterProtocol{
-   
-    
-    
+ 
     weak var view: ClientPageProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiAllClientPageServiceProtocol!
@@ -58,6 +67,30 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     }
     func reminder(idClient: String){
         print("reminder",idClient)
+    }
+    
+    func checkIndicatorVisitDates(idClient: String) {
+        print("checkIndicatorVisitDates",idClient)
+        self.view?.changeVisitDates(indicatorVisits: true)
+    }
+    
+    func checkIndicatorReminder(idClient: String) {
+        print("checkIndicatorReminder",idClient)
+        self.view?.changeReminder(indicatorReminder: true)
+    }
+    
+    func checkIndicatorVisitStatisyc(idClient: String) {
+        print("checkIndicatorVisitStatisyc",idClient)
+        self.view?.changeVisitStatisyc(countVisits: "22")
+    }
+    
+    func checkIndicatorFinansStatisyc(idClient: String) {
+        print("checkIndicatorFinansStatisyc",idClient)
+        self.view?.changeFinansStatisyc(countAverageBill: "250")
+    }
+    func checkIndicatorGoToWorck(idClient: String) {
+        print("checkIndicatorGoToWorck",idClient)
+        self.view?.changeGoToWorck(indicatorWorck: true)
     }
     
 }

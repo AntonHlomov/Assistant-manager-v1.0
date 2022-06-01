@@ -14,6 +14,7 @@ class OptionesController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backTapped))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.appColor(.whiteAndPinkDetailsAssistant) // меняем цвет кнопки выйти
     }
     
     

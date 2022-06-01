@@ -178,6 +178,7 @@ extension LoginControler{
     }
 }
 
+
  //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension LoginControler: LoginViewProtocol {
     func dismiss() {
@@ -187,7 +188,6 @@ extension LoginControler: LoginViewProtocol {
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)
-   
     }
 }
 

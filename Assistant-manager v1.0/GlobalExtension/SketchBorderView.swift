@@ -21,8 +21,8 @@ class SketchBorderView: UIView {
         commonInit()
     }
     
-     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-       self.borderLayer.fillColor = UIColor.appColor(.blueAssistantFon)?.cgColor
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+      self.borderLayer.fillColor = UIColor.appColor(.blueAssistantFon)?.cgColor
      }
 
     required init?(coder: NSCoder) {
