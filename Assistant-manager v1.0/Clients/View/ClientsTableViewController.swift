@@ -54,8 +54,7 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 10//clients.count
+        return presenter.clients?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       85
@@ -63,10 +62,10 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: clientCellId, for: indexPath) as! TableClientCell
         cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
-        cell.textLabel?.text = "Khlomov Anton"
-        cell.detailTextLabel?.text = "Тестовый клиент. Пришел через instagram"
+       // cell.textLabel?.text = "Khlomov Anton"
+       // cell.detailTextLabel?.text = "Тестовый клиент. Пришел через instagram"
         //передаем массив в ячейку таблицы  [indexPath.row]- распределяем по ячейкам
-       // cell.client = filterClients[indexPath.row]
+        cell.client = presenter.clients?[indexPath.row]
         cell.accessoryType = .disclosureIndicator
 
         return cell
@@ -98,7 +97,7 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     return myRefreshControl
     }()
     @objc func updateMyCategory() {
-        tableView.reloadData()
+        presenter.getClients()
         // EndRefreshing
         dataRefresher.endRefreshing()
         print("обновить таблицу/выгрузить данные клиентов с сервера")
@@ -110,9 +109,26 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
 
     
 }
+extension ClientsTableViewController{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientsTableViewController: ClientsTabViewProtocol {
+    func succes() {
+        tableView.reloadData()
+    }
+    
+    func failure(error: Error) {
+        let error = "\(error.localizedDescription)"
+        alertRegistrationControllerMassage(title: "Error", message: error)
+    }
+    
    
     
 

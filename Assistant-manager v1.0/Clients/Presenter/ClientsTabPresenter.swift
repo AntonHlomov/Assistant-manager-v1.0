@@ -6,17 +6,15 @@
 //
 
 import Foundation
-// отправляет сообщение в View о входе  и не входе (аунтификация пользователя)
-//outPut
 protocol ClientsTabViewProtocol: AnyObject {
- 
+    func succes()
+    func failure(error: Error)
 }
 
-// делаем протокол который завязываемся не на View а на протоколе ViewProtocol и делаем инициализатор которой захватывает ссылку на View принцип  Solid сохряняем уровень абстракции
-//inPut
 protocol ClientsTabViewPresenterProtocol: AnyObject {
-
     init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol)
+    func getClients()
+    var clients: [Client]? {get set}
     func goToPageClient(indexPathRowClient:Int)
     
 
@@ -25,23 +23,37 @@ protocol ClientsTabViewPresenterProtocol: AnyObject {
 
 // заввязываемся на протоколе
 class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
-   
-   weak var view: ClientsTabViewProtocol?
-   var router: LoginRouterProtocol?
-   let networkService:ApiAllClientsDataServiceProtocol!
+    weak var view: ClientsTabViewProtocol?
+    var router: LoginRouterProtocol?
+    let networkService:ApiAllClientsDataServiceProtocol!
+    var clients: [Client]?
 
     required init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol) {
         self.view = view
         self.router = router
         self.networkService = networkService
+        getClients()
  
+    }
+    func getClients() {
+        networkService.getClients{ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let clients):
+                    self?.clients = clients
+                    self?.view?.succes()
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                  
+                }
+            }
+            
+        }
     }
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
-        var client:Client?
-        self.router?.showClientPage(client: client)
+        self.router?.showClientPage(client: clients?[indexPathRowClient])
     }
-   // let user: User:
-   // required init(view: LoginViewProtocol, user: User)
-  
+   
 }
