@@ -18,7 +18,7 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
     
     func getClients(completion: @escaping (Result<[Client]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        Firestore.firestore().collection("users").document(uid).collection("Client").getDocuments { (snapshot, error) in
+        Firestore.firestore().collection("users").document(uid).collection("Client").addSnapshotListener{ (snapshot, error) in
             if let error = error {
                completion(.failure(error))
                return
