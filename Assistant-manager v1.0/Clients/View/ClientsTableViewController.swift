@@ -12,10 +12,6 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     
     
     let clientCellId = "ClientCellId"
-    
-    var clients = [Client]()
-    var filterClients = [Client]()
-    
     var presenter: ClientsTabViewPresenterProtocol!
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -54,7 +50,7 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.clients?.count ?? 0
+        return presenter.filterClients?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       85
@@ -65,28 +61,20 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
        // cell.textLabel?.text = "Khlomov Anton"
        // cell.detailTextLabel?.text = "Тестовый клиент. Пришел через instagram"
         //передаем массив в ячейку таблицы  [indexPath.row]- распределяем по ячейкам
-        cell.client = presenter.clients?[indexPath.row]
+        cell.client = presenter.filterClients?[indexPath.row]
         cell.accessoryType = .disclosureIndicator
 
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-   //     let vc = ClientPageViewController()
-   //     let navController2 = UINavigationController(rootViewController: vc)
-   //  //   vc.client = filterClientsCash[indexPath.row]
-   //     idClientForOpenGlobal = filterClientsCash[indexPath.row].idClient
-   //   //  clientForOpen = filterClientsCash[indexPath.row]
-   //    navController2.modalPresentationStyle = .fullScreen
-   //     self.present(navController2, animated: true, completion: nil)
         self.presenter.goToPageClient(indexPathRowClient: indexPath.row)
-
     }
 
    
     // MARK: - SearchResults
     func updateSearchResults(for searchController: UISearchController) {
         print("filter works")
+        presenter.filter(text: searchController.searchBar.text!)
     }
     // MARK: - Refresher
     lazy var dataRefresher : UIRefreshControl = {
@@ -100,7 +88,6 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
         presenter.getClients()
         // EndRefreshing
         dataRefresher.endRefreshing()
-        print("обновить таблицу/выгрузить данные клиентов с сервера")
     }
     // MARK: - Button
     @objc fileprivate func addNewClient(){
@@ -120,7 +107,7 @@ extension ClientsTableViewController{
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientsTableViewController: ClientsTabViewProtocol {
-    func succes() {
+    func succesReload() {
         tableView.reloadData()
     }
     

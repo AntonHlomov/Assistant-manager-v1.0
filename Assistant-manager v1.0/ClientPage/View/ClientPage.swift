@@ -120,7 +120,7 @@ class ClientPage: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.setClient()
+        
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         configureNavigationBar()
         configureUI()
@@ -248,8 +248,13 @@ extension ClientPage: ClientPageProtocol {
         guard let name = client?.nameClient else {return}
         guard let fullName = client?.fullName else {return}
         guard let textAboutClient =  client?.textAboutClient else {return}
+        guard let countVisits =  client?.countVisits else {return}
         nameClient.text = name.capitalized + " " + fullName.capitalized
         abautCient.text = textAboutClient
+        let attributed = NSMutableAttributedString(string: "\(String(countVisits))", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
+        countComeClient.setAttributedTitle(attributed, for: .normal)
+        
+        
      
     
     }
@@ -268,8 +273,7 @@ extension ClientPage: ClientPageProtocol {
        
     }
     func changeVisitStatisyc(countVisits: String){
-        let attributedTitleMonyComeClient = NSMutableAttributedString(string: countVisits, attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
-        self.countComeClient.setAttributedTitle(attributedTitleMonyComeClient, for: .normal)
+       
         
     }
     func changeFinansStatisyc(countAverageBill: String){

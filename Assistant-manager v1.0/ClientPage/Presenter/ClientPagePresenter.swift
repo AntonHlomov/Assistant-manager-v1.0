@@ -48,6 +48,7 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         self.router = router
         self.networkService = networkService
         self.client = client
+        setClient()
     }
     func setClient() {
         self.view?.setClient(client: client)

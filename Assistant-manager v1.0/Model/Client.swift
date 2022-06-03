@@ -42,7 +42,7 @@ class Client {
         self.nameClient = dictionary["nameClient"] as? String ?? ""
         self.profileImageClientUrl = dictionary["profileImageClientUrl"] as? String ?? ""
         self.telefonClient = dictionary["telefonClient"] as? String ?? ""
-        self.textAboutClient = dictionary["textClient"] as? String ?? ""
+        self.textAboutClient = dictionary["textAboutClient"] as? String ?? ""
         self.genderClient = dictionary["gender"] as? String ?? ""
         self.ageClient = dictionary["ageClient"] as? Int ?? nil
         self.countVisits = dictionary["countVisits"] as? Int ?? nil
