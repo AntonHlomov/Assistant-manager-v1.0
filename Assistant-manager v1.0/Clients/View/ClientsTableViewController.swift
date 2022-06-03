@@ -69,6 +69,26 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter.goToPageClient(indexPathRowClient: indexPath.row)
     }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration? {
+        // Создать константу для работы с кнопкой
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
+            print("Delete")
+            self?.presenter.deleteClient(indexPath: indexPath)
+            self!.tableView.deleteRows(at: [indexPath], with: .top)
+        }
+        let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
+            print("Redact")
+            self?.presenter.redactClient(indexPath: indexPath)
+            //tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
+        deleteAction.backgroundColor = .systemRed
+        editAction.backgroundColor = .systemGreen
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
+        return configuration
+    }
 
    
     // MARK: - SearchResults

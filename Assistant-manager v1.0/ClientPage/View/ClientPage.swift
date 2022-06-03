@@ -253,10 +253,7 @@ extension ClientPage: ClientPageProtocol {
         abautCient.text = textAboutClient
         let attributed = NSMutableAttributedString(string: "\(String(countVisits))", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
         countComeClient.setAttributedTitle(attributed, for: .normal)
-        
-        
-     
-    
+
     }
     
     func failure(error: Error) {

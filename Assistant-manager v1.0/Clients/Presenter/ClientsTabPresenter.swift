@@ -15,16 +15,17 @@ protocol ClientsTabViewPresenterProtocol: AnyObject {
     init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol)
     func getClients()
     func filter(text: String)
+    func deleteClient(indexPath: IndexPath)
+    func redactClient(indexPath: IndexPath)
     var clients: [Client]? {get set}
     var filterClients: [Client]? {get set}
-    func goToPageClient(indexPathRowClient:Int)
-    
-
-    
+    func goToPageClient(indexPathRowClient:Int)    
 }
 
 // заввязываемся на протоколе
 class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
+   
+    
    
     weak var view: ClientsTabViewProtocol?
     var router: LoginRouterProtocol?
@@ -38,6 +39,27 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
         self.networkService = networkService
         getClients()
  
+    }
+    func deleteClient(indexPath: IndexPath){
+        guard let ref = self.filterClients?[ indexPath.row].profileImageClientUrl else {return}
+        guard let id = self.filterClients?[ indexPath.row].idClient else {return}
+        self.clients?.remove(at: indexPath.row)
+        self.filterClients?.remove(at: indexPath.row)
+        networkService.deleteClient(id: id, reference: ref) {[weak self] result in
+        guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case.success(_):
+                    print("delete")
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+        }
+    }
+    func redactClient(indexPath: IndexPath){
+        print("открыть окно редактирования",indexPath)
+        
     }
     func filter(text: String) {
         if text == "" {
@@ -67,7 +89,7 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     }
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
-        self.router?.showClientPage(client: clients?[indexPathRowClient])
+        self.router?.showClientPage(client: filterClients?[indexPathRowClient])
     }
    
 }
