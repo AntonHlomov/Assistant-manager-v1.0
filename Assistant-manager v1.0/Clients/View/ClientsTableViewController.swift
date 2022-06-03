@@ -111,7 +111,7 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     }
     // MARK: - Button
     @objc fileprivate func addNewClient(){
-        print("openFormNewClient")
+        presenter.goToAddClient()
     }
 
     

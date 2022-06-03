@@ -21,6 +21,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showLoginController()
     func showClientsTableViewController()
     func showClientPage(client: Client?)
+    func showAddClientView()
     func showOptionesViewController()
     func initalLoginViewControler()
     func initalMainTabControler()
@@ -31,9 +32,7 @@ protocol LoginRouterProtocol: RouterLogin {
 }
 
 class Router: LoginRouterProtocol{
-    
-    
-
+   
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
     var assemblyBuilder: AsselderBuilderProtocol?
@@ -107,6 +106,12 @@ class Router: LoginRouterProtocol{
     func showClientPage(client: Client?){
         if let navigationControler = navigationControler {
             guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    func showAddClientView() {
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.createAddClientModule(router: self) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

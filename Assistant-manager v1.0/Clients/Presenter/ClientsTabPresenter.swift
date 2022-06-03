@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol ClientsTabViewProtocol: AnyObject {
     func succesReload()
     func failure(error: Error)
@@ -19,13 +20,12 @@ protocol ClientsTabViewPresenterProtocol: AnyObject {
     func redactClient(indexPath: IndexPath)
     var clients: [Client]? {get set}
     var filterClients: [Client]? {get set}
-    func goToPageClient(indexPathRowClient:Int)    
+    func goToPageClient(indexPathRowClient:Int)
+    func goToAddClient()
 }
 
 // заввязываемся на протоколе
 class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
-   
-    
    
     weak var view: ClientsTabViewProtocol?
     var router: LoginRouterProtocol?
@@ -90,6 +90,9 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
         self.router?.showClientPage(client: filterClients?[indexPathRowClient])
+    }
+    func goToAddClient() {
+        self.router?.showAddClientView()
     }
    
 }
