@@ -42,13 +42,22 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         text.font = UIFont .systemFont(ofSize: 40)
        return text
     }()
-    private let registrationNewUser: UIButton = {
+    fileprivate let registrationNewUser: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Registration", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.rgb(red: 170, green: 92, blue: 178) ])
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(LoginControler.self, action: #selector(goToRegistration), for: .touchUpInside)
         return button
     }()
+    
+    let registration: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Registration", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.appColor(.pinkAssistant)!])
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        return button
+    }()
+    
+    
     fileprivate let emailTextfield = UITextField.setupTextField(title: "Email..", hideText: false, enabled: true)
     fileprivate let passwordTextField = UITextField.setupTextField(title: "Password..", hideText: true, enabled: true)
     fileprivate let loginButton = UIButton.setupButton(title: "Enter", color: UIColor.rgb(red: 190, green: 140, blue: 196), activation: false, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.9))
@@ -60,7 +69,7 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
     }()
-    lazy var stacUpElementsView =  UIStackView(arrangedSubviews: [textEnter,registrationNewUser])
+    lazy var stacUpElementsView =  UIStackView(arrangedSubviews: [textEnter,registration])
     lazy var stackView =  UIStackView(arrangedSubviews: [emailTextfield, passwordTextField, loginButton])
     
     // MARK: - ViewDidLoad
@@ -104,6 +113,8 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged )
         emailTextfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        registration.addTarget(self, action: #selector(goToRegistration), for: .touchUpInside)
+       
     }
     @objc fileprivate func handleLogin() {
         guard let email = emailTextfield.text else {return}
@@ -126,9 +137,8 @@ class LoginControler: UIViewController,UINavigationControllerDelegate {
     }
 
     @objc fileprivate func goToRegistration(){
-        presenter.goToRegistarasionControler()
-      //  let registrastionControlrer = //AsselderModelBuilder.createRegistrationModule()
-      //  navigationController?.pushViewController(registrastionControlrer, animated: //true)
+       presenter.goToRegistarasionControler()
+
 }
     // MARK: - Keyboard
 

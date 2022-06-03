@@ -17,8 +17,7 @@ class CustomUIimageView: UIImageView {
     private func configure(){
        contentMode = .scaleAspectFill
        backgroundColor = .lightGray
-       image =  #imageLiteral(resourceName: "Icon_512x512").withRenderingMode(.alwaysOriginal)
-       
+      // image =  #imageLiteral(resourceName: "Icon_512x512").withRenderingMode(.alwaysOriginal)
        clipsToBounds = true
     }
   

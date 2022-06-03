@@ -284,12 +284,12 @@
 			isa = PBXGroup;
 			children = (
 				8A8E45842791E20D00828B7E /* LoadImageExtension.swift */,
+				8ACD2DE327999A03009539BD /* CustomUIimageView.swift */,
 				8A8E45862791E22A00828B7E /* FirestoreExtension.swift */,
 				8A8E458C2791E5B300828B7E /* ButtonExtension.swift */,
 				8A8E458E2791E5F500828B7E /* SetupTextFieldExtension.swift */,
 				8A8E45902791E6FA00828B7E /* ColorExtension.swift */,
 				8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */,
-				8ACD2DE327999A03009539BD /* CustomUIimageView.swift */,
 				8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */,
 				8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */,
 			);
