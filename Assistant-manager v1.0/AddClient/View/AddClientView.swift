@@ -10,7 +10,7 @@ import UIKit
 class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var presenter: AddClientViewPresenterProtocol!
     var imageSelected = false
-    var gender: String = ""
+    var gender = ""
     
     fileprivate let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -31,6 +31,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
     
     fileprivate let fullNameTexfield = UITextField.setupTextField(title: "Surname..", hideText: false, enabled: true)
     fileprivate let nameTexfield = UITextField.setupTextField(title: "Name..", hideText: false, enabled: true)
+    fileprivate let ageClientTexfield = UITextField.setupTextField(title: "Approximate age..", hideText: false, enabled: true)
     fileprivate let telefonTexfield = UITextField.setupTextField(title: "Phone number..", hideText: false, enabled: true)
     fileprivate let textClientTexfield = UITextField.setupTextField(title: "Information about the client..", hideText: false, enabled: true)
     lazy var maleButton: UIButton = {
@@ -50,7 +51,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
     fileprivate let addButton =    UIButton.setupButton(title: "Add", color: UIColor.appColor(.pinkAssistant)!, activation: false, invisibility: false, laeyerRadius: 12, alpha: 0.7, textcolor: UIColor.appColor(.whiteAssistant)!)
     
     lazy var genderStack = UIStackView(arrangedSubviews: [maleButton,femaleButton])
-    lazy var stackView = UIStackView(arrangedSubviews: [fullNameTexfield,nameTexfield,telefonTexfield,textClientTexfield,genderStack,addButton])
+    lazy var stackView = UIStackView(arrangedSubviews: [nameTexfield,fullNameTexfield,ageClientTexfield,telefonTexfield,textClientTexfield,genderStack,addButton])
     
     
     
@@ -72,7 +73,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
     fileprivate func configureViewComponents(){
         
         view.addSubview(selectPhotoButton)
-        selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/40, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/3.9, height: view.frame.height/3.9))
+        selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/48, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/3.9, height: view.frame.height/3.9))
         selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true //выстовляет по середине экрана
         selectPhotoButton.layer.cornerRadius = view.frame.height/3.9 / 2
         
@@ -84,7 +85,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         stackView.spacing = view.frame.height/35
         stackView.distribution = .fillEqually  // для корректного отображения
         view.addSubview(stackView)
-        stackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: view.frame.height/12, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/2.4))
+        stackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: view.frame.height/12, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/2.1))
         
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -104,6 +105,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
     fileprivate func hadleres() {
         nameTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         fullNameTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
+        ageClientTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         telefonTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         textClientTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         selectPhotoButton.addTarget(self, action: #selector(formValidation), for: .touchUpInside)
@@ -127,7 +129,17 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         addButton.backgroundColor = UIColor.appColor(.pinkAssistant)
         }
     @objc fileprivate func addClient(){
-        
+        self.handleTapDismiss()
+        guard let name = nameTexfield.text?.lowercased() else {return}
+        guard let fullName = fullNameTexfield.text?.lowercased() else {return}
+        guard let ageClient = Int(ageClientTexfield.text ?? "0") else {return}
+        guard let telefon = telefonTexfield.text else {return}
+        guard let profileImage = self.selectPhotoButton.imageView?.image else {return}
+        guard let textClient = textClientTexfield.text else {return}
+     
+        presenter.addClient(nameClient: name, fullName: fullName, telefonClient: telefon, profileImageClient: profileImage, genderClient: self.gender, ageClient: ageClient, textAboutClient: textClient)
+        addButton.isEnabled = false
+
     }
    
     @objc fileprivate func checkMale(){
@@ -184,9 +196,10 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
 }
 
 extension AddClientView: AddClientViewProtocol{
-    func succes() {
+    func succes(successfully: Bool) {
         print("succes")
     }
+    
     
     func failure(error: Error) {
         print("failure")
