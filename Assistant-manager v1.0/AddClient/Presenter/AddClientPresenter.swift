@@ -14,6 +14,7 @@ protocol AddClientViewProtocol: AnyObject {
 
 protocol AddClientViewPresenterProtocol: AnyObject {
     init(view: AddClientViewProtocol,networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol)
+
     
 }
 
@@ -29,10 +30,8 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
            self.router = router
            self.networkService = networkService
        }
-   
     
-    
-    
+ 
     
 }
 

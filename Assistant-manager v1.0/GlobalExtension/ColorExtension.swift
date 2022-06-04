@@ -15,6 +15,7 @@ extension UIColor{
 }
 
 enum AssetsColor {
+    
     case blueAssistantFon
     case whiteAssistantFon
     case whiteAndPinkDetailsAssistant
@@ -25,12 +26,23 @@ enum AssetsColor {
     case whiteAndBlueAssistantFon
     case pinkAssistant
     case blueAssistant
+    case geryAssistant
+    case blueAndPink
 }
 
 extension UIColor {
 
     static func appColor(_ name: AssetsColor) -> UIColor? {
         switch name {
+        case .blueAndPink:
+            return UIColor { traitCollection in
+                switch traitCollection.userInterfaceStyle {
+                    case .dark:
+                    return UIColor.rgb(red: 190, green: 140, blue: 196)
+                default:
+                    return UIColor.rgb(red: 31, green: 152, blue: 233)
+                    }
+                }
   
         case .blueAssistantFon:
             return UIColor { traitCollection in
@@ -74,7 +86,7 @@ extension UIColor {
             return  UIColor.rgb(red: 38, green: 38, blue: 38)
             
         case .whiteAssistant:
-            return  UIColor.rgb(red: 255, green: 255, blue: 255)
+            return  UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.9)
         case .redAssistant:
             return  UIColor.rgb(red: 190, green: 140, blue: 196)
         case .grenAssistant:
@@ -83,6 +95,8 @@ extension UIColor {
             return  UIColor.rgb(red: 190, green: 140, blue: 196)
         case .blueAssistant:
             return  UIColor.rgb(red: 31, green: 152, blue: 233)
+        case .geryAssistant:
+            return  UIColor.gray
    
         }
     }

@@ -26,7 +26,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         button.setTitleColor(.gray, for: .normal)
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.rgb(red: 31, green: 152, blue: 233) .cgColor
-        button.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
         return button
     }()
 
@@ -40,14 +39,13 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     fileprivate let emailTexfield = UITextField.setupTextField(title: "Email..", hideText: false, enabled: true)
     fileprivate let nameTexfield = UITextField.setupTextField(title: "Name..", hideText: false, enabled: true)
     fileprivate let passwordTexfield = UITextField.setupTextField(title: "Password..", hideText: true, enabled: true)
-    fileprivate let sigUpButton =    UIButton.setupButton(title: "Registration", color: UIColor.rgb(red: 190, green: 140, blue: 196), activation: false, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.9))
+    fileprivate let sigUpButton =    UIButton.setupButton(title: "Registration", color: UIColor.appColor(.pinkAssistant)!, activation: false, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!)
 
     fileprivate let allRedyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "I have an account  ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.lightGray ])
-        attributedTitle.append(NSAttributedString(string: "return", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.rgb(red: 170, green: 92, blue: 178) ]))
+        attributedTitle.append(NSAttributedString(string: "return", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.appColor(.pinkAssistant)! ]))
         button.setAttributedTitle(attributedTitle, for: .normal)
-        button.addTarget(self, action: #selector(goToSingIn), for: .touchUpInside)
         return button
     }()
     lazy var stackView = UIStackView(arrangedSubviews: [emailTexfield,nameTexfield,passwordTexfield,sigUpButton])
@@ -88,7 +86,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         passwordTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         selectPhotoButton.addTarget(self, action: #selector(formValidation), for: .touchUpInside)
         sigUpButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
-      
+        selectPhotoButton.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
+        allRedyHaveAccountButton.addTarget(self, action: #selector(goToSingIn), for: .touchUpInside)
     }
     
     @objc fileprivate func handleSignUp(){

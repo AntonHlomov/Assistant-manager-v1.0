@@ -61,6 +61,7 @@ class Router: LoginRouterProtocol{
         if let navigationControler = navigationControler{
             guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self) else {return}
             navigationControler.viewControllers = [MainViewControler]
+          
         }
     }
 
@@ -74,7 +75,7 @@ class Router: LoginRouterProtocol{
             let controllers = [CalendarControler.buuton, ExpensesControler.buuton, StartControler.buuton, StatistikControler.buuton]
             tabBarControler.setViewControllers(controllers, animated: true)
             navigationControler.viewControllers = [tabBarControler]
-  
+      
         }
     }
   

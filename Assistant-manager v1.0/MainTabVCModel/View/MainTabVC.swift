@@ -7,7 +7,8 @@
 
 import UIKit
 
-class MainTabVC: UITabBarController, UITabBarControllerDelegate {
+/*
+ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
    
   //  var presenter: MainTabVCPresenterProtocol!
  
@@ -61,3 +62,4 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
 //extension MainTabVC: MainTabVCProtocol {
 //
 //}
+*/

@@ -8,8 +8,8 @@
 import UIKit
 
 
-
-class LoginControler: UIViewController,UINavigationControllerDelegate {
+//UINavigationControllerDelegate
+class LoginControler: UIViewController {
     
     // подключаемся к презентеру через протокол чтобы передавать нажатия итд из этого view
     var presenter: LoginViewPresenterProtocol!

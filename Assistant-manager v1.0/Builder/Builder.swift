@@ -87,7 +87,7 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         
        let presenter = CalendadrPresentor(view: view, networkService: networkService,networkServiceStatistic: networkServiceStatistic, router: router )
        view.presenter = presenter
-        let CalendarButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
+       let CalendarButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
        return (view:view, buuton: CalendarButtom)
     }
     

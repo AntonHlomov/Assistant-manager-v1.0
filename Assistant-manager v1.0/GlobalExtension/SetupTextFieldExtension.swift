@@ -32,10 +32,12 @@ extension UITextField{
     class func setupTextField(title: String, hideText: Bool, enabled: Bool) -> UITextField {
         let tf = CustomTextField(padding: 16)
         tf.placeholder = title
-        tf.backgroundColor = UIColor(white: 1, alpha: 0.7)
-        tf.layer.cornerRadius = 5
+        tf.backgroundColor = UIColor.appColor(.whiteAssistantFon)!.withAlphaComponent(0.7)
+        tf.layer.borderWidth = 2
+        tf.layer.borderColor = UIColor.appColor(.geryAssistant)!.withAlphaComponent(0.2).cgColor
+        tf.layer.cornerRadius = 10
         tf.font = UIFont .systemFont(ofSize: 16)
-        tf.textColor = .darkText
+      //  tf.textColor = .darkText
         tf.isSecureTextEntry = hideText         // скрытие пороля
         tf.isEnabled = enabled
         return tf
