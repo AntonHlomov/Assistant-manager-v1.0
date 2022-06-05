@@ -60,7 +60,9 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
                     DispatchQueue.main.async {
                         switch result{
                         case.success(_):
-                            self.router?.showClientsTableViewController()
+                          print("закрыть")
+                          self.router?.popViewControler()
+                          
                         case.failure(let error):
                             self.view?.failure(error: error)
                         }
@@ -73,7 +75,7 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
                     DispatchQueue.main.async {
                         switch result{
                         case.success(_):
-                            self.router?.showClientsTableViewController()
+                            self.router?.popViewControler()
                         case.failure(let error):
                             self.view?.failure(error: error)
                         }

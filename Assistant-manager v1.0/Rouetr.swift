@@ -28,6 +28,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func initalClientsTableViewController()
     func popToRoot()
     func backTappedFromRight()
+    func popViewControler()
    // func dismiss()
     
 }
@@ -129,11 +130,11 @@ class Router: LoginRouterProtocol{
             navigationControler.popToRootViewController(animated: true)
         }
     }
-// func dismiss() {
-//     if let navigationControler = navigationControler{
-//         navigationControler.dismiss(animated: true, completion: nil)
-//     }
-// }
+    func popViewControler() {
+        if let navigationControler = navigationControler{
+            navigationControler.popViewController(animated: true)
+        }
+    }
     
     func backTappedFromRight(){
         if let navigationControler = navigationControler{

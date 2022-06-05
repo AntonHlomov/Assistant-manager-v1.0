@@ -32,6 +32,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
     fileprivate let fullNameTexfield = UITextField.setupTextField(title: "Surname..", hideText: false, enabled: true)
     fileprivate let nameTexfield = UITextField.setupTextField(title: "Name..", hideText: false, enabled: true)
     fileprivate let ageClientTexfield = UITextField.setupTextField(title: "Approximate age..", hideText: false, enabled: true)
+    
     fileprivate let telefonTexfield = UITextField.setupTextField(title: "Phone number..", hideText: false, enabled: true)
     fileprivate let textClientTexfield = UITextField.setupTextField(title: "Information about the client..", hideText: false, enabled: true)
     lazy var maleButton: UIButton = {
@@ -106,7 +107,9 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         nameTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         fullNameTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         ageClientTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
+        ageClientTexfield.keyboardType = .numberPad
         telefonTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
+        telefonTexfield.keyboardType = .phonePad
         textClientTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         //selectPhotoButton.addTarget(self, action: #selector(formValidation), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(addClient), for: .touchUpInside)
@@ -140,7 +143,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
      
         presenter.addClient(nameClient: name, fullName: fullName, telefonClient: telefon, profileImageClient: profileImage, genderClient: self.gender, ageClient: ageClient, textAboutClient: textClient)
         addButton.isEnabled = false
-
+      
     }
    
     @objc fileprivate func checkMale(){
