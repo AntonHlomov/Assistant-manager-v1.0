@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ClientPageProtocol: AnyObject {
     func setClient(client: Client?)
@@ -59,6 +60,13 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     
     func pressСallButton() {
         print("pressСallButton")
+        guard let numberPhone = client?.telefonClient else {return}
+        if let phoneCallURL = URL(string: "telprompt://\(numberPhone))") {
+        let application:UIApplication = UIApplication.shared
+        if (application.canOpenURL(phoneCallURL)) {
+            application.open(phoneCallURL, options: [:], completionHandler: nil)
+          }
+        }
     }
     func goToVisitStatisyc() {
         print("goToVisitStatisyc")
