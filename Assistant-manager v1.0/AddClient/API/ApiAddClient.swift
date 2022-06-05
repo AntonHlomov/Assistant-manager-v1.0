@@ -12,9 +12,72 @@ import UIKit
 protocol ApiAddClientDataServiceProtocol{
     func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
     
+    func editClient(changePhoto:Bool,idClient: String,olderUrlImageClient: String, nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
+    
 }
 
 class ApiAddClient: ApiAddClientDataServiceProtocol{
+    
+    func editClient(changePhoto:Bool,idClient: String, olderUrlImageClient: String, nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        
+        var dataClient = ["idClient": idClient,"nameClient":nameClient,"fullName":fullName,"telefonClient":telefonClient ,"genderClient":genderClient,"ageClient":ageClient,"textAboutClient":textAboutClient] as [String : Any]
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        switch changePhoto{
+        case true:
+            // change photo
+            //качество фото при загрузка в базу данных
+            guard let uploadData = profileImageClient.jpegData(compressionQuality: 0.3) else {return}
+            // удаляем старое фото
+            let storageRefDel = Storage.storage().reference(forURL: olderUrlImageClient)
+            storageRefDel.delete { error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                //код загрузки фото
+                let storageRef = Storage.storage().reference().child("Clients_image").child(idClient)
+                storageRef.putData(uploadData, metadata: nil) { (_, error) in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    //получаем обратно адрес картинки
+                    storageRef.downloadURL { (downLoardUrl, error) in
+                        guard let newURLPhoto = downLoardUrl?.absoluteString else {return}
+                        if let error = error {
+                            completion(.failure(error))
+                            return
+                        }
+                        dataClient["profileImageClientUrl"] = newURLPhoto
+                        Firestore.firestore().collection("users").document(uid).collection("Clients").document(idClient).updateData(dataClient) { (error) in
+                            if let error = error {
+                                completion(.failure(error))
+                                return
+                            }
+                            completion(.success(true))
+                        }
+                    }
+                }
+                
+            }
+            
+            
+            
+        case false:
+            // do not change photo
+            Firestore.firestore().collection("users").document(uid).collection("Clients").document(idClient).updateData(dataClient) { (error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                completion(.success(true))
+            }
+       
+        }
+        
+    }
+    
     func addClient(nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let idClient = NSUUID().uuidString
         let countVisits = 0
@@ -38,7 +101,6 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
             storageRef.downloadURL { (downLoardUrl, error) in
                 guard let profileImageClientUrl = downLoardUrl?.absoluteString else {return}
                 if let error = error {
-                   // print(error.localizedDescription)
                     completion(.failure(error))
                 return
             }

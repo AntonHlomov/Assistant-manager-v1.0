@@ -108,7 +108,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         ageClientTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         telefonTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         textClientTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
-        selectPhotoButton.addTarget(self, action: #selector(formValidation), for: .touchUpInside)
+        //selectPhotoButton.addTarget(self, action: #selector(formValidation), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(addClient), for: .touchUpInside)
         selectPhotoButton.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
        
@@ -130,6 +130,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         }
     @objc fileprivate func addClient(){
         self.handleTapDismiss()
+        
         guard let name = nameTexfield.text?.lowercased() else {return}
         guard let fullName = fullNameTexfield.text?.lowercased() else {return}
         guard let ageClient = Int(ageClientTexfield.text ?? "0") else {return}
@@ -204,6 +205,40 @@ extension AddClientView{
 }
 
 extension AddClientView: AddClientViewProtocol{
+    func setClientForEditMode(client: Client?) {
+        print(client?.nameClient ?? "")
+        let  clientImageView = CustomUIimageView(frame: .zero)
+        
+        clientImageView.loadImage(with: client?.profileImageClientUrl ?? "")
+        guard let clientname = client?.nameClient else {return}
+        guard let fullname = client?.fullName else {return}
+        guard let ageClient = client?.ageClient else {return}
+        guard let telefonclient = client?.telefonClient else {return}
+        guard let textAboutClient = client?.textAboutClient else {return}
+        guard let genderClient = client?.genderClient else {return}
+   
+        self.nameTexfield.text = clientname.capitalized
+        self.fullNameTexfield.text = fullname.capitalized
+        self.ageClientTexfield.text = String(ageClient)
+        self.telefonTexfield.text = telefonclient
+        self.textClientTexfield.text = textAboutClient
+        self.gender = genderClient
+  
+        switch self.gender {
+        case "male": checkMale()
+        case "female": checkFemale()
+        default:
+            return
+        }
+        self.selectPhotoButton.setImage(clientImageView.image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        selectPhotoButton.layer.cornerRadius = selectPhotoButton.frame.width / 2
+        selectPhotoButton.layer.masksToBounds = true
+        selectPhotoButton.layer.borderWidth = 2
+        self.imageSelected = true
+        self.addButton.setTitle("Save", for: .normal)
+        formValidation()
+    }
+    
    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"

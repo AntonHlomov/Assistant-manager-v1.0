@@ -57,10 +57,7 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
             }
         }
     }
-    func redactClient(indexPath: IndexPath){
-        print("открыть окно редактирования",indexPath)
-        
-    }
+  
     func filter(text: String) {
         if text == "" {
             filterClients = clients?.sorted{ $0.nameClient < $1.nameClient } }
@@ -92,7 +89,10 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
         self.router?.showClientPage(client: filterClients?[indexPathRowClient])
     }
     func goToAddClient() {
-        self.router?.showAddClientView()
+        self.router?.showAddClientView(editMode: false, client: nil)
+    }
+    func redactClient(indexPath: IndexPath){
+        self.router?.showAddClientView(editMode: true, client:  self.filterClients?[indexPath.row])
     }
    
 }
