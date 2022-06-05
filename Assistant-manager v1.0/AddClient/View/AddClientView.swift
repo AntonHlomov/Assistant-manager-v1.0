@@ -194,15 +194,20 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
 
 
 }
+extension AddClientView{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+}
 
 extension AddClientView: AddClientViewProtocol{
-    func succes(successfully: Bool) {
-        print("succes")
-    }
-    
-    
+   
     func failure(error: Error) {
-        print("failure")
+        let error = "\(error.localizedDescription)"
+        alertRegistrationControllerMassage(title: "Error", message: error)
     }
   
 }

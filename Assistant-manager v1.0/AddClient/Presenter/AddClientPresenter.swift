@@ -38,7 +38,6 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
                     switch result{
                     case.success(_):
                         self.router?.showClientsTableViewController()
-                       // self.router?.dismiss()
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
