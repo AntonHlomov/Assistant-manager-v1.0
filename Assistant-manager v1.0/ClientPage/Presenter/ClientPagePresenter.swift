@@ -103,8 +103,9 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     func checkIndicatorFinansStatisyc() {
         print("checkIndicatorFinansStatisyc")
         guard let countVisits = client?.countVisits else {return}
+        guard countVisits != 0 else {return}
         guard let sumTotal = client?.sumTotal else {return}
-        let result = String(Int(sumTotal)/countVisits)
+        let result = String(Int(sumTotal)/countVisits )
         self.view?.changeFinansStatisyc(countAverageBill: result)
     }
     func checkIndicatorGoToWorck() {

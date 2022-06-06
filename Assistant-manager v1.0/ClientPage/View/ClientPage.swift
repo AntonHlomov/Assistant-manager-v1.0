@@ -65,7 +65,7 @@ class ClientPage: UIViewController {
     
     lazy var countComeClient: UIButton = {
         let button = UIButton(type: .system)
-        var attributedTitle = NSMutableAttributedString(string: "2220", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
+        var attributedTitle = NSMutableAttributedString(string: "0", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(goToVisitStatisyc), for: .touchUpInside) // переход на экран история записи
         return button
@@ -83,7 +83,7 @@ class ClientPage: UIViewController {
     
     lazy var monyComeClient: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "23230", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
+        let attributedTitle = NSMutableAttributedString(string: "0", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(goToFinansStatisyc), for: .touchUpInside) // переход на экран фин статистики
         return button

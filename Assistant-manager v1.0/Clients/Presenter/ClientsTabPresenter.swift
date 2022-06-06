@@ -74,7 +74,7 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
                 switch result{
                 case .success(let clients):
                     self?.clients = clients
-                    self?.filterClients = clients
+                    self?.filterClients = clients?.sorted{ $0.nameClient < $1.nameClient}
                     self?.view?.succesReload()
                 case .failure(let error):
                     self?.view?.failure(error: error)
