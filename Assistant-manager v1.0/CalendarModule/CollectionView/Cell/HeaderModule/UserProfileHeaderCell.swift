@@ -54,12 +54,12 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
            return label
        }()
     
-       
+    //прибыль
     lazy var profitText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "прибыль",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
+        let attributedText = (NSAttributedString(string: "profit",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
         label.attributedText = attributedText
         
         return label
@@ -75,12 +75,12 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
             
         return label
     }()
-    
+    // выручка
     lazy var revenueText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "выручка",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
+        let attributedText = (NSAttributedString(string: "proceeds",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
         label.attributedText = attributedText
         
         return label
@@ -97,12 +97,12 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         
         return label
     }()
-    
+    //расходы
     lazy var expensesText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "расходы",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
+        let attributedText = (NSAttributedString(string: "expenses",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
         label.attributedText = attributedText
         
         return label

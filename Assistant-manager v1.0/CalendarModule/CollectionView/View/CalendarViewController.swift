@@ -48,7 +48,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         
         
         searchBar = UISearchBar()
-        searchBar.placeholder = "Поиск"
+        searchBar.placeholder = "Search"
         searchBar.delegate = self
         searchBar.tintColor = UIColor.appColor(.blueAssistantFon)
         searchBar.barTintColor = UIColor.appColor(.whiteAssistantFon)
@@ -191,7 +191,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
             
             if reminderSlaider.flatMap({$0}).isEmpty == true {
-                cell.textEmpty.text = "У вас пока нет активных напоминаний"
+                cell.textEmpty.text = "You don't have active reminders yet"
                 cell.addSubview(cell.textEmpty)
                 cell.textEmpty.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: nil, trailing: cell.trailingAnchor, pading: .init(top: 43, left: 90, bottom: 0, right: 10))}
             else{
@@ -221,7 +221,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(self.doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Ready", style: .done, target: self, action: #selector(self.doneButtonAction))
         let items = [flexSpace, done]
         doneToolbar.items = items
         doneToolbar.sizeToFit()

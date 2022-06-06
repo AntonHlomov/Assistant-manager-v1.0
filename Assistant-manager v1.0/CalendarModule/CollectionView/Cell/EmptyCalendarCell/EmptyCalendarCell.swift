@@ -24,7 +24,7 @@ class EmptyCalendarCell: UICollectionViewCell,UICollectionViewDelegate,UICollect
     let textLebel: UILabel = {
         let Label = UILabel()
         Label.textAlignment = .center
-        Label.text = "Записанных клиентов пока нет"
+        Label.text = "There are no expected customers yet"
         Label.font = UIFont.systemFont(ofSize:20)
         Label.textColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)
         Label.numberOfLines = 0
