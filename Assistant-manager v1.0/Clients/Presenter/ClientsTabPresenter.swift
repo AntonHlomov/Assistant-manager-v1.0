@@ -81,9 +81,9 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
                   
                 }
             }
-            
         }
     }
+    
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
         self.router?.showClientPage(client: filterClients?[indexPathRowClient])

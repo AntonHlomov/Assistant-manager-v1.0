@@ -39,7 +39,6 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         line.layer.cornerRadius = 140
         line.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
         line.layer.borderWidth = 3
-        
         return line
      }()
    
