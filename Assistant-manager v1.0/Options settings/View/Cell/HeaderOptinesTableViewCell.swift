@@ -13,14 +13,10 @@ class HeaderOptinesTableViewCell: UITableViewCell {
             profileImageView.loadImage(with: user?.profileImage ?? "")
             guard let name = user?.name else {return}
             guard let fullname = user?.fullName else {return}
-            guard let id = user?.uid else {return}
-            
             nameLabel.text = name.capitalized + (" ") + fullname.capitalized
-            nameUserIdInvait.text = userIdInvait + id
         }
     }
     
-    var userIdInvait = "Id: "
     lazy var circlForAvaViewBlue: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -35,21 +31,21 @@ class HeaderOptinesTableViewCell: UITableViewCell {
         label.textAlignment = .right
         label.text = "Name Shurname"
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteAssistant)
          return label
      }()
-    let nameUserIdInvait: UILabel = {
+    let commit: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.text = ""
+        label.text = "Мake changes"
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.6)
          return label
      }()
     //Check color
     let lineView: UIImageView = {
          let line = UIImageView()
-        line.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        line.backgroundColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)
          return line
       }()
     var addBuferButton: UIButton = {
@@ -58,7 +54,7 @@ class HeaderOptinesTableViewCell: UITableViewCell {
        button.contentHorizontalAlignment = .left
        return button
    }()
-    lazy var stackView = UIStackView(arrangedSubviews: [nameUserIdInvait,addBuferButton])
+    lazy var stackView = UIStackView(arrangedSubviews: [commit])
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -69,7 +65,7 @@ class HeaderOptinesTableViewCell: UITableViewCell {
         lineView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 0, left: 35, bottom: 0, right: 0),size: .init(width: 1, height: 0))
         
         addSubview(circlForAvaViewBlue)
-        circlForAvaViewBlue.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 20, left: 0, bottom: 20, right: 0),  size: .init(width: 70, height: 70))
+        circlForAvaViewBlue.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 0, left: 0, bottom: 60, right: 0),  size: .init(width: 70, height: 70))
         circlForAvaViewBlue.layer.cornerRadius = 70 / 2
         
         addSubview(profileImageView)

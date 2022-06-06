@@ -1,5 +1,5 @@
 //
-//  OptionesTableViewCell.swift
+//  ExitRemoveTableViewCell.swift
 //  Assistant-manager v1.0
 //
 //  Created by Anton Khlomov on 06/06/2022.
@@ -7,8 +7,7 @@
 
 import UIKit
 
-class OptionesTableViewCell: UITableViewCell {
-
+class ExitRemoveTableViewCell: UITableViewCell {
     lazy var optionesImageView = UIImageView(image: #imageLiteral(resourceName: "buttonAddCL").withRenderingMode(.alwaysOriginal))
 
       let circleView: UIImageView = {
@@ -28,8 +27,7 @@ class OptionesTableViewCell: UITableViewCell {
   
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-     //selectionStyle = .none
-       accessoryType = .disclosureIndicator
+    
          
        addSubview(lineView)
        lineView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 0, left: 35, bottom: 0, right: 0),size: .init(width: 1, height: 0))
@@ -54,7 +52,7 @@ class OptionesTableViewCell: UITableViewCell {
         detailTextLabel?.frame = CGRect(x: 70, y: textLabel!.frame.origin.y + 20, width: frame.width/2, height: (detailTextLabel?.frame.height)!)
         
         textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        textLabel?.textColor = UIColor.appColor(.whiteAssistant)!
+        textLabel?.textColor = UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.8)
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
         detailTextLabel?.textColor = UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.6)
     }
