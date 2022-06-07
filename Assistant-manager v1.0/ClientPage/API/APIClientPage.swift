@@ -9,9 +9,12 @@ import Foundation
 import Firebase
 
 protocol ApiAllClientPageServiceProtocol {
+ 
+    
     
 }
 
 class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
+   
     
 }

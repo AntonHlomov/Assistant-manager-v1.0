@@ -80,6 +80,17 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func exitUser() {
         print("exitUser")
+        networkService.signOutUser() {[weak self] result in
+        guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case.success(_):
+                    self.router?.initalLoginViewControler()
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+        }
     }
     
     func removeUser() {

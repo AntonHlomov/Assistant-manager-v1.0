@@ -196,9 +196,9 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
             presenter.changeStatus()
             
         case [4, 0]:
-            presenter.exitUser()
+            alertForExitOrRemove(title: "Go out", exit: true)
         case [4, 1]:
-            presenter.removeUser()
+            alertForExitOrRemove(title: "Remove yor acaunt", exit: false)
         default:
             return
         }
@@ -219,6 +219,20 @@ extension OptionesController{
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: "Ok", style: .default)
         alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
+    
+    func alertForExitOrRemove(title: String,exit: Bool){
+        let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertControler.addAction(UIAlertAction(title: title, style: .destructive, handler: { (_) in
+            switch exit {
+            case true:
+                self.presenter.exitUser()
+            case false:
+                self.presenter.removeUser()
+            }
+        }))
+        alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertControler, animated: true, completion: nil)
     }
 }
