@@ -26,7 +26,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
     
     fileprivate let shareIDButton: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Share your id, to create a  ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.lightGray ])
+        let attributedTitle = NSMutableAttributedString(string: "Share your id, to create a  ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.appColor(.whiteAssistantwithAlpha)! ])
         attributedTitle.append(NSAttributedString(string: "team", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.appColor(.pinkAssistant)! ]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
@@ -109,7 +109,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellHeader, for: indexPath) as! HeaderOptinesTableViewCell
             cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
-            //cell.user = userApp
+            cell.user = presenter.user
             return cell
         
         case 2:
@@ -180,17 +180,61 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
             return cell
         }
     }
-    @objc fileprivate func shareIDUser(){
-        print("Share your id, to create a team")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        switch indexPath{
+        case [1, 0]:
+            presenter.redactUserDataButton()
+            
+        case [2, 0]:
+            presenter.schowClientsButoon()
+        case [2, 1]:
+            presenter.schowPriceButoon()
+        case [2, 2]:
+            presenter.schowTeamButoon()
+        case [2, 3]:
+            presenter.changeStatus()
+            
+        case [4, 0]:
+            presenter.exitUser()
+        case [4, 1]:
+            presenter.removeUser()
+        default:
+            return
+        }
+        
+    }
+    @objc fileprivate func shareIDUser(){
+        presenter.safeIdUserForSharing()
     }
 
     
     @objc func backTapped() {
         presenter.goToBackTappedViewFromRight()
     }
+    
+}
+extension OptionesController{
+    func alertRegistrationControllerMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
+    }
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension OptionesController: OptionesViewProtocol {
+    func succesForAlert(title: String, message: String) {
+        alertRegistrationControllerMassage(title: title, message: message)
+    }
+    func succes() {
+        print("Share your id, to create a team")
+    }
+    
+    func failure(error: Error) {
+        let error = "\(error.localizedDescription)"
+        alertRegistrationControllerMassage(title: "Error", message: error)
+    }
+    
 
 }

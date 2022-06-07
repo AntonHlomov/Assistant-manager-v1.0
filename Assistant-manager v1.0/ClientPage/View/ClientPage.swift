@@ -51,7 +51,7 @@ class ClientPage: UIViewController {
         text.textAlignment = .center
         text.text = "Text abaut cient"
         text.font = UIFont.systemFont(ofSize: 19, weight: .medium)
-        text.textColor = UIColor.appColor(.whiteAssistant)
+        text.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
         text.backgroundColor = UIColor.appColor(.blueAssistantFon)
         //нельзя редактировать
         text.isEditable = false

@@ -22,7 +22,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showClientsTableViewController()
     func showClientPage(client: Client?)
     func showAddClientView(editMode: Bool, client: Client?)
-    func showOptionesViewController()
+    func showOptionesViewController(user: User?)
     func initalLoginViewControler()
     func initalMainTabControler()
     func initalClientsTableViewController()
@@ -118,9 +118,9 @@ class Router: LoginRouterProtocol{
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showOptionesViewController() {
+    func showOptionesViewController(user: User?) {
             if let navigationControler = navigationControler{
-                guard let registrationControler = assemblyBuilder?.createOptionesModule(router: self) else {return}
+                guard let registrationControler = assemblyBuilder?.createOptionesModule(router: self, user: user) else {return}
               //  navigationControler.pushViewController(registrationControler, animated: true)
                 navigationControler.customPopViewFromLeft(registrationControler)
             }

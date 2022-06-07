@@ -21,6 +21,7 @@ enum AssetsColor {
     case whiteAndPinkDetailsAssistant
     case darkAssistant
     case whiteAssistant
+    case whiteAssistantwithAlpha
     case redAssistant
     case grenAssistant
     case whiteAndBlueAssistantFon
@@ -87,6 +88,8 @@ extension UIColor {
             
         case .whiteAssistant:
             return  UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.9)
+        case .whiteAssistantwithAlpha:
+            return  UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.6)
         case .redAssistant:
             return  UIColor.rgb(red: 190, green: 140, blue: 196)
         case .grenAssistant:

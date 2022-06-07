@@ -69,9 +69,9 @@ class TableClientCell: UITableViewCell {
         textLabel?.frame = CGRect(x: 110, y: textLabel!.frame.origin.y - 2, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
         detailTextLabel?.frame = CGRect(x: 110, y: textLabel!.frame.origin.y + 20, width: frame.width - 200, height: (detailTextLabel?.frame.height)!)
         textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        textLabel?.textColor = .white
+        textLabel?.textColor = UIColor.appColor(.whiteAssistant)!
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
-        detailTextLabel?.textColor = .white
+        detailTextLabel?.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
      }
     
     required init?(coder: NSCoder) {

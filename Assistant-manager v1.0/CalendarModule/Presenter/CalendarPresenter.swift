@@ -154,7 +154,8 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     
     func pushOptionsButton() {
            print("Push Options Button")
-        self.router?.showOptionesViewController()
+        
+        self.router?.showOptionesViewController(user: self.user)
        }
     
     

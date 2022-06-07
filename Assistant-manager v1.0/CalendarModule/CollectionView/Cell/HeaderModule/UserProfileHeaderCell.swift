@@ -12,10 +12,11 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
     var user: User? {
         //  didSet означает что эти пораметры класса можно транслировать по  приложениею
         didSet {
-            let fullname =  user?.name
-            nameLabel.text = fullname
-            //вставляем с помощью extension фото аватарки
             profileImageView.loadImage(with: user?.profileImage ?? "")
+            guard let name = user?.name else {return}
+            guard let fullname = user?.fullName else {return}
+            nameLabel.text = name.capitalized + " " + fullname.capitalized
+           
         }
     }
     //MARK: - Propertis
@@ -46,8 +47,8 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
            let label = UILabel()
           // label.numberOfLines = 0
            label.textAlignment = .center
-           let attributedText = NSMutableAttributedString(string: "345345", attributes: [.font: UIFont.systemFont(ofSize: 19)])
-           label.textColor = .white
+           let attributedText = NSMutableAttributedString(string: "0", attributes: [.font: UIFont.systemFont(ofSize: 19)])
+           label.textColor = UIColor.appColor(.whiteAssistant)!
            label.attributedText = attributedText
                
            return label
@@ -58,7 +59,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "profit",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
+        let attributedText = (NSAttributedString(string: "profit",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.appColor(.whiteAssistant)!]))
         label.attributedText = attributedText
         
         return label
@@ -68,8 +69,8 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
     lazy var revenueCell: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "34534345", attributes: [.font: UIFont.systemFont(ofSize: 19)])
-        label.textColor = .white
+        let attributedText = NSMutableAttributedString(string: "0", attributes: [.font: UIFont.systemFont(ofSize: 19)])
+        label.textColor = UIColor.appColor(.whiteAssistant)!
         label.attributedText = attributedText
             
         return label
@@ -79,7 +80,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "proceeds",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
+        let attributedText = (NSAttributedString(string: "proceeds",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.appColor(.whiteAssistant)!]))
         label.attributedText = attributedText
         
         return label
@@ -90,8 +91,8 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
     lazy var expensesCell: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "4534", attributes: [.font: UIFont.systemFont(ofSize: 19)])
-        label.textColor = .white
+        let attributedText = NSMutableAttributedString(string: "0", attributes: [.font: UIFont.systemFont(ofSize: 19)])
+        label.textColor = UIColor.appColor(.whiteAssistant)!
         label.attributedText = attributedText
         
         return label
@@ -101,7 +102,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = (NSAttributedString(string: "expenses",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.rgb(red: 255, green: 255, blue: 255)]))
+        let attributedText = (NSAttributedString(string: "expenses",  attributes: [.font: UIFont.systemFont(ofSize:18),NSAttributedString.Key.foregroundColor: UIColor.appColor(.whiteAssistant)!]))
         label.attributedText = attributedText
         
         return label

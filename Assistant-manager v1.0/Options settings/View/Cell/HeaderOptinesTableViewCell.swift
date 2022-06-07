@@ -13,7 +13,7 @@ class HeaderOptinesTableViewCell: UITableViewCell {
             profileImageView.loadImage(with: user?.profileImage ?? "")
             guard let name = user?.name else {return}
             guard let fullname = user?.fullName else {return}
-            nameLabel.text = name.capitalized + (" ") + fullname.capitalized
+            nameLabel.text = name.capitalized + " " + fullname.capitalized
         }
     }
     
@@ -39,7 +39,7 @@ class HeaderOptinesTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.text = "Мake changes"
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.6)
+        label.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
          return label
      }()
     //Check color
@@ -83,6 +83,9 @@ class HeaderOptinesTableViewCell: UITableViewCell {
         addSubview(stackView)
         stackView.anchor(top: nameLabel.bottomAnchor, leading:nameLabel.leadingAnchor, bottom: nil, trailing: trailingAnchor,  pading: .init(top: 3, left: 0, bottom: 0, right: 20), size: .init(width: 0, height: 0))
 
+    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.circlForAvaViewBlue.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
     }
     
     required init?(coder: NSCoder) {

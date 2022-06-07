@@ -6,9 +6,13 @@
 //
 
 import Foundation
+import UIKit
 // отправляет сообщение в View 
 //outPut
 protocol OptionesViewProtocol: AnyObject {
+    func succesForAlert(title: String, message: String)
+    func succes()
+    func failure(error: Error)
  
 }
 
@@ -16,27 +20,77 @@ protocol OptionesViewProtocol: AnyObject {
 //inPut
 protocol OptionesViewPresenterProtocol: AnyObject {
 
-    init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol)
+    init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol,user: User?)
+    var user: User?  { get set }
     func goToBackTappedViewFromRight()
+    func redactUserDataButton()
+    func schowClientsButoon()
+    func schowPriceButoon()
+    func schowTeamButoon()
+    func changeStatus()
+    func exitUser()
+    func removeUser()
+    func safeIdUserForSharing()
+    
 
 }
 
 // заввязываемся на протоколе
 class OptionesViewPresentor: OptionesViewPresenterProtocol {
-  
+   
+    
+
    weak var view: OptionesViewProtocol?
    var router: LoginRouterProtocol?
    let networkService:APIOptionesDataServiceProtocol!
+   var user: User?
 
-    required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol) {
+    required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
+        self.user = user
  
     }
     
     func goToBackTappedViewFromRight() {
         router?.backTappedFromRight()
+    }
+    
+    func redactUserDataButton() {
+        print("redactUserDataButton")
+    }
+    
+    func schowClientsButoon() {
+        print("schowClientsButoon")
+        self.router?.showClientsTableViewController()
+    }
+    
+    func schowPriceButoon() {
+        print("schowPriceButoon")
+    }
+    
+    func schowTeamButoon() {
+        print("schowTeamButoon")
+    }
+    
+    func changeStatus() {
+        print("changeStatus")
+    }
+    
+    func exitUser() {
+        print("exitUser")
+    }
+    
+    func removeUser() {
+        print("removeUser")
+    }
+    
+    func safeIdUserForSharing() {
+        print("safeIdUserForSharing")
+        guard let idUser = user?.uid else {return}
+        UIPasteboard.general.string = idUser
+        self.view?.succesForAlert(title: "Your ID has been copied to the clipboard.", message: "Id: " + idUser)
     }
 
 }

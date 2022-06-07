@@ -52,9 +52,9 @@ class ExitRemoveTableViewCell: UITableViewCell {
         detailTextLabel?.frame = CGRect(x: 70, y: textLabel!.frame.origin.y + 20, width: frame.width/2, height: (detailTextLabel?.frame.height)!)
         
         textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        textLabel?.textColor = UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.8)
+        textLabel?.textColor = UIColor.appColor(.whiteAssistant)!
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
-        detailTextLabel?.textColor = UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.6)
+        detailTextLabel?.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
     }
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         self.circleView.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
