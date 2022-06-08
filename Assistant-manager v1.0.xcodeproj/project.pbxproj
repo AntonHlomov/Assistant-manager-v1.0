@@ -79,6 +79,10 @@
 		8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C6022798078100BE414A /* CalendarForDayCell.swift */; };
 		8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */; };
 		8AD1508927D4EA3100FE8AB0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */; };
+		8AE627C52850D191000182A8 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C42850D191000182A8 /* PriceViewController.swift */; };
+		8AE627C72850D1AC000182A8 /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C62850D1AC000182A8 /* PriceCell.swift */; };
+		8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C82850D1D6000182A8 /* PricePresentor.swift */; };
+		8AE627CB2850D1EA000182A8 /* APIPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627CA2850D1EA000182A8 /* APIPrice.swift */; };
 		8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */; };
 		8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */; };
 		8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */; };
@@ -152,6 +156,10 @@
 		8AD0C6022798078100BE414A /* CalendarForDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForDayCell.swift; sourceTree = "<group>"; };
 		8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCalendarCell.swift; sourceTree = "<group>"; };
 		8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		8AE627C42850D191000182A8 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
+		8AE627C62850D1AC000182A8 /* PriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
+		8AE627C82850D1D6000182A8 /* PricePresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricePresentor.swift; sourceTree = "<group>"; };
+		8AE627CA2850D1EA000182A8 /* APIPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPrice.swift; sourceTree = "<group>"; };
 		8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
 		8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckPresenter.swift; sourceTree = "<group>"; };
 		8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikPresenter.swift; sourceTree = "<group>"; };
@@ -280,6 +288,7 @@
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
+				8AE627C32850D094000182A8 /* PriceModule */,
 				8A7D48EA2829C0A000017870 /* Clients */,
 				8A007645284351AB00FF73FD /* ClientPage */,
 				8A308FB5284A96450045FA20 /* AddClient */,
@@ -693,6 +702,49 @@
 			path = EmptyCalendarCell;
 			sourceTree = "<group>";
 		};
+		8AE627C32850D094000182A8 /* PriceModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AE627CE2850D20A000182A8 /* API */,
+				8AE627CD2850D203000182A8 /* View */,
+				8AE627CC2850D1F3000182A8 /* Presenter */,
+			);
+			path = PriceModule;
+			sourceTree = "<group>";
+		};
+		8AE627CC2850D1F3000182A8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8AE627C82850D1D6000182A8 /* PricePresentor.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AE627CD2850D203000182A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AE627C42850D191000182A8 /* PriceViewController.swift */,
+				8AE627CF2850D218000182A8 /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AE627CE2850D20A000182A8 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8AE627CA2850D1EA000182A8 /* APIPrice.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8AE627CF2850D218000182A8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8AE627C62850D1AC000182A8 /* PriceCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		8AFFA1B727C1A3770045E3D6 /* APIUserData */ = {
 			isa = PBXGroup;
 			children = (
@@ -787,6 +839,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */,
+				8AE627C72850D1AC000182A8 /* PriceCell.swift in Sources */,
 				8A8E456D2791923600828B7E /* Team.swift in Sources */,
 				8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */,
 				8AA3FF08284EA5FA00604C93 /* ExitRemoveTableViewCell.swift in Sources */,
@@ -805,10 +858,12 @@
 				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
 				8A91A82F282D9B00006F1FFD /* OptionesPresenter.swift in Sources */,
 				8A00764A2843524A00FF73FD /* ClientPage.swift in Sources */,
+				8AE627C52850D191000182A8 /* PriceViewController.swift in Sources */,
 				8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */,
 				8A00764C2843531A00FF73FD /* ClientPagePresenter.swift in Sources */,
 				8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */,
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
+				8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */,
 				8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */,
@@ -849,6 +904,7 @@
 				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
 				8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */,
 				8A916CF9284E116500A18257 /* HeaderOptinesTableViewCell.swift in Sources */,
+				8AE627CB2850D1EA000182A8 /* APIPrice.swift in Sources */,
 				8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

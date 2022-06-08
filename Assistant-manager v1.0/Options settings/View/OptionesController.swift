@@ -120,7 +120,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
             
             switch indexPath{
             case [2, 0]:
-                cell.optionesImageView.image = #imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96").withRenderingMode(.alwaysOriginal)
+                cell.optionesImageView.image = #imageLiteral(resourceName: "clients").withRenderingMode(.alwaysOriginal)
                 cell.detailTextLabel?.text = "Yu have " + "??" + " clients"
                 //
             case [2, 1]:
@@ -128,7 +128,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
                 cell.detailTextLabel?.text = "??" + " services in yuor price"
                 
             case [2, 2]:
-                cell.optionesImageView.image = #imageLiteral(resourceName: "icons8-группа-пользователей,-мужчина-и-женщина-48").withRenderingMode(.alwaysOriginal)
+                cell.optionesImageView.image = #imageLiteral(resourceName: "team").withRenderingMode(.alwaysOriginal)
                 cell.detailTextLabel?.text = "??" + " person in yuor team"
                 
             case [2, 3]:
