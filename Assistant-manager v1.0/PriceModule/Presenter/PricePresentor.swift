@@ -13,24 +13,28 @@ protocol PriceProtocol: AnyObject{
 }
 
 protocol PricePresenterProtocol: AnyObject{
-    init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol )
+    init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol)
     var price: [Price]? {get set}
     func getPrice()
-        
+    func addNewService()
     }
     
-class PricePresenter: PricePresenterProtocol {
+class PricePresenter: PricePresenterProtocol{
        
     weak var view: PriceProtocol?
     var router: LoginRouterProtocol?
     let networkService:APIPriceProtocol!
     var price: [Price]?
+
     
     required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
         getPrice()
+    }
+    func addNewService(){
+        print("newService")
     }
     
     func getPrice() {

@@ -68,10 +68,12 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func schowPriceButoon() {
         print("schowPriceButoon")
+        self.router?.showPrice()
     }
     
     func schowTeamButoon() {
         print("schowTeamButoon")
+     
     }
     
     func changeStatus() {
