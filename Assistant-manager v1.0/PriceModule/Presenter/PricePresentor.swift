@@ -9,7 +9,7 @@ import Foundation
 
 protocol PriceProtocol: AnyObject{
     func succesReloadTable()
-    func filure(error: Error)
+    func failure(error: Error)
 }
 
 protocol PricePresenterProtocol: AnyObject{
@@ -17,6 +17,8 @@ protocol PricePresenterProtocol: AnyObject{
     var price: [Price]? {get set}
     func getPrice()
     func addNewService()
+    func redactServise(indexPath: IndexPath)
+    func deleteServise(indexPath: IndexPath)
     }
     
 class PricePresenter: PricePresenterProtocol{
@@ -36,6 +38,25 @@ class PricePresenter: PricePresenterProtocol{
     func addNewService(){
         print("newService")
     }
+    func redactServise(indexPath: IndexPath) {
+        print("redactClient")
+    }
+    func deleteServise(indexPath: IndexPath) {
+        print("deleteClient")
+        guard let id = self.price?[ indexPath.row].idPrice else {return}
+        self.price?.remove(at: indexPath.row)
+        networkService.deleteServise(id: id) {[weak self] result in
+        guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case.success(_):
+                    print("delete")
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+        }
+    }
     
     func getPrice() {
         networkService.getPriceAPI{ [weak self] result in
@@ -46,7 +67,7 @@ class PricePresenter: PricePresenterProtocol{
                     self?.price = price
                     self?.view?.succesReloadTable()
                 case .failure(let error):
-                    self?.view?.filure(error: error)
+                    self?.view?.failure(error: error)
                   
                 }
             }

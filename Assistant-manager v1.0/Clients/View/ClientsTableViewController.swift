@@ -84,8 +84,8 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
         }
         deleteAction.image = UIImage(systemName: "trash")
         editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
-        deleteAction.backgroundColor = .systemRed
-        editAction.backgroundColor = .systemGreen
+        deleteAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
+        editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
         return configuration
     }

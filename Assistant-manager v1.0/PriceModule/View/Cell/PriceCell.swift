@@ -28,15 +28,15 @@ class PriceCell: UITableViewCell {
 
     lazy var circleView: UIImageView = {
         let circl = UIImageView()
-        circl.backgroundColor = .white
+        circl.backgroundColor = UIColor.appColor(.blueAssistantFon)
         circl.layer.borderWidth = 2
-        circl.layer.borderColor = UIColor.rgb(red: 31, green: 152, blue: 233) .cgColor
+        circl.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
          return circl
      }()
     
     let lineView: UIImageView = {
         let line = UIImageView()
-        line.backgroundColor = .lightGray
+        line.backgroundColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)
          return line
      }()
     
@@ -45,7 +45,7 @@ class PriceCell: UITableViewCell {
         label.textAlignment = .center
         label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .black
+        label.textColor = UIColor.appColor(.whiteAssistant)!
          return label
      }()
     
@@ -54,7 +54,7 @@ class PriceCell: UITableViewCell {
         label.textAlignment = .left
         label.text = "$"
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .black
+        label.textColor = UIColor.appColor(.whiteAssistant)!
          return label
      }()
 
@@ -88,14 +88,16 @@ class PriceCell: UITableViewCell {
         super.layoutSubviews()
         
         textLabel?.frame = CGRect(x: 140, y: textLabel!.frame.origin.y + 10, width: frame.width - 180, height: (textLabel?.frame.height)!)
-      
         detailTextLabel?.frame = CGRect(x: 140, y: textLabel!.frame.origin.y + 17, width: frame.width - 180, height: (detailTextLabel?.frame.height)!)
        
         textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        textLabel?.textColor = UIColor.appColor(.whiteAssistant)!
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
-        detailTextLabel?.textColor = .systemGray2
+        detailTextLabel?.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
         detailTextLabel?.numberOfLines = 0
- 
+    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.circleView.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
     }
 
     required init?(coder: NSCoder) {

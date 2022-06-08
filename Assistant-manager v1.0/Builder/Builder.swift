@@ -98,13 +98,13 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         
        let presenter = CalendadrPresentor(view: view, networkService: networkService,networkServiceStatistic: networkServiceStatistic, router: router )
        view.presenter = presenter
-       let CalendarButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
+        let CalendarButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
        return (view:view, buuton: CalendarButtom)
     }
     
     func createExpensesModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)  {
        let view = ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout())
-       let ExpensesButtom = createNavController(viewController: ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-прибыльность-96"), unselectedImage: #imageLiteral(resourceName: "icons8-прибыльность-96"))
+        let ExpensesButtom = createNavController(viewController: ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout()), title: "", selectadImage: #imageLiteral(resourceName: "icons8-прибыльность-96"), unselectedImage: #imageLiteral(resourceName: "icons8-прибыльность-96"))
        let networkService = APILoginService()
        let presenter = ExpensesPresentor(view: view, networkService: networkService, router: router)
        view.presenter = presenter
@@ -115,7 +115,7 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
        let view = StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let presenter = StartWorckPresentor(view: view, router: router)
        view.presenter = presenter
-       let StartButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
+        let StartButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
        return (view:view, buuton: StartButtom)
     }
     
@@ -123,11 +123,11 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
        let view = StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let presenter = StatistikPresentor(view: view, router: router)
        view.presenter = presenter
-       let StatistikButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
+        let StatistikButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
        return (view:view, buuton: StatistikButtom)
     }
     
-    
+ 
     func createNavController(viewController: UIViewController, title: String, selectadImage: UIImage, unselectedImage: UIImage) -> UIViewController {
         
         let navController = UINavigationController(rootViewController: viewController)
@@ -136,6 +136,7 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         viewController.navigationItem.title = title // название в навигешн баре в верху
         navController.tabBarItem.image = unselectedImage
         navController.tabBarItem.selectedImage = selectadImage
+        navController.navigationBar.isHidden = true
       //tabBar.barTintColor = .white
         // убираем стандартную настройку прозрачности таб бара и делаем ее не прозрачной
         if #available(iOS 13.0, *) {

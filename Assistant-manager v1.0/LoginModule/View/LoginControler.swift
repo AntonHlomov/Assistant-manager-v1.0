@@ -76,7 +76,7 @@ class LoginControler: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
-        navigationController?.navigationBar.isHidden = true // скрыть навигейшн бар
+      //  navigationController?.navigationBar.isHidden = true // скрыть навигейшн бар
         setupNotificationObserver()
         configureViewComponents()
         setupTapGesture()

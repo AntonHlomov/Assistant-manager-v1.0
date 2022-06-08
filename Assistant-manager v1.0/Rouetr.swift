@@ -77,6 +77,9 @@ class Router: LoginRouterProtocol{
             guard let StatistikControler = assemblyBuilder?.createStatistikModule(router: self) else {return}
             let controllers = [CalendarControler.buuton, ExpensesControler.buuton, StartControler.buuton, StatistikControler.buuton]
             tabBarControler.setViewControllers(controllers, animated: true)
+           // navigationControler.navigationBar.isHidden = true
+        
+            
             navigationControler.viewControllers = [tabBarControler]
       
         }

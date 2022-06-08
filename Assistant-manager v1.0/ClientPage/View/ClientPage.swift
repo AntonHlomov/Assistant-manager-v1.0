@@ -120,7 +120,6 @@ class ClientPage: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         configureNavigationBar()
         configureUI()

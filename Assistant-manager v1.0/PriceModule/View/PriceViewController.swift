@@ -21,6 +21,11 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+      
+       // self.navigationController?.navigationBar.prefersLargeTitles = true
+       // navigationItem.title = "Price"
+       // navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.appColor(.whiteAssistant)!]
         configureUI()
         configureTable()
         handlers()
@@ -41,7 +46,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func configureTable(){
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor.rgb(red: 31, green: 152, blue: 233)
+        tableView.backgroundColor = UIColor.appColor(.blueAssistantFon)!
         tableView.register(PriceCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear
     }
@@ -52,18 +57,41 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! PriceCell
-        cell.lineView.backgroundColor = .white
         //убираем выделение
         cell.selectionStyle = .none
-        cell.backgroundColor = UIColor.rgb(red: 31, green: 152, blue: 233)
-        cell.textLabel?.textColor = .white
-        cell.priceLabel.textColor = .white
-        cell.priceNameCurrencyLabel.textColor = .white
-        cell.circleView.backgroundColor = UIColor.rgb(red: 31, green: 152, blue: 233)
-        cell.circleView.layer.borderColor =  UIColor.rgb(red: 255, green: 255, blue: 255) .cgColor
+        cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.price = presenter.price?[indexPath.row]
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration? {
+        // Создать константу для работы с кнопкой
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
+            print("Delete")
+            self?.presenter.deleteServise(indexPath: indexPath)
+            self!.tableView.deleteRows(at: [indexPath], with: .top)
+        }
+        let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
+            print("Redact")
+            self?.presenter.redactServise(indexPath: indexPath)
+            //tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
+        deleteAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
+        editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
+        return configuration
+        
+    }
+    
+    
+    
+    
+    
     @objc fileprivate func addService(){
         presenter.addNewService()
     }
@@ -85,7 +113,7 @@ extension PriceViewController: PriceProtocol {
         tableView.reloadData()
     }
     
-    func filure(error: Error) {
+    func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertMassage(title: "Error", message: error)
     }
