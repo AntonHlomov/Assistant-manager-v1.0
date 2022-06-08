@@ -288,14 +288,14 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				8ACD281628515566005D993E /* AddNewService */,
-				8AA756AE27BD3DB400E89C4E /* Rouetr.swift */,
+				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
 				8AE627C32850D094000182A8 /* PriceModule */,
+				8ACD281628515566005D993E /* AddNewService */,
 				8A7D48EA2829C0A000017870 /* Clients */,
 				8A308FB5284A96450045FA20 /* AddClient */,
 				8A007645284351AB00FF73FD /* ClientPage */,
@@ -689,6 +689,14 @@
 				8ACD281E28515653005D993E /* ApiAddNewService.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		8ACD282028515E45005D993E /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				8AA756AE27BD3DB400E89C4E /* Rouetr.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		8AD0C5F7279805BE00BE414A /* Cell */ = {
