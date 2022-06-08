@@ -37,7 +37,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     fileprivate func  configureUI() {
         
         view.addSubview(newService)
-        newService.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 35))
+        newService.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
         
         view.addSubview(tableView)
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom:  newService.topAnchor, trailing: view.trailingAnchor,  pading: .init(top: 3, left: 10, bottom: 20, right: 10), size: .init(width: 0, height: view.frame.height))
@@ -50,18 +50,21 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.register(PriceCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear
     }
+   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.price?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
         let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! PriceCell
         //убираем выделение
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.price = presenter.price?[indexPath.row]
         return cell
+      
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -85,6 +88,8 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
         return configuration
+        
+     
         
     }
     
