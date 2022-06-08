@@ -15,6 +15,7 @@ protocol AddClientViewProtocol: AnyObject {
 
 protocol AddClientViewPresenterProtocol: AnyObject {
     init(view: AddClientViewProtocol,networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol,editMode: Bool,client: Client?)
+    
     func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String)
 
     

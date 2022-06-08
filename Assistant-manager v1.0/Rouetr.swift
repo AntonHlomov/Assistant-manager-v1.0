@@ -23,6 +23,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showPrice()
     func showClientPage(client: Client?)
     func showAddClientView(editMode: Bool, client: Client?)
+    func showAddNewServiceView(editMode: Bool, price: Price?)
     func showOptionesViewController(user: User?)
     func initalLoginViewControler()
     func initalMainTabControler()
@@ -35,7 +36,7 @@ protocol LoginRouterProtocol: RouterLogin {
 }
 
 class Router: LoginRouterProtocol{
-   
+  
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
     var assemblyBuilder: AsselderBuilderProtocol?
@@ -125,6 +126,12 @@ class Router: LoginRouterProtocol{
     func showAddClientView(editMode: Bool, client: Client?) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createAddClientModule( router: self, editMode: editMode, client: client) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    func showAddNewServiceView(editMode: Bool, price: Price?) {
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.addNewServiceModule( router: self, editMode: editMode, price: price) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

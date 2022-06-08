@@ -72,6 +72,9 @@
 		8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D027977578007315DE /* StatistikViewController.swift */; };
 		8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D22797759B007315DE /* StartWorckViewController.swift */; };
 		8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */; };
+		8ACD281B2851560D005D993E /* AddNewServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD281A2851560D005D993E /* AddNewServiceViewController.swift */; };
+		8ACD281D2851563C005D993E /* AddNewServicePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD281C2851563C005D993E /* AddNewServicePresenter.swift */; };
+		8ACD281F28515653005D993E /* ApiAddNewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD281E28515653005D993E /* ApiAddNewService.swift */; };
 		8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2DE327999A03009539BD /* CustomUIimageView.swift */; };
 		8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */; };
 		8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */; };
@@ -149,6 +152,9 @@
 		8AAF98D027977578007315DE /* StatistikViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikViewController.swift; sourceTree = "<group>"; };
 		8AAF98D22797759B007315DE /* StartWorckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckViewController.swift; sourceTree = "<group>"; };
 		8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiStatistikMoney.swift; sourceTree = "<group>"; };
+		8ACD281A2851560D005D993E /* AddNewServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewServiceViewController.swift; sourceTree = "<group>"; };
+		8ACD281C2851563C005D993E /* AddNewServicePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewServicePresenter.swift; sourceTree = "<group>"; };
+		8ACD281E28515653005D993E /* ApiAddNewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAddNewService.swift; sourceTree = "<group>"; };
 		8ACD2DE327999A03009539BD /* CustomUIimageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIimageView.swift; sourceTree = "<group>"; };
 		8AD0C5F92798062F00BE414A /* UserProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCell.swift; sourceTree = "<group>"; };
 		8AD0C5FC279806CF00BE414A /* SearchBarCalendarModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCalendarModuleCell.swift; sourceTree = "<group>"; };
@@ -282,6 +288,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8ACD281628515566005D993E /* AddNewService */,
 				8AA756AE27BD3DB400E89C4E /* Rouetr.swift */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
@@ -290,8 +297,8 @@
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
 				8AE627C32850D094000182A8 /* PriceModule */,
 				8A7D48EA2829C0A000017870 /* Clients */,
-				8A007645284351AB00FF73FD /* ClientPage */,
 				8A308FB5284A96450045FA20 /* AddClient */,
+				8A007645284351AB00FF73FD /* ClientPage */,
 				8A91A828282D99B3006F1FFD /* Options settings */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
@@ -650,6 +657,40 @@
 			path = CalendarModule;
 			sourceTree = "<group>";
 		};
+		8ACD281628515566005D993E /* AddNewService */ = {
+			isa = PBXGroup;
+			children = (
+				8ACD2819285155D6005D993E /* API */,
+				8ACD2818285155CA005D993E /* Presenter */,
+				8ACD2817285155BB005D993E /* View */,
+			);
+			path = AddNewService;
+			sourceTree = "<group>";
+		};
+		8ACD2817285155BB005D993E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8ACD281A2851560D005D993E /* AddNewServiceViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8ACD2818285155CA005D993E /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8ACD281C2851563C005D993E /* AddNewServicePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8ACD2819285155D6005D993E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8ACD281E28515653005D993E /* ApiAddNewService.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		8AD0C5F7279805BE00BE414A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -877,6 +918,7 @@
 				8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */,
 				8AD1508927D4EA3100FE8AB0 /* DateExtension.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
+				8ACD281D2851563C005D993E /* AddNewServicePresenter.swift in Sources */,
 				8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
 				8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */,
@@ -888,6 +930,7 @@
 				8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */,
 				8AA756B427BD892100E89C4E /* PresenterMainTabVC.swift in Sources */,
 				8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */,
+				8ACD281B2851560D005D993E /* AddNewServiceViewController.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
 				8A91A831282D9DC0006F1FFD /* APIOptiones.swift in Sources */,
 				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
@@ -895,6 +938,7 @@
 				8A8E45652791911600828B7E /* Client.swift in Sources */,
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
 				8A8E4563279190E100828B7E /* User.swift in Sources */,
+				8ACD281F28515653005D993E /* ApiAddNewService.swift in Sources */,
 				8AAF98BF279770A7007315DE /* MainTabVC.swift in Sources */,
 				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,

@@ -37,6 +37,7 @@ class PricePresenter: PricePresenterProtocol{
     }
     func addNewService(){
         print("newService")
+        self.router?.showAddNewServiceView(editMode: false, price: nil)
     }
     func redactServise(indexPath: IndexPath) {
         print("redactClient")
