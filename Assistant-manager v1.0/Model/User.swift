@@ -22,6 +22,10 @@ class User {
     var statusBoss: Bool!
     var statusAdministrator: Bool!
     var statusMaster: Bool!
+    var clientsCount: Int!
+    var priceCount: Int!
+    var teamCount: Int!
+    
 
     init(dictionary: [String: Any]) {
         
@@ -37,6 +41,9 @@ class User {
         self.statusBoss = dictionary["statusBoss"] as? Bool ?? nil
         self.statusAdministrator = dictionary["statusAdministrator"] as? Bool ?? nil
         self.statusMaster = dictionary["statusMaster"] as? Bool ?? nil
+        self.clientsCount = dictionary["clientsCount"] as? Int ?? nil
+        self.priceCount = dictionary["priceCount"] as? Int ?? nil
+        self.teamCount = dictionary["teamCount"] as? Int ?? nil
        
     }
 }

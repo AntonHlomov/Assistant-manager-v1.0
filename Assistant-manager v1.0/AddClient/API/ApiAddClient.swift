@@ -111,6 +111,9 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
                     completion(.failure(error))
                     return
                     }
+                    // Atomically increment the population of the city by 50.increment(Int64(50))
+                    // Note that increment() with no arguments increments by 1.
+                    Firestore.firestore().collection("users").document(uid).updateData(["clientsCount": FieldValue.increment(Int64(1))])
                     completion(.success(true))
                 }
         }

@@ -121,18 +121,19 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
             switch indexPath{
             case [2, 0]:
                 cell.optionesImageView.image = #imageLiteral(resourceName: "clients").withRenderingMode(.alwaysOriginal)
-                cell.detailTextLabel?.text = "Yu have " + "??" + " clients"
+                cell.detailTextLabel?.text = "Yu have " + String(presenter.user?.clientsCount ?? 0) + " clients"
                 //
             case [2, 1]:
                 cell.optionesImageView.image = #imageLiteral(resourceName: "icons8-сортировка-ответов-48").withRenderingMode(.alwaysOriginal)
-                cell.detailTextLabel?.text = "??" + " services in yuor price"
+                cell.detailTextLabel?.text = String(presenter.user?.priceCount ?? 0) + " services in yuor price"
                 
             case [2, 2]:
                 cell.optionesImageView.image = #imageLiteral(resourceName: "team").withRenderingMode(.alwaysOriginal)
-                cell.detailTextLabel?.text = "??" + " person in yuor team"
+                cell.detailTextLabel?.text = String(presenter.user?.teamCount ?? 0) + " person in yuor team"
                 
             case [2, 3]:
                 cell.optionesImageView.image = #imageLiteral(resourceName: "icons8-школа-48").withRenderingMode(.alwaysOriginal)
+                
                 cell.detailTextLabel?.text = "Access level: " + "??"
        
             default:
