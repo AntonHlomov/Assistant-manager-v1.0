@@ -35,7 +35,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
  
     }
     func puchConfirm(){
-        print("puchConfirm")
+        print("puchConfirm",client?.nameClient ?? "")
     }
     
 }
