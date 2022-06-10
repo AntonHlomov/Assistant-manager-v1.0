@@ -11,6 +11,7 @@ protocol PriceProtocol: AnyObject{
     func succesTotalListPrice(totalList:String)
     func succesReloadTable()
     func failure(error: Error)
+    func changeButton(newVisitMode: Bool)
 }
 
 protocol PricePresenterProtocol: AnyObject{
@@ -46,14 +47,26 @@ class PricePresenter: PricePresenterProtocol{
         self.networkService = networkService
         self.client = client
         self.newVisitMode = newVisitMode
+        checknewVisitMode()
         getPrice()
     }
+    func checknewVisitMode(){
+        guard self.newVisitMode == true else {return}
+        view?.changeButton(newVisitMode: true)
+    }
     func addNewService(){
-        print("newService")
-        self.checkmarkServises.removeAll()
-        checkTotalServices()
-        self.router?.showAddNewServiceView(editMode: false, price: nil)
-        self.view?.succesReloadTable()
+        switch newVisitMode{
+        case true:
+            print("go to calendar edit nev visit",client?.nameClient ?? "")
+        case false:
+            print("newService")
+            self.checkmarkServises.removeAll()
+            checkTotalServices()
+            self.router?.showAddNewServiceView(editMode: false, price: nil)
+            self.view?.succesReloadTable()
+        default:
+            return
+        }
     }
     func redactServise(indexPath: IndexPath) {
         print("redactClient")

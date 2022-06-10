@@ -56,6 +56,7 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     }
     func pressСlientInvitationButton() {
         print("pressСlientInvitationButton")
+        self.router?.showPrice(newVisitMode: true, client: client)
     }
     
     func pressСallButton() {

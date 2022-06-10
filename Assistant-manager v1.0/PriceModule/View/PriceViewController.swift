@@ -19,7 +19,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         return tableView
     }()
    
-    fileprivate let newService =    UIButton.setupButton(title: "New service", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
+    fileprivate let newService =  UIButton.setupButton(title: "New service", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
     
 
     override func viewDidLoad() {
@@ -165,6 +165,11 @@ extension PriceViewController{
 }
 
 extension PriceViewController: PriceProtocol {
+    func changeButton(newVisitMode: Bool) {
+        guard newVisitMode == true else{return}
+        self.newService.setTitle("Next >>>", for: .normal)
+    }
+    
     func succesTotalListPrice(totalList: String) {
         navigationItem.title = "Price: "+totalList+"$"
     }
