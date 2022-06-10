@@ -49,6 +49,9 @@
 		8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */; };
 		8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45942791E8B000828B7E /* LoginPresenter.swift */; };
 		8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45982791F01E00828B7E /* RegistrationController.swift */; };
+		8A8F747D285400EF00D52B4B /* СhoiceVisitDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */; };
+		8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */; };
+		8A8F74812854016C00D52B4B /* ApiСhoiceVisitDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */; };
 		8A916CF9284E116500A18257 /* HeaderOptinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A916CF8284E116500A18257 /* HeaderOptinesTableViewCell.swift */; };
 		8A916CFB284E17C800A18257 /* OptionesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A916CFA284E17C800A18257 /* OptionesTableViewCell.swift */; };
 		8A91A82D282D9ABB006F1FFD /* OptionesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91A82C282D9ABB006F1FFD /* OptionesController.swift */; };
@@ -129,6 +132,9 @@
 		8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraintsExtension.swift; sourceTree = "<group>"; };
 		8A8E45942791E8B000828B7E /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		8A8E45982791F01E00828B7E /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СhoiceVisitDateViewController.swift"; sourceTree = "<group>"; };
+		8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СhoiceVisitDatePresenter.swift"; sourceTree = "<group>"; };
+		8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiСhoiceVisitDate.swift"; sourceTree = "<group>"; };
 		8A916CF8284E116500A18257 /* HeaderOptinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderOptinesTableViewCell.swift; sourceTree = "<group>"; };
 		8A916CFA284E17C800A18257 /* OptionesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesTableViewCell.swift; sourceTree = "<group>"; };
 		8A91A82C282D9ABB006F1FFD /* OptionesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesController.swift; sourceTree = "<group>"; };
@@ -288,6 +294,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A8F74782854004700D52B4B /* СhoiceVisitDateModule */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
@@ -365,6 +372,40 @@
 				8A8E458A2791E54800828B7E /* LoginControler.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8A8F74782854004700D52B4B /* СhoiceVisitDateModule */ = {
+			isa = PBXGroup;
+			children = (
+				8A8F747B2854008200D52B4B /* API */,
+				8A8F747A2854007F00D52B4B /* View */,
+				8A8F74792854007A00D52B4B /* Presenter */,
+			);
+			path = "СhoiceVisitDateModule";
+			sourceTree = "<group>";
+		};
+		8A8F74792854007A00D52B4B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A8F747A2854007F00D52B4B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A8F747B2854008200D52B4B /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		8A916CF7284E112800A18257 /* Cell */ = {
@@ -901,6 +942,7 @@
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */,
 				8A308FBA284A97410045FA20 /* AddClientView.swift in Sources */,
+				8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
@@ -914,6 +956,7 @@
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
 				8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
+				8A8F747D285400EF00D52B4B /* СhoiceVisitDateViewController.swift in Sources */,
 				8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */,
 				8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */,
 				8A8E45712791936500828B7E /* Expense.swift in Sources */,
@@ -926,6 +969,7 @@
 				8ACD2DE427999A03009539BD /* CustomUIimageView.swift in Sources */,
 				8AD1508927D4EA3100FE8AB0 /* DateExtension.swift in Sources */,
 				8A8E45402791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld in Sources */,
+				8A8F74812854016C00D52B4B /* ApiСhoiceVisitDate.swift in Sources */,
 				8ACD281D2851563C005D993E /* AddNewServicePresenter.swift in Sources */,
 				8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,

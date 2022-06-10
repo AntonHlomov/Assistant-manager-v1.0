@@ -167,7 +167,7 @@ extension PriceViewController{
 extension PriceViewController: PriceProtocol {
     func changeButton(newVisitMode: Bool) {
         guard newVisitMode == true else{return}
-        self.newService.setTitle("Next >>>", for: .normal)
+        self.newService.setTitle("Сhoice of visit date >>>", for: .normal)
     }
     
     func succesTotalListPrice(totalList: String) {

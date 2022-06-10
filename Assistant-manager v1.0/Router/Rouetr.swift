@@ -21,6 +21,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showLoginController()
     func showClientsTableViewController()
     func showPrice(newVisitMode: Bool, client: Client?)
+    func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?)
     func showClientPage(client: Client?)
     func showAddClientView(editMode: Bool, client: Client?)
     func showAddNewServiceView(editMode: Bool, price: Price?)
@@ -36,6 +37,8 @@ protocol LoginRouterProtocol: RouterLogin {
 }
 
 class Router: LoginRouterProtocol{
+  
+    
   
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
@@ -114,6 +117,12 @@ class Router: LoginRouterProtocol{
     func showPrice(newVisitMode: Bool, client: Client?) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createPriceModule(router: self,newVisitMode: newVisitMode, client: client) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?) {
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.createChoiceVisitDateModule(router: self,serviceCheck: serviceCheck,clientCheck: clientCheck) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

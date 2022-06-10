@@ -9,14 +9,23 @@ import UIKit
 
 protocol AsselderBuilderProtocol{
     func createLoginModule(router: LoginRouterProtocol) -> UIViewController
+    
     func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController
+    
     func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController
+    
     func createClientsTableModule(router: LoginRouterProtocol) -> UIViewController
+    
     func createPriceModule(router: LoginRouterProtocol,newVisitMode: Bool, client: Client?) -> UIViewController
+    
     func addNewServiceModule(router: LoginRouterProtocol,editMode: Bool, price: Price?) -> UIViewController
     
+    func createChoiceVisitDateModule(router:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) -> UIViewController
+    
     func craateClientPageModule(router:LoginRouterProtocol,client: Client?) -> UIViewController
+    
     func createAddClientModule(router:LoginRouterProtocol,editMode: Bool, client: Client?) -> UIViewController
+    
     func createOptionesModule(router: LoginRouterProtocol,user: User?) -> UIViewController
     
     func createCalendarModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController)
@@ -27,6 +36,8 @@ protocol AsselderBuilderProtocol{
 }
 // сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
+  
+    
     func addNewServiceModule(router: LoginRouterProtocol, editMode: Bool, price: Price?) -> UIViewController {
         let view = AddNewServiceViewController()
         let networkService = ApiAddNewService()
@@ -64,6 +75,14 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         let view = PriceViewController()
         let networkService = APIPrice()
         let presenter = PricePresenter(view: view, networkService: networkService, ruter: router,newVisitMode: newVisitMode, client: client)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createChoiceVisitDateModule(router: LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) -> UIViewController {
+        let view = ChoiceVisitDateViewController()
+        let networkService = ApiСhoiceVisitDate()
+        let presenter = СhoiceVisitDatePresenter(view: view, networkService:networkService, ruter:router,serviceCheck: serviceCheck,clientCheck: clientCheck)
         view.presenter = presenter
         return view
     }

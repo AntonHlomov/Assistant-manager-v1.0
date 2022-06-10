@@ -57,6 +57,7 @@ class PricePresenter: PricePresenterProtocol{
     func addNewService(){
         switch newVisitMode{
         case true:
+            self.router?.showChoiceVisitDateModule(serviceCheck: checkmarkServises, clientCheck: client)
             print("go to calendar edit nev visit",client?.nameClient ?? "")
         case false:
             print("newService")
