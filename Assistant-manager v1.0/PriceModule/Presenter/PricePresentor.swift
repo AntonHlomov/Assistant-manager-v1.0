@@ -16,7 +16,6 @@ protocol PricePresenterProtocol: AnyObject{
     init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol)
     var price: [Price]? {get set}
     var filterPrice: [Price]? {get set}
-    var checkmarkServises: [Price]? {get set}
     func getPrice()
     func addNewService()
     func redactServise(indexPath: IndexPath)
@@ -33,7 +32,7 @@ class PricePresenter: PricePresenterProtocol{
     let networkService:APIPriceProtocol!
     var price: [Price]?
     var filterPrice: [Price]?
-    var checkmarkServises: [Price]?
+    var checkmarkServises = [Price]()
 
     
     required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol) {
@@ -95,18 +94,18 @@ class PricePresenter: PricePresenterProtocol{
     }
     
     func onCheckmarkSaveServise(indexPath: IndexPath){
-     //   guard let checServies = filterPrice?[indexPath.row] else {return}
-     //   self.checkmarkServises?.append(checServies)
+        guard let checServies = self.filterPrice?[indexPath.row] else {return}
+        self.checkmarkServises.append(checServies)
+        
         
     }
     func offCheckmarkSaveServise(indexPath: IndexPath){
-     //   guard let offChecServies = filterPrice?[indexPath.row].idPrice else {return}
-     //
-     //   let index = self.checkmarkServises?.firstIndex{$0.idPrice.contains(offChecServies)}
-     //   if let index = index {
-     //       self.checkmarkServises?.remove(at: index)
-     //   }
-        
+       guard let offChecServies = filterPrice?[indexPath.row].idPrice else {return}
+       let index = self.checkmarkServises.firstIndex{$0.idPrice.contains(offChecServies)}
+       if let index = index {
+           self.checkmarkServises.remove(at: index)
+           
+       }
     }
         
         
