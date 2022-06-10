@@ -20,7 +20,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showRegistrationController()
     func showLoginController()
     func showClientsTableViewController()
-    func showPrice()
+    func showPrice(newVisitMode: Bool, client: Client?)
     func showClientPage(client: Client?)
     func showAddClientView(editMode: Bool, client: Client?)
     func showAddNewServiceView(editMode: Bool, price: Price?)
@@ -111,9 +111,9 @@ class Router: LoginRouterProtocol{
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showPrice() {
+    func showPrice(newVisitMode: Bool, client: Client?) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createPriceModule(router: self) else {return}
+            guard let registrationControler = assemblyBuilder?.createPriceModule(router: self,newVisitMode: newVisitMode, client: client) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

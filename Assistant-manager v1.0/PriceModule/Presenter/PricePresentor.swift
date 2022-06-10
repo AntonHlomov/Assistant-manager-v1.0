@@ -14,7 +14,7 @@ protocol PriceProtocol: AnyObject{
 }
 
 protocol PricePresenterProtocol: AnyObject{
-    init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol)
+    init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol,newVisitMode: Bool, client: Client?)
     var price: [Price]? {get set}
     var filterPrice: [Price]? {get set}
     var checkmarkServises: [Price] {get set}
@@ -36,12 +36,16 @@ class PricePresenter: PricePresenterProtocol{
     var price: [Price]?
     var filterPrice: [Price]?
     var checkmarkServises = [Price]()
+    var client: Client?
+    var newVisitMode: Bool?
 
     
-    required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol) {
+    required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol,newVisitMode: Bool, client: Client?) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
+        self.client = client
+        self.newVisitMode = newVisitMode
         getPrice()
     }
     func addNewService(){
