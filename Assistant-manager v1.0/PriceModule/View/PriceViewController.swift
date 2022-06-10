@@ -7,8 +7,11 @@
 
 import UIKit
 
-class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchResultsUpdating {
+   
+    
     var presenter: PricePresenterProtocol!
+    let searchController = UISearchController(searchResultsController: nil)
     let cell = "Cell"
     var tableView:UITableView = {
        let tableView = UITableView()
@@ -22,13 +25,29 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-      
-       // self.navigationController?.navigationBar.prefersLargeTitles = true
-       // navigationItem.title = "Price"
-       // navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.appColor(.whiteAssistant)!]
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Price: "+"0"+"$"
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.appColor(.whiteAssistant)!]
+        
         configureUI()
         configureTable()
         handlers()
+        
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.barTintColor = UIColor.appColor(.blueAssistantFon)
+ 
+        searchController.obscuresBackgroundDuringPresentation = false//  делает затемнение при вводе запроса а поиск
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.searchTextField.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        //цвет кнопки отмена
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.appColor(.whiteAndBlueAssistantFon)! ], for: .normal)
+             //меняем цвет лупы в поиске
+         let textField = searchController.searchBar.value(forKey: "searchField") as! UITextField
+         let glassIconView = textField.leftView as! UIImageView
+         glassIconView.image = glassIconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+         glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
     }
     fileprivate func handlers(){
         newService.addTarget(self, action: #selector(addService), for: .touchUpInside)
@@ -49,11 +68,12 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.backgroundColor = UIColor.appColor(.blueAssistantFon)!
         tableView.register(PriceCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear
+        tableView.allowsMultipleSelection = true
     }
    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.price?.count ?? 0
+        return presenter.filterPrice?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,12 +82,23 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         //убираем выделение
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        cell.price = presenter.price?[indexPath.row]
+        cell.price = presenter.filterPrice?[indexPath.row]
         return cell
       
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        cell.accessoryType = .checkmark
+        presenter.onCheckmarkSaveServise(indexPath: indexPath)
         
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        cell.accessoryType = .none
+        presenter.offCheckmarkSaveServise(indexPath: indexPath)
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.accessoryType = (cell.isSelected) ? .checkmark : .none
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
@@ -92,11 +123,10 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
      
         
     }
-    
-    
-    
-    
-    
+    func updateSearchResults(for searchController: UISearchController) {
+        presenter.filter(text: searchController.searchBar.text!)
+    }
+ 
     @objc fileprivate func addService(){
         presenter.addNewService()
     }

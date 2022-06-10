@@ -73,8 +73,8 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
             DispatchQueue.main.async {
                 switch result{
                 case .success(let clients):
-                    self?.clients = clients
-                    self?.filterClients = clients?.sorted{ $0.nameClient < $1.nameClient}
+                    self?.clients = clients?.sorted{ $0.nameClient < $1.nameClient}
+                    self?.filterClients = self?.clients
                     self?.view?.succesReload()
                 case .failure(let error):
                     self?.view?.failure(error: error)
