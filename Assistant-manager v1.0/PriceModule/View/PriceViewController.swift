@@ -24,11 +24,11 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+       
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Price: "+"0"+"$"
+        navigationItem.title = "Price: "+"0.0"+"$"
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.appColor(.whiteAssistant)!]
-        
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         configureUI()
         configureTable()
         handlers()
@@ -69,6 +69,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.register(PriceCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear
         tableView.allowsMultipleSelection = true
+        tableView.refreshControl = dataRefresher
     }
    
     
@@ -114,14 +115,28 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
             //tableView.reloadRows(at: [indexPath], with: .fade)
         }
         deleteAction.image = UIImage(systemName: "trash")
-        editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
+        editAction.image = UIImage(#imageLiteral(resourceName: "icons8-школа-48"))
         deleteAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
         editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
         return configuration
-        
-     
-        
+   
+    }
+    
+    // MARK: - Refresher
+    lazy var dataRefresher : UIRefreshControl = {
+        let myRefreshControl = UIRefreshControl()
+        myRefreshControl.tintColor =  .white
+        myRefreshControl.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        myRefreshControl.addTarget(self, action: #selector(updateMyCategory), for: .valueChanged)
+    return myRefreshControl
+    }()
+    
+    @objc func updateMyCategory() {
+        presenter.getPrice()
+        presenter.checkTotalServices()
+        // EndRefreshing
+        dataRefresher.endRefreshing()
     }
     func updateSearchResults(for searchController: UISearchController) {
         presenter.filter(text: searchController.searchBar.text!)
@@ -144,6 +159,10 @@ extension PriceViewController{
 }
 
 extension PriceViewController: PriceProtocol {
+    func succesTotalListPrice(totalList: String) {
+        navigationItem.title = "Price: "+totalList+"$"
+    }
+    
     func succesReloadTable() {
         tableView.reloadData()
     }

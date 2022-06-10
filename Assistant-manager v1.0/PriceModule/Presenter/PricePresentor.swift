@@ -8,6 +8,7 @@
 import Foundation
 
 protocol PriceProtocol: AnyObject{
+    func succesTotalListPrice(totalList:String)
     func succesReloadTable()
     func failure(error: Error)
 }
@@ -23,6 +24,7 @@ protocol PricePresenterProtocol: AnyObject{
     func filter(text: String)
     func offCheckmarkSaveServise(indexPath: IndexPath)
     func onCheckmarkSaveServise(indexPath: IndexPath)
+    func checkTotalServices()
     }
     
 class PricePresenter: PricePresenterProtocol{
@@ -68,6 +70,7 @@ class PricePresenter: PricePresenterProtocol{
     }
     
     func getPrice() {
+        self.checkmarkServises.removeAll()
         networkService.getPriceAPI{ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
@@ -96,6 +99,7 @@ class PricePresenter: PricePresenterProtocol{
     func onCheckmarkSaveServise(indexPath: IndexPath){
         guard let checServies = self.filterPrice?[indexPath.row] else {return}
         self.checkmarkServises.append(checServies)
+        checkTotalServices()
         
         
     }
@@ -104,9 +108,17 @@ class PricePresenter: PricePresenterProtocol{
        let index = self.checkmarkServises.firstIndex{$0.idPrice.contains(offChecServies)}
        if let index = index {
            self.checkmarkServises.remove(at: index)
-           
        }
+        checkTotalServices()
     }
+    
+    func checkTotalServices(){
+        let total = self.checkmarkServises.compactMap({$0.priceServies}).reduce(0, +)
+        let totalString =  String(format: "%.1f", total)
+        self.view?.succesTotalListPrice(totalList: totalString)
+    }
+    
+    
         
         
 }
