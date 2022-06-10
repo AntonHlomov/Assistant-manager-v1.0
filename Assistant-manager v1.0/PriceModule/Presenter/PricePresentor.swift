@@ -41,6 +41,7 @@ class PricePresenter: PricePresenterProtocol{
     }
     func redactServise(indexPath: IndexPath) {
         print("redactClient")
+        self.router?.showAddNewServiceView(editMode: true, price: price?[indexPath.row])
     }
     func deleteServise(indexPath: IndexPath) {
         print("deleteClient")
