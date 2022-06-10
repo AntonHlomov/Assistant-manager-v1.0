@@ -32,6 +32,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
     
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)

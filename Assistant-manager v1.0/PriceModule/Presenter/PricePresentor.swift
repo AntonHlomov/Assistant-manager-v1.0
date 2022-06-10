@@ -17,6 +17,7 @@ protocol PricePresenterProtocol: AnyObject{
     init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol)
     var price: [Price]? {get set}
     var filterPrice: [Price]? {get set}
+    var checkmarkServises: [Price] {get set}
     func getPrice()
     func addNewService()
     func redactServise(indexPath: IndexPath)
@@ -45,14 +46,22 @@ class PricePresenter: PricePresenterProtocol{
     }
     func addNewService(){
         print("newService")
+        self.checkmarkServises.removeAll()
+        checkTotalServices()
         self.router?.showAddNewServiceView(editMode: false, price: nil)
+        self.view?.succesReloadTable()
     }
     func redactServise(indexPath: IndexPath) {
         print("redactClient")
+        self.checkmarkServises.removeAll()
+        checkTotalServices()
         self.router?.showAddNewServiceView(editMode: true, price: filterPrice?[indexPath.row])
+        self.view?.succesReloadTable()
     }
     func deleteServise(indexPath: IndexPath) {
         print("deleteClient")
+        self.checkmarkServises.removeAll()
+        checkTotalServices()
         guard let id = self.price?[ indexPath.row].idPrice else {return}
         self.price?.remove(at: indexPath.row)
         self.filterPrice?.remove(at: indexPath.row)
@@ -67,6 +76,7 @@ class PricePresenter: PricePresenterProtocol{
                 }
             }
         }
+      self.view?.succesReloadTable()
     }
     
     func getPrice() {
@@ -113,6 +123,10 @@ class PricePresenter: PricePresenterProtocol{
     }
     
     func checkTotalServices(){
+        guard self.checkmarkServises.isEmpty == false else {
+            self.view?.succesTotalListPrice(totalList: "0.0");
+            return
+        }
         let total = self.checkmarkServises.compactMap({$0.priceServies}).reduce(0, +)
         let totalString =  String(format: "%.1f", total)
         self.view?.succesTotalListPrice(totalList: totalString)

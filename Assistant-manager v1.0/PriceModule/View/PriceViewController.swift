@@ -25,7 +25,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+      //  self.navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Price: "+"0.0"+"$"
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.appColor(.whiteAssistant)!]
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -84,22 +84,28 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.price = presenter.filterPrice?[indexPath.row]
+        
         return cell
       
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
+        
         cell.accessoryType = .checkmark
         presenter.onCheckmarkSaveServise(indexPath: indexPath)
         
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
         let cell = tableView.cellForRow(at: indexPath)!
-        cell.accessoryType = .none
         presenter.offCheckmarkSaveServise(indexPath: indexPath)
+        cell.accessoryType = .none
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.accessoryType = (cell.isSelected) ? .checkmark : .none
+      // if presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice?[indexPath.row].idPrice ?? "0" )}).isEmpty == false{
+      //    cell.accessoryType = .checkmark
+      // }
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {

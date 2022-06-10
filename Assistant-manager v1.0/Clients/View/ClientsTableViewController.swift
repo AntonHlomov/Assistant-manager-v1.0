@@ -17,6 +17,7 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewClient))
        // tableView.refreshControl = dataRefresher
