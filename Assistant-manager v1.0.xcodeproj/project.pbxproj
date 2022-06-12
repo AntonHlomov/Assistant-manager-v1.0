@@ -17,6 +17,8 @@
 		8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */; };
 		8A7AD74F2834176200B12E3F /* TableClientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AD74E2834176200B12E3F /* TableClientCell.swift */; };
 		8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */; };
+		8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */; };
+		8A8C750A2855F66200A6F03A /* MastersScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8C75092855F66200A6F03A /* MastersScheduleTableViewCell.swift */; };
 		8A8E45362791873900828B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45352791873900828B7E /* AppDelegate.swift */; };
 		8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E45372791873900828B7E /* SceneDelegate.swift */; };
 		8A8E453D2791873900828B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E453B2791873900828B7E /* Main.storyboard */; };
@@ -106,6 +108,8 @@
 		8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAllClients.swift; sourceTree = "<group>"; };
 		8A7AD74E2834176200B12E3F /* TableClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableClientCell.swift; sourceTree = "<group>"; };
 		8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTableViewController.swift; sourceTree = "<group>"; };
+		8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterCollectionViewCell.swift; sourceTree = "<group>"; };
+		8A8C75092855F66200A6F03A /* MastersScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastersScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		8A8E45322791873900828B7E /* Assistant-manager v1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assistant-manager v1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8E45352791873900828B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A8E45372791873900828B7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -275,6 +279,15 @@
 			path = Clients;
 			sourceTree = "<group>";
 		};
+		8A8C75062855E8C600A6F03A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */,
+				8A8C75092855F66200A6F03A /* MastersScheduleTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		8A8E45292791873900828B7E = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */,
+				8A8C75062855E8C600A6F03A /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -937,6 +951,7 @@
 				8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */,
 				8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
+				8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
@@ -991,6 +1006,7 @@
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
 				8A8E4563279190E100828B7E /* User.swift in Sources */,
 				8ACD281F28515653005D993E /* ApiAddNewService.swift in Sources */,
+				8A8C750A2855F66200A6F03A /* MastersScheduleTableViewCell.swift in Sources */,
 				8AAF98BF279770A7007315DE /* MainTabVC.swift in Sources */,
 				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
