@@ -11,15 +11,15 @@ class MastersScheduleTableViewCell: UITableViewCell {
     
     let circleView: UIImageView = {
         let circl = UIImageView()
-        circl.backgroundColor = UIColor.rgb(red: 31, green: 152, blue: 233)
+        circl.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         circl.layer.borderWidth = 2
-        circl.layer.borderColor = UIColor.rgb(red: 255, green: 255, blue: 255) .cgColor
+        circl.layer.borderColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)?.cgColor
          return circl
      }()
     
     let lineView: UIImageView = {
         let line = UIImageView()
-        line.backgroundColor = .white
+        line.backgroundColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
          return line
      }()
     
@@ -28,7 +28,7 @@ class MastersScheduleTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.text = "10:00"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
          return label
      }()
     let lineTimeLabel: UILabel = {
@@ -36,7 +36,7 @@ class MastersScheduleTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.text = "-"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
          return label
      }()
     
@@ -45,7 +45,7 @@ class MastersScheduleTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.text = "12:00"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
          return label
      }()
     
@@ -54,7 +54,7 @@ class MastersScheduleTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.text = "Ivan Ivancov"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
         label.numberOfLines = 0
          return label
      }()
@@ -64,7 +64,7 @@ class MastersScheduleTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.text = "Mean Hair Cout"
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = .white
+        label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
         label.numberOfLines = 0
          return label
      }()
@@ -100,6 +100,9 @@ class MastersScheduleTableViewCell: UITableViewCell {
         addSubview(serviesLabelClient)
         serviesLabelClient.anchor(top: nameLabelClient.bottomAnchor , leading:lineView.trailingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 5, left: 23, bottom: 0, right: 0),size: .init(width: 0, height: 0))
 
+    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.circleView.layer.borderColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)?.cgColor
     }
     
   

@@ -15,16 +15,23 @@ protocol СhoiceVisitDateProtocol: AnyObject{
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
     func puchConfirm()
+    func pressedMastersChoice()
+    func presedClient()
+    func dateChanged()
 
     }
 
 class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
-       
+   
     weak var view: СhoiceVisitDateProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiСhoiceVisitDateProtocol!
+    
+    var customerRecordPast:[CustomerRecord]?
+    var team: [Team]?
     var serviceCheck: [Price]?
     var client: Client?
+    var newCustomerRecordPast:[CustomerRecord]?
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
         self.view = view
@@ -36,6 +43,19 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
+       
+       
+    }
+    func pressedMastersChoice() {
+        print("выбрал мастера кому записывать")
+    }
+    
+    func presedClient() {
+        print("нажал на мастера")
+    }
+    
+    func dateChanged() {
+        print("выбор даты и времени для записи")
     }
     
 }

@@ -24,7 +24,7 @@ class MasterCollectionViewCell: UICollectionViewCell {
         let Label = UILabel()
         Label.text = "Name Shurname"
         Label.textAlignment = .left
-        Label.textColor = .white
+        Label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
         Label.font = UIFont.systemFont(ofSize: 13)
         Label.numberOfLines = 1
         return Label
@@ -33,7 +33,7 @@ class MasterCollectionViewCell: UICollectionViewCell {
         let Label = UILabel()
         Label.text = "Hair staylist"
         Label.textAlignment = .left
-        Label.textColor = .white
+        Label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
         Label.font = UIFont.boldSystemFont(ofSize: 18)
         Label.numberOfLines = 1
         return Label
@@ -42,7 +42,7 @@ class MasterCollectionViewCell: UICollectionViewCell {
         let Label = UILabel()
         Label.text = "Master"
         Label.textAlignment = .left
-        Label.textColor = .white
+        Label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
         Label.font = UIFont.systemFont(ofSize: 14)
         Label.numberOfLines = 1
         Label.adjustsFontSizeToFitWidth = true

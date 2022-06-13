@@ -42,17 +42,36 @@ class ChoiceVisitDateViewController: UIViewController {
     
     return collectionView
     }()
+    let greyView: UIView = {
+    let view = UIView()
+        view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+    return view
+    }()
+   
+    lazy var zigzagContainerViewUp = SketchBorderView()
     
     var tableView:UITableView = {
-       let tableView = UITableView()
-       tableView.translatesAutoresizingMaskIntoConstraints = false
-       return tableView
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
-
-    let greenView: UIView = {
+    var datePicker:UIDatePicker = {
+        var datePicker = UIDatePicker()
+        datePicker = UIDatePicker.init()
+        datePicker.locale = Locale.autoupdatingCurrent
+      //  datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.backgroundColor = .white
+        datePicker.autoresizingMask = .flexibleWidth
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.preferredDatePickerStyle = .inline
+   
+        return datePicker
+    }()
+    lazy var zigzagContainerViewUDown = SketchBorderView()
+    
+    let greyDownView: UIView = {
     let view = UIView()
-   // view.heightAnchor.constraint(equalToConstant: 1200).isActive = true
-    view.backgroundColor = .green
+    view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
     return view
     }()
     
@@ -70,9 +89,13 @@ class ChoiceVisitDateViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor.rgb(red: 31, green: 152, blue: 233)
+        tableView.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         tableView.register(MastersScheduleTableViewCell.self, forCellReuseIdentifier: cellIdTable)
         tableView.separatorColor = .clear //линии между ячейками цвет
+        
+        handlers()
+       
+    
     }
     
     func configureUI(){
@@ -86,11 +109,24 @@ class ChoiceVisitDateViewController: UIViewController {
         scrollViewContainer.addArrangedSubview(masterCollectionView)
         masterCollectionView.anchor(top: nil, leading: scrollViewContainer.leadingAnchor, bottom: nil, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: scrollViewContainer.frame.width, height: view.frame.height/8))
         
-        scrollViewContainer.addArrangedSubview(tableView)
-        tableView.anchor(top: masterCollectionView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: nil, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: scrollViewContainer.frame.width, height: view.frame.height/3))
+        scrollViewContainer.addArrangedSubview(greyView)
+        greyView.anchor(top: masterCollectionView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: nil, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 30, left: 0, bottom: 0, right: 0), size: .init(width: scrollViewContainer.frame.width, height:20))
         
-        scrollViewContainer.addArrangedSubview(greenView)
-        greenView.anchor(top: tableView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: scrollViewContainer.safeAreaLayoutGuide.bottomAnchor, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: scrollViewContainer.frame.width, height:view.frame.height/1.7))
+        scrollViewContainer.addArrangedSubview(zigzagContainerViewUp)
+        zigzagContainerViewUp.anchor(top: greyView.topAnchor, leading: view.leadingAnchor, bottom: greyView.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: -10, left: -10, bottom: 5, right: -10), size: .init(width:0, height:60))
+        
+        scrollViewContainer.addArrangedSubview(tableView)
+        tableView.anchor(top: greyView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: nil, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: scrollViewContainer.frame.width, height: view.frame.height/3))
+        
+        scrollViewContainer.addArrangedSubview(greyDownView)
+        greyDownView.anchor(top: tableView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: nil, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: scrollViewContainer.frame.width, height:40))
+        
+        scrollViewContainer.addArrangedSubview(zigzagContainerViewUDown)
+        zigzagContainerViewUDown.anchor(top: greyDownView.topAnchor, leading: view.leadingAnchor, bottom: greyDownView.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 5, left: -10, bottom: -10, right: -10), size: .init(width:0, height:20))
+        
+        scrollViewContainer.addArrangedSubview(datePicker)
+        datePicker.anchor(top: greyDownView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: scrollViewContainer.bottomAnchor, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 13, left: 0, bottom: 60, right: 0), size: .init(width: 0, height: view.frame.height/1.8))
+        
         
         
         view.addSubview(confirm)
@@ -98,9 +134,22 @@ class ChoiceVisitDateViewController: UIViewController {
     }
     func handlers() {
         confirm.addTarget(self, action: #selector(puchConfirm), for: .touchUpInside)
+        
+        datePicker.addTarget(self, action: #selector(self.dateChanged(_:)), for: .valueChanged)
     }
     @objc fileprivate func puchConfirm(){
         presenter.puchConfirm()
+    }
+    @objc func dateChanged(_ sender: UIDatePicker?) {
+        guard  let date = sender?.date else {return}
+        let dateFormatter = DateFormatter()
+             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
+        let dateFormatterYar = DateFormatter()
+        dateFormatterYar.dateFormat = "YYYY-MM-dd"
+        let dateFormatterM = DateFormatter()
+        dateFormatterM.dateFormat = "MM"
+      
+        print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: date))")
     }
 
 }
@@ -117,7 +166,7 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
      
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdTable, for: indexPath) as! MastersScheduleTableViewCell
-        cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
        // cell.customerRecord = filtersCustomerRecordAll[indexPath.row]
         //убираем выделение ячейки
         cell.selectionStyle = .none
@@ -149,19 +198,35 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellMaster, for: indexPath) as! MasterCollectionViewCell
-        cell.backgroundColor = UIColor.rgb(red: 81, green: 107, blue: 103).withAlphaComponent(0.5)
+        cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         cell.layer.cornerRadius = 20
         return cell
     }
   
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("нажал\(indexPath)")
-     /*   let vc = PresentRoute()
-        vc.starLabel.text = String(indexPath.row)
-        let navControler = UINavigationController(rootViewController: vc)
-        navControler.modalPresentationStyle = .fullScreen //окно появиться на весь экран
-        self.present(navControler, animated: true, completion: nil)
-       */
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderWidth = 2
+        cell?.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor
+    }
+    
+    
+    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        print("отжал\(indexPath.row)")
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderWidth = 0
+       
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+     let customCell = cell as! MasterCollectionViewCell
+         if customCell.isSelected {
+             cell.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor
+             cell.layer.borderWidth = 2
+         } else {
+             cell.layer.borderWidth = 0
+          
+         }
     }
 }
 
