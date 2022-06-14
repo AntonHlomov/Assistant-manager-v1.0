@@ -90,10 +90,8 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
-        
         cell.accessoryType = .checkmark
         presenter.onCheckmarkSaveServise(indexPath: indexPath)
-        
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
@@ -103,6 +101,16 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.accessoryType = (cell.isSelected) ? .checkmark : .none
+        let customCell = cell as! PriceCell
+        guard presenter.checkmarkServises.isEmpty == false else{return}
+        //var servisCheck = presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice![indexPath.row].idPrice)})
+        if presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice![indexPath.row].idPrice)}).isEmpty == false {
+            customCell.accessoryType = .checkmark
+            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            } else {
+                customCell.selectionStyle = .none
+            }
+      
       // if presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice?[indexPath.row].idPrice ?? "0" )}).isEmpty == false{
       //    cell.accessoryType = .checkmark
       // }

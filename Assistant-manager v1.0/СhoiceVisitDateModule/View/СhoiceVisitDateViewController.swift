@@ -8,8 +8,6 @@
 import UIKit
 
 class ChoiceVisitDateViewController: UIViewController {
-
-    
     var presenter: СhoiceVisitDatePresenterProtocol!
     
     let cellMaster = "cellMaster"
@@ -32,22 +30,21 @@ class ChoiceVisitDateViewController: UIViewController {
         
     let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 200, height: 90)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-    
     return collectionView
     }()
+    
     let greyView: UIView = {
     let view = UIView()
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
     return view
     }()
-   
+    
     lazy var zigzagContainerViewUp = SketchBorderView()
     
     var tableView:UITableView = {
@@ -59,14 +56,13 @@ class ChoiceVisitDateViewController: UIViewController {
         var datePicker = UIDatePicker()
         datePicker = UIDatePicker.init()
         datePicker.locale = Locale.autoupdatingCurrent
-      //  datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.backgroundColor = .white
         datePicker.autoresizingMask = .flexibleWidth
         datePicker.datePickerMode = .dateAndTime
         datePicker.preferredDatePickerStyle = .inline
-   
         return datePicker
     }()
+    
     lazy var zigzagContainerViewUDown = SketchBorderView()
     
     let greyDownView: UIView = {
@@ -94,8 +90,6 @@ class ChoiceVisitDateViewController: UIViewController {
         tableView.separatorColor = .clear //линии между ячейками цвет
         
         handlers()
-       
-    
     }
     
     func configureUI(){
@@ -127,29 +121,23 @@ class ChoiceVisitDateViewController: UIViewController {
         scrollViewContainer.addArrangedSubview(datePicker)
         datePicker.anchor(top: greyDownView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: scrollViewContainer.bottomAnchor, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 13, left: 0, bottom: 60, right: 0), size: .init(width: 0, height: view.frame.height/1.8))
         
-        
-        
         view.addSubview(confirm)
         confirm.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
     }
+    
     func handlers() {
         confirm.addTarget(self, action: #selector(puchConfirm), for: .touchUpInside)
-        
         datePicker.addTarget(self, action: #selector(self.dateChanged(_:)), for: .valueChanged)
     }
+    
     @objc fileprivate func puchConfirm(){
         presenter.puchConfirm()
     }
+    
     @objc func dateChanged(_ sender: UIDatePicker?) {
         guard  let date = sender?.date else {return}
-        let dateFormatter = DateFormatter()
-             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
-        let dateFormatterYar = DateFormatter()
-        dateFormatterYar.dateFormat = "YYYY-MM-dd"
-        let dateFormatterM = DateFormatter()
-        dateFormatterM.dateFormat = "MM"
-      
-        print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: date))")
+        presenter.dateChanged(senderDate: date )
+    
     }
 
 }
@@ -157,12 +145,11 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-   
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-     return 15 //filtersCustomerRecordAll.count
-       
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 15 //filtersCustomerRecordAll.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
      
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdTable, for: indexPath) as! MastersScheduleTableViewCell
@@ -174,6 +161,7 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
         cell.accessoryType = .disclosureIndicator
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
     }
@@ -181,7 +169,7 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     return 60
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-     print("нажал на записсаного клиента")
+        presenter.presedClient(indexPath: indexPath)
     }
     // Цвет, при нажатии
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -191,7 +179,6 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
 }
 extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
-   
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         10
     }
@@ -204,18 +191,16 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
     }
   
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("нажал\(indexPath)")
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 2
         cell?.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor
+        presenter.pressedMastersChoice(indexPath: indexPath)
     }
-    
     
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("отжал\(indexPath.row)")
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 0
-       
     }
     
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

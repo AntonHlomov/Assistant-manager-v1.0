@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol СhoiceVisitDateProtocol: AnyObject{
     func succes()
@@ -14,10 +15,13 @@ protocol СhoiceVisitDateProtocol: AnyObject{
 
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
+    
     func puchConfirm()
-    func pressedMastersChoice()
-    func presedClient()
-    func dateChanged()
+    func pressedMastersChoice(indexPath:IndexPath)
+    func presedClient(indexPath:IndexPath)
+    func dateChanged(senderDate: Date)
+    func setDataForTeam()
+    func setDataCustomerRecordForMaster()
 
     }
 
@@ -39,23 +43,38 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.networkService = networkService
         self.client = clientCheck
         self.serviceCheck = serviceCheck
+        
+        setDataForTeam()
+        setDataCustomerRecordForMaster()
  
+    }
+    func setDataForTeam(){
+        print("загрузить данные для коллекции мастеров team")
+    }
+    func setDataCustomerRecordForMaster(){
+        print("загрузить данные для таблицы запись в течении дня для конкретного мастера ")
     }
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
-       
-       
     }
-    func pressedMastersChoice() {
-        print("выбрал мастера кому записывать")
-    }
-    
-    func presedClient() {
-        print("нажал на мастера")
+    func pressedMastersChoice(indexPath:IndexPath) {
+        print("выбрал мастера кому записывать",indexPath)
+        print("загрузить данные для таблицы (запись в течении дня) для мастера:",indexPath.row)
     }
     
-    func dateChanged() {
+    func presedClient(indexPath:IndexPath) {
+        print("нажал на запись", indexPath)
+    }
+    
+    func dateChanged(senderDate: Date) {
         print("выбор даты и времени для записи")
+        let dateFormatter = DateFormatter()
+             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
+        let dateFormatterYar = DateFormatter()
+        dateFormatterYar.dateFormat = "YYYY-MM-dd"
+        let dateFormatterM = DateFormatter()
+        dateFormatterM.dateFormat = "MM"
+        print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: senderDate))")
     }
     
 }
