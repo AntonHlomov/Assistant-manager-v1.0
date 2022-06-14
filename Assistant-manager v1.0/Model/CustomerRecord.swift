@@ -10,8 +10,8 @@ import Foundation
 class CustomerRecord {
     
     var idRecord: String!
-    var idUserAdministrator: String!
-    var idMaster: String!
+    var idUserWhoRecorded: String!
+    var idUserWhoWorks: String!
     var dateTimeStartService: String!
     var dateTimeEndService: String!
     var fullDateTimeStartServiceForFilter: String!
@@ -27,8 +27,8 @@ class CustomerRecord {
     init(dictionary: [String: Any]) {
 
         self.idRecord = dictionary["idRecord"] as? String ?? ""
-        self.idUserAdministrator = dictionary["idUserAdministrator"] as? String ?? ""
-        self.idMaster = dictionary["idMaster"] as? String ?? ""
+        self.idUserWhoRecorded = dictionary["idUserWhoRecorded"] as? String ?? ""
+        self.idUserWhoWorks = dictionary["idUserWhoWorks"] as? String ?? ""
         self.dateTimeStartService = dictionary["dateTimeStartService"] as? String ?? ""
         self.dateTimeEndService = dictionary["dateTimeEndService"] as? String ?? ""
         self.fullDateTimeStartServiceForFilter = dictionary["fullDateTimeStartServiceForFilter"] as? String ?? ""

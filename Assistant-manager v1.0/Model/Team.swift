@@ -15,6 +15,8 @@ class Team {
     var nameTeamMember: String!
     var fullnameTeamMember: String!
     var profileImageURLTeamMember: String!
+    var professionName: String!
+   
     
     init(dictionary: [String: Any]) {
         
@@ -22,7 +24,8 @@ class Team {
         self.categoryTeamMember = dictionary["categoryTeamMember"] as? String ?? ""
         self.idTeamMember = dictionary["idTeamMember"] as? String ?? ""
         self.nameTeamMember = dictionary["nameTeamMember"] as? String ?? ""
-        self.fullnameTeamMember = dictionary["surnameTeamMember"] as? String ?? ""
+        self.fullnameTeamMember = dictionary["fullnameTeamMember"] as? String ?? ""
         self.profileImageURLTeamMember = dictionary["profileImageURLTeamMember"] as? String ?? ""
+        self.professionName = dictionary["professionName"] as? String ?? ""
     }
 }

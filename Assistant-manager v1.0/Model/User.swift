@@ -26,6 +26,10 @@ class User {
     var priceCount: Int!
     var teamCount: Int!
     
+    var whoIsBossId: String!
+    var whoIsAdministrator: String!
+
+    
 
     init(dictionary: [String: Any]) {
         
@@ -44,6 +48,9 @@ class User {
         self.clientsCount = dictionary["clientsCount"] as? Int ?? nil
         self.priceCount = dictionary["priceCount"] as? Int ?? nil
         self.teamCount = dictionary["teamCount"] as? Int ?? nil
+        
+        self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""
+        self.whoIsAdministrator = dictionary["whoIsAdministrator"] as? String ?? ""
        
     }
 }

@@ -57,6 +57,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.expensesToday = 0.0
         self.revenueToday = 0.0
         self.profit = 0.0
+        
    
     }
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {

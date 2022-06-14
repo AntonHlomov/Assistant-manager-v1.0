@@ -180,29 +180,26 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
 extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        return presenter.team?.count ?? 0
     }
-    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellMaster, for: indexPath) as! MasterCollectionViewCell
         cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         cell.layer.cornerRadius = 20
+        cell.team = presenter.team?[indexPath.row]
         return cell
     }
-  
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 2
         cell?.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor
         presenter.pressedMastersChoice(indexPath: indexPath)
     }
-    
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("отжал\(indexPath.row)")
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 0
     }
-    
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
      let customCell = cell as! MasterCollectionViewCell
          if customCell.isSelected {
@@ -225,8 +222,8 @@ extension ChoiceVisitDateViewController{
 }
 
 extension ChoiceVisitDateViewController: СhoiceVisitDateProtocol {
-    func succes() {
-       print("succes ->ChoiceVisitDateViewController")
+    func succesForTeamCollection() {
+        self.masterCollectionView.reloadData()
     }
     
     func failure(error: Error) {

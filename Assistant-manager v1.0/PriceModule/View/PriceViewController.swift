@@ -94,7 +94,6 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         presenter.onCheckmarkSaveServise(indexPath: indexPath)
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
         let cell = tableView.cellForRow(at: indexPath)!
         presenter.offCheckmarkSaveServise(indexPath: indexPath)
         cell.accessoryType = .none
@@ -103,17 +102,12 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         cell.accessoryType = (cell.isSelected) ? .checkmark : .none
         let customCell = cell as! PriceCell
         guard presenter.checkmarkServises.isEmpty == false else{return}
-        //var servisCheck = presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice![indexPath.row].idPrice)})
         if presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice![indexPath.row].idPrice)}).isEmpty == false {
             customCell.accessoryType = .checkmark
             self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
             } else {
                 customCell.selectionStyle = .none
             }
-      
-      // if presenter.checkmarkServises.filter({$0.idPrice.contains(presenter.filterPrice?[indexPath.row].idPrice ?? "0" )}).isEmpty == false{
-      //    cell.accessoryType = .checkmark
-      // }
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
@@ -126,7 +120,6 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
             print("Redact")
             self?.presenter.redactServise(indexPath: indexPath)
-            //tableView.reloadRows(at: [indexPath], with: .fade)
         }
         deleteAction.image = UIImage(systemName: "trash")
         editAction.image = UIImage(#imageLiteral(resourceName: "icons8-школа-48"))

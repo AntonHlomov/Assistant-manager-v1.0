@@ -9,20 +9,21 @@ import Foundation
 import UIKit
 
 protocol СhoiceVisitDateProtocol: AnyObject{
-    func succes()
+    func succesForTeamCollection()
     func failure(error: Error)
 }
 
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
     
+    var team: [Team]? {get set}
+    
     func puchConfirm()
     func pressedMastersChoice(indexPath:IndexPath)
     func presedClient(indexPath:IndexPath)
     func dateChanged(senderDate: Date)
-    func setDataForTeam()
+    func getDataForTeam()
     func setDataCustomerRecordForMaster()
-
     }
 
 class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
@@ -44,12 +45,23 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.client = clientCheck
         self.serviceCheck = serviceCheck
         
-        setDataForTeam()
+        getDataForTeam()
         setDataCustomerRecordForMaster()
  
     }
-    func setDataForTeam(){
-        print("загрузить данные для коллекции мастеров team")
+    func getDataForTeam(){
+        networkService.getTeam{ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let team):
+                    self?.team = team?.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
+                    self?.view?.succesForTeamCollection()
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+            }
+        }
     }
     func setDataCustomerRecordForMaster(){
         print("загрузить данные для таблицы запись в течении дня для конкретного мастера ")
@@ -75,6 +87,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         let dateFormatterM = DateFormatter()
         dateFormatterM.dateFormat = "MM"
         print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: senderDate))")
+        print("Дата записи начала работы с клиентом в календарь \(senderDate)")
     }
     
 }
