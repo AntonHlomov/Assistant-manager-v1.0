@@ -15,6 +15,7 @@
 		8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FBD284A9B270045FA20 /* ApiAddClient.swift */; };
 		8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */; };
 		8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */; };
+		8A6FBA34285A6D8500655C57 /* darkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA33285A6D8500655C57 /* darkMode.swift */; };
 		8A7AD74F2834176200B12E3F /* TableClientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AD74E2834176200B12E3F /* TableClientCell.swift */; };
 		8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */; };
 		8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */; };
@@ -106,6 +107,7 @@
 		8A308FBD284A9B270045FA20 /* ApiAddClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAddClient.swift; sourceTree = "<group>"; };
 		8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTabPresenter.swift; sourceTree = "<group>"; };
 		8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAllClients.swift; sourceTree = "<group>"; };
+		8A6FBA33285A6D8500655C57 /* darkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = darkMode.swift; sourceTree = "<group>"; };
 		8A7AD74E2834176200B12E3F /* TableClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableClientCell.swift; sourceTree = "<group>"; };
 		8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTableViewController.swift; sourceTree = "<group>"; };
 		8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */,
 				8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */,
 				8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */,
+				8A6FBA33285A6D8500655C57 /* darkMode.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -999,6 +1002,7 @@
 				8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */,
 				8ACD281B2851560D005D993E /* AddNewServiceViewController.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
+				8A6FBA34285A6D8500655C57 /* darkMode.swift in Sources */,
 				8A91A831282D9DC0006F1FFD /* APIOptiones.swift in Sources */,
 				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
 				8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */,

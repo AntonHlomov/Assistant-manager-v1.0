@@ -18,6 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+        UserDefaults.standard.addObserver(self, forKeyPath: "theme", options: [.new], context: nil) // darkMode
+        
         let navigationControler = UINavigationController()
         let tabBarControler = UITabBarController()
         let assemblyBuilder = AsselderModelBuilder()
@@ -25,10 +27,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         router.initalScreensaverControler()
         window?.rootViewController = navigationControler
         window?.makeKeyAndVisible()
+      
+        
         
     }
+    deinit {
+        UserDefaults.standard.removeObserver(self, forKeyPath: "theme", context: nil) // remove that observer(darkMode) when the SceneDelegate is deinitialised
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        guard
+            let change = change,
+            object != nil,
+           // keyPath == Defaults.theme.rawValue,
+            let themeValue = change[.newKey] as? String,
+            let theme = Theme(rawValue: themeValue)?.uiInterfaceStyle
+        else { return }
+
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: { [weak self] in
+            self?.window?.overrideUserInterfaceStyle = theme
+        }, completion: .none)
+    }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        
+        
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
@@ -48,6 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
