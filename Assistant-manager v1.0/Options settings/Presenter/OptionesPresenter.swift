@@ -22,12 +22,14 @@ protocol OptionesViewPresenterProtocol: AnyObject {
 
     init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol,user: User?)
     var user: User?  { get set }
+    var click: Int { get set }
     func goToBackTappedViewFromRight()
     func redactUserDataButton()
     func schowClientsButoon()
     func schowPriceButoon()
     func schowTeamButoon()
     func changeStatus()
+    func changeDarkMode()
     func exitUser()
     func removeUser()
     func safeIdUserForSharing()
@@ -44,6 +46,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
    var router: LoginRouterProtocol?
    let networkService:APIOptionesDataServiceProtocol!
    var user: User?
+   var click = 0
 
     required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
         self.view = view
@@ -73,11 +76,25 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func schowTeamButoon() {
         print("schowTeamButoon")
-     
+        
     }
     
     func changeStatus() {
         print("changeStatus")
+       
+
+    }
+    func changeDarkMode(){
+        click = click + 1
+        switch click{
+        case 1: UserDefaults.standard.setValue(Theme.dark.rawValue, forKey: "theme")
+        case 2: UserDefaults.standard.setValue(Theme.light.rawValue, forKey: "theme")
+        case 3: UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")
+                click = 0
+            
+        default:
+            UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")
+        }
     }
     
     func exitUser() {

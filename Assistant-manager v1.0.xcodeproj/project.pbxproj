@@ -76,6 +76,7 @@
 		8AAF98CF2797750D007315DE /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98CE2797750D007315DE /* ExpensesViewController.swift */; };
 		8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D027977578007315DE /* StatistikViewController.swift */; };
 		8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF98D22797759B007315DE /* StartWorckViewController.swift */; };
+		8AC99B06285948F4003D03AE /* darkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC99B05285948F4003D03AE /* darkMode.swift */; };
 		8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */; };
 		8ACD281B2851560D005D993E /* AddNewServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD281A2851560D005D993E /* AddNewServiceViewController.swift */; };
 		8ACD281D2851563C005D993E /* AddNewServicePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD281C2851563C005D993E /* AddNewServicePresenter.swift */; };
@@ -161,6 +162,7 @@
 		8AAF98CE2797750D007315DE /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		8AAF98D027977578007315DE /* StatistikViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikViewController.swift; sourceTree = "<group>"; };
 		8AAF98D22797759B007315DE /* StartWorckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckViewController.swift; sourceTree = "<group>"; };
+		8AC99B05285948F4003D03AE /* darkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = darkMode.swift; sourceTree = "<group>"; };
 		8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiStatistikMoney.swift; sourceTree = "<group>"; };
 		8ACD281A2851560D005D993E /* AddNewServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewServiceViewController.swift; sourceTree = "<group>"; };
 		8ACD281C2851563C005D993E /* AddNewServicePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewServicePresenter.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				8A8E45922791E77500828B7E /* AnchoredConstraintsExtension.swift */,
 				8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */,
 				8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */,
+				8AC99B05285948F4003D03AE /* darkMode.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -999,6 +1002,7 @@
 				8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */,
 				8ACD281B2851560D005D993E /* AddNewServiceViewController.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
+				8AC99B06285948F4003D03AE /* darkMode.swift in Sources */,
 				8A91A831282D9DC0006F1FFD /* APIOptiones.swift in Sources */,
 				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
 				8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */,

@@ -15,7 +15,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
     let cellLine = "cellLine"
     let cellExitRemove = "cellExitRemove"
     
-    var setings = ["Clients","Price","Team","Status"]
+    var setings = ["Clients","Price","Team","Status","Dark mode"]
     var exitRemove = ["Exit","Remove"]
     
     var tableView:UITableView = {
@@ -135,6 +135,12 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
                 cell.optionesImageView.image = #imageLiteral(resourceName: "icons8-школа-48").withRenderingMode(.alwaysOriginal)
                 
                 cell.detailTextLabel?.text = "Access level: " + "??"
+                
+            case [2, 4]:
+                cell.selectionStyle = .none
+                cell.optionesImageView.image = #imageLiteral(resourceName: "icons8-настройки-96").withRenderingMode(.alwaysOriginal)
+                cell.detailTextLabel?.text = "Mode: " + "System"
+            
        
             default:
                 return cell
@@ -182,6 +188,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
         
         switch indexPath{
         case [1, 0]:
@@ -195,6 +202,17 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
             presenter.schowTeamButoon()
         case [2, 3]:
             presenter.changeStatus()
+        case [2, 4]:
+            presenter.changeDarkMode()
+            var mode = ""
+            switch presenter.click{
+            case 1: mode = "Dark"
+            case 2: mode = "Light"
+            case 3: mode = "System"
+            default:
+                mode = "System"
+            }
+            cell.detailTextLabel?.text = "Mode: " + mode
             
         case [4, 0]:
             alertForExitOrRemove(title: "Go out", exit: true)
