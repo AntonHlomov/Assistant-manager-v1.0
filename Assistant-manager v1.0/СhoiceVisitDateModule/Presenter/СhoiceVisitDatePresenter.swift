@@ -36,7 +36,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var team: [Team]?
     var serviceCheck: [Price]?
     var client: Client?
-    var newCustomerRecordPast:[CustomerRecord]?
+    var customerRecordNew: CustomerRecord?
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
         self.view = view
@@ -68,6 +68,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
+        self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew)
     }
     func pressedMastersChoice(indexPath:IndexPath) {
         print("выбрал мастера кому записывать",indexPath)

@@ -16,6 +16,10 @@
 		8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */; };
 		8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */; };
 		8A6FBA34285A6D8500655C57 /* darkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA33285A6D8500655C57 /* darkMode.swift */; };
+		8A6FBA3A285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA39285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift */; };
+		8A6FBA3C285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */; };
+		8A6FBA3E285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3D285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift */; };
+		8A6FBA40285AA18500655C57 /* BlurEfectExtensionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */; };
 		8A7AD74F2834176200B12E3F /* TableClientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AD74E2834176200B12E3F /* TableClientCell.swift */; };
 		8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */; };
 		8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */; };
@@ -108,6 +112,10 @@
 		8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTabPresenter.swift; sourceTree = "<group>"; };
 		8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAllClients.swift; sourceTree = "<group>"; };
 		8A6FBA33285A6D8500655C57 /* darkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = darkMode.swift; sourceTree = "<group>"; };
+		8A6FBA39285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerVisitRecordConfirmationView.swift; sourceTree = "<group>"; };
+		8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerVisitRecordConfirmationViewPresenter.swift; sourceTree = "<group>"; };
+		8A6FBA3D285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICustomerVisitRecordConfirmationView.swift; sourceTree = "<group>"; };
+		8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEfectExtensionView.swift; sourceTree = "<group>"; };
 		8A7AD74E2834176200B12E3F /* TableClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableClientCell.swift; sourceTree = "<group>"; };
 		8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTableViewController.swift; sourceTree = "<group>"; };
 		8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -271,6 +279,40 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8A6FBA35285A7C2500655C57 /* CustomerVisitRecordConfirmation */ = {
+			isa = PBXGroup;
+			children = (
+				8A6FBA38285A7C7200655C57 /* API */,
+				8A6FBA37285A7C6F00655C57 /* View */,
+				8A6FBA36285A7C6C00655C57 /* Presenter */,
+			);
+			path = CustomerVisitRecordConfirmation;
+			sourceTree = "<group>";
+		};
+		8A6FBA36285A7C6C00655C57 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A6FBA37285A7C6F00655C57 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A6FBA39285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A6FBA38285A7C7200655C57 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8A6FBA3D285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		8A7D48EA2829C0A000017870 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,7 +351,6 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				8A8F74782854004700D52B4B /* СhoiceVisitDateModule */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
@@ -321,6 +362,8 @@
 				8A7D48EA2829C0A000017870 /* Clients */,
 				8A308FB5284A96450045FA20 /* AddClient */,
 				8A007645284351AB00FF73FD /* ClientPage */,
+				8A8F74782854004700D52B4B /* СhoiceVisitDateModule */,
+				8A6FBA35285A7C2500655C57 /* CustomerVisitRecordConfirmation */,
 				8A91A828282D99B3006F1FFD /* Options settings */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
@@ -378,6 +421,7 @@
 				8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */,
 				8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */,
 				8A6FBA33285A6D8500655C57 /* darkMode.swift */,
+				8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -954,17 +998,20 @@
 				8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */,
 				8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
+				8A6FBA3C285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift in Sources */,
 				8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */,
 				8A308FBA284A97410045FA20 /* AddClientView.swift in Sources */,
+				8A6FBA40285AA18500655C57 /* BlurEfectExtensionView.swift in Sources */,
 				8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
 				8AAF98B02793494E007315DE /* Builder.swift in Sources */,
 				8A8E45912791E6FA00828B7E /* ColorExtension.swift in Sources */,
+				8A6FBA3E285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift in Sources */,
 				8A91A82F282D9B00006F1FFD /* OptionesPresenter.swift in Sources */,
 				8A00764A2843524A00FF73FD /* ClientPage.swift in Sources */,
 				8AE627C52850D191000182A8 /* PriceViewController.swift in Sources */,
@@ -1021,6 +1068,7 @@
 				8ACB1FFF27C3A3AD00265653 /* APiStatistikMoney.swift in Sources */,
 				8A916CF9284E116500A18257 /* HeaderOptinesTableViewCell.swift in Sources */,
 				8AE627CB2850D1EA000182A8 /* APIPrice.swift in Sources */,
+				8A6FBA3A285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift in Sources */,
 				8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,6 +22,8 @@ protocol AsselderBuilderProtocol{
     
     func createChoiceVisitDateModule(router:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) -> UIViewController
     
+    func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?) -> UIViewController
+    
     func craateClientPageModule(router:LoginRouterProtocol,client: Client?) -> UIViewController
     
     func createAddClientModule(router:LoginRouterProtocol,editMode: Bool, client: Client?) -> UIViewController
@@ -36,6 +38,15 @@ protocol AsselderBuilderProtocol{
 }
 // сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
+    
+    func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?) -> UIViewController {
+        let view = CustomerVisitRecordConfirmationView()
+        let networkService = APICustomerVisitRecordConfirmation()
+        let presenter = CustomerVisitRecordConfirmationViewPresenter(view: view, networkService: networkService, router: router, customerVisit: customerVisit)
+        view.presenter = presenter
+        return view
+    }
+    
   
     
     func addNewServiceModule(router: LoginRouterProtocol, editMode: Bool, price: Price?) -> UIViewController {
