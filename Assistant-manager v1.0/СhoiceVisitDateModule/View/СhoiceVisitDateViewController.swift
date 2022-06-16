@@ -89,7 +89,7 @@ class ChoiceVisitDateViewController: UIViewController {
         tableView.register(MastersScheduleTableViewCell.self, forCellReuseIdentifier: cellIdTable)
         tableView.separatorColor = .clear //линии между ячейками цвет
         
-        handlers()
+       // handlers()
     }
     
     func configureUI(){

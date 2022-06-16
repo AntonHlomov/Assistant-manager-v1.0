@@ -10,6 +10,7 @@ import SwiftUI
 
 class CustomerVisitRecordConfirmationView: UIViewController {
     var presenter: CustomerVisitRecordConfirmationViewPresenterProtocol!
+   
     
     let bodyView: UIView = {
         let body = UIView()
@@ -24,7 +25,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         let Label = UILabel()
         Label.text = "Name Shurname"
         Label.textAlignment = .left
-        Label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
+        Label.textColor = UIColor.appColor(.whiteAssistant)
         Label.font = UIFont.systemFont(ofSize: 13)
         Label.numberOfLines = 1
         return Label
@@ -33,68 +34,73 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         let Label = UILabel()
         Label.text = "Hair staylist"
         Label.textAlignment = .left
-        Label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
-        Label.font = UIFont.boldSystemFont(ofSize: 16)
+        Label.textColor = UIColor.appColor(.whiteAssistant)
+        Label.font = UIFont.systemFont(ofSize: 10)
         Label.numberOfLines = 1
         return Label
     }()
-    let status: UILabel = {
-        let Label = UILabel()
-        Label.text = "Master"
-        Label.textAlignment = .left
-        Label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
-        Label.font = UIFont.systemFont(ofSize: 14)
-        Label.numberOfLines = 1
-        Label.adjustsFontSizeToFitWidth = true
-        return Label
-    }()
-    
 
     lazy var circlForImageClient: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
         line.layer.cornerRadius = 100
-        line.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
+        line.layer.borderColor = UIColor.appColor(.whiteAssistant)?.cgColor
         line.layer.borderWidth = 3
         return line
      }()
     lazy var clientImageView = CustomUIimageView(frame: .zero )
     
+    lazy var nameClient: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Name Client"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor.appColor(.whiteAssistant)
+        return label
+     }()
+    
     lazy var commitCustomerVisitRecord: UITextView = {
         var text = UITextView()
-        text.textAlignment = .left
+        text.textAlignment = .center
         text.text = "Add a comment"
-        text.font = UIFont.systemFont(ofSize: 19, weight: .medium)
-        text.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
-        text.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        text.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
-        text.layer.borderWidth = 3
+        text.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        text.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)!
+        text.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        text.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
+        text.layer.borderWidth = 1
         text.layer.cornerRadius = 15
         //нельзя редактировать
         text.isEditable = true
         return text
     }()
     
-    lazy var nameClient: UILabel = {
+     var dateTextLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.text = "Name Client"
-        label.font = UIFont.boldSystemFont(ofSize: 19)
+        label.textAlignment = .left
+        label.text = "Visit date: "
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
      }()
+    
+    lazy var dataDate: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.text = "2022-06-23 13:30"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor.appColor(.whiteAssistant)
+        return label
+     }()
+    lazy var stackDate = UIStackView(arrangedSubviews: [dateTextLabel,dataDate])
     
     fileprivate let saveButton = UIButton.setupButton(title: "Save", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       // view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        
+      
         configureUI()
         hadleres()
-
-        // Do any additional setup after loading the view.
     }
     fileprivate func hadleres() {
         saveButton.addTarget(self, action: #selector(saveCustomerVisit), for: .touchUpInside)
@@ -102,7 +108,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         // MARK: - configureUI
     fileprivate func configureUI() {
         view.addSubview(bodyView)
-        bodyView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,pading: .init(top: view.frame.height/15, left: view.frame.width/15, bottom: view.frame.height/60, right: view.frame.width/15), size: .init(width: 0, height: 0))
+        bodyView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,pading: .init(top: view.frame.height/9, left: view.frame.width/13, bottom: view.frame.height/5.3, right: view.frame.width/13), size: .init(width: 0, height: 0))
         
         bodyView.addSubview(imageView)
         imageView.anchor(top: bodyView.topAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: nil, pading: .init(top: 8, left: 8, bottom: 0, right: 0), size: .init(width: 25, height: 25))
@@ -112,15 +118,13 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         nameShurname.anchor(top: imageView.topAnchor, leading: imageView.trailingAnchor, bottom: nil, trailing: nil, pading: .init( top: 0, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
        
         bodyView.addSubview(profession)
-        profession.anchor(top: nameShurname.bottomAnchor, leading: nameShurname.leadingAnchor, bottom: nil, trailing: nil, pading: .init( top: 8, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        profession.anchor(top: nameShurname.bottomAnchor, leading: nameShurname.leadingAnchor, bottom: nil, trailing: nil, pading: .init( top: 1, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
            // profession.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        bodyView.addSubview(status)
-        status.anchor(top: profession.bottomAnchor, leading: profession.leadingAnchor, bottom: nil, trailing: nil, pading: .init( top: 4, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
-        
+    
         
         bodyView.addSubview(circlForImageClient)
-        circlForImageClient.anchor(top: status.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: 20, left: 0, bottom: 0, right: 0),  size: .init(width: 100, height: 100))
+        circlForImageClient.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: view.frame.height/12, left: 0, bottom: 0, right: 0),  size: .init(width: 100, height: 100))
         circlForImageClient.layer.cornerRadius = 100 / 2
         circlForImageClient.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true
         
@@ -130,17 +134,26 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         clientImageView.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true //выстовляет по середине экрана
         
         bodyView.addSubview(nameClient)
-        nameClient.anchor(top: circlForImageClient.bottomAnchor, leading: nil, bottom: nil, trailing: nil,  pading: .init(top: 18, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 20))
+        nameClient.anchor(top: circlForImageClient.bottomAnchor, leading: nil, bottom: nil, trailing: nil,  pading: .init(top: view.frame.height/80, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 20))
         nameClient.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true
         
+        stackDate.axis = .horizontal
+        stackDate.spacing = 0
+        stackDate.distribution = .equalSpacing
+        bodyView.addSubview(stackDate)
+        stackDate.anchor(top: nameClient.bottomAnchor, leading: nil, bottom:nil, trailing: nil, pading: .init(top: view.frame.height/80, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        stackDate.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true //выстовляет по середине экрана
+        
         bodyView.addSubview(commitCustomerVisitRecord)
-        commitCustomerVisitRecord.anchor(top: nameClient.bottomAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: bodyView.trailingAnchor,  pading: .init(top: 15, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 100))
+        commitCustomerVisitRecord.anchor(top: stackDate.bottomAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: bodyView.trailingAnchor,  pading: .init(top: view.frame.height/25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: view.frame.height/7))
         commitCustomerVisitRecord.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true //выстовляет по середине экрана
         
-       
-        
+     
         bodyView.addSubview(saveButton)
-        saveButton.anchor(top: nil, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor, trailing: bodyView.trailingAnchor, pading: .init(top: 0, left: 50, bottom: 15, right: 50), size: .init(width: 0, height: 40))
+        saveButton.anchor(top: nil, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor, trailing: bodyView.trailingAnchor, pading: .init(top: 0, left: 50, bottom: view.frame.height/25, right: 50), size: .init(width: 0, height: 40))
+      
+        
+   
         
        
         
@@ -158,11 +171,12 @@ class CustomerVisitRecordConfirmationView: UIViewController {
   
     }
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        self.circlForImageClient.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
-        self.commitCustomerVisitRecord.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
+     //   self.circlForImageClient.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
+        self.commitCustomerVisitRecord.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
     }
   
 }
+
 
 extension CustomerVisitRecordConfirmationView{
     func alertRegistrationControllerMassage(title: String, message: String){
