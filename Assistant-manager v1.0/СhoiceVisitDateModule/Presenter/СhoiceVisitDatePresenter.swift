@@ -17,6 +17,7 @@ protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
     
     var team: [Team]? {get set}
+    var checkMaster: Team? {get set}
     var customerRecordNew: CustomerRecord? {get set}
     
     func puchConfirm()
@@ -35,6 +36,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     
     var customerRecordPast:[CustomerRecord]?
     var team: [Team]?
+    var checkMaster: Team?
     var serviceCheck: [Price]?
     var client: Client?
     var customerRecordNew: CustomerRecord?
@@ -50,7 +52,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var ageClient:Int!
     var periodNextRecord: String!
     var commit: String!
-    var idAllServiceArray: [Price]!
+   // var allServiceCheck: [Price]!
     var anUnfulfilledRecord: Bool!
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
@@ -59,6 +61,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.networkService = networkService
         self.client = clientCheck
         self.serviceCheck = serviceCheck
+      
         
         getDataForTeam()
         setDataCustomerRecordForMaster()
@@ -84,11 +87,12 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
    
-        self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew)
+        self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
     }
     func pressedMastersChoice(indexPath:IndexPath) {
         print("выбрал мастера кому записывать",indexPath)
         print("загрузить данные для таблицы (запись в течении дня) для мастера:",indexPath.row)
+        checkMaster = team?[indexPath.row]
     }
     
     func presedClient(indexPath:IndexPath) {
@@ -105,6 +109,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         dateFormatterM.dateFormat = "MM"
         print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: senderDate))")
         print("Дата записи начала работы с клиентом в календарь \(senderDate)")
+        
+        customerRecordNew?.dateTimeStartService.append(dateFormatter.string(from: senderDate))
        
       
         

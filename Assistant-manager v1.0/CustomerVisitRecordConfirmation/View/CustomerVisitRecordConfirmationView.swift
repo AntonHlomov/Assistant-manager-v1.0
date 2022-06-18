@@ -210,7 +210,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
     @objc fileprivate func handleKeyboardSwow(notification: Notification){
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
         //frame keybord
-        let keyboardframe = value .cgRectValue 
+        let keyboardframe = value .cgRectValue
         //how high moving the window be
         let bottomSpace = commitCustomerVisitRecord.frame.height + commitCustomerVisitRecord.frame.height/4
         let difference = keyboardframe.height - bottomSpace
@@ -239,6 +239,23 @@ extension CustomerVisitRecordConfirmationView{
     }
 }
 extension CustomerVisitRecordConfirmationView: CustomerVisitRecordConfirmationViewProtocol {
+    func setInfoDate(dateStart: String) {
+        dataDate.text = dateStart
+    }
+    
+    func setInfoMaster(image: String, name: String, nameProfesion: String) {
+        print("info master")
+        imageView.loadImage(with: image )
+        nameShurname.text = name
+        profession.text = nameProfesion
+    }
+    
+    func setInfoClient(image: String, name: String) {
+        print("infoClient")
+        clientImageView.loadImage(with: image)
+        nameClient.text = name
+    }
+    
     func succes() {
     }
     func failure(error: Error) {

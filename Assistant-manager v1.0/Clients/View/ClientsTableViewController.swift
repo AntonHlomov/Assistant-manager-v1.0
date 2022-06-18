@@ -19,6 +19,7 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewClient))
        // tableView.refreshControl = dataRefresher
         tableView.register(TableClientCell.self, forCellReuseIdentifier: clientCellId)
@@ -59,11 +60,9 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: clientCellId, for: indexPath) as! TableClientCell
         cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
-       // cell.textLabel?.text = "Khlomov Anton"
-       // cell.detailTextLabel?.text = "Тестовый клиент. Пришел через instagram"
-        //передаем массив в ячейку таблицы  [indexPath.row]- распределяем по ячейкам
         cell.client = presenter.filterClients?[indexPath.row]
         cell.accessoryType = .disclosureIndicator
+        cell.addCustomDisclosureIndicator(with: UIColor.appColor(.whiteAssistant)!)
 
         return cell
     }

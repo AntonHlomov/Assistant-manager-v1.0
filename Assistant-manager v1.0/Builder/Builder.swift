@@ -22,7 +22,7 @@ protocol AsselderBuilderProtocol{
     
     func createChoiceVisitDateModule(router:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) -> UIViewController
     
-    func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?) -> UIViewController
+    func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?) -> UIViewController
     
     func craateClientPageModule(router:LoginRouterProtocol,client: Client?) -> UIViewController
     
@@ -39,10 +39,10 @@ protocol AsselderBuilderProtocol{
 // сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
     
-    func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?) -> UIViewController {
+    func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?) -> UIViewController {
         let view = CustomerVisitRecordConfirmationView()
         let networkService = APICustomerVisitRecordConfirmation()
-        let presenter = CustomerVisitRecordConfirmationViewPresenter(view: view, networkService: networkService, router: router, customerVisit: customerVisit)
+        let presenter = CustomerVisitRecordConfirmationViewPresenter(view: view, networkService: networkService, router: router, customerVisit: customerVisit,master:master,client: client,services:services)
         view.presenter = presenter
         return view
     }

@@ -18,7 +18,6 @@ class TableClientCell: UITableViewCell {
             guard let textclient = client?.textAboutClient else {return}
             textLabel?.text = clientname.capitalized + (" ") + fullname.capitalized
             detailTextLabel?.text = textclient
-            
         }
     }
     let  profileImageView = CustomUIimageView(frame: .zero)

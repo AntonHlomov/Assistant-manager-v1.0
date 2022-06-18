@@ -22,7 +22,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showClientsTableViewController()
     func showPrice(newVisitMode: Bool, client: Client?)
     func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?)
-    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?)
+    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?)
     func showClientPage(client: Client?)
     func showAddClientView(editMode: Bool, client: Client?)
     func showAddNewServiceView(editMode: Bool, price: Price?)
@@ -125,9 +125,9 @@ class Router: LoginRouterProtocol{
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?) {
+    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?) {
         if let navigationControler = navigationControler {
-            guard let registrationControler = assemblyBuilder?.crateCustomerVisitRecordConfirmationModule(router: self, customerVisit: customerVisit) else {return}
+            guard let registrationControler = assemblyBuilder?.crateCustomerVisitRecordConfirmationModule(router: self, customerVisit: customerVisit,master:master,client: client,services:services) else {return}
           //  navigationControler.pushViewController(registrationControler, animated: true)
             navigationControler.present(registrationControler, animated: true, completion: nil)
         }
@@ -135,6 +135,7 @@ class Router: LoginRouterProtocol{
     func showClientPage(client: Client?){
         if let navigationControler = navigationControler {
             guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client) else {return}
+          
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

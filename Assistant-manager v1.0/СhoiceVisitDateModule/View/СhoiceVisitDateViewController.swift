@@ -70,7 +70,7 @@ class ChoiceVisitDateViewController: UIViewController {
     return view
     }()
     
-    fileprivate let confirm =  UIButton.setupButton(title: "Confirm", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
+    fileprivate let addACommentButton =  UIButton.setupButton(title: "Add a comment", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,12 +116,12 @@ class ChoiceVisitDateViewController: UIViewController {
         scrollViewContainer.addArrangedSubview(datePicker)
         datePicker.anchor(top: greyDownView.bottomAnchor, leading: scrollViewContainer.leadingAnchor, bottom: scrollViewContainer.bottomAnchor, trailing: scrollViewContainer.trailingAnchor, pading: .init(top: 13, left: 0, bottom: 60, right: 0), size: .init(width: 0, height: view.frame.height/1.8))
         
-        view.addSubview(confirm)
-        confirm.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
+        view.addSubview(addACommentButton)
+        addACommentButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
     }
     
     func handlers() {
-        confirm.addTarget(self, action: #selector(puchConfirm), for: .touchUpInside)
+        addACommentButton.addTarget(self, action: #selector(puchConfirm), for: .touchUpInside)
         datePicker.addTarget(self, action: #selector(self.dateChanged(_:)), for: .valueChanged)
     }
     

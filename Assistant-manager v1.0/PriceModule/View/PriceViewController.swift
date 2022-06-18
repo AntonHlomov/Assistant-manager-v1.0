@@ -25,9 +25,9 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
        
-      //  self.navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Price: "+"0.0"+"$"
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.appColor(.whiteAssistant)!]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.appColor(.whiteAssistant)!]
+     
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         configureUI()
         configureTable()
@@ -80,6 +80,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! PriceCell
+        cell.tintColor = UIColor.appColor(.whiteAssistant)
         //убираем выделение
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -168,7 +169,7 @@ extension PriceViewController{
 extension PriceViewController: PriceProtocol {
     func changeButton(newVisitMode: Bool) {
         guard newVisitMode == true else{return}
-        self.newService.setTitle("Сhoice of visit date >>>", for: .normal)
+        self.newService.setTitle("Сhoice of visit date", for: .normal)
     }
     
     func succesTotalListPrice(totalList: String) {

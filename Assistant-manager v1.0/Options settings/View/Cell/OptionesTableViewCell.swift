@@ -29,7 +29,8 @@ class OptionesTableViewCell: UITableViewCell {
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
      //selectionStyle = .none
-       accessoryType = .disclosureIndicator
+     //  accessoryType = .disclosureIndicator
+       
          
        addSubview(lineView)
        lineView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 0, left: 35, bottom: 0, right: 0),size: .init(width: 1, height: 0))

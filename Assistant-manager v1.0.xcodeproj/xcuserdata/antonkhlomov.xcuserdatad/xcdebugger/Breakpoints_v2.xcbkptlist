@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6F3377FE-C1E2-4DEC-A994-AF60F5825B40"
-            shouldBeEnabled = "No"
+            uuid = "8003FFE8-5A61-42EF-8DE8-CBAFED2867BC"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/Options settings/View/OptionesController.swift"
+            filePath = "Assistant-manager v1.0/CustomerVisitRecordConfirmation/Presenter/CustomerVisitRecordConfirmationViewPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "setDtata()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "97F1778C-FFA8-498E-8D90-A6FF55531AD0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assistant-manager v1.0/&#x421;hoiceVisitDateModule/Presenter/&#x421;hoiceVisitDatePresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "dateChanged(senderDate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
