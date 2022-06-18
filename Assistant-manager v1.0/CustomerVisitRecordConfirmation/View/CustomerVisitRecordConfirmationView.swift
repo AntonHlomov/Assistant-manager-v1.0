@@ -4,26 +4,23 @@
 //
 //  Created by Anton Khlomov on 15/06/2022.
 //
-
 import UIKit
-
 
 class CustomerVisitRecordConfirmationView: UIViewController {
     var presenter: CustomerVisitRecordConfirmationViewPresenterProtocol!
-   
     
     let bodyView: UIView = {
         let body = UIView()
         body.backgroundColor = UIColor.appColor(.blueAssistantFon)
         body.layer.cornerRadius = 20
         return body
-     }()
+    }()
     
     let lineView: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
          return line
-     }()
+    }()
     
     let imageView = CustomUIimageView(frame: .zero)
     
@@ -36,6 +33,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         Label.numberOfLines = 1
         return Label
     }()
+    
     let profession: UILabel = {
         let Label = UILabel()
         Label.text = "Hair staylist"
@@ -45,7 +43,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         Label.numberOfLines = 1
         return Label
     }()
-
+    
     lazy var circlForImageClient: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -53,7 +51,8 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         line.layer.borderColor = UIColor.appColor(.whiteAssistant)?.cgColor
         line.layer.borderWidth = 3
         return line
-     }()
+    }()
+    
     lazy var clientImageView = CustomUIimageView(frame: .zero )
     
     lazy var nameClient: UILabel = {
@@ -63,7 +62,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
-     }()
+    }()
     
     let textAddComent: UILabel = {
         let Label = UILabel()
@@ -85,19 +84,18 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         text.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
         text.layer.borderWidth = 1
         text.layer.cornerRadius = 15
-        //нельзя редактировать
         text.isEditable = true
         return text
     }()
     
-     var dateTextLabel: UILabel = {
+    var dateTextLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.text = "Visit date: "
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
-     }()
+    }()
     
     lazy var dataDate: UILabel = {
         let label = UILabel()
@@ -106,12 +104,13 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
-     }()
+    }()
+    
     lazy var stackDate = UIStackView(arrangedSubviews: [dateTextLabel,dataDate])
     
     fileprivate let confirmButton = UIButton.setupButton(title: "Confirm", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
-
-
+// MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -119,16 +118,20 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         setupTapGesture()
         hadleres()
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+// MARK: - hadleres
+    
     fileprivate func hadleres() {
         confirmButton.addTarget(self, action: #selector(saveCustomerVisit), for: .touchUpInside)
     }
-        // MARK: - configureUI
+// MARK: - configureUI
+    
     fileprivate func configureUI() {
         view.addSubview(bodyView)
         bodyView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,pading: .init(top: view.frame.height/9, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: view.frame.height/1.3))
-        
-      //  bodyView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,pading: .init(top: view.frame.height/9, left: view.frame.width/13, bottom: view.frame.height/5.3, right: view.frame.width/13), size: .init(width: 0, height: 0))
-        
+      
         bodyView.addSubview(lineView)
         lineView.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.width/6, height: 6))
         lineView.layer.cornerRadius = 6/2
@@ -143,9 +146,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
        
         bodyView.addSubview(profession)
         profession.anchor(top: nameShurname.bottomAnchor, leading: nameShurname.leadingAnchor, bottom: nil, trailing: nil, pading: .init( top: 1, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
-           // profession.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
-    
         
         bodyView.addSubview(circlForImageClient)
         circlForImageClient.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: view.frame.height/8, left: 0, bottom: 0, right: 0),  size: .init(width: 100, height: 100))
@@ -178,53 +178,48 @@ class CustomerVisitRecordConfirmationView: UIViewController {
      
         bodyView.addSubview(confirmButton)
         confirmButton.anchor(top: nil, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor, trailing: bodyView.trailingAnchor, pading: .init(top: 0, left: 50, bottom: view.frame.height/25, right: 50), size: .init(width: 0, height: 40))
-      
-        
-   
-        
-       
-        
     }
-    
+
     @objc fileprivate func saveCustomerVisit(){
       //  guard let nameServise = nameServise.text?.lowercased() else {return}
       //  guard let timeAtWorkMin = Int(timeAtWorkMin.text ?? "0") else {return}
       //  guard let timeReturnServiseDays = Int(timeReturnServiseDays.text ?? "0") else {return}
       //  guard let priceServies = Double(priceServies.text ?? "0.0") else {return}
-     
         presenter.saveCustomerVisit()
         //presenter.addNewServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
         confirmButton.isEnabled = false
-  
-    }
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-     //   self.circlForImageClient.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
-        self.commitCustomerVisitRecord.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
     }
     
-    //MARK: - Клавиатура
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.commitCustomerVisitRecord.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
+    }
+//MARK: - Keyboard
+    
     fileprivate func  setupNotificationObserver(){
-        // следит когда подниметься клавиатура
+        // listener up keybord
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        // следит когда пbcxtpftn
+        // listener down keybord
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwowHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-   override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
+    override func viewWillDisappear(_ animated: Bool) {
+        //clean keybord from memoey
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    //размеры клавиатуры
+    //frame keybord
     @objc fileprivate func handleKeyboardSwow(notification: Notification){
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
-        let keyboardframe = value .cgRectValue    //рамка клавиатуры
-        let bottomSpace = commitCustomerVisitRecord.frame.height + commitCustomerVisitRecord.frame.height/4        //на сколько должна сдвинуть интерфейс
+        //frame keybord
+        let keyboardframe = value .cgRectValue 
+        //how high moving the window be
+        let bottomSpace = commitCustomerVisitRecord.frame.height + commitCustomerVisitRecord.frame.height/4
         let difference = keyboardframe.height - bottomSpace
         self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 15)
     }
-    //опускание клавиатуры
+    //down keybord
     @objc fileprivate func handleKeyboardSwowHide(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.transform = .identity     // интерфейс опускаеться в низ
+            self.view.transform = .identity     // how high moving the window be
         }, completion: nil)
     }
     fileprivate func setupTapGesture(){
@@ -235,8 +230,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
     }
   
 }
-
-
 extension CustomerVisitRecordConfirmationView{
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -245,8 +238,6 @@ extension CustomerVisitRecordConfirmationView{
         present(alertControler, animated: true, completion: nil)
     }
 }
-
-//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension CustomerVisitRecordConfirmationView: CustomerVisitRecordConfirmationViewProtocol {
     func succes() {
     }
@@ -254,8 +245,4 @@ extension CustomerVisitRecordConfirmationView: CustomerVisitRecordConfirmationVi
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)
     }
-    
-   
-    
-
 }

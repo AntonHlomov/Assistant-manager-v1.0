@@ -4,21 +4,18 @@
 //
 //  Created by Anton Khlomov on 11/06/2022.
 //
-
 import UIKit
 
 class ChoiceVisitDateViewController: UIViewController {
     var presenter: СhoiceVisitDatePresenterProtocol!
     
     let cellMaster = "cellMaster"
-    let cellIdTable = "cellIdTable"
-    
     let scrollView: UIScrollView = {
     let scrollView = UIScrollView()
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     return scrollView
     }()
-  
+    
     let scrollViewContainer: UIStackView = {
     let view = UIStackView()
     view.axis = .vertical
@@ -26,8 +23,8 @@ class ChoiceVisitDateViewController: UIViewController {
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
     }()
+    
     let masterCollectionView: UICollectionView = {
-        
     let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal
@@ -47,11 +44,13 @@ class ChoiceVisitDateViewController: UIViewController {
     
     lazy var zigzagContainerViewUp = SketchBorderView()
     
+    let cellIdTable = "cellIdTable"
     var tableView:UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
     var datePicker:UIDatePicker = {
         var datePicker = UIDatePicker()
         datePicker = UIDatePicker.init()
@@ -78,18 +77,14 @@ class ChoiceVisitDateViewController: UIViewController {
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         configureUI()
         handlers()
-        
         masterCollectionView.delegate = self
         masterCollectionView.dataSource = self
         masterCollectionView.register(MasterCollectionViewCell.self, forCellWithReuseIdentifier: cellMaster)
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         tableView.register(MastersScheduleTableViewCell.self, forCellReuseIdentifier: cellIdTable)
-        tableView.separatorColor = .clear //линии между ячейками цвет
-        
-       // handlers()
+        tableView.separatorColor = .clear //color line(midle cell)
     }
     
     func configureUI(){
@@ -137,9 +132,7 @@ class ChoiceVisitDateViewController: UIViewController {
     @objc func dateChanged(_ sender: UIDatePicker?) {
         guard  let date = sender?.date else {return}
         presenter.dateChanged(senderDate: date )
-    
     }
-
 }
 extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -151,7 +144,6 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdTable, for: indexPath) as! MastersScheduleTableViewCell
         cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
        // cell.customerRecord = filtersCustomerRecordAll[indexPath.row]
@@ -173,15 +165,13 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     }
     // Цвет, при нажатии
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        
     }
-    
 }
 extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.team?.count ?? 0
     }
+    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellMaster, for: indexPath) as! MasterCollectionViewCell
         cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -189,17 +179,20 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
         cell.team = presenter.team?[indexPath.row]
         return cell
     }
+    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 2
         cell?.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor
         presenter.pressedMastersChoice(indexPath: indexPath)
     }
+    
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("отжал\(indexPath.row)")
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 0
     }
+    
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
      let customCell = cell as! MasterCollectionViewCell
          if customCell.isSelected {
@@ -207,7 +200,6 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
              cell.layer.borderWidth = 2
          } else {
              cell.layer.borderWidth = 0
-          
          }
     }
 }

@@ -4,19 +4,17 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import UIKit
-
 
 class RegistrationController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var indicatorLogin = false
     // подключаемся к презентеру через протокол чтобы передавать нажатия итд из этого view
     var presenter: RegistrationViewPresenterProtocol!
  
-    
     var gradePicker: UIPickerView!
     
-    //MARK: - Propartes
+//MARK: - Propartes
+    
     var imageSelected = false
     fileprivate let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -37,10 +35,13 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
  
     fileprivate let emailTexfield = UITextField.setupTextField(title: "Email..", hideText: false, enabled: true)
+    
     fileprivate let nameTexfield = UITextField.setupTextField(title: "Name..", hideText: false, enabled: true)
+    
     fileprivate let passwordTexfield = UITextField.setupTextField(title: "Password..", hideText: true, enabled: true)
+    
     fileprivate let sigUpButton =    UIButton.setupButton(title: "Registration", color: UIColor.appColor(.pinkAssistant)!, activation: false, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!)
-
+    
     fileprivate let allRedyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "I have an account  ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.lightGray ])
@@ -48,8 +49,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
     }()
+    
     lazy var stackView = UIStackView(arrangedSubviews: [emailTexfield,nameTexfield,passwordTexfield,sigUpButton])
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,7 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         setupTapGesture()
         hadleres()
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -91,16 +93,12 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func handleSignUp(){
-     //   self.handleTapDismiss() //при нажатии кнопки регистрация убераеться клава
         guard let email = emailTexfield.text?.lowercased() else {return}
         guard let password = passwordTexfield.text else {return}
         guard let name = nameTexfield.text else {return}
         guard let profileImage = self.selectPhotoButton.imageView?.image else {return}
-
         print("проверка данных для регистрации")
-        // говорим презентеру на меня тапнули сделай эту бизнес логику
         self.presenter.showRegistrationInformation(photoUser: profileImage, emailAuth: email, name: name, passwordAuth: password,statusBoss: true)
-       
     }
      //проверка заполнености полей
     @objc fileprivate func formValidation(){
@@ -117,9 +115,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         sigUpButton.isEnabled = true
         sigUpButton.backgroundColor = UIColor.rgb(red: 170, green: 92, blue: 178)
     }
-    
+
     fileprivate func configureViewComponents(){
-        
         view.addSubview(selectPhotoButton)
         selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/13, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/3.9, height: view.frame.height/3.9))
         selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true //выстовляет по середине экрана
@@ -141,30 +138,32 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func goToSingIn(){
-       // _ = navigationController?.popViewController(animated: true)
         presenter.goToLoginControler()
-        
     }
-    //MARK: - Клавиатура
+//MARK: - Keyboard
+    
     fileprivate func  setupNotificationObserver(){
-        // следит когда подниметься клавиатура
+        // listener up keybord
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        // следит когда пbcxtpftn
+        // listener down keybord
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwowHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-   override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
+   override func viewWillDisappear(_ animated: Bool) {
+       //clean keybord from memoey
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    //размеры клавиатуры
+    //frame keybord
     @objc fileprivate func handleKeyboardSwow(notification: Notification){
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
-        let keyboardframe = value .cgRectValue    //рамка клавиатуры
-        let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height        //на сколько должна сдвинуть интерфейс
+        //frame keybord
+        let keyboardframe = value .cgRectValue
+        //how high moving the window be
+        let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height
         let difference = keyboardframe.height - bottomSpace
         self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 15)
     }
-    //опускание клавиатуры
+    //down keybord
     @objc fileprivate func handleKeyboardSwowHide(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.transform = .identity     // интерфейс опускаеться в низ
@@ -177,7 +176,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         view.endEditing(true)
     }
  }
-
 extension RegistrationController{
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -187,8 +185,6 @@ extension RegistrationController{
     }
   
 }
-
-//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension RegistrationController: RegistrationProtocol {
     func dismiss() {
         self.dismiss(animated: true, completion: nil)
