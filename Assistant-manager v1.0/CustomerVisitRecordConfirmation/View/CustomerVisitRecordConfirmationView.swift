@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SwiftUI
+
 
 class CustomerVisitRecordConfirmationView: UIViewController {
     var presenter: CustomerVisitRecordConfirmationViewPresenterProtocol!
@@ -19,7 +19,13 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         return body
      }()
     
-    let  imageView = CustomUIimageView(frame: .zero)
+    let lineView: UIImageView = {
+        let line = UIImageView()
+        line.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
+         return line
+     }()
+    
+    let imageView = CustomUIimageView(frame: .zero)
     
     let nameShurname: UILabel = {
         let Label = UILabel()
@@ -59,10 +65,20 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         return label
      }()
     
+    let textAddComent: UILabel = {
+        let Label = UILabel()
+        Label.text = "Add a comment"
+        Label.textAlignment = .left
+        Label.textColor = UIColor.appColor(.whiteAssistant)?.withAlphaComponent(0.5)
+        Label.font = UIFont.systemFont(ofSize: 10)
+        Label.numberOfLines = 1
+        return Label
+    }()
+    
     lazy var commitCustomerVisitRecord: UITextView = {
         var text = UITextView()
         text.textAlignment = .center
-        text.text = "Add a comment"
+        text.text = ""
         text.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         text.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)!
         text.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -93,25 +109,33 @@ class CustomerVisitRecordConfirmationView: UIViewController {
      }()
     lazy var stackDate = UIStackView(arrangedSubviews: [dateTextLabel,dataDate])
     
-    fileprivate let saveButton = UIButton.setupButton(title: "Save", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
+    fileprivate let confirmButton = UIButton.setupButton(title: "Confirm", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         configureUI()
+        setupNotificationObserver()
+        setupTapGesture()
         hadleres()
     }
     fileprivate func hadleres() {
-        saveButton.addTarget(self, action: #selector(saveCustomerVisit), for: .touchUpInside)
+        confirmButton.addTarget(self, action: #selector(saveCustomerVisit), for: .touchUpInside)
     }
         // MARK: - configureUI
     fileprivate func configureUI() {
         view.addSubview(bodyView)
-        bodyView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,pading: .init(top: view.frame.height/9, left: view.frame.width/13, bottom: view.frame.height/5.3, right: view.frame.width/13), size: .init(width: 0, height: 0))
+        bodyView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,pading: .init(top: view.frame.height/9, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: view.frame.height/1.3))
+        
+      //  bodyView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,pading: .init(top: view.frame.height/9, left: view.frame.width/13, bottom: view.frame.height/5.3, right: view.frame.width/13), size: .init(width: 0, height: 0))
+        
+        bodyView.addSubview(lineView)
+        lineView.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.width/6, height: 6))
+        lineView.layer.cornerRadius = 6/2
+        lineView.centerXAnchor.constraint(equalTo:  bodyView.centerXAnchor).isActive = true
         
         bodyView.addSubview(imageView)
-        imageView.anchor(top: bodyView.topAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: nil, pading: .init(top: 8, left: 8, bottom: 0, right: 0), size: .init(width: 25, height: 25))
+        imageView.anchor(top: lineView.bottomAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/40, left: 8, bottom: 0, right: 0), size: .init(width: 25, height: 25))
             imageView.layer.cornerRadius = 25/2
        
         bodyView.addSubview(nameShurname)
@@ -124,7 +148,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
     
         
         bodyView.addSubview(circlForImageClient)
-        circlForImageClient.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: view.frame.height/12, left: 0, bottom: 0, right: 0),  size: .init(width: 100, height: 100))
+        circlForImageClient.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: view.frame.height/8, left: 0, bottom: 0, right: 0),  size: .init(width: 100, height: 100))
         circlForImageClient.layer.cornerRadius = 100 / 2
         circlForImageClient.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true
         
@@ -145,12 +169,15 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         stackDate.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true //выстовляет по середине экрана
         
         bodyView.addSubview(commitCustomerVisitRecord)
-        commitCustomerVisitRecord.anchor(top: stackDate.bottomAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: bodyView.trailingAnchor,  pading: .init(top: view.frame.height/25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: view.frame.height/7))
+        commitCustomerVisitRecord.anchor(top: stackDate.bottomAnchor, leading: bodyView.leadingAnchor, bottom: nil, trailing: bodyView.trailingAnchor,  pading: .init(top: view.frame.height/13, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: view.frame.height/7))
         commitCustomerVisitRecord.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor).isActive = true //выстовляет по середине экрана
         
+        bodyView.addSubview(textAddComent)
+        textAddComent.anchor(top: nil, leading: nil, bottom: commitCustomerVisitRecord.topAnchor, trailing: nil, pading: .init( top: 0, left: 0, bottom: view.frame.height/80, right: 0), size: .init(width: 0, height: 0))
+        textAddComent.centerXAnchor.constraint(equalTo: commitCustomerVisitRecord.centerXAnchor).isActive = true
      
-        bodyView.addSubview(saveButton)
-        saveButton.anchor(top: nil, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor, trailing: bodyView.trailingAnchor, pading: .init(top: 0, left: 50, bottom: view.frame.height/25, right: 50), size: .init(width: 0, height: 40))
+        bodyView.addSubview(confirmButton)
+        confirmButton.anchor(top: nil, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor, trailing: bodyView.trailingAnchor, pading: .init(top: 0, left: 50, bottom: view.frame.height/25, right: 50), size: .init(width: 0, height: 40))
       
         
    
@@ -167,12 +194,44 @@ class CustomerVisitRecordConfirmationView: UIViewController {
      
         presenter.saveCustomerVisit()
         //presenter.addNewServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
-        saveButton.isEnabled = false
+        confirmButton.isEnabled = false
   
     }
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
      //   self.circlForImageClient.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
         self.commitCustomerVisitRecord.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
+    }
+    
+    //MARK: - Клавиатура
+    fileprivate func  setupNotificationObserver(){
+        // следит когда подниметься клавиатура
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // следит когда пbcxtpftn
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwowHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+   override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    //размеры клавиатуры
+    @objc fileprivate func handleKeyboardSwow(notification: Notification){
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+        let keyboardframe = value .cgRectValue    //рамка клавиатуры
+        let bottomSpace = commitCustomerVisitRecord.frame.height + commitCustomerVisitRecord.frame.height/4        //на сколько должна сдвинуть интерфейс
+        let difference = keyboardframe.height - bottomSpace
+        self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 15)
+    }
+    //опускание клавиатуры
+    @objc fileprivate func handleKeyboardSwowHide(){
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.transform = .identity     // интерфейс опускаеться в низ
+        }, completion: nil)
+    }
+    fileprivate func setupTapGesture(){
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss)))
+    }
+    @objc fileprivate func handleTapDismiss(){
+        view.endEditing(true)
     }
   
 }

@@ -17,6 +17,7 @@ protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
     
     var team: [Team]? {get set}
+    var customerRecordNew: CustomerRecord? {get set}
     
     func puchConfirm()
     func pressedMastersChoice(indexPath:IndexPath)
@@ -37,6 +38,20 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var serviceCheck: [Price]?
     var client: Client?
     var customerRecordNew: CustomerRecord?
+    
+    var idRecord: String!
+    var idUserWhoRecorded: String!
+    var idUserWhoWorks: String!
+    var dateTimeStartService: String!
+    var dateTimeEndService: String!
+    var fullDateTimeStartServiceForFilter: String!
+    var idClient: String!
+    var genderClient: String!
+    var ageClient:Int!
+    var periodNextRecord: String!
+    var commit: String!
+    var idAllServiceArray: [Price]!
+    var anUnfulfilledRecord: Bool!
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
         self.view = view
@@ -68,6 +83,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
+   
         self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew)
     }
     func pressedMastersChoice(indexPath:IndexPath) {
@@ -89,6 +105,9 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         dateFormatterM.dateFormat = "MM"
         print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: senderDate))")
         print("Дата записи начала работы с клиентом в календарь \(senderDate)")
+       
+      
+        
     }
     
 }
