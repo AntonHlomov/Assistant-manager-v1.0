@@ -18,12 +18,14 @@ protocol CustomerVisitRecordConfirmationViewProtocol: AnyObject {
 
 protocol CustomerVisitRecordConfirmationViewPresenterProtocol: AnyObject {
     init(view: CustomerVisitRecordConfirmationViewProtocol,networkService: APICustomerVisitRecordConfirmationProtocol, router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?)
+    
     func saveCustomerVisit()
     func setDtata()
     var master: Team? {get}
-    var client: Client?{get}
-    var user: User?{get}
-    var services:[Price]?{get}
+    var client: Client? {get}
+    var user: User? {get}
+    var services:[Price]? {get}
+    var customerVisit: CustomerRecord? {get set}
 }
 
 class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmationViewPresenterProtocol {
@@ -49,22 +51,23 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
     }
     func setDtata(){
         let imageMaster = master?.profileImageURLTeamMember ?? ""
-        guard let nameMaster = master?.nameTeamMember else {return}
-        guard let fullNameMaster = master?.fullnameTeamMember else {return}
-        guard let profecionMaster = master?.professionName else {return}
+        let nameMaster = master?.nameTeamMember ?? ""
+        let fullNameMaster = master?.fullnameTeamMember ?? ""
+        let profecionMaster = master?.professionName ?? ""
         let nameFullNameMaster = nameMaster.capitalized + (" ") + fullNameMaster.capitalized
         self.view?.setInfoMaster(image: imageMaster, name: nameFullNameMaster, nameProfesion: profecionMaster)
         
         let imageClient = client?.profileImageClientUrl ?? ""
-        guard let nameClient = client?.nameClient else {return}
-        guard let fullNameClient = client?.fullName else {return}
+        let nameClient = client?.nameClient ?? ""
+        let fullNameClient = client?.fullName ?? ""
         let nameFullNameClient = nameClient.capitalized + (" ") + fullNameClient.capitalized
         self.view?.setInfoClient(image: imageClient, name: nameFullNameClient)
         
-        guard let dateStart = customerVisit?.dateTimeStartService else {return}
+        let dateStart = customerVisit?.dateTimeStartService ?? ""
         self.view?.setInfoDate(dateStart: dateStart)
     }
     func saveCustomerVisit() {
         print("отправить через  api запись клиента")
+        
     }
 }

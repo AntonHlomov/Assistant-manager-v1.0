@@ -21,7 +21,7 @@ class CustomerRecord {
     var periodNextRecord: String!
     var commit: String!
    // var idAllServiceArray: [String]!
-    var idAllServiceArray: [Price]!
+    var service: [Price]!
     var anUnfulfilledRecord: Bool!
     
     init(dictionary: [String: Any]) {
@@ -38,7 +38,7 @@ class CustomerRecord {
         self.periodNextRecord = dictionary["periodNextRecord"] as? String ?? ""
         self.commit = dictionary["commit"] as? String ?? ""
        // self.idAllServiceArray = dictionary["idAllServiceArray"] as? [String] ?? [""]
-        self.idAllServiceArray = dictionary["idAllServiceArray"] as? [Price] ?? []
+        self.service = dictionary["service"] as? [Price] ?? []
         self.anUnfulfilledRecord = dictionary["anUnfulfilledRecord"] as? Bool ?? nil
     }
 }

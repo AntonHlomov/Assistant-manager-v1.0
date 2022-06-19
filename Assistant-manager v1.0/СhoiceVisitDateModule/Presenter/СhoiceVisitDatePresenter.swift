@@ -61,11 +61,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.networkService = networkService
         self.client = clientCheck
         self.serviceCheck = serviceCheck
-      
-        
         getDataForTeam()
         setDataCustomerRecordForMaster()
- 
     }
     func getDataForTeam(){
         networkService.getTeam{ [weak self] result in
@@ -86,6 +83,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
+        
+        customerRecordNew = CustomerRecord(dictionary: ["service": serviceCheck ?? [],"idUserWhoWorks": checkMaster?.idTeamMember ?? "", "idClient": client?.idClient ?? "","genderClient": client?.genderClient ?? "","ageClient": client?.ageClient ?? "","dateTimeStartService": dateTimeStartService ?? "", "dateTimeEndService": dateTimeEndService ?? ""])
    
         self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
     }
@@ -100,20 +99,20 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     
     func dateChanged(senderDate: Date) {
-        print("выбор даты и времени для записи")
         let dateFormatter = DateFormatter()
-             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
-        let dateFormatterYar = DateFormatter()
-        dateFormatterYar.dateFormat = "YYYY-MM-dd"
-        let dateFormatterM = DateFormatter()
-        dateFormatterM.dateFormat = "MM"
-        print("Дата записи начала работы с клиентом в календарь \(dateFormatter.string(from: senderDate))")
-        print("Дата записи начала работы с клиентом в календарь \(senderDate)")
+        dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
+        self.dateTimeStartService = dateFormatter.string(from: senderDate)
         
-        customerRecordNew?.dateTimeStartService.append(dateFormatter.string(from: senderDate))
-       
-      
-        
+        var timeForWork = 0
+        for (servic) in serviceCheck! {
+            timeForWork = timeForWork + servic.timeAtWorkMin
+        }
+        self.dateTimeEndService = senderDate.addMin(n: timeForWork)
+    }
+    
+    func calculationDateEndService(){
+      //  let timeEndArray  = serviceCheck.filter{$0.timeAtWorkMin.contains(StingID ?? "")}.map{$0.timeAtWork}[0]
+ 
     }
     
 }
