@@ -19,13 +19,13 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
         let idCustomerRecord = NSUUID().uuidString
       
         
-        Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idCustomerRecord).setData(newCustomerVisit) { (error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            completion(.success(true))
-        }
+     //       Firestore.firestore().collection("users").document(uid).collection("CustomerRecord")//.document(idCustomerRecord).setData(newCustomerVisitas) { (error) in
+     //       if let error = error {
+     //           completion(.failure(error))
+     //           return
+     //       }
+     //       completion(.success(true))
+     //   }
         
     }
     
