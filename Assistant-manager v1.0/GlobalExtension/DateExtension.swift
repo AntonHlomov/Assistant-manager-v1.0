@@ -40,6 +40,14 @@ extension Date {
         let dataEndFormatter = dateFormatter.string(from: dateEnd)
         return dataEndFormatter
     }
+    public  func addDay(n: Int) -> String {
+        let calendar = Calendar.current
+        let dateEnd = calendar.date(byAdding: .day, value: n, to: self)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
+        let dataEndFormatter = dateFormatter.string(from: dateEnd)
+        return dataEndFormatter
+    }
     
  //   public  func today(n: Int) -> String {
  //       let calendar = Calendar.current

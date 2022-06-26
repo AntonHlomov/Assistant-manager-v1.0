@@ -103,11 +103,16 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
         self.dateTimeStartService = dateFormatter.string(from: senderDate)
         
-        var timeForWork = 0
+        var timeForWork = 0 // min
+        var nextRecordDay = 0 // day
         for (servic) in serviceCheck! {
             timeForWork = timeForWork + servic.timeAtWorkMin
+            nextRecordDay = nextRecordDay + servic.timeReturnServiseDays
         }
         self.dateTimeEndService = senderDate.addMin(n: timeForWork)
+        self.periodNextRecord = senderDate.addDay(n: nextRecordDay)
+        print("следующий визит")
+        print( self.periodNextRecord ?? "")
     }
     
     func calculationDateEndService(){

@@ -13,8 +13,6 @@ protocol ApiAddNewServiceProtocol{
     
     func editServies(idPrice: String,nameServise: String, priceServies: Double, timeAtWorkMin: Int, timeReturnServiseDays: Int,completion: @escaping (Result<Bool,Error>) -> Void)
   
-    
-    
 }
 
 class ApiAddNewService: ApiAddNewServiceProtocol{

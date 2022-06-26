@@ -14,14 +14,14 @@ class CustomerRecord {
     var idUserWhoWorks: String!
     var dateTimeStartService: String!
     var dateTimeEndService: String!
-    var fullDateTimeStartServiceForFilter: String!
+  //  var fullDateTimeStartServiceForFilter: String!
     var idClient: String!
     var genderClient: String!
     var ageClient:Int!
     var periodNextRecord: String!
     var commit: String!
-   // var idAllServiceArray: [String]!
-    var service: [Price]!
+   //var idAllServiceArray: [String]!
+    var service: [Price]! 
     var anUnfulfilledRecord: Bool!
     
     init(dictionary: [String: Any]) {
@@ -31,7 +31,7 @@ class CustomerRecord {
         self.idUserWhoWorks = dictionary["idUserWhoWorks"] as? String ?? ""
         self.dateTimeStartService = dictionary["dateTimeStartService"] as? String ?? ""
         self.dateTimeEndService = dictionary["dateTimeEndService"] as? String ?? ""
-        self.fullDateTimeStartServiceForFilter = dictionary["fullDateTimeStartServiceForFilter"] as? String ?? ""
+      //  self.fullDateTimeStartServiceForFilter = dictionary["fullDateTimeStartServiceForFilter"] as? String ?? ""
         self.idClient = dictionary["idClient"] as? String ?? ""
         self.genderClient = dictionary["genderClient"] as? String ?? ""
         self.ageClient = dictionary["ageClient"] as? Int ?? nil
