@@ -111,8 +111,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         }
         self.dateTimeEndService = senderDate.addMin(n: timeForWork)
         self.periodNextRecord = senderDate.addDay(n: nextRecordDay)
-        print("следующий визит")
-        print( self.periodNextRecord ?? "")
+      print("следующий визит")
+        print("")
     }
     
     func calculationDateEndService(){
