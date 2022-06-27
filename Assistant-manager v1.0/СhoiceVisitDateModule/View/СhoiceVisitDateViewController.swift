@@ -214,6 +214,10 @@ extension ChoiceVisitDateViewController{
 }
 
 extension ChoiceVisitDateViewController: СhoiceVisitDateProtocol {
+    func attentionString(error: String) {
+        alertMassage(title: "Please check", message: error)
+    }
+    
     func succesForTeamCollection() {
         self.masterCollectionView.reloadData()
     }

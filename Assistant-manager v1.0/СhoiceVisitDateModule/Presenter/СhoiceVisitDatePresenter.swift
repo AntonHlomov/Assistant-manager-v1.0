@@ -11,6 +11,7 @@ import UIKit
 protocol СhoiceVisitDateProtocol: AnyObject{
     func succesForTeamCollection()
     func failure(error: Error)
+    func attentionString(error: String)
     }
 
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
@@ -52,6 +53,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var periodNextRecord: String!
     var commit: String!
     var anUnfulfilledRecord: Bool!
+    
+    
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
         self.view = view
@@ -81,6 +84,28 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
+        guard
+            checkMaster != nil,
+            serviceCheck?.isEmpty == false
+        else {
+            var error = ""
+            if serviceCheck?.isEmpty == true {error = error + "Services not selected."+"\n"}
+            if checkMaster == nil { error = error + "Master not selected."+"\n"}
+            self.view?.attentionString(error: error)
+            return
+            }
+        // если не выбрана дата и время то выбрать сегодня и сейчас
+        if dateTimeStartService == nil {
+            self.dateTimeStartService = Date().todayDMYTimeFormat()
+            var timeForWork = 0 // min
+            var nextRecordDay = 0 // day
+            for (servic) in serviceCheck! {
+                timeForWork = timeForWork + servic.timeAtWorkMin
+                nextRecordDay = nextRecordDay + servic.timeReturnServiseDays
+            }
+            self.dateTimeEndService = Date().addMin(n: timeForWork)
+            self.periodNextRecord = Date().addDay(n: nextRecordDay)
+        }
         
         customerRecordNew = CustomerRecord(dictionary: ["service": serviceCheck ?? [],"idUserWhoWorks": checkMaster?.idTeamMember ?? "", "idClient": client?.idClient ?? "","genderClient": client?.genderClient ?? "","ageClient": client?.ageClient ?? "","dateTimeStartService": dateTimeStartService ?? "", "dateTimeEndService": dateTimeEndService ?? "","periodNextRecord": periodNextRecord ?? ""])
    
@@ -109,8 +134,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         }
         self.dateTimeEndService = senderDate.addMin(n: timeForWork)
         self.periodNextRecord = senderDate.addDay(n: nextRecordDay)
-      print("следующий визит")
-      print( self.periodNextRecord ?? "")
+
     }
+
   
 }
