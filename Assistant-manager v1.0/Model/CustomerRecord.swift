@@ -14,7 +14,7 @@ class CustomerRecord {
     var idUserWhoWorks: String!
     var dateTimeStartService: String!
     var dateTimeEndService: String!
-  //  var fullDateTimeStartServiceForFilter: String!
+   //var fullDateTimeStartServiceForFilter: String!
     var idClient: String!
     var genderClient: String!
     var ageClient:Int!

@@ -11,7 +11,7 @@ import UIKit
 protocol СhoiceVisitDateProtocol: AnyObject{
     func succesForTeamCollection()
     func failure(error: Error)
-}
+    }
 
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
@@ -19,7 +19,6 @@ protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     var team: [Team]? {get set}
     var checkMaster: Team? {get set}
     var customerRecordNew: CustomerRecord? {get set}
-    
     func puchConfirm()
     func pressedMastersChoice(indexPath:IndexPath)
     func presedClient(indexPath:IndexPath)
@@ -52,7 +51,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var ageClient:Int!
     var periodNextRecord: String!
     var commit: String!
-   // var allServiceCheck: [Price]!
     var anUnfulfilledRecord: Bool!
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
@@ -84,7 +82,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
         
-        customerRecordNew = CustomerRecord(dictionary: ["service": serviceCheck ?? [],"idUserWhoWorks": checkMaster?.idTeamMember ?? "", "idClient": client?.idClient ?? "","genderClient": client?.genderClient ?? "","ageClient": client?.ageClient ?? "","dateTimeStartService": dateTimeStartService ?? "", "dateTimeEndService": dateTimeEndService ?? ""])
+        customerRecordNew = CustomerRecord(dictionary: ["service": serviceCheck ?? [],"idUserWhoWorks": checkMaster?.idTeamMember ?? "", "idClient": client?.idClient ?? "","genderClient": client?.genderClient ?? "","ageClient": client?.ageClient ?? "","dateTimeStartService": dateTimeStartService ?? "", "dateTimeEndService": dateTimeEndService ?? "","periodNextRecord": periodNextRecord ?? ""])
    
         self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
     }
@@ -114,10 +112,5 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
       print("следующий визит")
       print( self.periodNextRecord ?? "")
     }
-    
-    func calculationDateEndService(){
-      //  let timeEndArray  = serviceCheck.filter{$0.timeAtWorkMin.contains(StingID ?? "")}.map{$0.timeAtWork}[0]
- 
-    }
-    
+  
 }

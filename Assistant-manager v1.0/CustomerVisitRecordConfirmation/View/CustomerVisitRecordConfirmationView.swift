@@ -185,7 +185,10 @@ class CustomerVisitRecordConfirmationView: UIViewController {
       //  guard let timeAtWorkMin = Int(timeAtWorkMin.text ?? "0") else {return}
       //  guard let timeReturnServiseDays = Int(timeReturnServiseDays.text ?? "0") else {return}
       //  guard let priceServies = Double(priceServies.text ?? "0.0") else {return}
-        presenter.saveCustomerVisit()
+        if commitCustomerVisitRecord.text.isEmpty == true {
+           commitCustomerVisitRecord.text = ""
+        }
+        presenter.saveCustomerVisit(commment: commitCustomerVisitRecord.text)
         //presenter.addNewServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
         confirmButton.isEnabled = false
     }

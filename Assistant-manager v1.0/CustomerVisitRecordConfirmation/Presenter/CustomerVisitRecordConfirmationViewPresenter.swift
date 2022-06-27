@@ -19,7 +19,7 @@ protocol CustomerVisitRecordConfirmationViewProtocol: AnyObject {
 protocol CustomerVisitRecordConfirmationViewPresenterProtocol: AnyObject {
     init(view: CustomerVisitRecordConfirmationViewProtocol,networkService: APICustomerVisitRecordConfirmationProtocol, router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?)
     
-    func saveCustomerVisit()
+    func saveCustomerVisit(commment:String)
     func setDtata()
     var master: Team? {get}
     var client: Client? {get}
@@ -66,8 +66,21 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
         let dateStart = customerVisit?.dateTimeStartService ?? ""
         self.view?.setInfoDate(dateStart: dateStart)
     }
-    func saveCustomerVisit() {
+    func saveCustomerVisit(commment:String) {
         print("отправить через  api запись клиента")
+        networkService.addNewCustomerRecord(comment:commment,newCustomerVisit: customerVisit!){[weak self] result in
+            guard let self = self else {return}
+                DispatchQueue.main.async {
+                    switch result{
+                    case.success(_):
+                      print("закрыть")
+                        self.router?.popToRoot()
+                      
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                    }
+                }
+            }
         
     }
 }
