@@ -50,7 +50,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var idClient: String!
     var genderClient: String!
     var ageClient:Int!
-    var periodNextRecord: String!
     var commit: String!
     var anUnfulfilledRecord: Bool!
     
@@ -98,16 +97,29 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         if dateTimeStartService == nil {
             self.dateTimeStartService = Date().todayDMYTimeFormat()
             var timeForWork = 0 // min
-            var nextRecordDay = 0 // day
             for (servic) in serviceCheck! {
                 timeForWork = timeForWork + servic.timeAtWorkMin
-                nextRecordDay = nextRecordDay + servic.timeReturnServiseDays
             }
             self.dateTimeEndService = Date().addMin(n: timeForWork)
-            self.periodNextRecord = Date().addDay(n: nextRecordDay)
         }
-        
-        customerRecordNew = CustomerRecord(dictionary: ["service": serviceCheck ?? [],"idUserWhoWorks": checkMaster?.idTeamMember ?? "", "idClient": client?.idClient ?? "","genderClient": client?.genderClient ?? "","ageClient": client?.ageClient ?? "","dateTimeStartService": dateTimeStartService ?? "", "dateTimeEndService": dateTimeEndService ?? "","periodNextRecord": periodNextRecord ?? ""])
+      
+    
+        customerRecordNew = CustomerRecord(dictionary: [
+            "service": serviceCheck ?? [],
+            "idUserWhoWorks": checkMaster?.idTeamMember ?? "",
+            "nameWhoWorks": checkMaster?.nameTeamMember ?? "",
+            "fullNameWhoWorks": checkMaster?.fullnameTeamMember ?? "",
+            "profileImageWhoWorks": checkMaster?.profileImageURLTeamMember ?? "",
+            "idClient": client?.idClient ?? "",
+            "nameClient": client?.nameClient ?? "",
+            "fullNameClient": client?.fullName ?? "",
+            "profileImageClient": client?.profileImageClientUrl ?? "",
+            "telefonClient": client?.telefonClient ?? "",
+            "genderClient": client?.genderClient ?? "",
+            "ageClient": client?.ageClient ?? "",
+            "dateTimeStartService": dateTimeStartService ?? "",
+            "dateTimeEndService": dateTimeEndService ?? ""
+        ])
    
         self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
     }
@@ -127,13 +139,10 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.dateTimeStartService = dateFormatter.string(from: senderDate)
         
         var timeForWork = 0 // min
-        var nextRecordDay = 0 // day
         for (servic) in serviceCheck! {
             timeForWork = timeForWork + servic.timeAtWorkMin
-            nextRecordDay = nextRecordDay + servic.timeReturnServiseDays
         }
         self.dateTimeEndService = senderDate.addMin(n: timeForWork)
-        self.periodNextRecord = senderDate.addDay(n: nextRecordDay)
 
     }
 

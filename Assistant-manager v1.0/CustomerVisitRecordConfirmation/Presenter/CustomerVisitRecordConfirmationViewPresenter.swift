@@ -68,6 +68,8 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
     }
     func saveCustomerVisit(commment:String) {
         print("отправить через  api запись клиента")
+        
+        
         networkService.addNewCustomerRecord(comment:commment,newCustomerVisit: customerVisit!){[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async {
