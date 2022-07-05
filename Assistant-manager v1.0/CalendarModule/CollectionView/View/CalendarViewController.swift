@@ -209,6 +209,15 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             cell.priceLabel.text = price
             cell.closeXButton.tag = indexPath.row
             cell.closeXButton.addTarget(self, action: #selector(del), for: .touchUpInside)
+            
+            switch presenter.calendarToday?[indexPath.row].dateStartService{
+            case presenter.today:
+                cell.timeStartServiceCellText.text = "Today at:"
+            case presenter.tomorrow:
+                cell.timeStartServiceCellText.text = "Tomorrow at:"
+                
+            default: cell.timeStartServiceCellText.text = presenter.calendarToday?[indexPath.row].dateStartService ?? "" 
+            }
             return cell
         }
     }

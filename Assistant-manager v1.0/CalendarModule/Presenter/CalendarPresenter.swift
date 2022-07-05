@@ -39,6 +39,8 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     var revenueToday: Double? { get set } //выручка
     var expensesToday: Double? { get set } //расходы
     var calendarToday: [CustomerRecord]?{ get set }
+    var today: String { get set }
+    var tomorrow: String { get set }
 }
 
 // заввязываемся на протоколе
@@ -51,6 +53,8 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    var expensesToday: Double?
    var profit: Double?
    var calendarToday: [CustomerRecord]?
+   var today: String
+   var tomorrow: String
     
    weak var view: CalendadrViewProtocol?
    var router: LoginRouterProtocol?
@@ -67,8 +71,17 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.revenueToday = 0.0
         self.profit = 0.0
         self.calendarToday = [CustomerRecord]()
+        self.today = ""
+        self.tomorrow = ""
+        
+        dataTodayTomorrow()
         getUserData()
         getCalendarDate()
+    }
+    func dataTodayTomorrow(){
+        let date = Date()
+        self.today = date.todayDMYFormat()
+        self.tomorrow = date.tomorrowDMYFormat()
     }
     func deletCustomerRecorder(idCustomerRecorder:String) {
         DispatchQueue.main.async {
@@ -84,9 +97,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
     }
     func getCalendarDate() {
-        let today = Date().todayDMYFormat()
+       // let today = Date().todayDMYFormat()
         DispatchQueue.main.async {
-            self.networkService.getCustomerRecord(today: today){[weak self] result in
+            self.networkService.getCustomerRecord(today: self.today){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let filterCalendar):

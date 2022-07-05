@@ -80,7 +80,7 @@ class CalendarForDayCell: UICollectionViewCell {
     let priceCosText: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.text = "Итог:"
+        label.text = "Total:"
         label.font = UIFont.systemFont(ofSize: 19)
         label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
          return label
@@ -105,7 +105,7 @@ class CalendarForDayCell: UICollectionViewCell {
     let timeStartServiceCellText: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.text = "Визит в"
+        label.text = "Visit at"
         label.font = UIFont.boldSystemFont(ofSize: 20)
      // label.numberOfLines = 0
         label.textColor = UIColor.appColor(.whiteAssistant)

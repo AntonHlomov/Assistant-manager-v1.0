@@ -24,6 +24,14 @@ extension Date {
         let dataEndFormatter = dateFormatter.string(from: date)
         return dataEndFormatter
     }
+    public  func tomorrowDMYFormat() -> String {
+        let calendar = Calendar.current
+        let date = calendar.date(byAdding: .day, value: 1, to: self)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.YYYY"
+        let dataEndFormatter = dateFormatter.string(from: date)
+        return dataEndFormatter
+    }
     public  func todayMonthFormat() -> String {
         let calendar = Calendar.current
         let date = calendar.date(byAdding: .day, value: 0, to: self)!
