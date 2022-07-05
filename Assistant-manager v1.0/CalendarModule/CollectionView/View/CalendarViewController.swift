@@ -20,7 +20,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     
 
     var reminderSlaider = [[Client]]()
-    var calendarToday = [CustomerRecord]()
     lazy var revenue = 0.0   //выручка
     lazy var expenses = 0.0    //расходы
     var profit = 0.0     //прибыль
@@ -29,25 +28,17 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         return search
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        
-    
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
        // navigationController?.setNavigationBarHidden(true, animated: true)
-       
-        
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         self.collectionView.register(SliderReminderClientsCell.self, forCellWithReuseIdentifier: reminderSlaiderIdentifier)
         self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
         self.collectionView.register(EmptyCalendarCell.self, forCellWithReuseIdentifier: emptyCellIdentifier)
         self.collectionView.register(CalendarForDayCell.self, forCellWithReuseIdentifier: calendarIdentifier)
-        
-       
-        
         
         searchBar = UISearchBar()
         searchBar.placeholder = "Search"
@@ -67,33 +58,31 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     override func viewDidAppear(_ animated: Bool) {
         collectionView.reloadData()
     }
+   
   //   override func viewWillLayoutSubviews() {
   //       super.viewWillLayoutSubviews()
   //       //self.collectionView.collectionViewLayout.invalidateLayout()
   //      print("перевернул")
   //  }
     
-
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
           // slaider.count
         case 1:  return 0
-    
-        case 2 where calendarToday.isEmpty == true: return 1
+        case 2 where presenter.calendarToday?.isEmpty == true: return 1
             // calendar.isEmpty
-        case 2 where calendarToday.isEmpty != true: return 10
-            // calendar.count
+        case 2 where presenter.calendarToday?.isEmpty == false: return presenter.calendarToday?.count ?? 0
+            
         default: return 0
         }
-   
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -107,9 +96,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
           
         default: return CGSize(width: 0, height: 0)
         }
-     
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0: return CGSize (width: view.frame.width, height: 180)
@@ -120,7 +107,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
           
         default: return CGSize(width: 0, height: 0)
         }
-        
     }
     // убераем разрыв между вью по горизонтали
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -138,13 +124,11 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         case 0: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
             header.backgroundColor = UIColor.appColor(.whiteAssistantFon)
             
-            self.presenter.getUserData{ []  (user) in
-                guard let user = user else { return }
-                header.user = user
-            }
-            
-            
-              
+          //  self.presenter.getUserData{ []  (user) in
+          //      guard let user = user else { return }
+          //      header.user = user
+          //  }
+            header.user = presenter.user
             header.profitCLL.text = String(format: "%.1f",presenter.profit!)
             header.revenueCell.text = String(format: "%.1f",presenter.revenueToday!)
             header.expensesCell.text = String(format: "%.1f",presenter.expensesToday!)
@@ -201,18 +185,37 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 }
             return cell
             
-        case 1 where calendarToday.isEmpty == true,
-             2 where calendarToday.isEmpty == true:
+        case 1 where presenter.calendarToday?.isEmpty == true,
+             2 where presenter.calendarToday?.isEmpty == true:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellIdentifier, for: indexPath) as! EmptyCalendarCell
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: calendarIdentifier, for: indexPath) as! CalendarForDayCell
+            cell.customerRecord = presenter.calendarToday?[indexPath.row]
+            var nameS = ""
+            var price = ""
+            for (service) in presenter.calendarToday?[indexPath.row].service ?? [[String : Any]](){
+                let name: String = service["nameServise"] as! String
+                let priceText: String = String(Int(service["priceServies"] as! Double))
+                if nameS == "" {
+                    nameS = name.capitalized
+                    price = priceText
+                } else {
+                    nameS =  nameS.capitalized + ("\n") + name.capitalized
+                   price =  price + ("\n") + priceText
+                }
+            }
+            cell.serviesArey.text = nameS
+            cell.priceLabel.text = price
+            cell.closeXButton.tag = indexPath.row
+            cell.closeXButton.addTarget(self, action: #selector(del), for: .touchUpInside)
             return cell
         }
     }
     // нажатие на ячейки календаря
    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        print("нажал\(indexPath)")
+       presenter.pushRecorderClient(indexPath: indexPath)
    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
@@ -247,6 +250,22 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         self.presenter.pushOptionsButton()
     
     }
+    // MARK: - delite visit
+    @objc fileprivate func del(sender:UIButton){
+       print("удалить запись")
+        let index = sender.tag
+        let id = presenter.calendarToday?[index].idRecord ?? ""
+        //выплывающее окно с подтверждением о выходе для кнопки удалить запись
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete visit", style: .destructive, handler: { (_) in
+            self.presenter.deletCustomerRecorder(idCustomerRecorder: id)
+            print("удалил")
+           }))
+        //кнопка отмена выплывающего окна с подтверждением о выходе для кнопки выйти
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+
+ }
     
 }
 extension CalendarViewController{
@@ -260,6 +279,12 @@ extension CalendarViewController{
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension CalendarViewController: CalendadrViewProtocol {
+    func updateDataCalendar(update: Bool, indexSetInt: Int) {
+        guard update == true else {return}
+        let indexSet = IndexSet(integer: indexSetInt)
+       collectionView.reloadSections(indexSet)
+    }
+    
     func successUserData(user: User?) {
         print(user?.name ?? "")
         print("successUserData")

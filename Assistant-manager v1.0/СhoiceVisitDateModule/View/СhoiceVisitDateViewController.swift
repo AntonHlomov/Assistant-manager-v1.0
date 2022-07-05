@@ -154,6 +154,7 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
         var nameSev = ""
         for (service) in presenter.customerRecordPast?[indexPath.row].service ?? [[String : Any]](){
             let name: String = service["nameServise"] as! String
+            
             if nameSev == "" {
                 nameSev = name.capitalized
             } else {

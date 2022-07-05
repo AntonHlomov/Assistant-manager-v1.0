@@ -11,6 +11,7 @@ import Foundation
 //outPut
 protocol CalendadrViewProtocol: AnyObject {
     func successUserData(user: User?)
+    func updateDataCalendar(update: Bool, indexSetInt: Int)
     func failure(error:Error)
    
 }
@@ -21,28 +22,35 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
 
     init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol, router: LoginRouterProtocol)
     
-    func getUserData(completion: @escaping (User?) ->())
+   // func getUserData(completion: @escaping (User?) ->())
+    func getUserData()
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getProfitStatistic(completion: @escaping (Double?) ->())
+    func getCalendarDate()
     func getStatistic()
     func pushClientsButton()
     func pushOptionsButton()
+    func pushRecorderClient(indexPath:IndexPath)
+    func deletCustomerRecorder(idCustomerRecorder:String)
     
     var user: User? { get set }
     var profit: Double? { get set } //прибыль
     var revenueToday: Double? { get set } //выручка
     var expensesToday: Double? { get set } //расходы
-   
+    var calendarToday: [CustomerRecord]?{ get set }
 }
 
 // заввязываемся на протоколе
 class CalendadrPresentor: CalendadrViewPresenterProtocol {
+   
     
+  
    var user: User?
    var revenueToday: Double?
    var expensesToday: Double?
    var profit: Double?
+   var calendarToday: [CustomerRecord]?
     
    weak var view: CalendadrViewProtocol?
    var router: LoginRouterProtocol?
@@ -50,6 +58,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    let networkServiceStatistic: APiStatistikMoneyServiceProtocol!
 
     required init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol, router: LoginRouterProtocol) {
+        
         self.view = view
         self.router = router
         self.networkService = networkService
@@ -57,9 +66,39 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.expensesToday = 0.0
         self.revenueToday = 0.0
         self.profit = 0.0
-        
-   
+        self.calendarToday = [CustomerRecord]()
+        getUserData()
+        getCalendarDate()
     }
+    func deletCustomerRecorder(idCustomerRecorder:String) {
+        DispatchQueue.main.async {
+            self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder){[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(_):
+                        self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                    }
+                }
+        }
+    }
+    func getCalendarDate() {
+        let today = Date().todayDMYFormat()
+        DispatchQueue.main.async {
+            self.networkService.getCustomerRecord(today: today){[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(let filterCalendar):
+                        self.calendarToday = filterCalendar
+                        self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                    }
+                }
+        }
+    }
+    
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
         DispatchQueue.main.async {
             self.networkServiceStatistic.getRevenue(indicatorPeriod: indicatorPeriod){[] result in 
@@ -133,21 +172,34 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
       }
     }
     
-    func getUserData(completion: @escaping (User?) ->()){
+   // func getUserData(completion: @escaping (User?) ->()){
+   //     DispatchQueue.main.async {
+   //         self.networkService.fetchCurrentUser{[weak self] result in
+   //         guard let self = self else {return}
+   //                 switch result{
+   //                 case.success(let user):
+   //                     self.user = user
+   //                     completion(user)
+   //                 case.failure(let error):
+   //                     self.view?.failure(error: error)
+   //                 }
+   //             }
+   //     }
+   // }
+    func getUserData(){
         DispatchQueue.main.async {
             self.networkService.fetchCurrentUser{[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let user):
                         self.user = user
-                        completion(user)
+                        self.view?.updateDataCalendar(update: true, indexSetInt: 0)
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
                 }
         }
     }
-    
     func pushClientsButton() {
            print("Push Clients Button")
         self.router?.showClientsTableViewController()
@@ -158,6 +210,21 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         
         self.router?.showOptionesViewController(user: self.user)
        }
+    func pushRecorderClient(indexPath:IndexPath) {
+        let idClient = (calendarToday?[indexPath.row].idClient ?? "") as String
+        DispatchQueue.main.async {
+            self.networkService.fetchCurrentClient(idClient: idClient){[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(let client):
+                        self.router?.showClientPage(client: client)
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                    }
+                }
+        }
+          
+    }
     
     
    // let user: User
