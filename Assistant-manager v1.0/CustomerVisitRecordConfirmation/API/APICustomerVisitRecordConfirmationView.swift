@@ -9,17 +9,29 @@ import Foundation
 import Firebase
 
 protocol APICustomerVisitRecordConfirmationProtocol {
-    func addNewCustomerRecord(comment:String,newCustomerVisit: CustomerRecord,completion: @escaping (Result<Bool,Error>) -> Void)
- 
+    func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord,completion: @escaping (Result<Bool,Error>) -> Void)
 }
 
 class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProtocol {
-    func addNewCustomerRecord(comment:String,newCustomerVisit: CustomerRecord, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord, completion: @escaping (Result<Bool, Error>) -> Void) {
+        
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let idCustomerRecord = NSUUID().uuidString
         
-       
-
+        var serviceData = [[String : Any]]()
+        for index in 0...services!.count - 1  {
+        let serv = services![index]
+            let dataServ = [
+                "idPrice": serv.idPrice as Any,
+                "nameServise": serv.nameServise as Any,
+                "priceServies": serv.priceServies as Any,
+                "timeAtWorkMin": serv.timeAtWorkMin as Any,
+                "timeReturnServiseDays": serv.timeReturnServiseDays as Any,
+                "ratingService": serv.ratingService as Any,
+                "remoteService": serv.remoteService as Any,
+            ] as [String : Any]
+            serviceData.append(dataServ)
+        }
         let data = ["idRecord": idCustomerRecord,
                     "idUserWhoRecorded":uid,
                     "idUserWhoWorks": newCustomerVisit.idUserWhoWorks!,
@@ -28,6 +40,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
                     "profileImageWhoWorks": newCustomerVisit.profileImageWhoWorks!,
                     "dateTimeStartService":newCustomerVisit.dateTimeStartService!,
                     "dateTimeEndService": newCustomerVisit.dateTimeEndService!,
+                    "dateStartService": newCustomerVisit.dateStartService!,
                     "idClient":newCustomerVisit.idClient!,
                     "nameClient":newCustomerVisit.nameClient!,
                     "fullNameClient":newCustomerVisit.fullNameClient!,
@@ -35,11 +48,11 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
                     "telefonClient":newCustomerVisit.telefonClient!,
                     "genderClient": newCustomerVisit.genderClient ?? "",
                     "ageClient":newCustomerVisit.ageClient ?? 0,
-                    "service": newCustomerVisit.service ?? [[Price]](),
+                    "service": serviceData,
                     "commit": comment 
                      ] as [String : Any]
         
-           Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
+           Firestore.firestore().collection("users").document(newCustomerVisit.idUserWhoWorks!).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
             if let error = error {
                 completion(.failure(error))
                 return

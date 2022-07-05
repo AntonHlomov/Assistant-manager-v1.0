@@ -17,6 +17,7 @@ class CustomerRecord {
     var profileImageWhoWorks: String!
     var dateTimeStartService: String!
     var dateTimeEndService: String!
+    var dateStartService: String!
     var idClient: String!
     var nameClient: String!
     var fullNameClient: String!
@@ -25,7 +26,7 @@ class CustomerRecord {
     var genderClient: String!
     var ageClient:Int!
     var commit: String!
-    var service: [[Price]]?
+    var service:  [[String : Any]]!
     var anUnfulfilledRecord: Bool!
     
     init(dictionary: [String: Any]) {
@@ -38,6 +39,7 @@ class CustomerRecord {
         self.profileImageWhoWorks = dictionary["profileImageWhoWorks"] as? String ?? ""
         self.dateTimeStartService = dictionary["dateTimeStartService"] as? String ?? ""
         self.dateTimeEndService = dictionary["dateTimeEndService"] as? String ?? ""
+        self.dateStartService = dictionary["dateStartService"] as? String ?? ""
         self.idClient = dictionary["idClient"] as? String ?? ""
         self.nameClient = dictionary["nameClient"] as? String ?? ""
         self.fullNameClient = dictionary["fullNameClient"] as? String ?? ""
@@ -46,7 +48,7 @@ class CustomerRecord {
         self.genderClient = dictionary["genderClient"] as? String ?? ""
         self.ageClient = dictionary["ageClient"] as? Int ?? nil
         self.commit = dictionary["commit"] as? String ?? ""
-        self.service = dictionary["service"] as? [[Price]]
+        self.service = dictionary["service"] as?  [[String : Any]] ?? nil
         self.anUnfulfilledRecord = dictionary["anUnfulfilledRecord"] as? Bool ?? nil
     }
 }

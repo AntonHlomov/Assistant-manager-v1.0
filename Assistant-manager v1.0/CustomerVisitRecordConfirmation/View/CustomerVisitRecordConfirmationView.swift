@@ -181,15 +181,10 @@ class CustomerVisitRecordConfirmationView: UIViewController {
     }
 
     @objc fileprivate func saveCustomerVisit(){
-      //  guard let nameServise = nameServise.text?.lowercased() else {return}
-      //  guard let timeAtWorkMin = Int(timeAtWorkMin.text ?? "0") else {return}
-      //  guard let timeReturnServiseDays = Int(timeReturnServiseDays.text ?? "0") else {return}
-      //  guard let priceServies = Double(priceServies.text ?? "0.0") else {return}
         if commitCustomerVisitRecord.text.isEmpty == true {
            commitCustomerVisitRecord.text = ""
         }
         presenter.saveCustomerVisit(commment: commitCustomerVisitRecord.text)
-        //presenter.addNewServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
         confirmButton.isEnabled = false
     }
     
@@ -234,7 +229,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
   
 }
 extension CustomerVisitRecordConfirmationView{
-    func alertRegistrationControllerMassage(title: String, message: String){
+    func alertControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: "Ok", style: .default)
         alertControler.addAction(alertOk)
@@ -263,6 +258,6 @@ extension CustomerVisitRecordConfirmationView: CustomerVisitRecordConfirmationVi
     }
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
-        alertRegistrationControllerMassage(title: "Error", message: error)
+        alertControllerMassage(title: "Error", message: error)
     }
 }

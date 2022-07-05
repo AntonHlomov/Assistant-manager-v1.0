@@ -31,6 +31,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func initalMainTabControler()
     func initalClientsTableViewController()
     func popToRoot()
+    func dismiss()
     func backTappedFromRight()
     func popViewControler()
    // func dismiss()
@@ -128,8 +129,8 @@ class Router: LoginRouterProtocol{
     func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?) {
         if let navigationControler = navigationControler {
             guard let registrationControler = assemblyBuilder?.crateCustomerVisitRecordConfirmationModule(router: self, customerVisit: customerVisit,master:master,client: client,services:services) else {return}
-          //  navigationControler.pushViewController(registrationControler, animated: true)
-            navigationControler.present(registrationControler, animated: true, completion: nil)
+           
+            navigationControler.present(registrationControler, animated: true)
         }
     }
     func showClientPage(client: Client?){
@@ -161,6 +162,11 @@ class Router: LoginRouterProtocol{
     func popToRoot() {
         if let navigationControler = navigationControler{
             navigationControler.popToRootViewController(animated: true)
+        }
+    }
+    func dismiss() {
+        if let navigationControler = navigationControler{
+            navigationControler.dismiss(animated: true, completion: nil)
         }
     }
     func popViewControler() {

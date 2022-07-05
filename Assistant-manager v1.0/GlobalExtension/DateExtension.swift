@@ -56,6 +56,18 @@ extension Date {
         let dataEndFormatter = dateFormatter.string(from: dateEnd)
         return dataEndFormatter
     }
+    public func formatterDateDMY(date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.YYYY"
+        let dataDMYFormatter = dateFormatter.string(from: date)
+        return dataDMYFormatter
+    }
+    public func formatterDateDMYHM(date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
+        let dataDMYHMFormatter = dateFormatter.string(from: date)
+        return dataDMYHMFormatter
+    }
     
  //   public  func today(n: Int) -> String {
  //       let calendar = Calendar.current

@@ -140,17 +140,27 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15 //filtersCustomerRecordAll.count
+        return presenter.customerRecordPast?.count ?? 0  //15 //filtersCustomerRecordAll.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdTable, for: indexPath) as! MastersScheduleTableViewCell
         cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
-       // cell.customerRecord = filtersCustomerRecordAll[indexPath.row]
+        cell.customerRecord = presenter.customerRecordPast?[indexPath.row]
         //убираем выделение ячейки
         cell.selectionStyle = .none
         //стрелочка с права в ячейки
         cell.accessoryType = .disclosureIndicator
+        var nameSev = ""
+        for (service) in presenter.customerRecordPast?[indexPath.row].service ?? [[String : Any]](){
+            let name: String = service["nameServise"] as! String
+            if nameSev == "" {
+                nameSev = name.capitalized
+            } else {
+            nameSev =  nameSev.capitalized + ("\n") + name.capitalized
+            }
+        }
+        cell.serviesLabelClient.text = nameSev
         return cell
     }
     
@@ -214,6 +224,10 @@ extension ChoiceVisitDateViewController{
 }
 
 extension ChoiceVisitDateViewController: СhoiceVisitDateProtocol {
+    func succesForTableCustomerRecordPast() {
+        self.tableView.reloadData()
+    }
+    
     func attentionString(error: String) {
         alertMassage(title: "Please check", message: error)
     }

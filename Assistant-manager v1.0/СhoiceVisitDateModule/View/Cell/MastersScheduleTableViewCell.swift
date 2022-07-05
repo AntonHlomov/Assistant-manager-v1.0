@@ -9,6 +9,22 @@ import UIKit
 
 class MastersScheduleTableViewCell: UITableViewCell {
     
+    var customerRecord: CustomerRecord?{
+        didSet{
+            guard let clientname = customerRecord?.nameClient else {return}
+            guard let fullname = customerRecord?.fullNameClient else {return}
+            guard let timeStart = customerRecord?.dateTimeStartService else {return}
+            guard let timeEnd = customerRecord?.dateTimeEndService else {return}
+
+            
+            nameLabelClient.text = clientname.capitalized + (" ") + fullname.capitalized
+          
+            timeStartLabel.text = String(timeStart.dropFirst(11))
+            timeEndLabel.text = String(timeEnd.dropFirst(11))
+
+        }
+    }
+    
     let circleView: UIImageView = {
         let circl = UIImageView()
         circl.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -66,6 +82,7 @@ class MastersScheduleTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
          return label
      }()
    

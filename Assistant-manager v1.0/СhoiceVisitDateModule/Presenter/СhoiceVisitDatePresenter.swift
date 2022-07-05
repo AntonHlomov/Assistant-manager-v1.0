@@ -10,6 +10,7 @@ import UIKit
 
 protocol СhoiceVisitDateProtocol: AnyObject{
     func succesForTeamCollection()
+    func succesForTableCustomerRecordPast()
     func failure(error: Error)
     func attentionString(error: String)
     }
@@ -20,12 +21,14 @@ protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     var team: [Team]? {get set}
     var checkMaster: Team? {get set}
     var customerRecordNew: CustomerRecord? {get set}
+    var customerRecordPast:[CustomerRecord]? {get set}
+    
     func puchConfirm()
     func pressedMastersChoice(indexPath:IndexPath)
     func presedClient(indexPath:IndexPath)
     func dateChanged(senderDate: Date)
     func getDataForTeam()
-    func setDataCustomerRecordForMaster()
+    func setDataCustomerRecordForMaster(idMaster: String, dateStartServiceDMY: String)
     }
 
 class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
@@ -46,6 +49,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var idUserWhoWorks: String!
     var dateTimeStartService: String!
     var dateTimeEndService: String!
+    var dateStartService: String!
     var fullDateTimeStartServiceForFilter: String!
     var idClient: String!
     var genderClient: String!
@@ -62,7 +66,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.client = clientCheck
         self.serviceCheck = serviceCheck
         getDataForTeam()
-        setDataCustomerRecordForMaster()
+       // setDataCustomerRecordForMaster(idMaster: "000000", dateStartServiceDMY: "55467")
     }
     func getDataForTeam(){
         networkService.getTeam{ [weak self] result in
@@ -78,9 +82,23 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             }
         }
     }
-    func setDataCustomerRecordForMaster(){
+    func setDataCustomerRecordForMaster(idMaster: String, dateStartServiceDMY: String){
         print("загрузить данные для таблицы запись в течении дня для конкретного мастера ")
+        
+        networkService.getCustomerRecordPast(idMaster: idMaster, dateStartServiceDMY: dateStartServiceDMY){ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async{
+                switch result{
+                case .success(let customerRecord):
+                    self?.customerRecordPast = customerRecord?.sorted{$1.dateTimeStartService > $0.dateTimeStartService}
+                    self?.view?.succesForTableCustomerRecordPast()
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+          }
+      }
     }
+    
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
         guard
@@ -102,10 +120,9 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             }
             self.dateTimeEndService = Date().addMin(n: timeForWork)
         }
+     
       
-    
         customerRecordNew = CustomerRecord(dictionary: [
-            "service": serviceCheck ?? [],
             "idUserWhoWorks": checkMaster?.idTeamMember ?? "",
             "nameWhoWorks": checkMaster?.nameTeamMember ?? "",
             "fullNameWhoWorks": checkMaster?.fullnameTeamMember ?? "",
@@ -118,7 +135,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             "genderClient": client?.genderClient ?? "",
             "ageClient": client?.ageClient ?? "",
             "dateTimeStartService": dateTimeStartService ?? "",
-            "dateTimeEndService": dateTimeEndService ?? ""
+            "dateTimeEndService": dateTimeEndService ?? "",
+            "dateStartService": dateStartService ?? ""
         ])
    
         self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
@@ -127,6 +145,11 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         print("выбрал мастера кому записывать",indexPath)
         print("загрузить данные для таблицы (запись в течении дня) для мастера:",indexPath.row)
         checkMaster = team?[indexPath.row]
+        
+        if dateStartService == nil {
+            self.dateStartService = Date().todayDMYFormat()
+        }
+        setDataCustomerRecordForMaster(idMaster: checkMaster?.idTeamMember ?? "", dateStartServiceDMY: dateStartService)
     }
     
     func presedClient(indexPath:IndexPath) {
@@ -134,15 +157,22 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     
     func dateChanged(senderDate: Date) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
-        self.dateTimeStartService = dateFormatter.string(from: senderDate)
+       // let dateFormatter = DateFormatter()
+       // dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
+       // self.dateTimeStartService = dateFormatter.string(from: senderDate)
+        self.dateTimeStartService = senderDate.formatterDateDMYHM(date: senderDate)
+        self.dateStartService = senderDate.formatterDateDMY(date: senderDate)
         
         var timeForWork = 0 // min
         for (servic) in serviceCheck! {
             timeForWork = timeForWork + servic.timeAtWorkMin
         }
         self.dateTimeEndService = senderDate.addMin(n: timeForWork)
+        
+        if checkMaster == nil && team?.isEmpty == false {
+            checkMaster = team?[0]
+        }
+        setDataCustomerRecordForMaster(idMaster: checkMaster?.idTeamMember ?? "", dateStartServiceDMY: dateStartService)
 
     }
 

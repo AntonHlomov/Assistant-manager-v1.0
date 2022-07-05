@@ -49,6 +49,8 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
         self.services = services
         setDtata()
     }
+    
+    
     func setDtata(){
         let imageMaster = master?.profileImageURLTeamMember ?? ""
         let nameMaster = master?.nameTeamMember ?? ""
@@ -68,16 +70,14 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
     }
     func saveCustomerVisit(commment:String) {
         print("отправить через  api запись клиента")
-        
-        
-        networkService.addNewCustomerRecord(comment:commment,newCustomerVisit: customerVisit!){[weak self] result in
+        networkService.addNewCustomerRecord(comment:commment,services:services,newCustomerVisit: customerVisit!){[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async {
                     switch result{
                     case.success(_):
                       print("закрыть")
+                        self.router?.dismiss()
                         self.router?.popToRoot()
-                      
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
