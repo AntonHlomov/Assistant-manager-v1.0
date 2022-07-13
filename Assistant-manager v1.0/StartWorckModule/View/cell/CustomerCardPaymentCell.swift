@@ -1,29 +1,23 @@
 //
-//  CalendarForDayCell.swift
+//  CustomerCardPaymentCell.swift
 //  Assistant-manager v1.0
 //
-//  Created by Anton Khlomov on 19/01/2022.
+//  Created by Anton Khlomov on 07/07/2022.
 //
 
 import UIKit
 
-class CalendarForDayCell: UICollectionViewCell {
+class CustomerCardPaymentCell: UICollectionViewCell {
     // MARK: - Prop
     var customerRecord: CustomerRecord?{
         didSet{
             imageView.loadImage(with: customerRecord?.profileImageClient ?? "")
-            profileMasterImageView.loadImage(with: customerRecord?.profileImageWhoWorks ?? "")
-            guard let nameWhoWorks = customerRecord?.nameWhoWorks else {return}
-            guard let surnameWhoWorks = customerRecord?.fullNameWhoWorks else {return}
-            
             guard let nameClient = customerRecord?.nameClient else {return}
             guard let surnameClient = customerRecord?.fullNameClient else {return}
             guard let commentTex = customerRecord?.commit else {return}
             guard let dateTimeStartService = customerRecord?.dateTimeStartService else {return}
             nameLebel.text = nameClient.capitalized + "\n" + surnameClient.capitalized
-            nameMaster.text = nameWhoWorks.capitalized + " " + surnameWhoWorks.capitalized
             commentTexCell.text = String(commentTex)
-          //  dateTimeStartServiceCell.text = String(dateTimeStartService.dropLast(6))
             timeStartServiceCell.text = String(dateTimeStartService.dropFirst(11))
             
         }
@@ -36,24 +30,7 @@ class CalendarForDayCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    lazy var profileMasterImageView = CustomUIimageView(frame: .zero )
-    lazy var circlForMasterImageViewBlue: UIImageView = {
-        let line = UIImageView()
-        line.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        line.layer.borderColor = UIColor.appColor(.whiteAssistant)?.cgColor
-        line.layer.borderWidth = 2
-        return line
-     }()
-    let nameMaster: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.text = "Name master"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.numberOfLines = 0
-        label.textColor = UIColor.appColor(.whiteAssistant)
-    
-        return label
-    }()
+
 
     lazy var calendarImageView = UIImageView(image: #imageLiteral(resourceName: "icons8-календарь-24").withRenderingMode(.alwaysOriginal))
     
@@ -138,15 +115,7 @@ class CalendarForDayCell: UICollectionViewCell {
         label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
          return label
      }()
-  //  let dateTimeStartServiceCell: UILabel = {
-  //      let label = UILabel()
-  //      label.textAlignment = .left
-  //      label.text = "date"
-  //      label.font = UIFont.boldSystemFont(ofSize: 18)
-  //      label.textColor = UIColor.appColor(.whiteForDarkDarkForWhiteText)
-  //       return label
-  //   }()
-    
+
     let commentTexCell: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -180,10 +149,7 @@ class CalendarForDayCell: UICollectionViewCell {
 
         addSubview(nameLebel)
         nameLebel.anchor(top: imageView.bottomAnchor , leading: imageView.leadingAnchor, bottom: nil, trailing: imageView.trailingAnchor,pading: .init(top: 5, left: -3, bottom: 0, right: -3),size: .init(width: 0, height: 0))
-        
-     //  addSubview(dateTimeStartServiceCell)
-     //  dateTimeStartServiceCell.anchor(top: boxViewFonWhite.topAnchor, leading: imageView.trailingAnchor, bottom: nil, trailing: trailingAnchor,pading: .init(top: 17, left: 50, bottom: 0, right: 20),size: .init(width: 0, height: 15))
-        
+       
         addSubview(calendarImageView)
         calendarImageView.anchor(top: nil, leading: leadingAnchor, bottom: boxViewFonWhite.topAnchor, trailing: nil,pading: .init(top: 12, left: 0, bottom: 12, right: 0),  size: .init(width: 25, height: 25))
         
@@ -193,19 +159,7 @@ class CalendarForDayCell: UICollectionViewCell {
         addSubview(timeStartServiceCell)
         timeStartServiceCell.anchor(top: nil, leading: timeStartServiceCellText.trailingAnchor, bottom: calendarImageView.bottomAnchor, trailing: nil,pading: .init(top: 0, left: 7, bottom: 0, right: 0),size: .init(width: 0, height: 20))
         
-        addSubview(circlForMasterImageViewBlue)
-        circlForMasterImageViewBlue.anchor(top: nil, leading: leadingAnchor, bottom: calendarImageView.topAnchor, trailing: nil,pading: .init(top: 0, left: 0, bottom: 9, right: 0),  size: .init(width: 25, height: 25))
-        circlForMasterImageViewBlue.layer.cornerRadius = 25 / 2
-        
-        addSubview(profileMasterImageView)
-        profileMasterImageView.anchor(top: circlForMasterImageViewBlue.topAnchor, leading: circlForMasterImageViewBlue.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 3.5, left: 3.5, bottom: 0, right: 0),  size: .init(width: 18, height: 18))
-        profileMasterImageView.layer.cornerRadius = 18 / 2
-        
-        addSubview(nameMaster)
-        nameMaster.anchor(top: nil, leading: circlForMasterImageViewBlue.trailingAnchor, bottom: circlForMasterImageViewBlue.bottomAnchor, trailing: trailingAnchor,pading: .init(top: 0, left: 7, bottom: 0, right:0),size: .init(width: 0, height: 20))
-        
-        
-        
+
         addSubview(closeXButton)
         closeXButton.anchor(top: nil, leading: nil, bottom: boxViewFonWhite.topAnchor, trailing: trailingAnchor,pading: .init(top: 0, left: 0, bottom: 10, right: 23),size: .init(width: 20, height: 20))
         closeXButton.layer.cornerRadius = 20/2

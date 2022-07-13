@@ -13,7 +13,6 @@ protocol CalendadrViewProtocol: AnyObject {
     func successUserData(user: User?)
     func updateDataCalendar(update: Bool, indexSetInt: Int)
     func failure(error:Error)
-   
 }
 
 // делаем протокол который завязываемся не на View а на протоколе ViewProtocol и делаем инициализатор которой захватывает ссылку на View принцип  Solid сохряняем уровень абстракции
@@ -26,6 +25,7 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func getUserData()
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
+    func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->())
     func getProfitStatistic(completion: @escaping (Double?) ->())
     func getCalendarDate()
     func getStatistic()
@@ -33,12 +33,14 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func pushOptionsButton()
     func pushRecorderClient(indexPath:IndexPath)
     func deletCustomerRecorder(idCustomerRecorder:String)
+    func filter(text: String)
     
     var user: User? { get set }
     var profit: Double? { get set } //прибыль
     var revenueToday: Double? { get set } //выручка
     var expensesToday: Double? { get set } //расходы
     var calendarToday: [CustomerRecord]?{ get set }
+    var filterCalendarToday: [CustomerRecord]? { get set }
     var today: String { get set }
     var tomorrow: String { get set }
 }
@@ -53,6 +55,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    var expensesToday: Double?
    var profit: Double?
    var calendarToday: [CustomerRecord]?
+   var filterCalendarToday: [CustomerRecord]?
    var today: String
    var tomorrow: String
     
@@ -71,6 +74,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.revenueToday = 0.0
         self.profit = 0.0
         self.calendarToday = [CustomerRecord]()
+        self.filterCalendarToday = [CustomerRecord]()
         self.today = ""
         self.tomorrow = ""
         
@@ -104,6 +108,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                     switch result{
                     case.success(let filterCalendar):
                         self.calendarToday = filterCalendar
+                        self.filterCalendarToday = self.calendarToday
                         self.view?.updateDataCalendar(update: true, indexSetInt: 2)
                     case.failure(let error):
                         self.view?.failure(error: error)
@@ -184,6 +189,33 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
            
       }
     }
+    func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->()){
+         DispatchQueue.main.async {
+             var totalSum = [Double]()
+             var nameServicesText = ""
+             var pricesText = ""
+             var totalText = ""
+             
+             for (service) in self.filterCalendarToday?[indexPath.row].service ?? [[String : Any]](){
+                let name: String = service["nameServise"] as! String
+                let nameDrop = name.prefix(14)
+           
+                let price: String = String(service["priceServies"] as! Double)
+                totalSum.append( service["priceServies"] as! Double )
+                 
+                    if nameServicesText == "" {
+                        nameServicesText = nameDrop.capitalized
+                        pricesText = price
+                    } else {
+                        nameServicesText =  nameServicesText.capitalized + ("\n") + nameDrop.capitalized
+                        pricesText =  pricesText + ("\n") + price
+                    }
+                }
+             totalText = String(totalSum.compactMap { Double($0) }.reduce(0, +))
+             
+             completion(nameServicesText,pricesText, totalText)
+         }
+     }
     
    // func getUserData(completion: @escaping (User?) ->()){
    //     DispatchQueue.main.async {
@@ -214,13 +246,12 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
     }
     func pushClientsButton() {
-           print("Push Clients Button")
+        print("Push Clients Button")
         self.router?.showClientsTableViewController()
        }
     
     func pushOptionsButton() {
-           print("Push Options Button")
-        
+        print("Push Options Button")
         self.router?.showOptionesViewController(user: self.user)
        }
     func pushRecorderClient(indexPath:IndexPath) {
@@ -237,6 +268,25 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
         }
           
+    }
+    func filter(text: String) {
+        var textFilter = text
+        
+        switch textFilter {
+        case "today","Today" :
+            textFilter = self.today
+        case "tomorrow","Tomorrow" :
+            textFilter = self.tomorrow
+        default:
+            textFilter = text
+        }
+
+        if textFilter == "" {
+            filterCalendarToday = calendarToday?.sorted{ $0.dateTimeStartService < $1.dateTimeStartService } }
+        else {
+            filterCalendarToday = calendarToday?.filter( {$0.dateTimeStartService.lowercased().contains(textFilter.lowercased()) || $0.fullNameWhoWorks.lowercased().contains(textFilter.lowercased()) || $0.nameWhoWorks.lowercased().contains(textFilter.lowercased()) || $0.nameClient.lowercased().contains(textFilter.lowercased()) || $0.fullNameClient.lowercased().contains(textFilter.lowercased()) } )
+        }
+        self.view?.updateDataCalendar(update: true, indexSetInt: 2)
     }
     
     

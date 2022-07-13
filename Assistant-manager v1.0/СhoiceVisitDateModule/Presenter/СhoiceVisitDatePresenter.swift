@@ -66,7 +66,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         self.client = clientCheck
         self.serviceCheck = serviceCheck
         getDataForTeam()
-       // setDataCustomerRecordForMaster(idMaster: "000000", dateStartServiceDMY: "55467")
     }
     func getDataForTeam(){
         networkService.getTeam{ [weak self] result in
@@ -84,7 +83,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func setDataCustomerRecordForMaster(idMaster: String, dateStartServiceDMY: String){
         print("загрузить данные для таблицы запись в течении дня для конкретного мастера ")
-        
         networkService.getCustomerRecordPast(idMaster: idMaster, dateStartServiceDMY: dateStartServiceDMY){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async{
@@ -121,7 +119,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             self.dateTimeEndService = Date().addMin(n: timeForWork)
         }
      
-      
         customerRecordNew = CustomerRecord(dictionary: [
             "idUserWhoWorks": checkMaster?.idTeamMember ?? "",
             "nameWhoWorks": checkMaster?.nameTeamMember ?? "",
@@ -138,14 +135,11 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             "dateTimeEndService": dateTimeEndService ?? "",
             "dateStartService": dateStartService ?? ""
         ])
-   
         self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
     }
     func pressedMastersChoice(indexPath:IndexPath) {
         print("выбрал мастера кому записывать",indexPath)
-        print("загрузить данные для таблицы (запись в течении дня) для мастера:",indexPath.row)
         checkMaster = team?[indexPath.row]
-        
         if dateStartService == nil {
             self.dateStartService = Date().todayDMYFormat()
         }
@@ -157,9 +151,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     
     func dateChanged(senderDate: Date) {
-       // let dateFormatter = DateFormatter()
-       // dateFormatter.dateFormat = "dd.MM.YYYY HH:mm"
-       // self.dateTimeStartService = dateFormatter.string(from: senderDate)
         self.dateTimeStartService = senderDate.formatterDateDMYHM(date: senderDate)
         self.dateStartService = senderDate.formatterDateDMY(date: senderDate)
         

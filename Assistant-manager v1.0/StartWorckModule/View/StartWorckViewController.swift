@@ -7,86 +7,211 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
 
-class StartWorckViewController: UICollectionViewController {
+private let sliderTeamStartWorckCellIdentifier = "SliderTeamStartWorckCellIdentifier"
+private let customerCardPaymentCellIndetifire = "CustomerCardPaymentCellIndetifire"
+private let emptyCustomerCardPaymentCell = "EmptyCustomerCardPaymentCell"
+private let searchCustomerCardPaymentCellIndetifire = "SearchCustomerCardPaymentCellIndetifire"
+
+class StartWorckViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     var presenter: StartWorckViewPresenterProtocol!
+    var searchBar : UISearchBar = {
+      let search = UISearchBar()
+      return search
+    }()
+    let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
+      
+       
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        self.collectionView.register(SliderTeamStartWorckCell.self, forCellWithReuseIdentifier: sliderTeamStartWorckCellIdentifier)
+        self.collectionView.register(SearchCustomerCardPaymentCell.self, forCellWithReuseIdentifier: searchCustomerCardPaymentCellIndetifire)
+      
+        self.collectionView.register(CustomerCardPaymentCell.self, forCellWithReuseIdentifier: customerCardPaymentCellIndetifire)
+        self.collectionView.register(EmptyCustomerCardPaymentCell.self, forCellWithReuseIdentifier: emptyCustomerCardPaymentCell)
+        
+        searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.delegate = self
+        searchBar.tintColor = UIColor.appColor(.blueAssistantFon)
+        searchBar.barTintColor = UIColor.appColor(.whiteAssistantFon)
+        searchBar.barStyle = .black
+        searchBar.sizeToFit()
+        searchBar.searchTextField.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        let textField = searchBar.value(forKey: "searchField") as! UITextField
+        let glassIconView = textField.leftView as! UIImageView
+        glassIconView.image = glassIconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
+        //кнопка готово в клавеатуре
+        addDoneButtonOnKeyboard()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 3
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        switch section {
+        case 0: return presenter.team?.count ?? 0
+        
+        case 1: return 1
+            
+        case 2 where presenter.filterCustomersCardsPayment?.isEmpty == true:
+               return 1
+          
+        case 2 where presenter.filterCustomersCardsPayment?.isEmpty == false:
+               return presenter.filterCustomersCardsPayment?.count ?? 0
+            
+        default: return 0
+        }
     }
+ //   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> //CGSize {
+ //       switch section {
+ //           // main team
+ //       case 0: return CGSize(width: view.frame.width, height: view.frame.height/8)
+ //         // main search bar
+ //       case 1:  return CGSize(width: view.frame.width, height: 60)
+ //
+ //       case 2 : return CGSize(width: 0, height: 0)
+ //
+ //       default: return CGSize(width: 0, height: 0)
+ //       }
+ //   }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch indexPath.section {
+        case 0: return CGSize(width: view.frame.width, height: view.frame.height/8) //CGSize (width: 0, height: 0) //CGSize (width: view.frame.width, height: 180)
+            //
+        case 1:  return CGSize(width: view.frame.width, height: 60) //CGSize (width: 0, height: 0)
+          //
+        case 2 : return  CGSize (width: view.frame.width - 30, height: view.frame.width/1.5 + 100)
+          
+        default: return CGSize(width: 0, height: 0)
+        }
+    }
+    // убераем разрыв между вью по горизонтали
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 0 { return 10 }
+        return 30
+    }
+    // убераем разрыв между вью по вертикали
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 0 { return 0 }
+        return 15
+    }
+    
+  //  override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> //UICollectionReusableView {
+  //      switch indexPath.section {
+  //      case 0:
+  //          let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sliderTeamStartWorckCellIdentifier, for: indexPath) as! //SliderTeamStartWorckCell
+  //
+  //          return header
+  //      default:
+  //          let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchCustomerCardPaymentCellIndetifire, for: //indexPath) as! SearchCustomerCardPaymentCell
+  //          header.backgroundColor = UIColor.appColor(.whiteAssistant)
+  //          return header
+  //      }
+  //  }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        switch indexPath.section {
+        case 0 where presenter.team?.isEmpty == false:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sliderTeamStartWorckCellIdentifier, for: indexPath) as! SliderTeamStartWorckCell
+            cell.team = presenter.team?.first
+            cell.checkMaster  = { [weak self] cell in
+                self?.presenter.checkMaster = cell.master
+                self?.presenter.getCustomerRecord()
+            }
+            // нажатие на cell программно
+          //  cell.self.collectionView(self.collectionView, didSelectItemAt: IndexPath(item: 3, section: 0))
+            
+           
+           
+            
+            return cell
+        case 0 where presenter.team?.isEmpty == true:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sliderTeamStartWorckCellIdentifier, for: indexPath) as! SliderTeamStartWorckCell
+           // cell.customerRecord = presenter.filterCustomersCardsPayment?[indexPath.row]
+          
+            cell.textEmpty.text = "You don't have active reminders yet"
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: searchCustomerCardPaymentCellIndetifire, for: indexPath) as! SearchCustomerCardPaymentCell
+            cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
+            
+            cell.addSubview(searchBar)
+            searchBar.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor,pading: .init(top: 5, left: 0, bottom: 15, right: 0))
+            return cell
+        
+        case 2 where presenter.filterCustomersCardsPayment?.isEmpty == false:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customerCardPaymentCellIndetifire, for: indexPath) as! CustomerCardPaymentCell
+            cell.customerRecord = presenter.filterCustomersCardsPayment?[indexPath.row]
+            cell.closeXButton.tag = indexPath.row
+            cell.closeXButton.addTarget(self, action: #selector(del), for: .touchUpInside)
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCustomerCardPaymentCell, for: indexPath) as! EmptyCustomerCardPaymentCell
+            switch presenter.checkMaster?.id{
+            case nil  :
+                cell.textLebel.text = "Select a master to view his upcoming payments for today."
+            default:
+                cell.textLebel.text = "To date, there are no expected payments from customers yet."
+            }
+            return cell
+        }
     
-        // Configure the cell
+    }
+
+    // нажатие на ячейки календаря
+   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       print("нажал\(indexPath)")
+      // presenter.pushRecorderClient(indexPath: indexPath)
+   }
     
-        return cell
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+         presenter.filter(text: searchText)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    func addDoneButtonOnKeyboard(){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Ready", style: .done, target: self, action: #selector(self.doneButtonAction))
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        searchBar.inputAccessoryView = doneToolbar
     }
-    */
+    
+    @objc func doneButtonAction(){
+        searchBar.resignFirstResponder()
+    }
+    // MARK: - delite visit
+    @objc fileprivate func del(sender:UIButton){
+       print("удалить запись")
+        let index = sender.tag
+        let id = presenter.filterCustomersCardsPayment?[index].idRecord ?? ""
+        //выплывающее окно с подтверждением о выходе для кнопки удалить запись
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete visit", style: .destructive, handler: { (_) in
+            self.presenter.deletCustomerRecorder(idCustomerRecorder: id)
+            print("удалил")
+           }))
+        //кнопка отмена выплывающего окна с подтверждением о выходе для кнопки выйти
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+ }
+
 
 }
+
 extension StartWorckViewController{
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -97,6 +222,14 @@ extension StartWorckViewController{
 }
 
 extension StartWorckViewController: StartWorckViewProtocol {
+
+    func updateDataCustomerRecord(update: Bool, indexSetInt: Int) {
+        guard update == true else {return}
+        let indexSet = IndexSet(integer: indexSetInt)
+        collectionView.reloadSections(indexSet)
+       
+    }
+    
     func success() {
         
     }

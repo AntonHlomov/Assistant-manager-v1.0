@@ -151,8 +151,9 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     
     func createStartWorckModule(router: LoginRouterProtocol) -> (view:UIViewController, buuton: UIViewController) {
        let view = StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout())
-       let presenter = StartWorckPresentor(view: view, router: router)
-       view.presenter = presenter
+        let networkService = ApiCustomerCardPaymentToday()
+        let presenter = StartWorckPresentor(view: view, router: router, networkService: networkService)
+        view.presenter = presenter
         let StartButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
        return (view:view, buuton: StartButtom)
     }

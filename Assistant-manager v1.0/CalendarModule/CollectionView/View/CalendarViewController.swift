@@ -77,9 +77,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         case 0: return 1
           // slaider.count
         case 1:  return 0
-        case 2 where presenter.calendarToday?.isEmpty == true: return 1
+        case 2 where presenter.filterCalendarToday?.isEmpty == true: return 1
             // calendar.isEmpty
-        case 2 where presenter.calendarToday?.isEmpty == false: return presenter.calendarToday?.count ?? 0
+        case 2 where presenter.filterCalendarToday?.isEmpty == false: return presenter.filterCalendarToday?.count ?? 0
             
         default: return 0
         }
@@ -103,7 +103,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             //
         case 1:  return CGSize (width: 0, height: 0)
           //
-        case 2 : return  CGSize (width: view.frame.width - 30, height: view.frame.width/1.5 + 50)
+        case 2 : return  CGSize (width: view.frame.width - 30, height: view.frame.width/1.5 + 100)
           
         default: return CGSize(width: 0, height: 0)
         }
@@ -170,8 +170,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             return header
         }
     }
-
+ 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
         switch indexPath.section {
         case 0:  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reminderSlaiderIdentifier, for: indexPath) as! SliderReminderClientsCell
             cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -185,38 +186,32 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 }
             return cell
             
-        case 1 where presenter.calendarToday?.isEmpty == true,
-             2 where presenter.calendarToday?.isEmpty == true:
+        case 1 where presenter.filterCalendarToday?.isEmpty == true,
+             2 where presenter.filterCalendarToday?.isEmpty == true:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellIdentifier, for: indexPath) as! EmptyCalendarCell
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: calendarIdentifier, for: indexPath) as! CalendarForDayCell
-            cell.customerRecord = presenter.calendarToday?[indexPath.row]
-            var nameS = ""
-            var price = ""
-            for (service) in presenter.calendarToday?[indexPath.row].service ?? [[String : Any]](){
-                let name: String = service["nameServise"] as! String
-                let priceText: String = String(Int(service["priceServies"] as! Double))
-                if nameS == "" {
-                    nameS = name.capitalized
-                    price = priceText
-                } else {
-                    nameS =  nameS.capitalized + ("\n") + name.capitalized
-                   price =  price + ("\n") + priceText
-                }
+            cell.customerRecord = presenter.filterCalendarToday?[indexPath.row]
+            
+         
+            self.presenter.completeArrayServicesPrices(indexPath: indexPath) { [](services,prices,total) in
+                cell.serviesArey.text = services
+                cell.priceLabel.text = prices
+                cell.priceCos.text = total
             }
-            cell.serviesArey.text = nameS
-            cell.priceLabel.text = price
+        
+    
             cell.closeXButton.tag = indexPath.row
             cell.closeXButton.addTarget(self, action: #selector(del), for: .touchUpInside)
             
-            switch presenter.calendarToday?[indexPath.row].dateStartService{
+            switch presenter.filterCalendarToday?[indexPath.row].dateStartService{
             case presenter.today:
                 cell.timeStartServiceCellText.text = "Today at:"
             case presenter.tomorrow:
                 cell.timeStartServiceCellText.text = "Tomorrow at:"
                 
-            default: cell.timeStartServiceCellText.text = presenter.calendarToday?[indexPath.row].dateStartService ?? "" 
+            default: cell.timeStartServiceCellText.text = presenter.filterCalendarToday?[indexPath.row].dateStartService ?? ""
             }
             return cell
         }
@@ -228,8 +223,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
-
+        presenter.filter(text: searchText)
     }
+    
     
     func addDoneButtonOnKeyboard(){
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
@@ -263,7 +259,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     @objc fileprivate func del(sender:UIButton){
        print("удалить запись")
         let index = sender.tag
-        let id = presenter.calendarToday?[index].idRecord ?? ""
+        let id = presenter.filterCalendarToday?[index].idRecord ?? ""
         //выплывающее окно с подтверждением о выходе для кнопки удалить запись
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Delete visit", style: .destructive, handler: { (_) in
@@ -273,7 +269,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         //кнопка отмена выплывающего окна с подтверждением о выходе для кнопки выйти
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
-
  }
     
 }
