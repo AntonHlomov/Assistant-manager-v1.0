@@ -29,7 +29,7 @@ protocol OptionesViewPresenterProtocol: AnyObject {
     func schowPriceButoon()
     func schowTeamButoon()
     func changeStatus()
-    func changeDarkMode()
+    func changeDarkMode(click:Int)
     func exitUser()
     func removeUser()
     func safeIdUserForSharing()
@@ -46,7 +46,8 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
    var router: LoginRouterProtocol?
    let networkService:APIOptionesDataServiceProtocol!
    var user: User?
-   var click = 0
+   var click = 1 // mode "Dark"
+
 
     required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
         self.view = view
@@ -84,13 +85,19 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
         
         
     }
-    func changeDarkMode(){
-        click = click + 1
+    func changeDarkMode(click:Int){
+       // click = click + 1
         switch click{
-        case 1: UserDefaults.standard.setValue(Theme.dark.rawValue, forKey: "theme")
-        case 2: UserDefaults.standard.setValue(Theme.light.rawValue, forKey: "theme")
-        case 3: UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")
-                click = 0
+        case 1:
+            UserDefaults.standard.setValue(Theme.dark.rawValue, forKey: "theme")
+            self.click = 2
+        case 2:
+            UserDefaults.standard.setValue(Theme.light.rawValue, forKey: "theme")
+            self.click = 3
+        case 3:
+            UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")
+            self.click = 1
+            //    click = 0
             
         default:
             UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")

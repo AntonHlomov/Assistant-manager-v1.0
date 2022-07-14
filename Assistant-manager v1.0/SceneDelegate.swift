@@ -42,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            // keyPath == Defaults.theme.rawValue,
             let themeValue = change[.newKey] as? String,
             let theme = Theme(rawValue: themeValue)?.uiInterfaceStyle
+                
         else { return }
 
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: { [weak self] in
