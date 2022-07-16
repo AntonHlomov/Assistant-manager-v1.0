@@ -27,8 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         router.initalScreensaverControler()
         window?.rootViewController = navigationControler
         window?.makeKeyAndVisible()
+        window?.overrideUserInterfaceStyle = .dark
       
-        
         
     }
     deinit {

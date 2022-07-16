@@ -10,6 +10,10 @@
 		8A00764A2843524A00FF73FD /* ClientPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0076492843524A00FF73FD /* ClientPage.swift */; };
 		8A00764C2843531A00FF73FD /* ClientPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00764B2843531A00FF73FD /* ClientPagePresenter.swift */; };
 		8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00764D284355F600FF73FD /* APIClientPage.swift */; };
+		8A201C7F288184320072ED75 /* PaymentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C7E288184320072ED75 /* PaymentPresenter.swift */; };
+		8A201C81288184520072ED75 /* ApiPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C80288184520072ED75 /* ApiPayment.swift */; };
+		8A201C83288184740072ED75 /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C82288184740072ED75 /* PaymentController.swift */; };
+		8A201C852881DD100072ED75 /* DottedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C842881DD100072ED75 /* DottedLine.swift */; };
 		8A308FBA284A97410045FA20 /* AddClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FB9284A97410045FA20 /* AddClientView.swift */; };
 		8A308FBC284A984D0045FA20 /* AddClientPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FBB284A984D0045FA20 /* AddClientPresenter.swift */; };
 		8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FBD284A9B270045FA20 /* ApiAddClient.swift */; };
@@ -112,6 +116,10 @@
 		8A0076492843524A00FF73FD /* ClientPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientPage.swift; sourceTree = "<group>"; };
 		8A00764B2843531A00FF73FD /* ClientPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientPagePresenter.swift; sourceTree = "<group>"; };
 		8A00764D284355F600FF73FD /* APIClientPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientPage.swift; sourceTree = "<group>"; };
+		8A201C7E288184320072ED75 /* PaymentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPresenter.swift; sourceTree = "<group>"; };
+		8A201C80288184520072ED75 /* ApiPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPayment.swift; sourceTree = "<group>"; };
+		8A201C82288184740072ED75 /* PaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentController.swift; sourceTree = "<group>"; };
+		8A201C842881DD100072ED75 /* DottedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLine.swift; sourceTree = "<group>"; };
 		8A308FB9284A97410045FA20 /* AddClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientView.swift; sourceTree = "<group>"; };
 		8A308FBB284A984D0045FA20 /* AddClientPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientPresenter.swift; sourceTree = "<group>"; };
 		8A308FBD284A9B270045FA20 /* ApiAddClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAddClient.swift; sourceTree = "<group>"; };
@@ -257,6 +265,40 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		8A201C7A288183BB0072ED75 /* PaymentModule */ = {
+			isa = PBXGroup;
+			children = (
+				8A201C7B288183D10072ED75 /* API */,
+				8A201C7C288183D80072ED75 /* View */,
+				8A201C7D288183F90072ED75 /* Presenter */,
+			);
+			path = PaymentModule;
+			sourceTree = "<group>";
+		};
+		8A201C7B288183D10072ED75 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8A201C80288184520072ED75 /* ApiPayment.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8A201C7C288183D80072ED75 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A201C82288184740072ED75 /* PaymentController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A201C7D288183F90072ED75 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A201C7E288184320072ED75 /* PaymentPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		8A308FB5284A96450045FA20 /* AddClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,11 +405,12 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A201C7A288183BB0072ED75 /* PaymentModule */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
+				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
-				8AAF98B7279745C9007315DE /* ScreensaverModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
 				8AE627C32850D094000182A8 /* PriceModule */,
 				8ACD281628515566005D993E /* AddNewService */,
@@ -435,6 +478,7 @@
 				8A6FBA33285A6D8500655C57 /* darkMode.swift */,
 				8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */,
 				8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */,
+				8A201C842881DD100072ED75 /* DottedLine.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -1038,10 +1082,12 @@
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
 				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
+				8A201C81288184520072ED75 /* ApiPayment.swift in Sources */,
 				8A8E55AA2876F12C00B99433 /* CustomerCardPaymentCell.swift in Sources */,
 				8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */,
 				8A308FBA284A97410045FA20 /* AddClientView.swift in Sources */,
 				8A6FBA40285AA18500655C57 /* BlurEfectExtensionView.swift in Sources */,
+				8A201C83288184740072ED75 /* PaymentController.swift in Sources */,
 				8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */,
 				8A8E456B2791916800828B7E /* CustomerRecord.swift in Sources */,
 				8AAF98D32797759B007315DE /* StartWorckViewController.swift in Sources */,
@@ -1081,11 +1127,13 @@
 				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
 				8AA756AF27BD3DB400E89C4E /* Rouetr.swift in Sources */,
+				8A201C852881DD100072ED75 /* DottedLine.swift in Sources */,
 				8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
 				8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */,
 				8AA756B427BD892100E89C4E /* PresenterMainTabVC.swift in Sources */,
 				8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */,
+				8A201C7F288184320072ED75 /* PaymentPresenter.swift in Sources */,
 				8ACD281B2851560D005D993E /* AddNewServiceViewController.swift in Sources */,
 				8AAF98BB27974673007315DE /* ScreensaverPresenter.swift in Sources */,
 				8A6FBA34285A6D8500655C57 /* darkMode.swift in Sources */,

@@ -19,7 +19,8 @@ protocol StartWorckViewPresenterProtocol: AnyObject {
     func getDataForTeam()
     func filter(text: String)
     func deletCustomerRecorder(idCustomerRecorder:String)
- //   func pressedMastersChoice(indexPath:IndexPath) 
+ //   func pressedMastersChoice(indexPath:IndexPath)
+    func pushPayClient(indexPath: IndexPath)
     var customersCardsPayment: [CustomerRecord]?{ get set }
     var filterCustomersCardsPayment: [CustomerRecord]? { get set }
     var team: [[Team]]? {get set}
@@ -48,6 +49,13 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
        
         getDataForTeam()
         
+    }
+    func pushPayClient(indexPath: IndexPath){
+        guard filterCustomersCardsPayment?.isEmpty == false else {return}
+        
+        let clientWhoPay = filterCustomersCardsPayment?[indexPath.row]
+        let masterWhoWork = checkMaster
+        self.router?.showPaymentController(customerRecordent: clientWhoPay, master: masterWhoWork)
     }
     func deletCustomerRecorder(idCustomerRecorder:String) {
         let idMaster = checkMaster?.idTeamMember ?? ""

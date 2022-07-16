@@ -23,9 +23,11 @@ class ScreensaverPresentor: ScreensaverPresenterProtocol{
     var router: LoginRouterProtocol?
     
     required init(view: ScreensaverViewProtocol, router: LoginRouterProtocol) {
+       
         self.view = view
         self.router = router
     }
+
   
     func authCheck() {
         if Auth.auth().currentUser != nil{

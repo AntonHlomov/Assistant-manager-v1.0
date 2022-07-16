@@ -169,10 +169,10 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
     
     }
 
-    // нажатие на ячейки календаря
+    // нажатие на ячейки
    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        print("нажал\(indexPath)")
-      // presenter.pushRecorderClient(indexPath: indexPath)
+       presenter.pushPayClient(indexPath: indexPath)
    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){

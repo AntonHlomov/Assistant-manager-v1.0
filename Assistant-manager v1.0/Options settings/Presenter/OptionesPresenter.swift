@@ -4,9 +4,11 @@
 //
 //  Created by Anton Khlomov on 12/05/2022.
 //
+var clickDarkModeIndicator = 1 // mode 1"Dark" 2"light" 3"system"
 
 import Foundation
 import UIKit
+
 // отправляет сообщение в View 
 //outPut
 protocol OptionesViewProtocol: AnyObject {
@@ -22,7 +24,7 @@ protocol OptionesViewPresenterProtocol: AnyObject {
 
     init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol,user: User?)
     var user: User?  { get set }
-    var click: Int { get set }
+   // var click: Int { get set }
     func goToBackTappedViewFromRight()
     func redactUserDataButton()
     func schowClientsButoon()
@@ -46,7 +48,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
    var router: LoginRouterProtocol?
    let networkService:APIOptionesDataServiceProtocol!
    var user: User?
-   var click = 1 // mode "Dark"
+        //var click = 1 // mode "Dark"
 
 
     required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
@@ -56,6 +58,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
         self.user = user
  
     }
+    
     
     func goToBackTappedViewFromRight() {
         router?.backTappedFromRight()
@@ -90,14 +93,13 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
         switch click{
         case 1:
             UserDefaults.standard.setValue(Theme.dark.rawValue, forKey: "theme")
-            self.click = 2
+            clickDarkModeIndicator = 2
         case 2:
             UserDefaults.standard.setValue(Theme.light.rawValue, forKey: "theme")
-            self.click = 3
+            clickDarkModeIndicator = 3
         case 3:
             UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")
-            self.click = 1
-            //    click = 0
+            clickDarkModeIndicator = 1
             
         default:
             UserDefaults.standard.setValue(Theme.system.rawValue, forKey: "theme")
