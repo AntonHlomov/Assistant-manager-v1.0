@@ -20,8 +20,8 @@ class TransactionUser {
     var idClient: String!
     var genderClient:String!
     var ageClient:Int!
-    var dictServies: [Price]!
-    var commitServies: String!
+    var dictServies: [[String : Any]]!
+    var commit: String!
     var cash: Bool!
     var card: Bool!
     var tax: Double!
@@ -41,8 +41,8 @@ class TransactionUser {
         self.idClient = dictionary["idClient"] as? String ?? ""
         self.genderClient = dictionary["genderClient"] as? String ?? ""
         self.ageClient = dictionary["ageClient"] as? Int ?? nil
-        self.dictServies = dictionary["dictServies"] as? [Price] ?? nil
-        self.commitServies = dictionary["commitServies"] as? String ?? ""
+        self.dictServies = dictionary["dictServies"] as?  [[String : Any]] ?? nil
+        self.commit = dictionary["commit"] as? String ?? ""
         self.cash = dictionary["cash"] as? Bool ?? nil
         self.card = dictionary["card"] as? Bool ?? nil
         self.tax = dictionary["tax"] as? Double ?? nil

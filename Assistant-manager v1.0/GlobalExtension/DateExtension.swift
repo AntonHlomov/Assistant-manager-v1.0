@@ -8,6 +8,14 @@
 import UIKit
 
 extension Date {
+    public  func todayDMYHHMMSSFormat() -> String {
+        let calendar = Calendar.current
+        let date = calendar.date(byAdding: .day, value: 0, to: self)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.YYYY HH:mm:ss"
+        let dataEndFormatter = dateFormatter.string(from: date)
+        return dataEndFormatter
+    }
     public  func todayDMYTimeFormat() -> String {
         let calendar = Calendar.current
         let date = calendar.date(byAdding: .day, value: 0, to: self)!

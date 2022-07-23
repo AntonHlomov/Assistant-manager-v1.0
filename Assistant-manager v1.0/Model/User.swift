@@ -24,6 +24,7 @@ class User {
     var statusMaster: Bool!
     var clientsCount: Int!
     var priceCount: Int!
+    var checkCount: Int!
     var teamCount: Int!
     
     var whoIsBossId: String!
@@ -47,6 +48,7 @@ class User {
         self.statusMaster = dictionary["statusMaster"] as? Bool ?? nil
         self.clientsCount = dictionary["clientsCount"] as? Int ?? nil
         self.priceCount = dictionary["priceCount"] as? Int ?? nil
+        self.checkCount = dictionary["checkCount"] as? Int ?? nil
         self.teamCount = dictionary["teamCount"] as? Int ?? nil
         
         self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""

@@ -52,7 +52,7 @@ class PriceCell: UITableViewCell {
     var priceNameCurrencyLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.text = "$"
+        label.text = String.appCurrency(.symbolSistem)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistant)!
          return label

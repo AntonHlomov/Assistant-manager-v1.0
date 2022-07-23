@@ -68,6 +68,8 @@
 		8A8F747D285400EF00D52B4B /* СhoiceVisitDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */; };
 		8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */; };
 		8A8F74812854016C00D52B4B /* ApiСhoiceVisitDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */; };
+		8A8FCB542884152A00E4BABB /* PaymentPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8FCB532884152A00E4BABB /* PaymentPriceTableViewCell.swift */; };
+		8A8FCB56288420C300E4BABB /* CurrencyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */; };
 		8A90A85B285E7EA700C01250 /* CustomDisclosureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */; };
 		8A916CF9284E116500A18257 /* HeaderOptinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A916CF8284E116500A18257 /* HeaderOptinesTableViewCell.swift */; };
 		8A916CFB284E17C800A18257 /* OptionesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A916CFA284E17C800A18257 /* OptionesTableViewCell.swift */; };
@@ -168,6 +170,8 @@
 		8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СhoiceVisitDateViewController.swift"; sourceTree = "<group>"; };
 		8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СhoiceVisitDatePresenter.swift"; sourceTree = "<group>"; };
 		8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiСhoiceVisitDate.swift"; sourceTree = "<group>"; };
+		8A8FCB532884152A00E4BABB /* PaymentPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPriceTableViewCell.swift; sourceTree = "<group>"; };
+		8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExtension.swift; sourceTree = "<group>"; };
 		8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDisclosureIndicator.swift; sourceTree = "<group>"; };
 		8A916CF8284E116500A18257 /* HeaderOptinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderOptinesTableViewCell.swift; sourceTree = "<group>"; };
 		8A916CFA284E17C800A18257 /* OptionesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesTableViewCell.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				8A201C82288184740072ED75 /* PaymentController.swift */,
+				8A8FCB52288414FF00E4BABB /* cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -405,7 +410,6 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				8A201C7A288183BB0072ED75 /* PaymentModule */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
@@ -423,6 +427,7 @@
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
 				8AAF98C127977391007315DE /* StartWorckModule */,
+				8A201C7A288183BB0072ED75 /* PaymentModule */,
 				8AAF98C2279773B2007315DE /* StatistikModule */,
 				8A8E456127918F4C00828B7E /* Model */,
 				8A8E45832791E19300828B7E /* GlobalExtension */,
@@ -479,6 +484,7 @@
 				8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */,
 				8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */,
 				8A201C842881DD100072ED75 /* DottedLine.swift */,
+				8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -543,6 +549,14 @@
 				8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		8A8FCB52288414FF00E4BABB /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A8FCB532884152A00E4BABB /* PaymentPriceTableViewCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		8A916CF7284E112800A18257 /* Cell */ = {
@@ -1121,6 +1135,7 @@
 				8A8F74812854016C00D52B4B /* ApiСhoiceVisitDate.swift in Sources */,
 				8ACD281D2851563C005D993E /* AddNewServicePresenter.swift in Sources */,
 				8AD0C5FA2798062F00BE414A /* UserProfileHeaderCell.swift in Sources */,
+				8A8FCB56288420C300E4BABB /* CurrencyExtension.swift in Sources */,
 				8A8E45672791913D00828B7E /* Price.swift in Sources */,
 				8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */,
 				8AAF98D127977578007315DE /* StatistikViewController.swift in Sources */,
@@ -1149,6 +1164,7 @@
 				8AAF98BF279770A7007315DE /* MainTabVC.swift in Sources */,
 				8AAF98CD279774D4007315DE /* CalendarViewController.swift in Sources */,
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
+				8A8FCB542884152A00E4BABB /* PaymentPriceTableViewCell.swift in Sources */,
 				8A308FBC284A984D0045FA20 /* AddClientPresenter.swift in Sources */,
 				8A91A82D282D9ABB006F1FFD /* OptionesController.swift in Sources */,
 				8A916CFB284E17C800A18257 /* OptionesTableViewCell.swift in Sources */,
