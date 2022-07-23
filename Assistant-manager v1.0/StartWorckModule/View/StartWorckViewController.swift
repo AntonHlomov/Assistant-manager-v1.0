@@ -153,6 +153,11 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         case 2 where presenter.filterCustomersCardsPayment?.isEmpty == false:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customerCardPaymentCellIndetifire, for: indexPath) as! CustomerCardPaymentCell
             cell.customerRecord = presenter.filterCustomersCardsPayment?[indexPath.row]
+            self.presenter.completeArrayServicesPrices(indexPath: indexPath) { [](services,prices,total) in
+                cell.serviesArey.text = services
+                cell.priceLabel.text = prices
+                cell.priceCos.text = total
+            }
             cell.closeXButton.tag = indexPath.row
             cell.closeXButton.addTarget(self, action: #selector(del), for: .touchUpInside)
             return cell

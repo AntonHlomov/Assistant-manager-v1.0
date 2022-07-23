@@ -25,6 +25,7 @@ protocol StartWorckViewPresenterProtocol: AnyObject {
     var filterCustomersCardsPayment: [CustomerRecord]? { get set }
     var team: [[Team]]? {get set}
     var checkMaster: Team? {get set}
+    func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->())
     
 }
 
@@ -50,6 +51,33 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
         getDataForTeam()
         
     }
+    func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->()){
+         DispatchQueue.main.async {
+             var totalSum = [Double]()
+             var nameServicesText = ""
+             var pricesText = ""
+             var totalText = ""
+             
+             for (service) in self.filterCustomersCardsPayment?[indexPath.row].service ?? [[String : Any]](){
+                let name: String = service["nameServise"] as! String
+                let nameDrop = name.prefix(14)
+           
+                let price: String = String(service["priceServies"] as! Double)
+                totalSum.append( service["priceServies"] as! Double )
+                 
+                    if nameServicesText == "" {
+                        nameServicesText = nameDrop.capitalized
+                        pricesText = price
+                    } else {
+                        nameServicesText =  nameServicesText.capitalized + ("\n") + nameDrop.capitalized
+                        pricesText =  pricesText + ("\n") + price
+                    }
+                }
+             totalText = String(totalSum.compactMap { Double($0) }.reduce(0, +))
+             
+             completion(nameServicesText,pricesText, totalText)
+         }
+     }
     func pushPayClient(indexPath: IndexPath){
         guard filterCustomersCardsPayment?.isEmpty == false else {return}
         
