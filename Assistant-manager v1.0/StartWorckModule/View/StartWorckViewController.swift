@@ -91,7 +91,8 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
  //   }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
-        case 0: return CGSize(width: view.frame.width, height: view.frame.height/8) //CGSize (width: 0, height: 0) //CGSize (width: view.frame.width, height: 180)
+        case 0: return  CGSize(width: view.frame.width, height: 100)
+            //CGSize(width: view.frame.width, height: view.frame.height/8) //CGSize (width: 0, height: 0) //CGSize (width: view.frame.width, height: 180)
             //
         case 1:  return CGSize(width: view.frame.width, height: 60) //CGSize (width: 0, height: 0)
           //

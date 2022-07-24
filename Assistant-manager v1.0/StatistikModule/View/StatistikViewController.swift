@@ -24,6 +24,10 @@ class StatistikViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
+    //update on change of view orientation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
 
     /*
     // MARK: - Navigation

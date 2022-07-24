@@ -100,7 +100,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
     lazy var dataDate: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.text = "2022-06-23 13:30"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
@@ -118,9 +118,11 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         setupTapGesture()
         hadleres()
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
 // MARK: - hadleres
     
     fileprivate func hadleres() {
