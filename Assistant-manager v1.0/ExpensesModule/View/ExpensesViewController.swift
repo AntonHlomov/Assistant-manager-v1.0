@@ -18,6 +18,10 @@ class ExpensesViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
     }
+    //update on change of view orientation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
 
 
     // MARK: UICollectionViewDataSource

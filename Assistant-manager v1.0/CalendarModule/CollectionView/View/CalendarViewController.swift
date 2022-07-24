@@ -56,15 +56,15 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         addDoneButtonOnKeyboard()
      }
     override func viewDidAppear(_ animated: Bool) {
-        collectionView.reloadData()
+        super.viewDidAppear(animated)
+        //self.collectionView.collectionViewLayout.invalidateLayout()
+       // collectionView.reloadData()
     }
-   
-  //   override func viewWillLayoutSubviews() {
-  //       super.viewWillLayoutSubviews()
-  //       //self.collectionView.collectionViewLayout.invalidateLayout()
-  //      print("перевернул")
-  //  }
-    
+    //update on change of view orientation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

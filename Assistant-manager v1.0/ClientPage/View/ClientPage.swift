@@ -125,6 +125,7 @@ class ClientPage: UIViewController {
         configureUI()
         handlers()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkAllIndicator()

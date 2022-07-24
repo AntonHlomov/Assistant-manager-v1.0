@@ -49,6 +49,10 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         //кнопка готово в клавеатуре
         addDoneButtonOnKeyboard()
     }
+    //update on change of view orientation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
 
 
     // MARK: UICollectionViewDataSource
