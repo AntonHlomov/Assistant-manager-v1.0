@@ -58,6 +58,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    var filterCalendarToday: [CustomerRecord]?
    var today: String
    var tomorrow: String
+   var team: [Team]
     
    weak var view: CalendadrViewProtocol?
    var router: LoginRouterProtocol?
@@ -77,16 +78,43 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.filterCalendarToday = [CustomerRecord]()
         self.today = ""
         self.tomorrow = ""
+        self.team = [Team]()
         
+      
+       
+        getTeam()
         dataTodayTomorrow()
         getUserData()
-        getCalendarDate()
+      //  getCalendarDate()
+    }
+    
+  
+    func getTeam(){
+        print("getTeam")
+        DispatchQueue.global(qos: .utility).async {
+        self.networkService.getTeam{ [weak self] result in
+            guard self != nil else {return}
+           
+                switch result{
+                case .success(let team):
+                    self?.team = team ?? [Team]()
+                    self?.getCalendarDate()
+                    print("getTeam!")
+                case .failure(_): break
+                   // self?.view?.failure(error: error)
+                }
+          }
+        }
+        
     }
     func dataTodayTomorrow(){
+        print("dataTodayTomorrow")
         let date = Date()
         self.today = date.todayDMYFormat()
         self.tomorrow = date.tomorrowDMYFormat()
     }
+    
+    
     func deletCustomerRecorder(idCustomerRecorder:String) {
         DispatchQueue.main.async {
             self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder){[weak self] result in
@@ -101,15 +129,18 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
     }
     func getCalendarDate() {
+        print("getCalendarDate")
        // let today = Date().todayDMYFormat()
         DispatchQueue.main.async {
-            self.networkService.getCustomerRecord(today: self.today){[weak self] result in
+            self.networkService.getCustomerRecord(today: self.today,team: self.team ){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let filterCalendar):
+                        
                         self.calendarToday = filterCalendar
                         self.filterCalendarToday = self.calendarToday
                         self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+                        print("getCalendarDate!")
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
@@ -232,6 +263,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    //     }
    // }
     func getUserData(){
+        print("getUserData")
         DispatchQueue.main.async {
             self.networkService.fetchCurrentUser{[weak self] result in
             guard let self = self else {return}

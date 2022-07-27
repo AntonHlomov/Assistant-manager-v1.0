@@ -16,6 +16,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
     func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uidMaster = newCustomerVisit.idUserWhoWorks else {return}
         let idCustomerRecord = NSUUID().uuidString
         
         var serviceData = [[String : Any]]()
@@ -34,7 +35,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
         }
         let data = ["idRecord": idCustomerRecord,
                     "idUserWhoRecorded":uid,
-                    "idUserWhoWorks": newCustomerVisit.idUserWhoWorks!,
+                    "idUserWhoWorks": uidMaster,
                     "nameWhoWorks": newCustomerVisit.nameWhoWorks!,
                     "fullNameWhoWorks": newCustomerVisit.fullNameWhoWorks!,
                     "profileImageWhoWorks": newCustomerVisit.profileImageWhoWorks!,
@@ -52,7 +53,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
                     "commit": comment 
                      ] as [String : Any]
         
-           Firestore.firestore().collection("users").document(newCustomerVisit.idUserWhoWorks!).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
+           Firestore.firestore().collection("users").document(uidMaster).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
             if let error = error {
                 completion(.failure(error))
                 return

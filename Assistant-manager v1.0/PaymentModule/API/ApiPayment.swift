@@ -19,7 +19,7 @@ class ApiPayment: ApiPaymentServiceProtocol{
     func addNewTransactionUser(card: Bool, cash: Bool,cashPrice: Double,cardPrice: Double, comment: String, customerRecordent: CustomerRecord?, master: Team?, completion: @escaping (Result<Bool, Error>) -> Void) {
    
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        let uidMaster = master?.idTeamMember ?? ""
+        guard let uidMaster = master?.idTeamMember else {return}
         let idCustomerRecordForDelite = customerRecordent?.idRecord ?? ""
        
        
@@ -45,21 +45,17 @@ class ApiPayment: ApiPaymentServiceProtocol{
                     "cardPrice": cardPrice
                      ] as [String : Any]
         
-        Firestore.firestore().collection("users").document(uid).collection("TransactionUser").document(idTransactionUser).setData(data) { (error) in
-         if let error = error {
+ 
+        Firestore.firestore().collection("users").document(uidMaster).collection("TransactionUser").document(idTransactionUser).setData(data) { (error) in
+            if let error = error {
              completion(.failure(error))
              return
-         }
-        Firestore.firestore().collection("users").document(uid).updateData(["checkCount": FieldValue.increment(Int64(1))])
-            
-        Firestore.firestore().collection("users").document(uidMaster).updateData(["checkCount": FieldValue.increment(Int64(1))])
-         
-            
-        Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idCustomerRecordForDelite).delete()
-            
-        if uid != uidMaster {
-        Firestore.firestore().collection("users").document(uidMaster).collection("CustomerRecord").document(idCustomerRecordForDelite).delete()
             }
+     
+        Firestore.firestore().collection("users").document(uidMaster).updateData(["checkCount": FieldValue.increment(Int64(1))])
+
+        Firestore.firestore().collection("users").document(uidMaster).collection("CustomerRecord").document(idCustomerRecordForDelite).delete()
+         
             
         completion(.success(true))
      }
