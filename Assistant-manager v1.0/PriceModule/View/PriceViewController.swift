@@ -115,8 +115,9 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         // Создать константу для работы с кнопкой
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
             print("Delete")
+            
             self?.presenter.deleteServise(indexPath: indexPath)
-            self!.tableView.deleteRows(at: [indexPath], with: .top)
+           // self!.tableView.deleteRows(at: [indexPath], with: .top)
         }
         let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
             print("Redact")
@@ -167,6 +168,7 @@ extension PriceViewController{
 }
 
 extension PriceViewController: PriceProtocol {
+
     func changeButton(newVisitMode: Bool) {
         guard newVisitMode == true else{return}
         self.newService.setTitle("Сhoice of visit date", for: .normal)

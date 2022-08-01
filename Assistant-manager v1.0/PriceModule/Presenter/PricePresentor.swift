@@ -83,9 +83,10 @@ class PricePresenter: PricePresenterProtocol{
         print("deleteClient")
         self.checkmarkServises.removeAll()
         checkTotalServices()
-        guard let id = self.price?[ indexPath.row].idPrice else {return}
-        self.price?.remove(at: indexPath.row)
-        self.filterPrice?.remove(at: indexPath.row)
+       // guard let id = self.price?[ indexPath.row].idPrice else {return}
+        guard let id = self.filterPrice?[ indexPath.row].idPrice else {return}
+      //  self.price?.remove(at: indexPath.row)
+      //  self.filterPrice?.remove(at: indexPath.row)
         networkService.deleteServise(id: id) {[weak self] result in
         guard let self = self else {return}
             DispatchQueue.main.async {
@@ -97,7 +98,7 @@ class PricePresenter: PricePresenterProtocol{
                 }
             }
         }
-      self.view?.succesReloadTable()
+       //self.view?.succesReloadTable()
     }
     
     func getPrice() {
