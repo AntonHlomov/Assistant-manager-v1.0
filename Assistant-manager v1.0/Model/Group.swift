@@ -15,6 +15,7 @@ class Group {
     var whoIsBossId: String!
     var expensesGroup: Double?
     var proceedsGroup: Double?
+    var priceCount: Int?
    
     
     init(dictionary: [String: Any]){
@@ -25,5 +26,6 @@ class Group {
         self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""
         self.expensesGroup = dictionary["expensesGroup"] as? Double ?? nil
         self.proceedsGroup = dictionary["proceedsGroup"] as? Double ?? nil
+        self.priceCount = dictionary["priceCount"] as? Int ?? nil
     }
 }
