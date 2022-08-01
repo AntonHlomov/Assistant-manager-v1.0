@@ -128,7 +128,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController {
         let view = RegistrationController()
         let networkService = APIRegistrationService()
-        let presenter = RegistrationPresentor(view: view, networkService: networkService,router: router)
+        let networkServiceGlobalUser = APIGlobalUserService()
+        let presenter = RegistrationPresentor(view: view, networkService: networkService,router: router,networkServiceGlobalUser: networkServiceGlobalUser)
         view.presenter = presenter
         return view
     }

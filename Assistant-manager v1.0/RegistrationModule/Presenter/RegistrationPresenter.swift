@@ -23,7 +23,7 @@ protocol RegistrationProtocol: AnyObject {
 
 //inPut
 protocol RegistrationViewPresenterProtocol: AnyObject {
-    init(view: RegistrationProtocol,networkService: APIRegistrationProtocol,router: LoginRouterProtocol)
+    init(view: RegistrationProtocol,networkService: APIRegistrationProtocol,router: LoginRouterProtocol,networkServiceGlobalUser: APIGlobalUserServiceProtocol)
     func showRegistrationInformation(photoUser:UIImage,emailAuth: String,name: String, passwordAuth: String)
     func goToLoginControler()
     
@@ -35,10 +35,12 @@ class RegistrationPresentor: RegistrationViewPresenterProtocol{
     weak var view: RegistrationProtocol?
     var router: LoginRouterProtocol?
     let networkService:APIRegistrationProtocol!
+    let networkServiceGlobalUser:APIGlobalUserServiceProtocol!
     
-    required init(view: RegistrationProtocol,networkService:APIRegistrationProtocol,router: LoginRouterProtocol) {
+    required init(view: RegistrationProtocol,networkService:APIRegistrationProtocol,router: LoginRouterProtocol,networkServiceGlobalUser: APIGlobalUserServiceProtocol) {
     self.view = view
     self.networkService = networkService
+    self.networkServiceGlobalUser = networkServiceGlobalUser
     self.router = router
     }
     
@@ -52,13 +54,32 @@ class RegistrationPresentor: RegistrationViewPresenterProtocol{
                 DispatchQueue.main.async {
                     switch result{
                     case.success(_):
-                        self.router?.initalMainTabControler()
-                        self.view?.dismiss()
+                        self.getGlobalUser()
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
                 }
             }
       }
+    
+    func getGlobalUser(){
+        print("getGlobalUser")
+        DispatchQueue.main.async {
+            self.networkServiceGlobalUser.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(_):
+                        self.router?.initalMainTabControler()
+                        self.view?.dismiss()
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                        sleep(2)
+                        self.router?.initalLoginViewControler()
+                        self.view?.dismiss()
+                       
+               }
+            }
+         }
+     }
    
 }
