@@ -12,10 +12,16 @@ import Firebase
 
 protocol APIOptionesDataServiceProtocol {
     func signOutUser(completion: @escaping (Result<Bool,Error>) -> Void)
-   // func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void)
+    func countClients(completion: @escaping (Result<Int,Error>) -> Void)
+    func countPrice(completion: @escaping (Result<Int,Error>) -> Void)
+    func countTeam(completion: @escaping (Result<Int,Error>) -> Void)
 }
 
 class APIOptionesDataService:APIOptionesDataServiceProtocol {
+   
+    
+    
+    
     func signOutUser(completion: @escaping (Result<Bool,Error>) -> Void) {
         do{
             try Auth.auth().signOut()
@@ -24,18 +30,86 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
                 completion(.failure("Faild to sign out Выйти" as! Error))
             }
     }
- //   func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void) {
- //       guard let uid = Auth.auth().currentUser?.uid else {return}
- //       Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, error) in
- //           if let error = error {
- //               completion(.failure(error))
- //               return
- //           }
- //           guard let dictionary = snapshot?.data() else {return}
- //           let user = User(dictionary:dictionary)
- //           completion(.success(user))
- //
- //       }
- //   }
+    
+    func countClients(completion: @escaping (Result<Int,Error>) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+            Firestore.firestore().collection("users").document(uid).collection("Clients").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = userGlobal?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
+        default:
+            completion(.failure("There was a problem with your status while uploading data Clients.count. Please restart the application..."+"\n" as! Error))
+            break
+        }
+    }
+    func countPrice(completion: @escaping (Result<Int,Error>) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+            Firestore.firestore().collection("users").document(uid).collection("Price").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = userGlobal?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Price").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
+        default:
+            completion(.failure("There was a problem with your status while uploading data Price.count. Please restart the application..."+"\n" as! Error))
+            break
+        }
+    }
+    
+    func countTeam(completion: @escaping (Result<Int,Error>) -> Void) {
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+                completion(.success(0))
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = userGlobal?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
+        default:
+            completion(.failure("There was a problem with your status while uploading data Team.count. Please restart the application..."+"\n" as! Error))
+            break
+        }
+    }
+  
     
 }

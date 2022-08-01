@@ -287,7 +287,7 @@ extension CalendarViewController: CalendadrViewProtocol {
     func updateDataCalendar(update: Bool, indexSetInt: Int) {
         guard update == true else {return}
         let indexSet = IndexSet(integer: indexSetInt)
-       collectionView.reloadSections(indexSet)
+        collectionView.reloadSections(indexSet)
     }
     
     func successUserData(user: User?) {

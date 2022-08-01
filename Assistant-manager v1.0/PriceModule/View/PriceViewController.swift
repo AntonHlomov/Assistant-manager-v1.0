@@ -168,6 +168,8 @@ extension PriceViewController{
 }
 
 extension PriceViewController: PriceProtocol {
+  
+   
 
     func changeButton(newVisitMode: Bool) {
         guard newVisitMode == true else{return}

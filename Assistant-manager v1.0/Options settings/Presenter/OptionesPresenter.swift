@@ -15,6 +15,7 @@ protocol OptionesViewProtocol: AnyObject {
     func succesForAlert(title: String, message: String)
     func succes()
     func failure(error: Error)
+    func reloadIndex(indexPath: IndexPath)
  
 }
 
@@ -24,6 +25,9 @@ protocol OptionesViewPresenterProtocol: AnyObject {
 
     init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol,user: User?)
     var user: User?  { get set }
+    var countClients: Int { get set }
+    var countPrice: Int { get set }
+    var countTeam: Int { get set }
    // var click: Int { get set }
     func goToBackTappedViewFromRight()
     func redactUserDataButton()
@@ -48,15 +52,69 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
    var router: LoginRouterProtocol?
    let networkService:APIOptionesDataServiceProtocol!
    var user: User?
-        //var click = 1 // mode "Dark"
+   var countClients: Int
+   var countPrice: Int
+   var countTeam: Int
 
 
     required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
-        self.user = user
- 
+      //  self.user = user
+        self.user = userGlobal
+        self.countClients = 0
+        self.countPrice = 0
+        self.countTeam = 0
+        
+        getCountClients()
+        getCountPrice()
+        getCountTeam()
+    }
+    func getCountClients() {
+        networkService.countClients{ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let count):
+                    self?.countClients = count
+                    self?.view?.reloadIndex(indexPath: [2, 0])
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                  
+                }
+            }
+        }
+    }
+    func getCountPrice() {
+        networkService.countPrice{ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let count):
+                    self?.countPrice = count
+                    self?.view?.reloadIndex(indexPath: [2, 1])
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                  
+                }
+            }
+        }
+    }
+    func getCountTeam() {
+        networkService.countTeam{ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let count):
+                    self?.countTeam = count
+                    self?.view?.reloadIndex(indexPath: [2, 2])
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                  
+                }
+            }
+        }
     }
     
     
