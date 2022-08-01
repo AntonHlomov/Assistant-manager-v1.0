@@ -22,6 +22,7 @@ protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     var checkMaster: Team? {get set}
     var customerRecordNew: CustomerRecord? {get set}
     var customerRecordPast:[CustomerRecord]? {get set}
+
     
     func puchConfirm()
     func pressedMastersChoice(indexPath:IndexPath)
@@ -99,43 +100,91 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
-        guard
-            checkMaster != nil,
-            serviceCheck?.isEmpty == false
-        else {
-            var error = ""
-            if serviceCheck?.isEmpty == true {error = error + "Services not selected."+"\n"}
-            if checkMaster == nil { error = error + "Master not selected."+"\n"}
-            self.view?.attentionString(error: error)
-            return
+        
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+            guard
+                checkMaster != nil,
+                serviceCheck?.isEmpty == false
+            else {
+                var error = ""
+                if serviceCheck?.isEmpty == true {error = error + "Services not selected."+"\n"}
+                if checkMaster == nil { error = error + "Master not selected."+"\n"}
+                self.view?.attentionString(error: error)
+                return
+                }
+            // если не выбрана дата и время то выбрать сегодня и сейчас
+            if dateTimeStartService == nil {
+                self.dateTimeStartService = Date().todayDMYTimeFormat()
+                self.dateStartService = Date().todayDMYFormat()
+                var timeForWork = 0 // min
+                for (servic) in serviceCheck! {
+                    timeForWork = timeForWork + servic.timeAtWorkMin
+                }
+                self.dateTimeEndService = Date().addMin(n: timeForWork)
             }
-        // если не выбрана дата и время то выбрать сегодня и сейчас
-        if dateTimeStartService == nil {
-            self.dateTimeStartService = Date().todayDMYTimeFormat()
-            var timeForWork = 0 // min
-            for (servic) in serviceCheck! {
-                timeForWork = timeForWork + servic.timeAtWorkMin
+  
+            customerRecordNew = CustomerRecord(dictionary: [
+                "idUserWhoWorks": userGlobal?.uid ?? "",
+                "nameWhoWorks": userGlobal?.name ?? "",
+                "fullNameWhoWorks": userGlobal?.fullName ?? "",
+                "profileImageWhoWorks": userGlobal?.profileImage ?? "",
+                "idClient": client?.idClient ?? "",
+                "nameClient": client?.nameClient ?? "",
+                "fullNameClient": client?.fullName ?? "",
+                "profileImageClient": client?.profileImageClientUrl ?? "",
+                "telefonClient": client?.telefonClient ?? "",
+                "genderClient": client?.genderClient ?? "",
+                "ageClient": client?.ageClient ?? "",
+                "dateTimeStartService": dateTimeStartService ?? "",
+                "dateTimeEndService": dateTimeEndService ?? "",
+                "dateStartService": self.dateStartService ?? ""
+            ])
+            self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            guard
+                checkMaster != nil,
+                serviceCheck?.isEmpty == false
+            else {
+                var error = ""
+                if serviceCheck?.isEmpty == true {error = error + "Services not selected."+"\n"}
+                if checkMaster == nil { error = error + "Master not selected."+"\n"}
+                self.view?.attentionString(error: error)
+                return
+                }
+            // если не выбрана дата и время то выбрать сегодня и сейчас
+            if dateTimeStartService == nil {
+                self.dateTimeStartService = Date().todayDMYTimeFormat()
+                self.dateStartService = Date().todayDMYFormat()
+                var timeForWork = 0 // min
+                for (servic) in serviceCheck! {
+                    timeForWork = timeForWork + servic.timeAtWorkMin
+                }
+                self.dateTimeEndService = Date().addMin(n: timeForWork)
             }
-            self.dateTimeEndService = Date().addMin(n: timeForWork)
+         
+            customerRecordNew = CustomerRecord(dictionary: [
+                "idUserWhoWorks": checkMaster?.idTeamMember ?? "",
+                "nameWhoWorks": checkMaster?.nameTeamMember ?? "",
+                "fullNameWhoWorks": checkMaster?.fullnameTeamMember ?? "",
+                "profileImageWhoWorks": checkMaster?.profileImageURLTeamMember ?? "",
+                "idClient": client?.idClient ?? "",
+                "nameClient": client?.nameClient ?? "",
+                "fullNameClient": client?.fullName ?? "",
+                "profileImageClient": client?.profileImageClientUrl ?? "",
+                "telefonClient": client?.telefonClient ?? "",
+                "genderClient": client?.genderClient ?? "",
+                "ageClient": client?.ageClient ?? "",
+                "dateTimeStartService": dateTimeStartService ?? "",
+                "dateTimeEndService": dateTimeEndService ?? "",
+                "dateStartService": self.dateStartService ?? ""
+            ])
+            self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
+        default: break
         }
-     
-        customerRecordNew = CustomerRecord(dictionary: [
-            "idUserWhoWorks": checkMaster?.idTeamMember ?? "",
-            "nameWhoWorks": checkMaster?.nameTeamMember ?? "",
-            "fullNameWhoWorks": checkMaster?.fullnameTeamMember ?? "",
-            "profileImageWhoWorks": checkMaster?.profileImageURLTeamMember ?? "",
-            "idClient": client?.idClient ?? "",
-            "nameClient": client?.nameClient ?? "",
-            "fullNameClient": client?.fullName ?? "",
-            "profileImageClient": client?.profileImageClientUrl ?? "",
-            "telefonClient": client?.telefonClient ?? "",
-            "genderClient": client?.genderClient ?? "",
-            "ageClient": client?.ageClient ?? "",
-            "dateTimeStartService": dateTimeStartService ?? "",
-            "dateTimeEndService": dateTimeEndService ?? "",
-            "dateStartService": dateStartService ?? ""
-        ])
-        self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
+        
     }
     func pressedMastersChoice(indexPath:IndexPath) {
         print("выбрал мастера кому записывать",indexPath)

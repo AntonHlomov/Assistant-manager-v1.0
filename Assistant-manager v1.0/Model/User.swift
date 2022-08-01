@@ -4,7 +4,7 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-//var userApp: User?
+
 
 import Foundation
 
@@ -15,20 +15,22 @@ class User {
     var fullName: String!
     var profileImage: String!
     var email: String!
-    var categoryUser: String!
-    var teacherUser: Bool!
-    var lincUser: String!
+
     var lastСheckNumber: Int!
     var statusBoss: Bool!
     var statusAdministrator: Bool!
     var statusMaster: Bool!
+    
     var clientsCount: Int!
     var priceCount: Int!
     var checkCount: Int!
     var teamCount: Int!
     
-    var whoIsBossId: String!
-    var whoIsAdministrator: String!
+  //  var whoIsBossId: String!
+   // var whoIsAdministrator: String!
+    
+    var statusInGroup: String! // Boss / Administrator / Master / groupEmpty
+    var idGroup: String!
 
     
 
@@ -40,19 +42,20 @@ class User {
         self.uid = dictionary["uid"] as? String ?? ""
         self.email = dictionary["email"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
-        self.categoryUser = dictionary["categoryUser"] as? String ?? ""
-        self.teacherUser = dictionary["teacherUser"] as? Bool ?? nil
-        self.lincUser = dictionary["lincUser"] as? String ?? ""
-        self.statusBoss = dictionary["statusBoss"] as? Bool ?? nil
-        self.statusAdministrator = dictionary["statusAdministrator"] as? Bool ?? nil
-        self.statusMaster = dictionary["statusMaster"] as? Bool ?? nil
+     
+       // self.statusBoss = dictionary["statusBoss"] as? Bool ?? nil
+       // self.statusAdministrator = dictionary["statusAdministrator"] as? Bool ?? nil
+       // self.statusMaster = dictionary["statusMaster"] as? Bool ?? nil
         self.clientsCount = dictionary["clientsCount"] as? Int ?? nil
         self.priceCount = dictionary["priceCount"] as? Int ?? nil
         self.checkCount = dictionary["checkCount"] as? Int ?? nil
         self.teamCount = dictionary["teamCount"] as? Int ?? nil
         
-        self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""
-        self.whoIsAdministrator = dictionary["whoIsAdministrator"] as? String ?? ""
+      //  self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""
+      //  self.whoIsAdministrator = dictionary["whoIsAdministrator"] as? String ?? ""
+        
+        self.statusInGroup = dictionary["statusInGroup"] as? String ?? ""
+        self.idGroup = dictionary["idGroup"] as? String ?? ""
        
     }
 }

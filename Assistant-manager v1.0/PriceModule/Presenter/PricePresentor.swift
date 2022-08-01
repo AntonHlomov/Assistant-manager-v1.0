@@ -39,6 +39,8 @@ class PricePresenter: PricePresenterProtocol{
     var checkmarkServises = [Price]()
     var client: Client?
     var newVisitMode: Bool?
+    
+    
 
     
     required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol,newVisitMode: Bool, client: Client?) {
@@ -47,6 +49,7 @@ class PricePresenter: PricePresenterProtocol{
         self.networkService = networkService
         self.client = client
         self.newVisitMode = newVisitMode
+        
         checknewVisitMode()
         getPrice()
     }

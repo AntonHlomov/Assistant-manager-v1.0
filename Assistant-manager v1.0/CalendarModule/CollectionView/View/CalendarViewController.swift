@@ -260,10 +260,11 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
        print("удалить запись")
         let index = sender.tag
         let id = presenter.filterCalendarToday?[index].idRecord ?? ""
+        let masterId = presenter.filterCalendarToday?[index].idUserWhoWorks ?? ""
         //выплывающее окно с подтверждением о выходе для кнопки удалить запись
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Delete visit", style: .destructive, handler: { (_) in
-            self.presenter.deletCustomerRecorder(idCustomerRecorder: id)
+            self.presenter.deletCustomerRecorder(idCustomerRecorder: id,masterId: masterId )
             print("удалил")
            }))
         //кнопка отмена выплывающего окна с подтверждением о выходе для кнопки выйти

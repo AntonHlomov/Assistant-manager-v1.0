@@ -20,9 +20,7 @@ protocol CalendadrViewProtocol: AnyObject {
 protocol CalendadrViewPresenterProtocol: AnyObject {
 
     init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol, router: LoginRouterProtocol)
-    
-   // func getUserData(completion: @escaping (User?) ->())
-    func getUserData()
+ 
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->())
@@ -32,7 +30,7 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func pushClientsButton()
     func pushOptionsButton()
     func pushRecorderClient(indexPath:IndexPath)
-    func deletCustomerRecorder(idCustomerRecorder:String)
+    func deletCustomerRecorder(idCustomerRecorder:String,masterId: String)
     func filter(text: String)
     
     var user: User? { get set }
@@ -71,6 +69,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.router = router
         self.networkService = networkService
         self.networkServiceStatistic = networkServiceStatistic
+        self.user = userGlobal
         self.expensesToday = 0.0
         self.revenueToday = 0.0
         self.profit = 0.0
@@ -79,12 +78,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.today = ""
         self.tomorrow = ""
         self.team = [Team]()
-        
-      
-       
+   
         getTeam()
         dataTodayTomorrow()
-        getUserData()
+      
       //  getCalendarDate()
     }
     
@@ -115,9 +112,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     }
     
     
-    func deletCustomerRecorder(idCustomerRecorder:String) {
+    func deletCustomerRecorder(idCustomerRecorder:String,masterId: String) {
         DispatchQueue.main.async {
-            self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder){[weak self] result in
+            self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder,masterId: masterId){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(_):
@@ -132,11 +129,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         print("getCalendarDate")
        // let today = Date().todayDMYFormat()
         DispatchQueue.main.async {
-            self.networkService.getCustomerRecord(today: self.today,team: self.team ){[weak self] result in
+            self.networkService.getCustomerRecord(today: self.today,team: self.team){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let filterCalendar):
-                        
                         self.calendarToday = filterCalendar
                         self.filterCalendarToday = self.calendarToday
                         self.view?.updateDataCalendar(update: true, indexSetInt: 2)
@@ -248,35 +244,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
          }
      }
     
-   // func getUserData(completion: @escaping (User?) ->()){
-   //     DispatchQueue.main.async {
-   //         self.networkService.fetchCurrentUser{[weak self] result in
-   //         guard let self = self else {return}
-   //                 switch result{
-   //                 case.success(let user):
-   //                     self.user = user
-   //                     completion(user)
-   //                 case.failure(let error):
-   //                     self.view?.failure(error: error)
-   //                 }
-   //             }
-   //     }
-   // }
-    func getUserData(){
-        print("getUserData")
-        DispatchQueue.main.async {
-            self.networkService.fetchCurrentUser{[weak self] result in
-            guard let self = self else {return}
-                    switch result{
-                    case.success(let user):
-                        self.user = user
-                        self.view?.updateDataCalendar(update: true, indexSetInt: 0)
-                    case.failure(let error):
-                        self.view?.failure(error: error)
-                    }
-                }
-        }
-    }
     func pushClientsButton() {
         print("Push Clients Button")
         self.router?.showClientsTableViewController()
@@ -287,9 +254,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.router?.showOptionesViewController(user: self.user)
        }
     func pushRecorderClient(indexPath:IndexPath) {
-        let idClient = (calendarToday?[indexPath.row].idClient ?? "") as String
+        guard calendarToday?.isEmpty == false else {return}
+        let idClient = (filterCalendarToday?[indexPath.row].idClient ?? "") as String
         DispatchQueue.main.async {
-            self.networkService.fetchCurrentClient(idClient: idClient){[weak self] result in
+            self.networkService.fetchCurrentClient(idClient: idClient,team: self.team){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let client):
@@ -320,9 +288,5 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
         self.view?.updateDataCalendar(update: true, indexSetInt: 2)
     }
-    
-    
-   // let user: User
-   // required init(view: LoginViewProtocol, user: User)
-  
+
 }

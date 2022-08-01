@@ -11,33 +11,52 @@ import Firebase
 //outPut
 protocol ScreensaverViewProtocol: AnyObject {
     func dismiss()
+    func failure(error:Error)
   
 }
 //inPut
 protocol ScreensaverPresenterProtocol: AnyObject {
-    init(view: ScreensaverViewProtocol,router: LoginRouterProtocol)
+    init(view: ScreensaverViewProtocol,router: LoginRouterProtocol, networkService:APIGlobalUserServiceProtocol)
     func authCheck()
 }
 class ScreensaverPresentor: ScreensaverPresenterProtocol{
     weak var view: ScreensaverViewProtocol?
     var router: LoginRouterProtocol?
+    let networkService:APIGlobalUserServiceProtocol!
     
-    required init(view: ScreensaverViewProtocol, router: LoginRouterProtocol) {
+    required init(view: ScreensaverViewProtocol, router: LoginRouterProtocol, networkService:APIGlobalUserServiceProtocol) {
        
         self.view = view
         self.router = router
-    }
-
-  
-    func authCheck() {
-        if Auth.auth().currentUser != nil{
-            // переход с удалением предыдущего контролера
-          print("Переходим в Таб бар контролер")
-          router?.initalMainTabControler()
-        } else {
-            router?.initalLoginViewControler()
-            self.view?.dismiss()
-        }
+        self.networkService = networkService
        
     }
+
+    func authCheck() {
+        if Auth.auth().currentUser != nil{
+          //sleep(1)
+          getGlobalUser()
+        } else {
+            self.router?.initalLoginViewControler()
+            self.view?.dismiss()
+          
+        }
+    }
+    func getGlobalUser(){
+        print("getGlobalUser")
+        DispatchQueue.main.async {
+            self.networkService.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(_):
+                        self.router?.initalMainTabControler()
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                        sleep(2)
+                        self.router?.initalLoginViewControler()
+                        self.view?.dismiss()
+               }
+            }
+         }
+     }
 }

@@ -23,14 +23,27 @@ class ScreensaverViewController: UIViewController {
     
     }
     override func viewDidAppear(_ animated: Bool) {
-        sleep(1)
-        self.presenter.authCheck()
+       self.presenter.authCheck()
+    }
+}
+extension ScreensaverViewController{
+    func alertMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        alertControler.addAction(alertOk)
+        present(alertControler, animated: true, completion: nil)
     }
 }
 
 extension ScreensaverViewController: ScreensaverViewProtocol {
+    func failure(error: Error) {
+        let error = "\(error.localizedDescription)"
+        alertMassage(title: "Error", message: error)
+    }
+    
     func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
+    
 
 }

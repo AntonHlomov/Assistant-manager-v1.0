@@ -24,7 +24,7 @@ protocol RegistrationProtocol: AnyObject {
 //inPut
 protocol RegistrationViewPresenterProtocol: AnyObject {
     init(view: RegistrationProtocol,networkService: APIRegistrationProtocol,router: LoginRouterProtocol)
-    func showRegistrationInformation(photoUser:UIImage,emailAuth: String,name: String, passwordAuth: String,statusBoss: Bool)
+    func showRegistrationInformation(photoUser:UIImage,emailAuth: String,name: String, passwordAuth: String)
     func goToLoginControler()
     
 }
@@ -46,8 +46,8 @@ class RegistrationPresentor: RegistrationViewPresenterProtocol{
         router?.popToRoot()
     }
 
-    func showRegistrationInformation(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String,statusBoss: Bool) {
-        networkService.registration(photoUser: photoUser, emailAuth: emailAuth, name: name, passwordAuth: passwordAuth,statusBoss:statusBoss){[weak self] result in
+    func showRegistrationInformation(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String) {
+        networkService.registration(photoUser: photoUser, emailAuth: emailAuth, name: name, passwordAuth: passwordAuth){[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async {
                     switch result{
@@ -60,7 +60,5 @@ class RegistrationPresentor: RegistrationViewPresenterProtocol{
                 }
             }
       }
-
-    
-    
+   
 }

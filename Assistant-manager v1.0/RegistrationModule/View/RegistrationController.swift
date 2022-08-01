@@ -98,7 +98,7 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         guard let name = nameTexfield.text else {return}
         guard let profileImage = self.selectPhotoButton.imageView?.image else {return}
         print("проверка данных для регистрации")
-        self.presenter.showRegistrationInformation(photoUser: profileImage, emailAuth: email, name: name, passwordAuth: password,statusBoss: true)
+        self.presenter.showRegistrationInformation(photoUser: profileImage, emailAuth: email, name: name, passwordAuth: password)
     }
      //проверка заполнености полей
     @objc fileprivate func formValidation(){

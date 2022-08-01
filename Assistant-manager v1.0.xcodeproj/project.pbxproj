@@ -65,6 +65,8 @@
 		8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E55AB2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift */; };
 		8A8E55AE287734B600B99433 /* SearchCustomerCardPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E55AD287734B600B99433 /* SearchCustomerCardPaymentCell.swift */; };
 		8A8E55B02877397F00B99433 /* ApiCustomerCardPaymentToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E55AF2877397F00B99433 /* ApiCustomerCardPaymentToday.swift */; };
+		8A8F6781289682BA0078356B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F6780289682BA0078356B /* Group.swift */; };
+		8A8F67882896F0DF0078356B /* APIGlobalUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F67872896F0DF0078356B /* APIGlobalUserService.swift */; };
 		8A8F747D285400EF00D52B4B /* СhoiceVisitDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */; };
 		8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */; };
 		8A8F74812854016C00D52B4B /* ApiСhoiceVisitDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */; };
@@ -167,6 +169,8 @@
 		8A8E55AB2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCustomerCardPaymentCell.swift; sourceTree = "<group>"; };
 		8A8E55AD287734B600B99433 /* SearchCustomerCardPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCustomerCardPaymentCell.swift; sourceTree = "<group>"; };
 		8A8E55AF2877397F00B99433 /* ApiCustomerCardPaymentToday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCustomerCardPaymentToday.swift; sourceTree = "<group>"; };
+		8A8F6780289682BA0078356B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		8A8F67872896F0DF0078356B /* APIGlobalUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIGlobalUserService.swift; sourceTree = "<group>"; };
 		8A8F747C285400EF00D52B4B /* СhoiceVisitDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СhoiceVisitDateViewController.swift"; sourceTree = "<group>"; };
 		8A8F747E2854012400D52B4B /* СhoiceVisitDatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СhoiceVisitDatePresenter.swift"; sourceTree = "<group>"; };
 		8A8F74802854016C00D52B4B /* ApiСhoiceVisitDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiСhoiceVisitDate.swift"; sourceTree = "<group>"; };
@@ -410,6 +414,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A8F67862896F0B10078356B /* APIGlobalUserService */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
 				8AAF98B7279745C9007315DE /* ScreensaverModule */,
@@ -449,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				8A8E4562279190E100828B7E /* User.swift */,
+				8A8F6780289682BA0078356B /* Group.swift */,
 				8A8E45642791911600828B7E /* Client.swift */,
 				8A8E456C2791923600828B7E /* Team.swift */,
 				8A8E45662791913C00828B7E /* Price.swift */,
@@ -514,6 +520,14 @@
 				8A8E55AD287734B600B99433 /* SearchCustomerCardPaymentCell.swift */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		8A8F67862896F0B10078356B /* APIGlobalUserService */ = {
+			isa = PBXGroup;
+			children = (
+				8A8F67872896F0DF0078356B /* APIGlobalUserService.swift */,
+			);
+			path = APIGlobalUserService;
 			sourceTree = "<group>";
 		};
 		8A8F74782854004700D52B4B /* СhoiceVisitDateModule */ = {
@@ -1089,6 +1103,7 @@
 				8A7AD74F2834176200B12E3F /* TableClientCell.swift in Sources */,
 				8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */,
 				8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */,
+				8A8F67882896F0DF0078356B /* APIGlobalUserService.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
 				8A6FBA3C285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift in Sources */,
 				8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */,
@@ -1142,6 +1157,7 @@
 				8A8E45932791E77500828B7E /* AnchoredConstraintsExtension.swift in Sources */,
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
 				8AA756AF27BD3DB400E89C4E /* Rouetr.swift in Sources */,
+				8A8F6781289682BA0078356B /* Group.swift in Sources */,
 				8A201C852881DD100072ED75 /* DottedLine.swift in Sources */,
 				8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,

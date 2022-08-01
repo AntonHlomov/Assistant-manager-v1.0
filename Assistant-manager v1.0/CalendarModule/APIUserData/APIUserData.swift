@@ -11,69 +11,98 @@ import Firebase
 
 
 protocol APIUserDataServiceProtocol {
-    func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void)
     func getCustomerRecord(today:String,team:[Team]?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
-    func fetchCurrentClient(idClient:String,completion: @escaping (Result<Client?,Error>) -> Void)
-    func deletCustomerRecorder(idRecorder:String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func fetchCurrentClient(idClient:String,team:[Team]?,completion: @escaping (Result<Client?,Error>) -> Void)
+    func deletCustomerRecorder(idRecorder:String,masterId:String,completion: @escaping (Result<Bool,Error>) -> Void)
     func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void)
 }
 
 class APIUserDataService:APIUserDataServiceProtocol {
 
-  func getCustomerRecord(today:String,team:[Team]?,completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
-  guard let uid = Auth.auth().currentUser?.uid else {return}
-      var filterCalendar = [CustomerRecord]()
-      var calendar = [CustomerRecord]()
-      let count = team?.count
-      for  i in 0...count!-1{
-          
-          let idMaster = team?[i].idTeamMember ?? ""
-   
-          Firestore.firestore().collection("users").document(idMaster).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).addSnapshotListener(){ [] (snapshot, error) in
-      if let error = error {
+  func getCustomerRecord(today:String,team:[Team]?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
+      guard let uid = Auth.auth().currentUser?.uid else {return}
+     
+      switch userGlobal?.statusInGroup {
+      case "groupEmpty":
+          var filterCalendar = [CustomerRecord]()
+          var calendar = [CustomerRecord]()
+          Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
+          if let error = error {
           completion(.failure(error))
           return
-      }
-     
-
-     // calendar.removeAll()
-     // filterCalendar.removeAll()
-      // пробегаемся по каждому документу
+         }
+          calendar.removeAll()
+          filterCalendar.removeAll()
+         // пробегаемся по каждому документу
       snapshot?.documents.forEach({ (documentSnapshot) in
             let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
             let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
             calendar.append(timeCustomerRecord)
-        
-           
         })
-       
        filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
        completion(.success( filterCalendar))
-     }
-          
-    }
-     
-     //  completion(.success( filterCalendar))
+      }
+      case "Master":break
+      case "Administrator":break
+      case "Boss":
+          let nameColection = "group"
+          guard let idGroup = userGlobal?.idGroup else {return}
+          var filterCalendar = [CustomerRecord]()
+          var calendar = [CustomerRecord]()
+          Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").whereField("dateStartService", isEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
+          if let error = error {
+          completion(.failure(error))
+          return
+         }
+          calendar.removeAll()
+          filterCalendar.removeAll()
+         // пробегаемся по каждому документу
+      snapshot?.documents.forEach({ (documentSnapshot) in
+            let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
+            let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
+            calendar.append(timeCustomerRecord)
+        })
+       filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
+       completion(.success( filterCalendar))
+      }
+      default: break
+      }
+   
   }
 
-    
-    func deletCustomerRecorder(idRecorder: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
+    func deletCustomerRecorder(idRecorder: String,masterId:String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idRecorder).delete() { (error) in
-            if let error = error {
-                completion(.failure(error))
-                return
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+            Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idRecorder).delete() { (error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                completion(.success(true))
             }
-            completion(.success(true))
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = userGlobal?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").document(idRecorder).delete() { (error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                completion(.success(true))
+            }
+        default: break
+        }
 
-            }
- 
     }
   
     func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        Firestore.firestore().collection("users").document(uid).collection("Team").addSnapshotListener{ (snapshot, error) in
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        let nameColection = "group"
+        guard let idGroup = userGlobal?.idGroup else {return}
+        Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
             if let error = error {
                completion(.failure(error))
                return
@@ -88,69 +117,41 @@ class APIUserDataService:APIUserDataServiceProtocol {
             completion(.success(teamCash))
         }
     }
-    
 
-    
-    func fetchCurrentClient(idClient: String, completion: @escaping (Result<Client?, Error>) -> Void) {
+    func fetchCurrentClient(idClient: String,team:[Team]?, completion: @escaping (Result<Client?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        Firestore.firestore().collection("users").document(uid).collection("Clients").document(idClient).getDocument { (snapshot, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+            Firestore.firestore().collection("users").document(uid).collection("Clients").document(idClient).getDocument { (snapshot, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                guard let dictionary = snapshot?.data() else {return}
+                let client = Client(dictionary:dictionary)
+                completion(.success(client))
             }
-            guard let dictionary = snapshot?.data() else {return}
-            let client = Client(dictionary:dictionary)
-            completion(.success(client))
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = userGlobal?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").document(idClient).getDocument { (snapshot, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                guard let dictionary = snapshot?.data() else {return}
+                let client = Client(dictionary:dictionary)
+                completion(.success(client))
+            }
+        default: break
         }
-    }
+
+      
     
-  /*  func getCustomerRecord(today:String,team:[Team]?,completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
-     // guard let uid = Auth.auth().currentUser?.uid else {return}
-      if team?.isEmpty == false{
-          var calendar = [CustomerRecord]()
-          var filterCalendar = [CustomerRecord]()
-         // calendar.removeAll()
-         // filterCalendar.removeAll()
-          let count = team?.count
-          for  i in 0...count!-1{
-              
-              let idMaster = team?[i].idTeamMember ?? ""
-     
-              Firestore.firestore().collection("users").document(idMaster).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo: today).addSnapshotListener { [] (snapshot, error) in
-                  if let error = error {
-                      completion(.failure(error))
-                      return
-                  }
-                  // пробегаемся по каждому документу
-                  snapshot?.documents.forEach({ (documentSnapshot) in
-                        let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
-                        let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
-                        calendar.append(timeCustomerRecord)
-                    })
-            }
-       }
-          filterCalendar = calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
-          completion(.success(filterCalendar))
-          
-     }
+    }
    
- } */
-    
-    func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            guard let dictionary = snapshot?.data() else {return}
-            let user = User(dictionary:dictionary)
-            completion(.success(user))
-            
-        }
-    }
-    
 }
 
 
@@ -178,4 +179,79 @@ Firestore.firestore().collection("users").document(uid).collection("CustomerReco
     completion(.success(filterCalendar))
   }
 }
+ func getCustomerRecord(today:String,team:[Team]?, user: User?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
+     guard let uid = Auth.auth().currentUser?.uid else {return}
+     var teamAll = team
+     var filterCalendar = [CustomerRecord]()
+     var calendar = [CustomerRecord]()
+     
+     switch user?.idGroup {
+     case "groupEmpty":
+         var filterCalendar = [CustomerRecord]()
+         var calendar = [CustomerRecord]()
+         Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).getDocuments{ [] (snapshot, error) in
+         if let error = error {
+         completion(.failure(error))
+         return
+        }
+        // calendar.removeAll()
+        // filterCalendar.removeAll()
+        // пробегаемся по каждому документу
+     snapshot?.documents.forEach({ (documentSnapshot) in
+           let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
+           let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
+           calendar.append(timeCustomerRecord)
+       })
+      filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
+      completion(.success( filterCalendar))
+     }
+     case "Master":break
+     case "Administrator":break
+     case "Boss":break
+     default: break
+     }
+
+     if user?.statusBoss == true {
+         
+     }
+     if user?.statusAdministrator == true {
+         
+     }
+     if user?.statusMaster == true {
+       teamAll = team?.filter { $0.idTeamMember == uid  }
+     }
+     if user?.idGroup == "groupEmpty" {
+       teamAll = team?.filter { $0.idTeamMember == uid  }
+     }
+     
+     let count = teamAll?.count
+     for  i in 0...count!-1{
+         let idMaster = teamAll?[i].idTeamMember ?? ""
+         Firestore.firestore().collection("users").document(idMaster).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).getDocuments{ [] (snapshot, error) in
+         if let error = error {
+         completion(.failure(error))
+         return
+        }
+        // calendar.removeAll()
+        // filterCalendar.removeAll()
+        // пробегаемся по каждому документу
+     snapshot?.documents.forEach({ (documentSnapshot) in
+           let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
+           let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
+           calendar.append(timeCustomerRecord)
+       })
+      filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
+      completion(.success( filterCalendar))
+     }
+    }
+    //  completion(.success( filterCalendar))
+ }
+ 
+ switch userGlobal?.statusInGroup {
+ case "groupEmpty":break
+ case "Master":break
+ case "Administrator":break
+ case "Boss":break
+ default: break
+ }
 */

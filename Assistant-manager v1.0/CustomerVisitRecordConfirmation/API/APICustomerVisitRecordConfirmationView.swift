@@ -33,34 +33,71 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
             ] as [String : Any]
             serviceData.append(dataServ)
         }
-        let data = ["idRecord": idCustomerRecord,
-                    "idUserWhoRecorded":uid,
-                    "idUserWhoWorks": uidMaster,
-                    "nameWhoWorks": newCustomerVisit.nameWhoWorks!,
-                    "fullNameWhoWorks": newCustomerVisit.fullNameWhoWorks!,
-                    "profileImageWhoWorks": newCustomerVisit.profileImageWhoWorks!,
-                    "dateTimeStartService":newCustomerVisit.dateTimeStartService!,
-                    "dateTimeEndService": newCustomerVisit.dateTimeEndService!,
-                    "dateStartService": newCustomerVisit.dateStartService!,
-                    "idClient":newCustomerVisit.idClient!,
-                    "nameClient":newCustomerVisit.nameClient!,
-                    "fullNameClient":newCustomerVisit.fullNameClient!,
-                    "profileImageClient":newCustomerVisit.profileImageClient!,
-                    "telefonClient":newCustomerVisit.telefonClient!,
-                    "genderClient": newCustomerVisit.genderClient ?? "",
-                    "ageClient":newCustomerVisit.ageClient ?? 0,
-                    "service": serviceData,
-                    "commit": comment 
-                     ] as [String : Any]
-        
-           Firestore.firestore().collection("users").document(uidMaster).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
-            if let error = error {
-                completion(.failure(error))
-                return
+
+        switch userGlobal?.statusInGroup {
+        case "groupEmpty":
+            let data = ["idRecord": idCustomerRecord,
+                        "idUserWhoRecorded":uid,
+                        "idUserWhoWorks": uidMaster,
+                        "nameWhoWorks": newCustomerVisit.nameWhoWorks!,
+                        "fullNameWhoWorks": newCustomerVisit.fullNameWhoWorks!,
+                        "profileImageWhoWorks": newCustomerVisit.profileImageWhoWorks!,
+                        "dateTimeStartService":newCustomerVisit.dateTimeStartService!,
+                        "dateTimeEndService": newCustomerVisit.dateTimeEndService!,
+                        "dateStartService": newCustomerVisit.dateStartService!,
+                        "idClient":newCustomerVisit.idClient!,
+                        "nameClient":newCustomerVisit.nameClient!,
+                        "fullNameClient":newCustomerVisit.fullNameClient!,
+                        "profileImageClient":newCustomerVisit.profileImageClient!,
+                        "telefonClient":newCustomerVisit.telefonClient!,
+                        "genderClient": newCustomerVisit.genderClient ?? "",
+                        "ageClient":newCustomerVisit.ageClient ?? 0,
+                        "service": serviceData,
+                        "commit": comment
+                         ] as [String : Any]
+            
+               Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                completion(.success(true))
             }
-            completion(.success(true))
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = userGlobal?.idGroup else {return}
+            let data = ["idRecord": idCustomerRecord,
+                        "idUserWhoRecorded":uid,
+                        "idUserWhoWorks": uidMaster,
+                        "nameWhoWorks": newCustomerVisit.nameWhoWorks!,
+                        "fullNameWhoWorks": newCustomerVisit.fullNameWhoWorks!,
+                        "profileImageWhoWorks": newCustomerVisit.profileImageWhoWorks!,
+                        "dateTimeStartService":newCustomerVisit.dateTimeStartService!,
+                        "dateTimeEndService": newCustomerVisit.dateTimeEndService!,
+                        "dateStartService": newCustomerVisit.dateStartService!,
+                        "idClient":newCustomerVisit.idClient!,
+                        "nameClient":newCustomerVisit.nameClient!,
+                        "fullNameClient":newCustomerVisit.fullNameClient!,
+                        "profileImageClient":newCustomerVisit.profileImageClient!,
+                        "telefonClient":newCustomerVisit.telefonClient!,
+                        "genderClient": newCustomerVisit.genderClient ?? "",
+                        "ageClient":newCustomerVisit.ageClient ?? 0,
+                        "service": serviceData,
+                        "commit": comment
+                         ] as [String : Any]
+            
+               Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").document(idCustomerRecord).setData(data) { (error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                completion(.success(true))
+            }
+        default: break
         }
-        
+
     }
     
     

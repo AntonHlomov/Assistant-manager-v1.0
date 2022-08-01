@@ -112,6 +112,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
     }
     
     func getDataForTeam(){
+      
         networkService.getTeam{ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {

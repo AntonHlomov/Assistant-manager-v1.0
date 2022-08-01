@@ -20,11 +20,9 @@ class APILoginService:APILoginServiceProtocol {
         }
         Auth.auth().signIn(withEmail: emailAuth, password: passwordAuth) { (user, error) in
             if let error = error {
-                print("!!!!!!!Filed to login with error", error.localizedDescription)
                 completion(.failure(error))
                 return
-        }
-            print("Successfuly signed user in")
+         }
             completion(.success(true))
         }
     }

@@ -119,7 +119,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func createLoginModule(router: LoginRouterProtocol) -> UIViewController {
         let view = LoginControler()
         let networkService = APILoginService()
-        let presenter = LoginPresentor(view: view, networkService: networkService, router: router)
+        let networkServiceGlobalUser = APIGlobalUserService()
+        let presenter = LoginPresentor(view: view, networkService: networkService, router: router, networkServiceGlobalUser: networkServiceGlobalUser)
         view.presenter = presenter
         return view
     }
@@ -134,7 +135,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     
      func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController {
         let view = ScreensaverViewController()
-        let presenter = ScreensaverPresentor(view: view, router: router)
+        let networkService = APIGlobalUserService()
+        let presenter = ScreensaverPresentor(view: view, router: router, networkService:networkService)
         view.presenter = presenter
         return view
     }

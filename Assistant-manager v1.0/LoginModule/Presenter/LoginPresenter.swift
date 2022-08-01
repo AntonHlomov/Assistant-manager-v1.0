@@ -13,7 +13,7 @@ protocol LoginViewProtocol: AnyObject {
     func failure(error:Error)
 }
 protocol LoginViewPresenterProtocol: AnyObject {
-    init(view: LoginViewProtocol,networkService: APILoginServiceProtocol,router: LoginRouterProtocol)
+    init(view: LoginViewProtocol,networkService: APILoginServiceProtocol,router: LoginRouterProtocol,networkServiceGlobalUser: APIGlobalUserServiceProtocol)
     func authorisation(emailAuth: String, passwordAuth: String)
     func goToRegistarasionControler()
 }
@@ -23,10 +23,12 @@ class LoginPresentor: LoginViewPresenterProtocol{
     weak var view: LoginViewProtocol?
     var router: LoginRouterProtocol?
     let networkService:APILoginServiceProtocol!
+    let networkServiceGlobalUser:APIGlobalUserServiceProtocol!
     
-    required init(view: LoginViewProtocol,networkService:APILoginServiceProtocol, router: LoginRouterProtocol) {
+    required init(view: LoginViewProtocol,networkService:APILoginServiceProtocol, router: LoginRouterProtocol,networkServiceGlobalUser: APIGlobalUserServiceProtocol) {
         self.view = view
         self.networkService = networkService
+        self.networkServiceGlobalUser = networkServiceGlobalUser
         self.router = router
     }
     func goToRegistarasionControler(){
@@ -38,13 +40,31 @@ class LoginPresentor: LoginViewPresenterProtocol{
             DispatchQueue.main.async {
                 switch result{
                 case.success(_):
-                    self.router?.initalMainTabControler()
-                    self.view?.dismiss()
+                    self.getGlobalUser()
                 case.failure(let error):
                     self.view?.failure(error: error)
                 }
             }
         }
     }
+    func getGlobalUser(){
+        print("getGlobalUser")
+        DispatchQueue.main.async {
+            self.networkServiceGlobalUser.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(_):
+                        self.router?.initalMainTabControler()
+                        self.view?.dismiss()
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                       
+               }
+            }
+         }
+     }
+    
+    
+    
 }
 
