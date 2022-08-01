@@ -19,7 +19,7 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(idMaster).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo: dateStartServiceDMY).getDocuments { [] (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))
@@ -62,7 +62,7 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             var masterUserArray = [Team]()
             let masterUser = Team(dictionary: [
                 "id": userGlobal?.uid ?? "",

@@ -23,7 +23,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
       guard let uid = Auth.auth().currentUser?.uid else {return}
      
       switch userGlobal?.statusInGroup {
-      case "groupEmpty":
+      case "Individual":
           var filterCalendar = [CustomerRecord]()
           var calendar = [CustomerRecord]()
           Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
@@ -73,7 +73,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
     func deletCustomerRecorder(idRecorder: String,masterId:String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idRecorder).delete() { (error) in
                 if let error = error {
                     completion(.failure(error))
@@ -121,7 +121,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
     func fetchCurrentClient(idClient: String,team:[Team]?, completion: @escaping (Result<Client?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").document(idClient).getDocument { (snapshot, error) in
                 if let error = error {
                     completion(.failure(error))

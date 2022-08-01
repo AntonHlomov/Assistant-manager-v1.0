@@ -23,7 +23,7 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").document(id).delete() { (error) in
                 if let error = error {
                    completion(.failure(error))
@@ -70,7 +70,7 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
     func getClients(completion: @escaping (Result<[Client]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))

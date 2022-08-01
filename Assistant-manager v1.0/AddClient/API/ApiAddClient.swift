@@ -24,7 +24,7 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             switch changePhoto{
             case true:
                 // change photo
@@ -141,7 +141,7 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             let storageRef = Storage.storage().reference().child("Clients_image").child(idClient)
             storageRef.putData(uploadData, metadata: nil) { (_, error) in
                 if let error = error {

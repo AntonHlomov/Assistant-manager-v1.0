@@ -29,7 +29,7 @@ class User {
   //  var whoIsBossId: String!
    // var whoIsAdministrator: String!
     
-    var statusInGroup: String! // Boss / Administrator / Master / groupEmpty
+    var statusInGroup: String! // Boss / Administrator / Master / Individual
     var idGroup: String!
 
     

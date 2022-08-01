@@ -25,7 +25,7 @@ class ApiPayment: ApiPaymentServiceProtocol{
         
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             let data = ["idTransaction": idTransactionUser,
                         "idUserAdministrator":uid,
                         "idUserMaster": uid,

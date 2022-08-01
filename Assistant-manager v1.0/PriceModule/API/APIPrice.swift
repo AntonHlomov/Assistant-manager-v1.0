@@ -19,7 +19,7 @@ class APIPrice: APIPriceProtocol{
     func deleteServise(id: String,completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Price").document(id).delete() { (error) in
                 if let error = error {
                    completion(.failure(error))
@@ -53,7 +53,7 @@ class APIPrice: APIPriceProtocol{
     func getPriceAPI(compleation: @escaping (Result<[Price]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Price").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    compleation(.failure(error))

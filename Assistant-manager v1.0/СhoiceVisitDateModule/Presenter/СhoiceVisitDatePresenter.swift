@@ -102,7 +102,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
         print("puchConfirm",client?.nameClient ?? "")
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             guard
                 checkMaster != nil,
                 serviceCheck?.isEmpty == false

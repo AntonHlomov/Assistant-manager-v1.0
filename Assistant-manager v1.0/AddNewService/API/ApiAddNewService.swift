@@ -22,7 +22,7 @@ class ApiAddNewService: ApiAddNewServiceProtocol{
         let dataServies = ["idPrice": idServies, "nameServise":nameServise, "priceServies":priceServies, "timeAtWorkMin":timeAtWorkMin,"timeReturnServiseDays":timeReturnServiseDays ,"ratingService":0 ,"remoteService":false ] as [String : Any]
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Price").document(idServies).setData(dataServies) { (error) in
                 if let error = error {
                 completion(.failure(error))
@@ -57,7 +57,7 @@ class ApiAddNewService: ApiAddNewServiceProtocol{
         let dataServies = ["idPrice": idPrice, "nameServise":nameServise, "priceServies":priceServies, "timeAtWorkMin":timeAtWorkMin,"timeReturnServiseDays":timeReturnServiseDays ] as [String : Any]
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Price").document(idPrice).updateData(dataServies) { (error) in
                 if let error = error {
                     completion(.failure(error))

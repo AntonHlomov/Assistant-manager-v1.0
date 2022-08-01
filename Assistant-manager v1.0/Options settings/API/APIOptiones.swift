@@ -34,7 +34,7 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
     func countClients(completion: @escaping (Result<Int,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))
@@ -62,7 +62,7 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
     func countPrice(completion: @escaping (Result<Int,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Price").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))
@@ -91,7 +91,7 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
     func countTeam(completion: @escaping (Result<Int,Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
                 completion(.success(0))
         case "Master":break
         case "Administrator":break

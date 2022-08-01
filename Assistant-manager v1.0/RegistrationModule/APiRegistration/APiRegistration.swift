@@ -51,7 +51,7 @@ class APIRegistrationService:APIRegistrationProtocol {
                                        "name": name,
                                        "email": emailAuth,
                                        "profileImageUrl": profileImageUrl,
-                                       "statusInGroup": "groupEmpty",
+                                       "statusInGroup": "Individual",
                                        "idGroup": ""
                                        ] as [String : Any]
                         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in

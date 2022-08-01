@@ -28,6 +28,7 @@ protocol OptionesViewPresenterProtocol: AnyObject {
     var countClients: Int { get set }
     var countPrice: Int { get set }
     var countTeam: Int { get set }
+    var status: String { get set }
    // var click: Int { get set }
     func goToBackTappedViewFromRight()
     func redactUserDataButton()
@@ -55,6 +56,8 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
    var countClients: Int
    var countPrice: Int
    var countTeam: Int
+   var status: String
+   
 
 
     required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
@@ -66,11 +69,14 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
         self.countClients = 0
         self.countPrice = 0
         self.countTeam = 0
+        self.status = userGlobal?.statusInGroup ?? ""
+      
         
         getCountClients()
         getCountPrice()
         getCountTeam()
     }
+  
     func getCountClients() {
         networkService.countClients{ [weak self] result in
             guard self != nil else {return}

@@ -20,7 +20,7 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idRecorder).delete() { (error) in
                 if let error = error {
                     completion(.failure(error))
@@ -49,7 +49,7 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             var masterUserArray = [Team]()
             let masterUser = Team(dictionary: [
                 "id": userGlobal?.uid ?? "",
@@ -90,7 +90,7 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").whereField("dateStartService", isEqualTo: today ).addSnapshotListener { [] (snapshot, error) in
                 if let error = error {
                     completion(.failure(error))

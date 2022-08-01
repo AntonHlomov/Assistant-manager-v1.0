@@ -35,7 +35,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
         }
 
         switch userGlobal?.statusInGroup {
-        case "groupEmpty":
+        case "Individual":
             let data = ["idRecord": idCustomerRecord,
                         "idUserWhoRecorded":uid,
                         "idUserWhoWorks": uidMaster,
