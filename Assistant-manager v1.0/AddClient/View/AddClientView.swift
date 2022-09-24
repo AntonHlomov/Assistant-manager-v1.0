@@ -87,6 +87,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         stackView.distribution = .fillEqually  // для корректного отображения
         view.addSubview(stackView)
         stackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, pading: .init(top: view.frame.height/12, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/2.1))
+       
         
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

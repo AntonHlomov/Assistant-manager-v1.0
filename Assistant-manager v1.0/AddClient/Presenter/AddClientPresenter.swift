@@ -14,7 +14,7 @@ protocol AddClientViewProtocol: AnyObject {
 }
 
 protocol AddClientViewPresenterProtocol: AnyObject {
-    init(view: AddClientViewProtocol,networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol,editMode: Bool,client: Client?)
+    init(view: AddClientViewProtocol,networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol,editMode: Bool,client: Client?, user: User?)
     
     func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String)
 
@@ -28,13 +28,16 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
     let networkService:ApiAddClientDataServiceProtocol!
     var client: Client?
     var editMode: Bool?
+    var user: User?
     
-    required init(view: AddClientViewProtocol, networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol, editMode: Bool, client: Client?) {
+    required init(view: AddClientViewProtocol, networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol, editMode: Bool, client: Client?,user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.client = client
         self.editMode = editMode
+        self.user = user
+        
         checkEditMode()
         
 
@@ -44,6 +47,7 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
         
         switch editMode{
         case true:
+            guard let user = self.user else {return}
             guard let idClient = client?.idClient else {return}
             guard let olderUrlImageClient = client?.profileImageClientUrl else {return}
             let  olderImageView = CustomUIimageView(frame: .zero)
@@ -56,7 +60,7 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
             } else {
                 changePhoto = true
             }
-            networkService.editClient(changePhoto:changePhoto, idClient: idClient,olderUrlImageClient: olderUrlImageClient,nameClient: nameClient, fullName: fullName, telefonClient: telefonClient, profileImageClient: profileImageClient, genderClient: genderClient, ageClient: ageClient, textAboutClient: textAboutClient){[weak self] result in
+            networkService.editClient(changePhoto:changePhoto, idClient: idClient,olderUrlImageClient: olderUrlImageClient,nameClient: nameClient, fullName: fullName, telefonClient: telefonClient, profileImageClient: profileImageClient, genderClient: genderClient, ageClient: ageClient, textAboutClient: textAboutClient,user: user){[weak self] result in
                 guard let self = self else {return}
                     DispatchQueue.main.async {
                         switch result{
@@ -71,7 +75,7 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
                 }
             
         case false:
-            networkService.addClient(nameClient: nameClient, fullName: fullName, telefonClient: telefonClient, profileImageClient: profileImageClient, genderClient: genderClient, ageClient: ageClient, textAboutClient: textAboutClient){[weak self] result in
+            networkService.addClient(nameClient: nameClient, fullName: fullName, telefonClient: telefonClient, profileImageClient: profileImageClient, genderClient: genderClient, ageClient: ageClient, textAboutClient: textAboutClient,user: self.user){[weak self] result in
                 guard let self = self else {return}
                     DispatchQueue.main.async {
                         switch result{

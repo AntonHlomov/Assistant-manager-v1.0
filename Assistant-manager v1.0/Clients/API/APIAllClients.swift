@@ -11,18 +11,18 @@ import Firebase
 
 
 protocol ApiAllClientsDataServiceProtocol {
-    func deleteClient(id: String,reference: String,completion: @escaping (Result<Bool,Error>) -> Void)
-    func getClients(completion: @escaping (Result<[Client]?,Error>) -> Void)
+    func deleteClient(id: String,reference: String, user: User?, completion: @escaping (Result<Bool,Error>) -> Void)
+    func getClients(user: User?, completion: @escaping (Result<[Client]?,Error>) -> Void)
  
 }
 
 class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
    
     
-    func deleteClient(id: String,reference: String, completion: @escaping (Result<Bool,Error>) -> Void) {
+    func deleteClient(id: String,reference: String, user: User?, completion: @escaping (Result<Bool,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").document(id).delete() { (error) in
                 if let error = error {
@@ -45,7 +45,7 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").document(id).delete() { (error) in
                 if let error = error {
                    completion(.failure(error))
@@ -67,9 +67,9 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
         }
     }
     
-    func getClients(completion: @escaping (Result<[Client]?, Error>) -> Void) {
+    func getClients(user: User?,completion: @escaping (Result<[Client]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
@@ -89,7 +89,7 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))

@@ -12,7 +12,7 @@ protocol StatistikViewProtocol: AnyObject {
     func failure(error:Error)
 }
 protocol StatistikViewPresenterProtocol: AnyObject {
-    init(view: StatistikViewProtocol,router: LoginRouterProtocol)
+    init(view: StatistikViewProtocol,router: LoginRouterProtocol,user: User?)
     func data()
 }
 
@@ -22,11 +22,13 @@ class StatistikPresentor: StatistikViewPresenterProtocol{
    
     weak var view: StatistikViewProtocol?
     var router: LoginRouterProtocol?
+    var user: User?
     
     
-    required init(view: StatistikViewProtocol, router: LoginRouterProtocol) {
+    required init(view: StatistikViewProtocol, router: LoginRouterProtocol,user: User?) {
         self.view = view
         self.router = router
+        self.user = user
     }
   
     func data(){

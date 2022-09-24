@@ -13,11 +13,12 @@ protocol ClientsTabViewProtocol: AnyObject {
 }
 
 protocol ClientsTabViewPresenterProtocol: AnyObject {
-    init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol)
+    init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol,user: User?)
     func getClients()
     func filter(text: String)
     func deleteClient(indexPath: IndexPath)
     func redactClient(indexPath: IndexPath)
+    var user: User? { get set }
     var clients: [Client]? {get set}
     var filterClients: [Client]? {get set}
     func goToPageClient(indexPathRowClient:Int)
@@ -32,11 +33,14 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     let networkService:ApiAllClientsDataServiceProtocol!
     var clients: [Client]?
     var filterClients: [Client]?
+    var user: User?
 
-    required init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol) {
+    required init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol,user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
+        self.user = user
+        
         getClients()
  
     }
@@ -45,7 +49,7 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
         guard let id = self.filterClients?[ indexPath.row].idClient else {return}
         self.clients?.remove(at: indexPath.row)
         self.filterClients?.remove(at: indexPath.row)
-        networkService.deleteClient(id: id, reference: ref) {[weak self] result in
+        networkService.deleteClient(id: id, reference: ref, user: self.user) {[weak self] result in
         guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -68,7 +72,7 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     }
     
     func getClients() {
-        networkService.getClients{ [weak self] result in
+        networkService.getClients(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -86,13 +90,13 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
-        self.router?.showClientPage(client: filterClients?[indexPathRowClient])
+        self.router?.showClientPage(client: filterClients?[indexPathRowClient], user: self.user)
     }
     func goToAddClient() {
-        self.router?.showAddClientView(editMode: false, client: nil)
+        self.router?.showAddClientView(editMode: false, client: nil, user: self.user)
     }
     func redactClient(indexPath: IndexPath){
-        self.router?.showAddClientView(editMode: true, client:  self.filterClients?[indexPath.row])
+        self.router?.showAddClientView(editMode: true, client:  self.filterClients?[indexPath.row], user: self.user)
     }
    
 }

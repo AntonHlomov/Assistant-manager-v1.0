@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D8600037-D57B-495C-9D80-C74526363FD1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/AddClient/Presenter/AddClientPresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "addClient(nameClient:fullName:telefonClient:profileImageClient:genderClient:ageClient:textAboutClient:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "93097207-3385-4339-8D8F-721FC242C83D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -30,8 +14,8 @@
             filePath = "Assistant-manager v1.0/AddClient/View/AddClientView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "formValidation()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,41 +30,41 @@
             filePath = "Assistant-manager v1.0/AddClient/API/ApiAddClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "addClient(nameClient:fullName:telefonClient:profileImageClient:genderClient:ageClient:textAboutClient:completion:)"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "editClient(changePhoto:idClient:olderUrlImageClient:nameClient:fullName:telefonClient:profileImageClient:genderClient:ageClient:textAboutClient:user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E350C2AE-8003-48F4-8256-DD3C8EAFA754"
+            uuid = "4106BD66-CD1D-4E88-A417-B577845B4C00"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/&#x421;hoiceVisitDateModule/Presenter/&#x421;hoiceVisitDatePresenter.swift"
+            filePath = "Assistant-manager v1.0/Options settings/API/APIOptiones.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "puchConfirm()"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "countClients(user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EC11D315-5541-45A3-A1DA-B628DCC0C795"
+            uuid = "647ECA87-969F-49E9-B464-5FA765BECF02"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/&#x421;hoiceVisitDateModule/Presenter/&#x421;hoiceVisitDatePresenter.swift"
+            filePath = "Assistant-manager v1.0/Options settings/API/APIOptiones.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "pressedMastersChoice(indexPath:)"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "countClients(user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

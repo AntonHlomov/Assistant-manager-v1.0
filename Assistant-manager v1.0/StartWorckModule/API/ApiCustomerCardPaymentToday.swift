@@ -8,18 +8,18 @@
 import Foundation
 import Firebase
 protocol ApiCustomerCardPaymentTodayProtocol {
-    func getCustomerRecord(masterId:String,today:String,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
-    func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void)
-    func deletCustomerRecorder(idRecorder: String,idMaster: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func getCustomerRecord(masterId:String,today:String,user: User?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
+    func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void)
+    func deletCustomerRecorder(idRecorder: String,idMaster: String,user: User?,completion: @escaping (Result<Bool, Error>) -> Void)
     
 }
 
 class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
     
-    func deletCustomerRecorder(idRecorder: String,idMaster: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func deletCustomerRecorder(idRecorder: String,idMaster: String,user: User?,completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idRecorder).delete() { (error) in
                 if let error = error {
@@ -32,7 +32,7 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").document(idRecorder).delete() { (error) in
                 if let error = error {
                     completion(.failure(error))
@@ -45,19 +45,19 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
 
     }
     
-    func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void) {
+    func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             var masterUserArray = [Team]()
             let masterUser = Team(dictionary: [
-                "id": userGlobal?.uid ?? "",
+                "id": user?.uid ?? "",
                 "categoryTeamMember": "master",
-                "idTeamMember": userGlobal?.uid ?? "",
-                "nameTeamMember": userGlobal?.name ?? "",
-                "fullnameTeamMember": userGlobal?.fullName ?? "",
-                "profileImageURLTeamMember": userGlobal?.profileImage ?? ""
+                "idTeamMember": user?.uid ?? "",
+                "nameTeamMember": user?.name ?? "",
+                "fullnameTeamMember": user?.fullName ?? "",
+                "profileImageURLTeamMember": user?.profileImage ?? ""
                // "professionName": "hair siaylist"
             ])
             masterUserArray.append(masterUser)
@@ -66,7 +66,7 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
@@ -86,10 +86,10 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         }
     }
     
-    func getCustomerRecord(masterId:String,today:String,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void){
+    func getCustomerRecord(masterId:String,today:String,user: User?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").whereField("dateStartService", isEqualTo: today ).addSnapshotListener { [] (snapshot, error) in
                 if let error = error {
@@ -113,7 +113,7 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             
             Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").whereField("idUserWhoWorks", isEqualTo: masterId ).whereField("dateStartService", isEqualTo: today ).addSnapshotListener { [] (snapshot, error) in
                 if let error = error {

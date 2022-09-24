@@ -9,16 +9,16 @@ import Foundation
 import Firebase
 
 protocol ApiСhoiceVisitDateProtocol {
-    func getTeam(completion: @escaping (Result<[Team]?,Error>) -> Void)
-    func getCustomerRecordPast(idMaster:String,dateStartServiceDMY:String,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
+    func getTeam(user:User?,completion: @escaping (Result<[Team]?,Error>) -> Void)
+    func getCustomerRecordPast(idMaster:String,dateStartServiceDMY:String,user:User?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
 
 }
 
 class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
-    func getCustomerRecordPast(idMaster:String,dateStartServiceDMY:String,completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
+    func getCustomerRecordPast(idMaster:String,dateStartServiceDMY:String,user:User?,completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(idMaster).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo: dateStartServiceDMY).getDocuments { [] (snapshot, error) in
                 if let error = error {
@@ -38,7 +38,7 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             
             Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").whereField("dateStartService", isEqualTo: dateStartServiceDMY).whereField("idUserWhoWorks", isEqualTo: idMaster).getDocuments { [] (snapshot, error) in
                 if let error = error {
@@ -58,19 +58,19 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         }
     }
     
-    func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void) {
+    func getTeam(user:User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             var masterUserArray = [Team]()
             let masterUser = Team(dictionary: [
-                "id": userGlobal?.uid ?? "",
+                "id": user?.uid ?? "",
                 "categoryTeamMember": "master",
-                "idTeamMember": userGlobal?.uid ?? "",
-                "nameTeamMember": userGlobal?.name ?? "",
-                "fullnameTeamMember": userGlobal?.fullName ?? "",
-                "profileImageURLTeamMember": userGlobal?.profileImage ?? ""
+                "idTeamMember": user?.uid ?? "",
+                "nameTeamMember": user?.name ?? "",
+                "fullnameTeamMember": user?.fullName ?? "",
+                "profileImageURLTeamMember": user?.profileImage ?? ""
                // "professionName": "hair siaylist"
             ])
             masterUserArray.append(masterUser)
@@ -79,7 +79,7 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
                 if let error = error {

@@ -19,18 +19,18 @@ protocol LoginRouterProtocol: RouterLogin {
     //  func showDetailUserController(user:User?)
     func showRegistrationController()
     func showLoginController()
-    func showClientsTableViewController()
+    func showClientsTableViewController(user: User?)
     func showPaymentController(customerRecordent: CustomerRecord?, master: Team?)
-    func showPrice(newVisitMode: Bool, client: Client?)
-    func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?)
-    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?)
-    func showClientPage(client: Client?)
-    func showAddClientView(editMode: Bool, client: Client?)
-    func showAddNewServiceView(editMode: Bool, price: Price?)
+    func showPrice(newVisitMode: Bool, client: Client?,user: User?)
+    func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?,user: User?)
+    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?)
+    func showClientPage(client: Client?,user: User?)
+    func showAddClientView(editMode: Bool, client: Client?,user: User?)
+    func showAddNewServiceView(editMode: Bool, price: Price?,user: User?)
     func showOptionesViewController(user: User?)
     func initalLoginViewControler()
-    func initalMainTabControler()
-    func initalClientsTableViewController()
+    func initalMainTabControler(user: User?)
+    func initalClientsTableViewController(user: User?)
     func popToRoot()
     func dismiss()
     func backTappedFromRight()
@@ -65,21 +65,21 @@ class Router: LoginRouterProtocol{
         }
     }
     
-    func initalClientsTableViewController() {
+    func initalClientsTableViewController(user: User?) {
         if let navigationControler = navigationControler{
-            guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self) else {return}
+            guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self, user: user) else {return}
             navigationControler.viewControllers = [MainViewControler]
           
         }
     }
 
-    func initalMainTabControler() {
+    func initalMainTabControler(user: User?) {
         if let tabBarControler = tabBarControler , let navigationControler = navigationControler {
             //tabBarControler.view.backgroundColor = .blue
-            guard let CalendarControler = assemblyBuilder?.createCalendarModule(router: self) else {return}
-            guard let ExpensesControler = assemblyBuilder?.createExpensesModule(router: self) else {return}
-            guard let StartControler = assemblyBuilder?.createStartWorckModule(router: self) else {return}
-            guard let StatistikControler = assemblyBuilder?.createStatistikModule(router: self) else {return}
+            guard let CalendarControler = assemblyBuilder?.createCalendarModule(router: self,user: user) else {return}
+            guard let ExpensesControler = assemblyBuilder?.createExpensesModule(router: self,user: user) else {return}
+            guard let StartControler = assemblyBuilder?.createStartWorckModule(router: self,user: user) else {return}
+            guard let StatistikControler = assemblyBuilder?.createStatistikModule(router: self,user: user) else {return}
             let controllers = [CalendarControler.buuton, ExpensesControler.buuton, StartControler.buuton, StatistikControler.buuton]
             tabBarControler.setViewControllers(controllers, animated: true)
            // navigationControler.navigationBar.isHidden = true
@@ -117,47 +117,47 @@ class Router: LoginRouterProtocol{
         
     }
     
-    func showClientsTableViewController() {
+    func showClientsTableViewController(user: User?) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self) else {return}
+            guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showPrice(newVisitMode: Bool, client: Client?) {
+    func showPrice(newVisitMode: Bool, client: Client?, user: User?) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createPriceModule(router: self,newVisitMode: newVisitMode, client: client) else {return}
+            guard let registrationControler = assemblyBuilder?.createPriceModule(router: self,newVisitMode: newVisitMode, client: client, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?) {
+    func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?,user: User?) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createChoiceVisitDateModule(router: self,serviceCheck: serviceCheck,clientCheck: clientCheck) else {return}
+            guard let registrationControler = assemblyBuilder?.createChoiceVisitDateModule(router: self,serviceCheck: serviceCheck,clientCheck: clientCheck, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?) {
+    func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) {
         if let navigationControler = navigationControler {
-            guard let registrationControler = assemblyBuilder?.crateCustomerVisitRecordConfirmationModule(router: self, customerVisit: customerVisit,master:master,client: client,services:services) else {return}
+            guard let registrationControler = assemblyBuilder?.crateCustomerVisitRecordConfirmationModule(router: self, customerVisit: customerVisit,master:master,client: client,services:services, user: user) else {return}
            
             navigationControler.present(registrationControler, animated: true)
         }
     }
-    func showClientPage(client: Client?){
+    func showClientPage(client: Client?,user: User?){
         if let navigationControler = navigationControler {
-            guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client) else {return}
+            guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user) else {return}
           
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showAddClientView(editMode: Bool, client: Client?) {
+    func showAddClientView(editMode: Bool, client: Client?,user: User?) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createAddClientModule( router: self, editMode: editMode, client: client) else {return}
+            guard let registrationControler = assemblyBuilder?.createAddClientModule( router: self, editMode: editMode, client: client, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showAddNewServiceView(editMode: Bool, price: Price?) {
+    func showAddNewServiceView(editMode: Bool, price: Price?,user: User?) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.addNewServiceModule( router: self, editMode: editMode, price: price) else {return}
+            guard let registrationControler = assemblyBuilder?.addNewServiceModule( router: self, editMode: editMode, price: price, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

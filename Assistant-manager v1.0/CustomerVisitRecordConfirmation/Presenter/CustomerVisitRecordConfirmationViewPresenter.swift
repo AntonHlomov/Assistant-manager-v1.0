@@ -17,7 +17,7 @@ protocol CustomerVisitRecordConfirmationViewProtocol: AnyObject {
 }
 
 protocol CustomerVisitRecordConfirmationViewPresenterProtocol: AnyObject {
-    init(view: CustomerVisitRecordConfirmationViewProtocol,networkService: APICustomerVisitRecordConfirmationProtocol, router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?)
+    init(view: CustomerVisitRecordConfirmationViewProtocol,networkService: APICustomerVisitRecordConfirmationProtocol, router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?)
     
     func saveCustomerVisit(commment:String)
     func setDtata()
@@ -39,7 +39,7 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
     var user: User?
     var services:[Price]?
     
-    required init(view: CustomerVisitRecordConfirmationViewProtocol,networkService: APICustomerVisitRecordConfirmationProtocol, router: LoginRouterProtocol, customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?) {
+    required init(view: CustomerVisitRecordConfirmationViewProtocol,networkService: APICustomerVisitRecordConfirmationProtocol, router: LoginRouterProtocol, customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
@@ -47,6 +47,7 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
         self.master = master
         self.client = client
         self.services = services
+        self.user = user
         setDtata()
     }
     
@@ -70,7 +71,7 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
     }
     func saveCustomerVisit(commment:String) {
         print("отправить через  api запись клиента")
-        networkService.addNewCustomerRecord(comment:commment,services:services,newCustomerVisit: customerVisit!){[weak self] result in
+        networkService.addNewCustomerRecord(comment:commment,services:services,newCustomerVisit: customerVisit!,user: self.user){[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async {
                     switch result{

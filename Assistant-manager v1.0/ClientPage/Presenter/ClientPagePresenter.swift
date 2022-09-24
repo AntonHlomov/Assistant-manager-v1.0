@@ -20,7 +20,7 @@ protocol ClientPageProtocol: AnyObject {
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
-    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?)
+    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?,user: User?)
     func setClient()
     func pressСlientInvitationButton()
     func pressСallButton()
@@ -34,6 +34,7 @@ protocol ClientPagePresenterProtocol: AnyObject{
     func checkIndicatorReminder()
     func checkIndicatorVisitStatisyc()
     func checkIndicatorFinansStatisyc()
+    var user: User? {get set}
    
 }
 
@@ -43,12 +44,15 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     var router: LoginRouterProtocol?
     let networkService:ApiAllClientPageServiceProtocol!
     var client: Client?
+    var user: User?
     
-    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?) {
+    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?, user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.client = client
+        self.user = user
+        
         setClient()
     }
     func setClient() {
@@ -56,7 +60,7 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     }
     func pressСlientInvitationButton() {
         print("pressСlientInvitationButton")
-        self.router?.showPrice(newVisitMode: true, client: client)
+        self.router?.showPrice(newVisitMode: true, client: client, user: self.user)
     }
     
     func pressСallButton() {

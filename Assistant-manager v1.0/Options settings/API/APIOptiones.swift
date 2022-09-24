@@ -12,9 +12,9 @@ import Firebase
 
 protocol APIOptionesDataServiceProtocol {
     func signOutUser(completion: @escaping (Result<Bool,Error>) -> Void)
-    func countClients(completion: @escaping (Result<Int,Error>) -> Void)
-    func countPrice(completion: @escaping (Result<Int,Error>) -> Void)
-    func countTeam(completion: @escaping (Result<Int,Error>) -> Void)
+    func countClients(user: User?,completion: @escaping (Result<Int,Error>) -> Void)
+    func countPrice(user: User?,completion: @escaping (Result<Int,Error>) -> Void)
+    func countTeam(user: User?,completion: @escaping (Result<Int,Error>) -> Void)
 }
 
 class APIOptionesDataService:APIOptionesDataServiceProtocol {
@@ -31,9 +31,9 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
             }
     }
     
-    func countClients(completion: @escaping (Result<Int,Error>) -> Void) {
+    func countClients(user: User?,completion: @escaping (Result<Int,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
@@ -46,7 +46,7 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))
@@ -59,9 +59,9 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
             break
         }
     }
-    func countPrice(completion: @escaping (Result<Int,Error>) -> Void) {
+    func countPrice(user: User?,completion: @escaping (Result<Int,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Price").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
@@ -74,7 +74,7 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Price").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))
@@ -88,16 +88,16 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
         }
     }
     
-    func countTeam(completion: @escaping (Result<Int,Error>) -> Void) {
+    func countTeam(user: User?,completion: @escaping (Result<Int,Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
                 completion(.success(0))
         case "Master":break
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))

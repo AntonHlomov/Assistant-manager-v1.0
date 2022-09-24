@@ -9,11 +9,11 @@ import Foundation
 import Firebase
 
 protocol APICustomerVisitRecordConfirmationProtocol {
-    func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord,completion: @escaping (Result<Bool,Error>) -> Void)
+    func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord,user: User?,completion: @escaping (Result<Bool,Error>) -> Void)
 }
 
 class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProtocol {
-    func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func addNewCustomerRecord(comment:String,services:[Price]?,newCustomerVisit: CustomerRecord, user: User?, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let uidMaster = newCustomerVisit.idUserWhoWorks else {return}
@@ -34,7 +34,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
             serviceData.append(dataServ)
         }
 
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             let data = ["idRecord": idCustomerRecord,
                         "idUserWhoRecorded":uid,
@@ -67,7 +67,7 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             let data = ["idRecord": idCustomerRecord,
                         "idUserWhoRecorded":uid,
                         "idUserWhoWorks": uidMaster,

@@ -128,7 +128,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
           //      guard let user = user else { return }
           //      header.user = user
           //  }
-            header.user = presenter.user
+            header.user =  presenter.user
             header.profitCLL.text = String(format: "%.1f",presenter.profit!)
             header.revenueCell.text = String(format: "%.1f",presenter.revenueToday!)
             header.expensesCell.text = String(format: "%.1f",presenter.expensesToday!)
@@ -293,7 +293,7 @@ extension CalendarViewController: CalendadrViewProtocol {
     func successUserData(user: User?) {
         print(user?.name ?? "")
         print("successUserData")
-      //  collectionView.reloadData()
+        collectionView.reloadData()
     }
     
     func failure(error: Error) {

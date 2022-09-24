@@ -10,20 +10,22 @@ import Firebase
 import UIKit
 
 protocol ApiAddClientDataServiceProtocol{
-    func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String,user: User?,completion: @escaping (Result<Bool,Error>) -> Void)
     
-    func editClient(changePhoto:Bool,idClient: String,olderUrlImageClient: String, nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func editClient(changePhoto:Bool,idClient: String,olderUrlImageClient: String, nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String, user: User?,completion: @escaping (Result<Bool,Error>) -> Void)
     
 }
 
 class ApiAddClient: ApiAddClientDataServiceProtocol{
+ 
     
-    func editClient(changePhoto:Bool,idClient: String, olderUrlImageClient: String, nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    
+    func editClient(changePhoto:Bool,idClient: String, olderUrlImageClient: String, nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, user: User?, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         var dataClient = ["idClient": idClient,"nameClient":nameClient,"fullName":fullName,"telefonClient":telefonClient ,"genderClient":genderClient,"ageClient":ageClient,"textAboutClient":textAboutClient] as [String : Any]
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             switch changePhoto{
             case true:
@@ -76,7 +78,7 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             switch changePhoto{
             case true:
                 // change photo
@@ -129,7 +131,7 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
     
     }
     
-    func addClient(nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func addClient(nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, user: User?, completion: @escaping (Result<Bool, Error>) -> Void) {
         let idClient = NSUUID().uuidString
         let countVisits = 0
         let sumTotal = 0.0
@@ -140,7 +142,7 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
         guard let uploadData = profileImageClient.jpegData(compressionQuality: 0.3) else {return}
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             let storageRef = Storage.storage().reference().child("Clients_image").child(idClient)
             storageRef.putData(uploadData, metadata: nil) { (_, error) in
@@ -174,7 +176,7 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             let storageRef = Storage.storage().reference().child("Clients_image").child(idClient)
             storageRef.putData(uploadData, metadata: nil) { (_, error) in
                 if let error = error {

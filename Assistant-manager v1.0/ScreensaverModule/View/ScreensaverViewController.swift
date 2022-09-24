@@ -24,6 +24,8 @@ class ScreensaverViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
        self.presenter.authCheck()
+      
+        
     }
 }
 extension ScreensaverViewController{

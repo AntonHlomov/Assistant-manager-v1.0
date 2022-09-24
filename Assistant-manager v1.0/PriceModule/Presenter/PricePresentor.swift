@@ -15,8 +15,9 @@ protocol PriceProtocol: AnyObject{
 }
 
 protocol PricePresenterProtocol: AnyObject{
-    init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol,newVisitMode: Bool, client: Client?)
+    init(view: PriceProtocol, networkService:APIPriceProtocol, ruter:LoginRouterProtocol,newVisitMode: Bool, client: Client?, user: User?)
     var price: [Price]? {get set}
+    var user: User? {get set}
     var filterPrice: [Price]? {get set}
     var checkmarkServises: [Price] {get set}
     func getPrice()
@@ -39,16 +40,18 @@ class PricePresenter: PricePresenterProtocol{
     var checkmarkServises = [Price]()
     var client: Client?
     var newVisitMode: Bool?
+    var user: User?
     
     
 
     
-    required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol,newVisitMode: Bool, client: Client?) {
+    required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol,newVisitMode: Bool, client: Client?,user: User?) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
         self.client = client
         self.newVisitMode = newVisitMode
+        self.user = user
         
         checknewVisitMode()
         getPrice()
@@ -60,13 +63,13 @@ class PricePresenter: PricePresenterProtocol{
     func addNewService(){
         switch newVisitMode{
         case true:
-            self.router?.showChoiceVisitDateModule(serviceCheck: checkmarkServises, clientCheck: client)
+            self.router?.showChoiceVisitDateModule(serviceCheck: checkmarkServises, clientCheck: client, user: self.user)
             print("go to calendar edit nev visit",client?.nameClient ?? "")
         case false:
             print("newService")
             self.checkmarkServises.removeAll()
             checkTotalServices()
-            self.router?.showAddNewServiceView(editMode: false, price: nil)
+            self.router?.showAddNewServiceView(editMode: false, price: nil, user: self.user)
             self.view?.succesReloadTable()
         default:
             return
@@ -76,7 +79,7 @@ class PricePresenter: PricePresenterProtocol{
         print("redactClient")
         self.checkmarkServises.removeAll()
         checkTotalServices()
-        self.router?.showAddNewServiceView(editMode: true, price: filterPrice?[indexPath.row])
+        self.router?.showAddNewServiceView(editMode: true, price: filterPrice?[indexPath.row], user: self.user)
         self.view?.succesReloadTable()
     }
     func deleteServise(indexPath: IndexPath) {
@@ -87,7 +90,7 @@ class PricePresenter: PricePresenterProtocol{
         guard let id = self.filterPrice?[ indexPath.row].idPrice else {return}
       //  self.price?.remove(at: indexPath.row)
       //  self.filterPrice?.remove(at: indexPath.row)
-        networkService.deleteServise(id: id) {[weak self] result in
+        networkService.deleteServise(id: id,user: self.user) {[weak self] result in
         guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -103,7 +106,7 @@ class PricePresenter: PricePresenterProtocol{
     
     func getPrice() {
         self.checkmarkServises.removeAll()
-        networkService.getPriceAPI{ [weak self] result in
+        networkService.getPriceAPI(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{

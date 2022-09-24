@@ -7,6 +7,7 @@
 
 var userGlobal: User?
 
+
 import Foundation
 import UIKit
 import Firebase
@@ -16,16 +17,17 @@ protocol APIGlobalUserServiceProtocol {
 }
 
 class APIGlobalUserService:APIGlobalUserServiceProtocol {
+   // public var userGlobal: User?
     func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        Firestore.firestore().collection("users").document(uid).addSnapshotListener { (snapshot, error) in
+        Firestore.firestore().collection("users").document(uid).addSnapshotListener { [] (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
             guard let dictionary = snapshot?.data() else {return}
-            userGlobal = User(dictionary:dictionary)
-            completion(.success(userGlobal))
+            let user = User(dictionary:dictionary)
+            completion(.success(user))
         }
     }
 }

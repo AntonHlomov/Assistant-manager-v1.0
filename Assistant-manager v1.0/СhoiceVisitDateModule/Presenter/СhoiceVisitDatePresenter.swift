@@ -16,7 +16,7 @@ protocol СhoiceVisitDateProtocol: AnyObject{
     }
 
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
-    init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?)
+    init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?)
     
     var team: [Team]? {get set}
     var checkMaster: Team? {get set}
@@ -44,6 +44,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var serviceCheck: [Price]?
     var client: Client?
     var customerRecordNew: CustomerRecord?
+    var user: User?
     
     var idRecord: String!
     var idUserWhoRecorded: String!
@@ -59,17 +60,19 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var anUnfulfilledRecord: Bool!
     
     
+    
 
-    required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?) {
+    required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
         self.client = clientCheck
         self.serviceCheck = serviceCheck
+        self.user = user
         getDataForTeam()
     }
     func getDataForTeam(){
-        networkService.getTeam{ [weak self] result in
+        networkService.getTeam(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -84,7 +87,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     }
     func setDataCustomerRecordForMaster(idMaster: String, dateStartServiceDMY: String){
         print("загрузить данные для таблицы запись в течении дня для конкретного мастера ")
-        networkService.getCustomerRecordPast(idMaster: idMaster, dateStartServiceDMY: dateStartServiceDMY){ [weak self] result in
+        networkService.getCustomerRecordPast(idMaster: idMaster, dateStartServiceDMY: dateStartServiceDMY,user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async{
                 switch result{
@@ -100,8 +103,9 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
+        guard let user = self.user else {return}
         
-        switch userGlobal?.statusInGroup {
+        switch user.statusInGroup {
         case "Individual":
             guard
                 checkMaster != nil,
@@ -125,10 +129,10 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             }
   
             customerRecordNew = CustomerRecord(dictionary: [
-                "idUserWhoWorks": userGlobal?.uid ?? "",
-                "nameWhoWorks": userGlobal?.name ?? "",
-                "fullNameWhoWorks": userGlobal?.fullName ?? "",
-                "profileImageWhoWorks": userGlobal?.profileImage ?? "",
+                "idUserWhoWorks": user.uid ?? "",
+                "nameWhoWorks": user.name ?? "",
+                "fullNameWhoWorks": user.fullName ?? "",
+                "profileImageWhoWorks": user.profileImage ?? "",
                 "idClient": client?.idClient ?? "",
                 "nameClient": client?.nameClient ?? "",
                 "fullNameClient": client?.fullName ?? "",
@@ -140,7 +144,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
                 "dateTimeEndService": dateTimeEndService ?? "",
                 "dateStartService": self.dateStartService ?? ""
             ])
-            self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
+            self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck, user: self.user)
         case "Master":break
         case "Administrator":break
         case "Boss":
@@ -181,7 +185,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
                 "dateTimeEndService": dateTimeEndService ?? "",
                 "dateStartService": self.dateStartService ?? ""
             ])
-            self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck)
+            self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck, user: self.user)
         default: break
         }
         

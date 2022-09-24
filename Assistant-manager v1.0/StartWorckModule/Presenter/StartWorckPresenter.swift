@@ -13,7 +13,7 @@ protocol StartWorckViewProtocol: AnyObject {
     func failure(error:Error)
 }
 protocol StartWorckViewPresenterProtocol: AnyObject {
-    init(view: StartWorckViewProtocol,router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol)
+    init(view: StartWorckViewProtocol,router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol,user: User?)
     func data()
     func getCustomerRecord()
     func getDataForTeam()
@@ -38,15 +38,17 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
     var filterCustomersCardsPayment: [CustomerRecord]?
     var team: [[Team]]?
     var checkMaster: Team?
+    var user: User?
     
     
-    required init(view: StartWorckViewProtocol, router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol) {
+    required init(view: StartWorckViewProtocol, router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol,user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.customersCardsPayment = [CustomerRecord]()
         self.filterCustomersCardsPayment = [CustomerRecord]()
         self.team = [[Team]]()
+        self.user = user
        
         getDataForTeam()
         
@@ -88,7 +90,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
     func deletCustomerRecorder(idCustomerRecorder:String) {
         let idMaster = checkMaster?.idTeamMember ?? ""
         DispatchQueue.main.async {
-            self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder,idMaster: idMaster){[weak self] result in
+            self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder,idMaster: idMaster,user: self.user){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(_):
@@ -113,7 +115,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
     
     func getDataForTeam(){
       
-        networkService.getTeam{ [weak self] result in
+        networkService.getTeam(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -136,7 +138,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
       //  }
  
         DispatchQueue.main.async {
-            self.networkService.getCustomerRecord(masterId: idCheckMaster ,today: today){[weak self] result in
+            self.networkService.getCustomerRecord(masterId: idCheckMaster ,today: today, user: self.user){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let filterCalendar):

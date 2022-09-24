@@ -14,7 +14,7 @@ protocol AddNewServiceProtocol: AnyObject{
 }
 
 protocol AddNewServicePresenterProtocol: AnyObject{
-    init(view: AddNewServiceProtocol, networkService:ApiAddNewServiceProtocol, ruter:LoginRouterProtocol,editMode: Bool, price: Price?)
+    init(view: AddNewServiceProtocol, networkService:ApiAddNewServiceProtocol, ruter:LoginRouterProtocol,editMode: Bool, price: Price?,user: User?)
     func addNewServies(nameServise: String,priceServies: Double,timeAtWorkMin: Int,timeReturnServiseDays: Int)
     var price: Price? {get set}
     
@@ -27,13 +27,15 @@ class AddNewServicePresenter: AddNewServicePresenterProtocol{
     let networkService:ApiAddNewServiceProtocol!
     var price: Price?
     var editMode: Bool?
+    var user: User?
    
-    required init(view: AddNewServiceProtocol, networkService: ApiAddNewServiceProtocol, ruter: LoginRouterProtocol,editMode: Bool,price: Price?) {
+    required init(view: AddNewServiceProtocol, networkService: ApiAddNewServiceProtocol, ruter: LoginRouterProtocol,editMode: Bool,price: Price?,user: User?) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
         self.price = price
         self.editMode = editMode
+        self.user = user
         
         checkEditMode()
     }
@@ -42,7 +44,7 @@ class AddNewServicePresenter: AddNewServicePresenterProtocol{
         case true:
             guard let idPrice = price?.idPrice else {return}
           
-            networkService.editServies(idPrice: idPrice, nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays){[weak self] result in
+            networkService.editServies(idPrice: idPrice, nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays,user:self.user){[weak self] result in
                 guard let self = self else {return}
                     DispatchQueue.main.async {
                         switch result{
@@ -57,7 +59,7 @@ class AddNewServicePresenter: AddNewServicePresenterProtocol{
                 }
             
         case false:
-            networkService.addServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays){[weak self] result in
+            networkService.addServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays,user:self.user){[weak self] result in
                 guard let self = self else {return}
                     DispatchQueue.main.async {
                         switch result{

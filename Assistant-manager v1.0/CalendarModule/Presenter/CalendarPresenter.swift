@@ -19,7 +19,7 @@ protocol CalendadrViewProtocol: AnyObject {
 //inPut
 protocol CalendadrViewPresenterProtocol: AnyObject {
 
-    init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol, router: LoginRouterProtocol)
+    init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol, user:User?)
  
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
@@ -62,14 +62,16 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    var router: LoginRouterProtocol?
    let networkService:APIUserDataServiceProtocol!
    let networkServiceStatistic: APiStatistikMoneyServiceProtocol!
+   let networkServiceUser: APIGlobalUserServiceProtocol!
 
-    required init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol, router: LoginRouterProtocol) {
+    required init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol,user: User?) {
         
         self.view = view
         self.router = router
         self.networkService = networkService
         self.networkServiceStatistic = networkServiceStatistic
-        self.user = userGlobal
+        self.networkServiceUser = networkServiceUser
+        self.user = user
         self.expensesToday = 0.0
         self.revenueToday = 0.0
         self.profit = 0.0
@@ -78,12 +80,30 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.today = ""
         self.tomorrow = ""
         self.team = [Team]()
-   
+        
+     
         getTeam()
         dataTodayTomorrow()
-      
-      //  getCalendarDate()
+       // getGlobalUser()
+       //  getCalendarDate()
     }
+  //  func getGlobalUser(){
+  //      print("getGlobalUser")
+  //      DispatchQueue.main.async {
+  //          self.networkServiceUser.fetchCurrentUser{[weak self] result in
+  //          guard let self = self else {return}
+  //                  switch result{
+  //                  case.success(let user):
+  //                      userGlobal = user
+  //                      self.user = userGlobal
+  //                      self.view?.successUserData(user: user)
+  //                  case.failure(let error):
+  //                      self.view?.failure(error: error)
+  //
+  //             }
+  //          }
+  //       }
+  //   }
     
   
     func getTeam(){
@@ -100,7 +120,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 case .failure(_): break
                    // self?.view?.failure(error: error)
                 }
-          }
+            }
         }
         
     }
@@ -246,13 +266,14 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     
     func pushClientsButton() {
         print("Push Clients Button")
-        self.router?.showClientsTableViewController()
+        self.router?.showClientsTableViewController(user: self.user)
        }
     
     func pushOptionsButton() {
         print("Push Options Button")
         self.router?.showOptionesViewController(user: self.user)
        }
+    
     func pushRecorderClient(indexPath:IndexPath) {
         guard calendarToday?.isEmpty == false else {return}
         let idClient = (filterCalendarToday?[indexPath.row].idClient ?? "") as String
@@ -261,7 +282,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             guard let self = self else {return}
                     switch result{
                     case.success(let client):
-                        self.router?.showClientPage(client: client)
+                        self.router?.showClientPage(client: client, user: self.user)
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }

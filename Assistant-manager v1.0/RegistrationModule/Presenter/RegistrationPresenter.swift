@@ -68,8 +68,8 @@ class RegistrationPresentor: RegistrationViewPresenterProtocol{
             self.networkServiceGlobalUser.fetchCurrentUser{[weak self] result in
             guard let self = self else {return}
                     switch result{
-                    case.success(_):
-                        self.router?.initalMainTabControler()
+                    case.success(let user):
+                        self.router?.initalMainTabControler(user: user)
                         self.view?.dismiss()
                     case.failure(let error):
                         self.view?.failure(error: error)

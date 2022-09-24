@@ -65,20 +65,20 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
         self.router = router
         self.networkService = networkService
       //  self.user = user
-        self.user = userGlobal
+        self.user = user
         self.countClients = 0
         self.countPrice = 0
         self.countTeam = 0
         self.status = userGlobal?.statusInGroup ?? ""
       
         
-        getCountClients()
-        getCountPrice()
-        getCountTeam()
+        getCountClients(user: user)
+        getCountPrice(user: user)
+        getCountTeam(user: user)
     }
   
-    func getCountClients() {
-        networkService.countClients{ [weak self] result in
+    func getCountClients(user: User?) {
+        networkService.countClients(user: user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -92,8 +92,8 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
             }
         }
     }
-    func getCountPrice() {
-        networkService.countPrice{ [weak self] result in
+    func getCountPrice(user: User?) {
+        networkService.countPrice(user: user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -107,8 +107,8 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
             }
         }
     }
-    func getCountTeam() {
-        networkService.countTeam{ [weak self] result in
+    func getCountTeam(user: User?) {
+        networkService.countTeam(user: user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
@@ -134,12 +134,12 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func schowClientsButoon() {
         print("schowClientsButoon")
-        self.router?.showClientsTableViewController()
+        self.router?.showClientsTableViewController(user: self.user)
     }
     
     func schowPriceButoon() {
         print("schowPriceButoon")
-        self.router?.showPrice(newVisitMode: false, client: nil)
+        self.router?.showPrice(newVisitMode: false, client: nil, user: self.user)
     }
     
     func schowTeamButoon() {
