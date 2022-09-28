@@ -85,7 +85,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
         
         let clientWhoPay = filterCustomersCardsPayment?[indexPath.row]
         let masterWhoWork = checkMaster
-        self.router?.showPaymentController(customerRecordent: clientWhoPay, master: masterWhoWork)
+        self.router?.showPaymentController(customerRecordent: clientWhoPay, master: masterWhoWork, user: self.user)
     }
     func deletCustomerRecorder(idCustomerRecorder:String) {
         let idMaster = checkMaster?.idTeamMember ?? ""

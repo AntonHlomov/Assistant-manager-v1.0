@@ -20,7 +20,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showRegistrationController()
     func showLoginController()
     func showClientsTableViewController(user: User?)
-    func showPaymentController(customerRecordent: CustomerRecord?, master: Team?)
+    func showPaymentController(customerRecordent: CustomerRecord?, master: Team?,user: User?)
     func showPrice(newVisitMode: Bool, client: Client?,user: User?)
     func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?,user: User?)
     func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?)
@@ -109,9 +109,9 @@ class Router: LoginRouterProtocol{
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
-    func showPaymentController(customerRecordent: CustomerRecord?, master: Team?){
+    func showPaymentController(customerRecordent: CustomerRecord?, master: Team?,user: User?){
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createPaymentModule(router: self,customerRecordent: customerRecordent, master: master) else {return}
+            guard let registrationControler = assemblyBuilder?.createPaymentModule(router: self,customerRecordent: customerRecordent, master: master, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
         

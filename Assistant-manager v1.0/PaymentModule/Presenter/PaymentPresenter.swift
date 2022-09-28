@@ -15,7 +15,7 @@ protocol PaymentProtocol: AnyObject {
 }
 
 protocol PaymentPresenterProtocol: AnyObject{
-    init(view: PaymentProtocol,networkService:ApiPaymentServiceProtocol,router:LoginRouterProtocol, customerRecordent: CustomerRecord?, master: Team?)
+    init(view: PaymentProtocol,networkService:ApiPaymentServiceProtocol,router:LoginRouterProtocol, customerRecordent: CustomerRecord?, master: Team?, user: User?)
     func pushPay(payCard:Bool,comment: String)
     var bill: [Price]? {get set}
 }
@@ -27,13 +27,15 @@ class PaymentPresenter: PaymentPresenterProtocol{
     var customerRecord: CustomerRecord?
     var master: Team?
     var bill: [Price]?
+    var user: User?
 
-    required init(view: PaymentProtocol,networkService:ApiPaymentServiceProtocol, router:LoginRouterProtocol,customerRecordent: CustomerRecord?, master: Team?) {
+    required init(view: PaymentProtocol,networkService:ApiPaymentServiceProtocol, router:LoginRouterProtocol,customerRecordent: CustomerRecord?, master: Team?,user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.customerRecord = customerRecordent
         self.master = master
+        self.user = user
         self.bill = [Price]()
         dataForBill()
         self.view?.dataLoading(customerRecord: customerRecordent, master: master)
@@ -75,7 +77,7 @@ class PaymentPresenter: PaymentPresenterProtocol{
             card = true
             cardPrice = total
         }
-        networkService.addNewTransactionUser(card: card, cash: cash,cashPrice: cashPrice,cardPrice: cardPrice, comment: comment, customerRecordent: customerRecord, master: master){[weak self] result in
+        networkService.addNewTransactionUser(user: self.user, card: card, cash: cash,cashPrice: cashPrice,cardPrice: cardPrice, comment: comment, customerRecordent: customerRecord, master: master){[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async {
                     switch result{

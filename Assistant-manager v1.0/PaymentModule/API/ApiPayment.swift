@@ -9,14 +9,14 @@ import Foundation
 import Firebase
 
 protocol ApiPaymentServiceProtocol {
-    func addNewTransactionUser(card: Bool,cash: Bool,cashPrice: Double,cardPrice: Double,comment:String,customerRecordent: CustomerRecord?, master: Team?,completion: @escaping (Result<Bool,Error>) -> Void)
+    func addNewTransactionUser(user: User?,card: Bool,cash: Bool,cashPrice: Double,cardPrice: Double,comment:String,customerRecordent: CustomerRecord?, master: Team?,completion: @escaping (Result<Bool,Error>) -> Void)
  
     
     
 }
 
 class ApiPayment: ApiPaymentServiceProtocol{
-    func addNewTransactionUser(card: Bool, cash: Bool,cashPrice: Double,cardPrice: Double, comment: String, customerRecordent: CustomerRecord?, master: Team?, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func addNewTransactionUser(user: User?,card: Bool, cash: Bool,cashPrice: Double,cardPrice: Double, comment: String, customerRecordent: CustomerRecord?, master: Team?, completion: @escaping (Result<Bool, Error>) -> Void) {
    
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let uidMaster = master?.idTeamMember else {return}
@@ -24,7 +24,7 @@ class ApiPayment: ApiPaymentServiceProtocol{
         let idTransactionUser = NSUUID().uuidString
         
         
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             let data = ["idTransaction": idTransactionUser,
                         "idUserAdministrator":uid,
@@ -59,7 +59,7 @@ class ApiPayment: ApiPaymentServiceProtocol{
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             
             let data = ["idTransaction": idTransactionUser,
                         "idUserAdministrator":uid,

@@ -69,7 +69,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
         self.countClients = 0
         self.countPrice = 0
         self.countTeam = 0
-        self.status = userGlobal?.statusInGroup ?? ""
+        self.status = user?.statusInGroup ?? ""
       
         
         getCountClients(user: user)

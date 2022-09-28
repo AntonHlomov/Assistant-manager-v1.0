@@ -109,7 +109,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     func getTeam(){
         print("getTeam")
         DispatchQueue.global(qos: .utility).async {
-        self.networkService.getTeam{ [weak self] result in
+        self.networkService.getTeam(user: self.user){[weak self] result in
             guard self != nil else {return}
            
                 switch result{
@@ -134,7 +134,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     
     func deletCustomerRecorder(idCustomerRecorder:String,masterId: String) {
         DispatchQueue.main.async {
-            self.networkService.deletCustomerRecorder(idRecorder: idCustomerRecorder,masterId: masterId){[weak self] result in
+            self.networkService.deletCustomerRecorder(user: self.user,idRecorder: idCustomerRecorder,masterId: masterId){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(_):
@@ -149,7 +149,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         print("getCalendarDate")
        // let today = Date().todayDMYFormat()
         DispatchQueue.main.async {
-            self.networkService.getCustomerRecord(today: self.today,team: self.team){[weak self] result in
+            self.networkService.getCustomerRecord(user: self.user,today: self.today,team: self.team){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let filterCalendar):
@@ -278,7 +278,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         guard calendarToday?.isEmpty == false else {return}
         let idClient = (filterCalendarToday?[indexPath.row].idClient ?? "") as String
         DispatchQueue.main.async {
-            self.networkService.fetchCurrentClient(idClient: idClient,team: self.team){[weak self] result in
+            self.networkService.fetchCurrentClient(user: self.user,idClient: idClient,team: self.team){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let client):

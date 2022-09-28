@@ -11,18 +11,18 @@ import Firebase
 
 
 protocol APIUserDataServiceProtocol {
-    func getCustomerRecord(today:String,team:[Team]?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
-    func fetchCurrentClient(idClient:String,team:[Team]?,completion: @escaping (Result<Client?,Error>) -> Void)
-    func deletCustomerRecorder(idRecorder:String,masterId:String,completion: @escaping (Result<Bool,Error>) -> Void)
-    func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void)
+    func getCustomerRecord(user: User?,today:String,team:[Team]?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
+    func fetchCurrentClient(user: User?,idClient:String,team:[Team]?,completion: @escaping (Result<Client?,Error>) -> Void)
+    func deletCustomerRecorder(user: User?,idRecorder:String,masterId:String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void)
 }
 
-class APIUserDataService:APIUserDataServiceProtocol {
 
-  func getCustomerRecord(today:String,team:[Team]?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
+class APIUserDataService:APIUserDataServiceProtocol {
+  func getCustomerRecord(user: User?,today:String,team:[Team]?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
       guard let uid = Auth.auth().currentUser?.uid else {return}
      
-      switch userGlobal?.statusInGroup {
+      switch user?.statusInGroup {
       case "Individual":
           var filterCalendar = [CustomerRecord]()
           var calendar = [CustomerRecord]()
@@ -46,7 +46,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
       case "Administrator":break
       case "Boss":
           let nameColection = "group"
-          guard let idGroup = userGlobal?.idGroup else {return}
+          guard let idGroup = user?.idGroup else {return}
           var filterCalendar = [CustomerRecord]()
           var calendar = [CustomerRecord]()
           Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").whereField("dateStartService", isEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
@@ -70,9 +70,9 @@ class APIUserDataService:APIUserDataServiceProtocol {
    
   }
 
-    func deletCustomerRecorder(idRecorder: String,masterId:String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func deletCustomerRecorder(user: User?,idRecorder: String,masterId:String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("CustomerRecord").document(idRecorder).delete() { (error) in
                 if let error = error {
@@ -85,7 +85,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").document(idRecorder).delete() { (error) in
                 if let error = error {
                     completion(.failure(error))
@@ -98,10 +98,10 @@ class APIUserDataService:APIUserDataServiceProtocol {
 
     }
   
-    func getTeam(completion: @escaping (Result<[Team]?, Error>) -> Void) {
+    func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         let nameColection = "group"
-        guard let idGroup = userGlobal?.idGroup else {return}
+        guard let idGroup = user?.idGroup else {return}
         Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
             if let error = error {
                completion(.failure(error))
@@ -118,9 +118,9 @@ class APIUserDataService:APIUserDataServiceProtocol {
         }
     }
 
-    func fetchCurrentClient(idClient: String,team:[Team]?, completion: @escaping (Result<Client?, Error>) -> Void) {
+    func fetchCurrentClient(user: User?,idClient: String,team:[Team]?, completion: @escaping (Result<Client?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch userGlobal?.statusInGroup {
+        switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").document(idClient).getDocument { (snapshot, error) in
                 if let error = error {
@@ -135,7 +135,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
-            guard let idGroup = userGlobal?.idGroup else {return}
+            guard let idGroup = user?.idGroup else {return}
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").document(idClient).getDocument { (snapshot, error) in
                 if let error = error {
                     completion(.failure(error))
