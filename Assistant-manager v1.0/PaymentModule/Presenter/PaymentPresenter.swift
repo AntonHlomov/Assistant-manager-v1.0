@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import LocalAuthentication
 
 protocol PaymentProtocol: AnyObject {
     func failure(error: Error)
@@ -54,6 +55,7 @@ class PaymentPresenter: PaymentPresenterProtocol{
             totalText = String(totalSum.compactMap { Double($0) }.reduce(0, +))
             self.view?.relowDataBillTable(total: totalText)
     }
+    
     func pushPay(payCard:Bool,comment: String){
         var cash = false
         var card = false
@@ -61,36 +63,59 @@ class PaymentPresenter: PaymentPresenterProtocol{
         var cardPrice = 0.0
         var cashPrice = 0.0
         
-        var totalSum = [Double]()
-        for (serv) in customerRecord!.service {
-            totalSum.append( serv["priceServies"] as! Double )
-        }
-        let total = totalSum.compactMap { Double($0) }.reduce(0, +)
-        
-        switch payCard {
-        case false:
-            cash = true
-            card = false
-            cashPrice = total
-        case true:
-            cash = false
-            card = true
-            cardPrice = total
-        }
-        networkService.addNewTransactionUser(user: self.user, card: card, cash: cash,cashPrice: cashPrice,cardPrice: cardPrice, comment: comment, customerRecordent: customerRecord, master: master){[weak self] result in
-            guard let self = self else {return}
-                DispatchQueue.main.async {
-                    switch result{
-                    case.success(_):
-                      print("закрыть")
-                        self.router?.dismiss()
-                        self.router?.popToRoot()
-                    case.failure(let error):
-                        self.view?.failure(error: error)
+        let context = LAContext()
+        var error: NSError?
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+
+            let reason = "Идентифицируйте себя"
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
+
+                if success {
+                    DispatchQueue.main.async { [unowned self] in
+                        
+                        var totalSum = [Double]()
+                        for (serv) in customerRecord!.service {
+                            totalSum.append( serv["priceServies"] as! Double )
+                        }
+                        let total = totalSum.compactMap { Double($0) }.reduce(0, +)
+                        
+                        switch payCard {
+                        case false:
+                            cash = true
+                            card = false
+                            cashPrice = total
+                        case true:
+                            cash = false
+                            card = true
+                            cardPrice = total
+                        }
+                        networkService.addNewTransactionUser(user: self.user, card: card, cash: cash,cashPrice: cashPrice,cardPrice: cardPrice, comment: comment, customerRecordent: customerRecord, master: master){[weak self] result in
+                            guard let self = self else {return}
+                                DispatchQueue.main.async {
+                                    switch result{
+                                    case.success(_):
+                                      print("закрыть")
+                                        self.router?.dismiss()
+                                        self.router?.popToRoot()
+                                    case.failure(let error):
+                                        self.view?.failure(error: error)
+                                }
+                            }
+                        }
+                        print("Успешная авторизация")
                     }
                 }
             }
 
+        } else {
+            print("Face/Touch ID не найден")
+            self.view?.failure(error: error!)
+        }
     }
+    
+
+    
+
 }
 
