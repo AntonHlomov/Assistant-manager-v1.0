@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "21"
             endingLineNumber = "21"
-            landmarkName = "addNewTransactionUser(card:cash:cashPrice:cardPrice:comment:customerRecordent:master:completion:)"
+            landmarkName = "addNewTransactionUser(user:card:cash:cashPrice:cardPrice:comment:customerRecordent:master:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -96,7 +96,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
             endingLineNumber = "50"
-            landmarkName = "addNewTransactionUser(card:cash:cashPrice:cardPrice:comment:customerRecordent:master:completion:)"
+            landmarkName = "addNewTransactionUser(user:card:cash:cashPrice:cardPrice:comment:customerRecordent:master:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

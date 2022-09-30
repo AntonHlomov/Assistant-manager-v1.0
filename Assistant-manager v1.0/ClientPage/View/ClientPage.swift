@@ -12,6 +12,9 @@ class ClientPage: UIViewController {
     
  
     lazy var zigzagContainerView = SketchBorderView()
+    
+  
+
 
     let fonBlue: UIImageView = {
         let line = UIImageView()
@@ -218,7 +221,7 @@ class ClientPage: UIViewController {
         presenter.visitDates()
     }
     @objc fileprivate func reminder(){
-        presenter.reminder()
+        alertReminderMassage()
     }
     
     func checkAllIndicator(){
@@ -239,6 +242,55 @@ extension ClientPage{
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
+    func alertOk(message: String){
+        let alertControler = UIAlertController(title: "Ok", message: "\n\(message)", preferredStyle: .alert)
+        present(alertControler, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            alertControler.dismiss(animated: true, completion: nil)
+           }
+    }
+    
+    func alertReminderMassage(){
+        let alertControler = UIAlertController(title: "Reminder", message: nil, preferredStyle: .alert)
+        alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+         
+        alertControler.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Enter reminder text..."
+        })
+         
+        alertControler.addAction(UIAlertAction(title: "Select date", style: .default, handler: { action in
+         
+            if let textReminder = alertControler.textFields?.first?.text {
+              //  print("Text: \(textReminder)")
+                self.alertDatePicker(text: textReminder)
+            }
+    
+        }))
+        self.present(alertControler, animated: true)
+    }
+    
+    func alertDatePicker(text:String){
+        let myDatePicker: UIDatePicker = UIDatePicker()
+           myDatePicker.timeZone = NSTimeZone.local
+        //myDatePicker.preferredDatePickerStyle = .wheels
+        myDatePicker.preferredDatePickerStyle = .automatic
+         //  myDatePicker.frame = CGRect(x: 0, y: 15, width: 270, height: 200)
+          myDatePicker.frame = CGRect(x: 0, y: 50, width: 230, height: 50)
+           let alertController = UIAlertController(title: "Select date and time \n\n", message: nil, preferredStyle: .alert)
+           alertController.view.addSubview(myDatePicker)
+           let backAction = UIAlertAction(title: "Back", style: .default, handler: { _ in
+               self.alertReminderMassage()
+           })
+           let selectAction = UIAlertAction(title: "Save", style: .default, handler: { _ in
+            //  print("Selected Date: \(myDatePicker.date)")
+               self.presenter.reminder(text: text, date: myDatePicker.date)
+           })
+           alertController.addAction(backAction)
+           alertController.addAction(selectAction)
+           present(alertController, animated: true)
+    }
+    
+    
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientPage: ClientPageProtocol {
@@ -255,7 +307,9 @@ extension ClientPage: ClientPageProtocol {
         countComeClient.setAttributedTitle(attributed, for: .normal)
 
     }
-    
+    func openAlertOk(message:String){
+        alertOk(message: message)
+    }
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)

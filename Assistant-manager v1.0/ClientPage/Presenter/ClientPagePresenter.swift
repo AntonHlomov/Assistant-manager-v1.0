@@ -16,7 +16,7 @@ protocol ClientPageProtocol: AnyObject {
     func changeVisitStatisyc(countVisits: String)
     func changeFinansStatisyc(countAverageBill: String)
     func changeGoToWorck(indicatorWorck: Bool)
-    
+    func openAlertOk(message:String)
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
@@ -28,7 +28,7 @@ protocol ClientPagePresenterProtocol: AnyObject{
     func goToFinansStatisyc()
     func goToWorck()
     func visitDates()
-    func reminder()
+    func reminder(text:String,date:Date)
     func checkIndicatorGoToWorck()
     func checkIndicatorVisitDates()
     func checkIndicatorReminder()
@@ -86,8 +86,24 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     func visitDates(){
         print("visitDates")
     }
-    func reminder(){
-        print("reminder")
+    func reminder(text:String,date:Date){
+        print("Text reminder: \(text)")
+        print("Selected Date: \(date)")
+        guard let idClient = client?.idClient else {return}
+     //   guard let idPrice = price?.idPrice else {return}
+        networkService.addReminder(text: text, date: date, user: self.user, userReminder: true, sistemReminderColl: false, sistemReminderPeriodNextRecord: false, idClient: idClient) { [weak self] result in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case.success(let flag):
+                    guard flag == true else {return}
+                    self.view?.openAlertOk(message: "Reminder saved")
+                  
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+        }
     }
     
     func checkIndicatorVisitDates() {
