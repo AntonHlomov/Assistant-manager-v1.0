@@ -151,6 +151,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             case false:
                 cell.textEmpty.removeFromSuperview()
                 cell.reminderSlaider = presenter.reminders ?? [Reminder]()
+                cell.openReminderClient = { [weak self] cell in
+                    self?.presenter.openClientWithReminder(reminder: cell.openClientWitchReminder)
+                }
             case true:
                 cell.reminderS.removeAll()
                 cell.textEmpty.text = "You don't have active reminders yet"

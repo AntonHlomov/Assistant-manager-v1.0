@@ -10,6 +10,10 @@ import UIKit
 class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UINavigationControllerDelegate {
     private let cellId = "apCellId"
     private let cellButton = "apCellButtonId"
+    
+    var openReminderClient: ((SliderReminderClientsCell) -> Void)?
+    var openClientWitchReminder: (Reminder?)
+    
     var reminderS = [Reminder]()
     var reminderSlaider: [Reminder]?{
         didSet{
@@ -101,6 +105,8 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
          }
           // нажатие на ячейки напоминания
           func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+              self.openClientWitchReminder = reminderS[indexPath.row]
+              openReminderClient?(self)
               print("нажал\(indexPath)")
           }
     // MARK: - class AppCellСlReminder

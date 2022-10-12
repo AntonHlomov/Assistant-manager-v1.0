@@ -27,6 +27,7 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func pushRecorderClient(indexPath:IndexPath)
     func deletCustomerRecorder(idCustomerRecorder:String,masterId: String)
     func filter(text: String)
+    func openClientWithReminder(reminder: Reminder?)
     
     var user: User? { get set }
     var profit: Double? { get set } //прибыль
@@ -252,7 +253,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             guard let self = self else {return}
                     switch result{
                     case.success(let client):
-                        self.router?.showClientPage(client: client, user: self.user)
+                        self.router?.showClientPage(client: client, user: self.user, massage: nil)
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
@@ -275,5 +276,23 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             filterCalendarToday = calendarToday?.filter( {$0.dateTimeStartService.lowercased().contains(textFilter.lowercased()) || $0.fullNameWhoWorks.lowercased().contains(textFilter.lowercased()) || $0.nameWhoWorks.lowercased().contains(textFilter.lowercased()) || $0.nameClient.lowercased().contains(textFilter.lowercased()) || $0.fullNameClient.lowercased().contains(textFilter.lowercased()) } )
         }
         self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+    }
+    
+    func openClientWithReminder(reminder: Reminder?){
+        guard let idClient = reminder?.idClient  else {return}
+        guard let massage = reminder?.commit  else {return}
+        DispatchQueue.main.async {
+            self.networkService.getClient(user: self.user,idClient: idClient){[weak self] result in
+            guard let self = self else {return}
+                    switch result{
+                    case.success(let client):
+                        self.router?.showClientPage(client: client, user: self.user, massage: massage)
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                    }
+                }
+        }
+        
+        
     }
 }

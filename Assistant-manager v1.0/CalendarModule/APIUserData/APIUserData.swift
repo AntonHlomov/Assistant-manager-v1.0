@@ -14,9 +14,50 @@ protocol APIUserDataServiceProtocol {
     func fetchCurrentClient(user: User?,idClient:String,team:[Team]?,completion: @escaping (Result<Client?,Error>) -> Void)
     func deletCustomerRecorder(user: User?,idRecorder:String,masterId:String,completion: @escaping (Result<Bool,Error>) -> Void)
     func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void)
+    func getClient(user: User?,idClient: String, completion: @escaping (Result<Client?, Error>) -> Void)
 }
 
 class APIUserDataService:APIUserDataServiceProtocol {
+    func getClient(user: User?,idClient: String, completion: @escaping (Result<Client?, Error>) -> Void){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        switch user?.statusInGroup {
+        case "Individual":
+            var client: Client?
+            Firestore.firestore().collection("users").document(uid).collection("Clients").whereField("idClient", isEqualTo: idClient).getDocuments{ [] (snapshot, error) in
+                if let error = error {
+            completion(.failure(error))
+            return
+           }
+           // пробегаемся по каждому документу
+           snapshot?.documents.forEach({ (documentSnapshot) in
+              let clientDictionary = documentSnapshot.data()
+              client = Client(dictionary: clientDictionary)
+          })
+         completion(.success(client))
+        }
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            var client: Client?
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").whereField("idClient", isEqualTo: idClient).getDocuments{ [] (snapshot, error) in
+                if let error = error {
+            completion(.failure(error))
+            return
+           }
+           // пробегаемся по каждому документу
+           snapshot?.documents.forEach({ (documentSnapshot) in
+              let clientDictionary = documentSnapshot.data()
+              client = Client(dictionary: clientDictionary)
+          })
+         completion(.success(client))
+        }
+        default: break
+        }
+        
+    }
     func getReminder(user: User?, date: String, completion: @escaping (Result<[Reminder]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
        

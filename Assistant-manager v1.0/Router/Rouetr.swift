@@ -24,7 +24,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showPrice(newVisitMode: Bool, client: Client?,user: User?)
     func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?,user: User?)
     func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?)
-    func showClientPage(client: Client?,user: User?)
+    func showClientPage(client: Client?,user: User?,massage: String?)
     func showAddClientView(editMode: Bool, client: Client?,user: User?)
     func showAddNewServiceView(editMode: Bool, price: Price?,user: User?)
     func showOptionesViewController(user: User?)
@@ -142,9 +142,9 @@ class Router: LoginRouterProtocol{
             navigationControler.present(registrationControler, animated: true)
         }
     }
-    func showClientPage(client: Client?,user: User?){
+    func showClientPage(client: Client?,user: User?, massage: String?){
         if let navigationControler = navigationControler {
-            guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user) else {return}
+            guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user, massage: massage) else {return}
           
             navigationControler.pushViewController(registrationControler, animated: true)
         }

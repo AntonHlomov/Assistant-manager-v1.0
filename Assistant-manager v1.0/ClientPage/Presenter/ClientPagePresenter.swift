@@ -11,6 +11,7 @@ import UIKit
 protocol ClientPageProtocol: AnyObject {
     func setClient(client: Client?)
     func failure(error: Error)
+    func massageReminder(massge: String)
     func changeVisitDates(indicatorVisits: Bool)
     func changeReminder(indicatorReminder: Bool)
     func changeVisitStatisyc(countVisits: String)
@@ -20,7 +21,7 @@ protocol ClientPageProtocol: AnyObject {
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
-    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?,user: User?)
+    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?,user: User?,massage: String?)
     func setClient()
     func pressСlientInvitationButton()
     func pressСallButton()
@@ -35,6 +36,7 @@ protocol ClientPagePresenterProtocol: AnyObject{
     func checkIndicatorVisitStatisyc()
     func checkIndicatorFinansStatisyc()
     var user: User? {get set}
+    func massageClientReminder()
    
 }
 
@@ -45,14 +47,23 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     let networkService:ApiAllClientPageServiceProtocol!
     var client: Client?
     var user: User?
+    var massage: String?
     
-    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?, user: User?) {
+    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?, user: User?, massage: String?) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.client = client
         self.user = user
+        self.massage = massage
         setClient()
+        
+        
+    }
+    func massageClientReminder(){
+        guard massage != nil else{return}
+        guard massage != "" else {return}
+        self.view?.massageReminder(massge: massage ?? "")
     }
     func setClient() {
         self.view?.setClient(client: client)
@@ -135,5 +146,4 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         print("checkIndicatorGoToWorck")
         self.view?.changeGoToWorck(indicatorWorck: true)
     }
-    
 }

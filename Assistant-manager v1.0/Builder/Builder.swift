@@ -26,7 +26,7 @@ protocol AsselderBuilderProtocol{
     
     func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) -> UIViewController
     
-    func craateClientPageModule(router:LoginRouterProtocol,client: Client?,user: User?) -> UIViewController
+    func craateClientPageModule(router:LoginRouterProtocol,client: Client?,user: User?,massage: String?) -> UIViewController
     
     func createAddClientModule(router:LoginRouterProtocol,editMode: Bool, client: Client?,user: User?) -> UIViewController
     
@@ -67,10 +67,10 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         return view
     }
     
-    func craateClientPageModule(router: LoginRouterProtocol,client: Client?,user: User?) -> UIViewController {
+    func craateClientPageModule(router: LoginRouterProtocol,client: Client?,user: User?,massage: String?) -> UIViewController {
         let view = ClientPage()
         let networkService = ApiAllClientPageDataService()
-        let presenter = ClientPagePresenter(view: view, networkService: networkService,router: router, client: client, user: user)
+        let presenter = ClientPagePresenter(view: view, networkService: networkService,router: router, client: client, user: user, massage: massage)
         view.presenter = presenter
         return view
     }

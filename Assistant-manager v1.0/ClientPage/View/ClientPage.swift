@@ -12,9 +12,6 @@ class ClientPage: UIViewController {
     
  
     lazy var zigzagContainerView = SketchBorderView()
-    
-  
-
 
     let fonBlue: UIImageView = {
         let line = UIImageView()
@@ -227,6 +224,7 @@ class ClientPage: UIViewController {
     func checkAllIndicator(){
         presenter.checkIndicatorVisitDates()
         presenter.checkIndicatorReminder()
+        presenter.massageClientReminder()
         presenter.checkIndicatorVisitStatisyc()
         presenter.checkIndicatorFinansStatisyc()
         presenter.checkIndicatorGoToWorck()
@@ -294,6 +292,10 @@ extension ClientPage{
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientPage: ClientPageProtocol {
+    func massageReminder(massge: String) {
+        alertRegistrationControllerMassage(title: "Reminder", message: massge)
+    }
+    
     func setClient(client: Client?) {
   
         profileImageView.loadImage(with: client?.profileImageClientUrl ?? "")

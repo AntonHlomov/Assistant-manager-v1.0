@@ -90,7 +90,7 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     
     func goToPageClient(indexPathRowClient: Int) {
         print("открыть клиента",indexPathRowClient)
-        self.router?.showClientPage(client: filterClients?[indexPathRowClient], user: self.user)
+        self.router?.showClientPage(client: filterClients?[indexPathRowClient], user: self.user, massage: nil)
     }
     func goToAddClient() {
         self.router?.showAddClientView(editMode: false, client: nil, user: self.user)
