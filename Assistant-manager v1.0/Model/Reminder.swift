@@ -17,6 +17,9 @@ class Reminder {
     var userReminder: Bool!
     var sistemReminderColl: Bool!
     var sistemReminderPeriodNextRecord: Bool!
+    var nameClient: String!
+    var fullNameClient: String!
+    var profileImageClientUrl: String!
     
     init(dictionary: [String: Any]) {
 
@@ -28,6 +31,9 @@ class Reminder {
         self.userReminder = dictionary["userReminder"] as? Bool ?? nil
         self.sistemReminderColl = dictionary["sistemReminderColl"] as? Bool ?? nil
         self.sistemReminderPeriodNextRecord = dictionary["sistemReminderPeriodNextRecord"] as? Bool ?? nil
+        self.nameClient = dictionary["nameClient"] as? String ?? ""
+        self.fullNameClient = dictionary["fullNameClient"] as? String ?? ""
+        self.profileImageClientUrl = dictionary["profileImageClientUrl"] as? String ?? ""
     }
 }
 

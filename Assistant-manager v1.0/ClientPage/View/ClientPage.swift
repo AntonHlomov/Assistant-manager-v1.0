@@ -245,7 +245,7 @@ extension ClientPage{
     func alertOk(message: String){
         let alertControler = UIAlertController(title: "Ok", message: "\n\(message)", preferredStyle: .alert)
         present(alertControler, animated: true, completion: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             alertControler.dismiss(animated: true, completion: nil)
            }
     }

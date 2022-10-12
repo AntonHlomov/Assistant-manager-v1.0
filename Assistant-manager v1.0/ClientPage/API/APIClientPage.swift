@@ -9,12 +9,12 @@ import Foundation
 import Firebase
 
 protocol ApiAllClientPageServiceProtocol {
-    func addReminder(text: String, date: Date, user: User?,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func addReminder(text: String, date: String, user: User?,nameClient:String,fulnameClient:String,urlImage: String,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
  
 }
 
 class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
-    func addReminder(text: String, date: Date, user: User?,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func addReminder(text: String, date: String, user: User?,nameClient:String,fulnameClient:String,urlImage: String,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let idReminder = NSUUID().uuidString
         
@@ -26,6 +26,9 @@ class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
                            "userReminder":userReminder,
                            "sistemReminderColl":sistemReminderColl,
                            "sistemReminderPeriodNextRecord":sistemReminderPeriodNextRecord,
+                           "nameClient":nameClient,
+                           "fullNameClient": fulnameClient,
+                           "profileImageClientUrl": urlImage,
                            ] as [String : Any]
         
         switch user?.statusInGroup {

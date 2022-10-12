@@ -52,7 +52,6 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         self.networkService = networkService
         self.client = client
         self.user = user
-        
         setClient()
     }
     func setClient() {
@@ -90,15 +89,18 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         print("Text reminder: \(text)")
         print("Selected Date: \(date)")
         guard let idClient = client?.idClient else {return}
+        guard let nameClient = client?.nameClient else {return}
+        guard let fulnameClient = client?.fullName else {return}
+        guard let urlImage = client?.profileImageClientUrl else {return}
+        let dateDMY = date.formatterDateDMY(date: date)
      //   guard let idPrice = price?.idPrice else {return}
-        networkService.addReminder(text: text, date: date, user: self.user, userReminder: true, sistemReminderColl: false, sistemReminderPeriodNextRecord: false, idClient: idClient) { [weak self] result in
+        networkService.addReminder(text: text, date: dateDMY, user: self.user,nameClient:nameClient,fulnameClient:fulnameClient,urlImage: urlImage, userReminder: true, sistemReminderColl: false, sistemReminderPeriodNextRecord: false, idClient: idClient) { [weak self] result in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result{
                 case.success(let flag):
                     guard flag == true else {return}
                     self.view?.openAlertOk(message: "Reminder saved")
-                  
                 case.failure(let error):
                     self.view?.failure(error: error)
                 }

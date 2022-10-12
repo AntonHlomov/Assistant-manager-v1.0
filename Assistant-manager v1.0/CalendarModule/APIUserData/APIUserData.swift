@@ -4,21 +4,65 @@
 //
 //  Created by Anton Khlomov on 19/02/2022.
 //
-
 import Foundation
 import UIKit
 import Firebase
 
-
 protocol APIUserDataServiceProtocol {
     func getCustomerRecord(user: User?,today:String,team:[Team]?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
+    func getReminder(user: User?,date:String,completion: @escaping (Result<[Reminder]?,Error>) -> Void)
     func fetchCurrentClient(user: User?,idClient:String,team:[Team]?,completion: @escaping (Result<Client?,Error>) -> Void)
     func deletCustomerRecorder(user: User?,idRecorder:String,masterId:String,completion: @escaping (Result<Bool,Error>) -> Void)
     func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void)
 }
 
-
 class APIUserDataService:APIUserDataServiceProtocol {
+    func getReminder(user: User?, date: String, completion: @escaping (Result<[Reminder]?, Error>) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+       
+        switch user?.statusInGroup {
+        case "Individual":
+            var reminders = [Reminder]()
+            Firestore.firestore().collection("users").document(uid).collection("Reminder").whereField("dateShowReminder", isGreaterThanOrEqualTo: date).addSnapshotListener{ [] (snapshot, error) in
+            if let error = error {
+            completion(.failure(error))
+            return
+           }
+            reminders.removeAll()
+           // пробегаемся по каждому документу
+        snapshot?.documents.forEach({ (documentSnapshot) in
+              let reminderDictionary = documentSnapshot.data() //as [String:Any]
+              let reminder = Reminder(dictionary: reminderDictionary)
+            reminders.append(reminder)
+          })
+        // filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
+         completion(.success( reminders))
+        }
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            var reminders = [Reminder]()
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Reminder").whereField("dateShowReminder", isEqualTo:date).addSnapshotListener{ [] (snapshot, error) in
+            if let error = error {
+            completion(.failure(error))
+            return
+           }
+            reminders.removeAll()
+               // пробегаемся по каждому документу
+            snapshot?.documents.forEach({ (documentSnapshot) in
+                  let reminderDictionary = documentSnapshot.data() //as [String:Any]
+                  let reminder = Reminder(dictionary: reminderDictionary)
+                reminders.append(reminder)
+          })
+         //filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
+         completion(.success( reminders))
+        }
+        default: break
+        }
+    }
+    
   func getCustomerRecord(user: User?,today:String,team:[Team]?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
       guard let uid = Auth.auth().currentUser?.uid else {return}
      
