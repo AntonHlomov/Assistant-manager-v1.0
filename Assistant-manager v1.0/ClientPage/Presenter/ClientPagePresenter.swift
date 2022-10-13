@@ -18,10 +18,11 @@ protocol ClientPageProtocol: AnyObject {
     func changeFinansStatisyc(countAverageBill: String)
     func changeGoToWorck(indicatorWorck: Bool)
     func openAlertOk(message:String)
+    func enteringAreminder()
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
-    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?,user: User?,massage: String?)
+    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool)
     func setClient()
     func pressСlientInvitationButton()
     func pressСallButton()
@@ -37,6 +38,7 @@ protocol ClientPagePresenterProtocol: AnyObject{
     func checkIndicatorFinansStatisyc()
     var user: User? {get set}
     func massageClientReminder()
+    func deleteReminder()
    
 }
 
@@ -48,22 +50,48 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     var client: Client?
     var user: User?
     var massage: String?
+    var idReminder: String?
+    var openWithMarkAddMassageReminder: Bool
     
-    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?, user: User?, massage: String?) {
+    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?, user: User?, massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.client = client
         self.user = user
         self.massage = massage
+        self.idReminder = idReminder
+        self.openWithMarkAddMassageReminder = openWithMarkAddMassageReminder
         setClient()
         
         
     }
+    func deleteReminder(){
+           guard let idReminderForDel = idReminder else {return}
+        networkService.deleteReminder(user: user, idReminder: idReminderForDel)  { [weak self] result in
+            guard let self = self else {return}
+           
+            DispatchQueue.main.async {
+                switch result{
+                case.success(let flag):
+                    guard flag == true else {return}
+                    self.view?.openAlertOk(message: "Reminder removed")
+                case.failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+            
+        }
+    }
     func massageClientReminder(){
-        guard massage != nil else{return}
-        guard massage != "" else {return}
-        self.view?.massageReminder(massge: massage ?? "")
+        if openWithMarkAddMassageReminder == true {
+            self.view?.enteringAreminder()
+        }
+        if openWithMarkAddMassageReminder == false {
+            guard massage != nil else{return}
+            guard massage != "" else {return}
+            self.view?.massageReminder(massge: massage ?? "")
+        }
     }
     func setClient() {
         self.view?.setClient(client: client)

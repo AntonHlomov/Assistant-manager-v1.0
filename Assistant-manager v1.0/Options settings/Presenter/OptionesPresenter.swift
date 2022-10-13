@@ -134,7 +134,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func schowClientsButoon() {
         print("schowClientsButoon")
-        self.router?.showClientsTableViewController(user: self.user)
+        self.router?.showClientsTableViewController(user: self.user, markAddMassageReminder: false)
     }
     
     func schowPriceButoon() {

@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "editClient(changePhoto:idClient:olderUrlImageClient:nameClient:fullName:telefonClient:profileImageClient:genderClient:ageClient:textAboutClient:user:completion:)"
+            landmarkName = "addClient(nameClient:fullName:telefonClient:profileImageClient:genderClient:ageClient:textAboutClient:user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

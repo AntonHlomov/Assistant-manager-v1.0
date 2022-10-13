@@ -10,10 +10,39 @@ import Firebase
 
 protocol ApiAllClientPageServiceProtocol {
     func addReminder(text: String, date: String, user: User?,nameClient:String,fulnameClient:String,urlImage: String,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String,completion: @escaping (Result<Bool,Error>) -> Void)
+    func deleteReminder(user: User?,idReminder: String,completion: @escaping (Result<Bool,Error>) -> Void)
  
 }
 
 class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
+    func deleteReminder(user: User?,idReminder: String,completion: @escaping (Result<Bool,Error>) -> Void){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        switch user?.statusInGroup {
+        case "Individual":
+            Firestore.firestore().collection("users").document(uid).collection("Reminder").document(idReminder).delete(){ (error) in
+                if let error = error {
+                completion(.failure(error))
+                return
+                }
+                completion(.success(true))
+            }
+        case "Master":break
+        case "Administrator":break
+        case "Boss":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Reminder").document(idReminder).delete() { (error) in
+                if let error = error {
+                completion(.failure(error))
+                return
+                }
+                completion(.success(true))
+            }
+        default: break
+        }
+    }
+    
+    
     func addReminder(text: String, date: String, user: User?,nameClient:String,fulnameClient:String,urlImage: String,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let idReminder = NSUUID().uuidString

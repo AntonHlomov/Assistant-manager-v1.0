@@ -16,7 +16,7 @@ protocol AsselderBuilderProtocol{
     
     func createPaymentModule(router: LoginRouterProtocol,customerRecordent: CustomerRecord?, master: Team?, user: User?) -> UIViewController
     
-    func createClientsTableModule(router: LoginRouterProtocol, user: User?) -> UIViewController
+    func createClientsTableModule(router: LoginRouterProtocol, user: User?,markAddMassageReminder: Bool) -> UIViewController
     
     func createPriceModule(router: LoginRouterProtocol,newVisitMode: Bool, client: Client?,user: User?) -> UIViewController
     
@@ -26,7 +26,7 @@ protocol AsselderBuilderProtocol{
     
     func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) -> UIViewController
     
-    func craateClientPageModule(router:LoginRouterProtocol,client: Client?,user: User?,massage: String?) -> UIViewController
+    func craateClientPageModule(router:LoginRouterProtocol,client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) -> UIViewController
     
     func createAddClientModule(router:LoginRouterProtocol,editMode: Bool, client: Client?,user: User?) -> UIViewController
     
@@ -67,19 +67,19 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         return view
     }
     
-    func craateClientPageModule(router: LoginRouterProtocol,client: Client?,user: User?,massage: String?) -> UIViewController {
+    func craateClientPageModule(router: LoginRouterProtocol,client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) -> UIViewController {
         let view = ClientPage()
         let networkService = ApiAllClientPageDataService()
-        let presenter = ClientPagePresenter(view: view, networkService: networkService,router: router, client: client, user: user, massage: massage)
+        let presenter = ClientPagePresenter(view: view, networkService: networkService,router: router, client: client, user: user, massage: massage,idReminder:idReminder, openWithMarkAddMassageReminder: openWithMarkAddMassageReminder)
         view.presenter = presenter
         return view
     }
     
     
-    func createClientsTableModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
+    func createClientsTableModule(router: LoginRouterProtocol, user: User?,markAddMassageReminder: Bool) -> UIViewController {
         let view = ClientsTableViewController()
         let networkService = ApiAllClientsDataService()
-        let presenter = ClientsTabPresentor(view: view, networkService: networkService, router: router, user: user)
+        let presenter = ClientsTabPresentor(view: view, networkService: networkService, router: router, user: user, markAddMassageReminder: markAddMassageReminder)
         view.presenter = presenter
         return view
     }

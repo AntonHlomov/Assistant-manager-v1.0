@@ -23,6 +23,7 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func getReminders()
     func getStatistic()
     func pushClientsButton()
+    func touchAddButoon()
     func pushOptionsButton()
     func pushRecorderClient(indexPath:IndexPath)
     func deletCustomerRecorder(idCustomerRecorder:String,masterId: String)
@@ -237,9 +238,13 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
              completion(nameServicesText,pricesText, totalText)
          }
      }
+    func touchAddButoon(){
+        print("touchAddButoon")
+        self.router?.showClientsTableViewController(user: self.user, markAddMassageReminder: true)
+    }
     func pushClientsButton() {
         print("Push Clients Button")
-        self.router?.showClientsTableViewController(user: self.user)
+        self.router?.showClientsTableViewController(user: self.user, markAddMassageReminder: false)
        }
     func pushOptionsButton() {
         print("Push Options Button")
@@ -253,7 +258,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             guard let self = self else {return}
                     switch result{
                     case.success(let client):
-                        self.router?.showClientPage(client: client, user: self.user, massage: nil)
+                        self.router?.showClientPage(client: client, user: self.user, massage: nil, idReminder: nil, openWithMarkAddMassageReminder: false)
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
@@ -281,12 +286,13 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     func openClientWithReminder(reminder: Reminder?){
         guard let idClient = reminder?.idClient  else {return}
         guard let massage = reminder?.commit  else {return}
+        guard let idReminder = reminder?.idReminder  else {return}
         DispatchQueue.main.async {
             self.networkService.getClient(user: self.user,idClient: idClient){[weak self] result in
             guard let self = self else {return}
                     switch result{
                     case.success(let client):
-                        self.router?.showClientPage(client: client, user: self.user, massage: massage)
+                        self.router?.showClientPage(client: client, user: self.user, massage: massage, idReminder: idReminder, openWithMarkAddMassageReminder: false)
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }

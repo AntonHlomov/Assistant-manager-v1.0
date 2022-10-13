@@ -154,6 +154,9 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 cell.openReminderClient = { [weak self] cell in
                     self?.presenter.openClientWithReminder(reminder: cell.openClientWitchReminder)
                 }
+                cell.touchAddButoon = { [weak self] _ in
+                    self?.presenter.touchAddButoon()
+                }
             case true:
                 cell.reminderS.removeAll()
                 cell.textEmpty.text = "You don't have active reminders yet"

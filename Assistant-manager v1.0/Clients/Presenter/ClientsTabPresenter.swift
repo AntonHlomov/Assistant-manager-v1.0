@@ -13,7 +13,7 @@ protocol ClientsTabViewProtocol: AnyObject {
 }
 
 protocol ClientsTabViewPresenterProtocol: AnyObject {
-    init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol,user: User?)
+    init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol,user: User?,markAddMassageReminder: Bool)
     func getClients()
     func filter(text: String)
     func deleteClient(indexPath: IndexPath)
@@ -34,14 +34,16 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     var clients: [Client]?
     var filterClients: [Client]?
     var user: User?
+    var markAddMassageReminder: Bool
 
-    required init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol,user: User?) {
+    required init(view: ClientsTabViewProtocol,networkService: ApiAllClientsDataServiceProtocol, router: LoginRouterProtocol,user: User?,markAddMassageReminder: Bool) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.user = user
-        
+        self.markAddMassageReminder = markAddMassageReminder
         getClients()
+        
  
     }
     func deleteClient(indexPath: IndexPath){
@@ -89,8 +91,13 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     }
     
     func goToPageClient(indexPathRowClient: Int) {
-        print("открыть клиента",indexPathRowClient)
-        self.router?.showClientPage(client: filterClients?[indexPathRowClient], user: self.user, massage: nil)
+        
+        switch self.markAddMassageReminder{
+        case false:
+            self.router?.showClientPage(client: filterClients?[indexPathRowClient], user: self.user, massage: nil, idReminder: nil, openWithMarkAddMassageReminder: false)
+        case true:
+            self.router?.showClientPage(client: filterClients?[indexPathRowClient], user: self.user, massage: nil, idReminder: nil, openWithMarkAddMassageReminder: true)
+        }
     }
     func goToAddClient() {
         self.router?.showAddClientView(editMode: false, client: nil, user: self.user)

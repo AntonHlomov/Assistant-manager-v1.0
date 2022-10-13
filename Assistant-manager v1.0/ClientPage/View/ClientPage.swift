@@ -9,10 +9,8 @@ import UIKit
 
 class ClientPage: UIViewController {
     var presenter: ClientPagePresenterProtocol!
-    
- 
     lazy var zigzagContainerView = SketchBorderView()
-
+    
     let fonBlue: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -229,11 +227,19 @@ class ClientPage: UIViewController {
         presenter.checkIndicatorFinansStatisyc()
         presenter.checkIndicatorGoToWorck()
     }
-  
 
 }
-// alert
 extension ClientPage{
+    func alertReminderMassage(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "Ok", style: .default)
+        let deleteAction = UIAlertAction(title: "Delete", style: .cancel, handler: { action in
+            self.presenter.deleteReminder()
+        })
+        alertControler.addAction(alertOk)
+        alertControler.addAction(deleteAction)
+        present(alertControler, animated: true, completion: nil)
+    }
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: "Ok", style: .default)
@@ -243,61 +249,65 @@ extension ClientPage{
     func alertOk(message: String){
         let alertControler = UIAlertController(title: "Ok", message: "\n\(message)", preferredStyle: .alert)
         present(alertControler, animated: true, completion: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             alertControler.dismiss(animated: true, completion: nil)
            }
     }
-    
     func alertReminderMassage(){
         let alertControler = UIAlertController(title: "Reminder", message: nil, preferredStyle: .alert)
+        let selectDate = UIAlertAction(title: "Select date", style: .default, handler: { action in
+            if let textReminder = alertControler.textFields?.first?.text {
+                if textReminder != ""{
+                    self.alertDatePicker(text: textReminder)
+                }
+            }
+        })
+        selectDate.isEnabled = false
         alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-         
         alertControler.addTextField(configurationHandler: { textField in
             textField.placeholder = "Enter reminder text..."
+            // Observe the UITextFieldTextDidChange notification to be notified in the below block when text is changed
+               NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main, using:
+                   {_ in
+                       // Being in this block means that something fired the UITextFieldTextDidChange notification.
+                       // Access the textField object from alertController.addTextField(configurationHandler:) above and get the character count of its non whitespace characters
+                       let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+                       let textIsNotEmpty = textCount > 0
+                       selectDate.isEnabled = textIsNotEmpty
+               })
         })
-         
-        alertControler.addAction(UIAlertAction(title: "Select date", style: .default, handler: { action in
-         
-            if let textReminder = alertControler.textFields?.first?.text {
-              //  print("Text: \(textReminder)")
-                self.alertDatePicker(text: textReminder)
-            }
-    
-        }))
+        alertControler.addAction(selectDate)
         self.present(alertControler, animated: true)
     }
-    
     func alertDatePicker(text:String){
-        let myDatePicker: UIDatePicker = UIDatePicker()
+       let myDatePicker: UIDatePicker = UIDatePicker()
            myDatePicker.timeZone = NSTimeZone.local
-        //myDatePicker.preferredDatePickerStyle = .wheels
-        myDatePicker.preferredDatePickerStyle = .automatic
-         //  myDatePicker.frame = CGRect(x: 0, y: 15, width: 270, height: 200)
-          myDatePicker.frame = CGRect(x: 0, y: 50, width: 230, height: 50)
-           let alertController = UIAlertController(title: "Select date and time \n\n", message: nil, preferredStyle: .alert)
+           myDatePicker.datePickerMode = .date
+           myDatePicker.preferredDatePickerStyle = .automatic
+           myDatePicker.frame = CGRect(x: 69, y: 50, width: 125, height: 50)
+           let alertController = UIAlertController(title: "Select date \n\n", message: nil, preferredStyle: .alert)
            alertController.view.addSubview(myDatePicker)
            let backAction = UIAlertAction(title: "Back", style: .default, handler: { _ in
                self.alertReminderMassage()
            })
            let selectAction = UIAlertAction(title: "Save", style: .default, handler: { _ in
-            //  print("Selected Date: \(myDatePicker.date)")
                self.presenter.reminder(text: text, date: myDatePicker.date)
            })
            alertController.addAction(backAction)
            alertController.addAction(selectAction)
            present(alertController, animated: true)
     }
-    
-    
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientPage: ClientPageProtocol {
-    func massageReminder(massge: String) {
-        alertRegistrationControllerMassage(title: "Reminder", message: massge)
+    func enteringAreminder() {
+        alertReminderMassage()
     }
     
+    func massageReminder(massge: String) {
+        alertReminderMassage(title: "Reminder", message: massge)
+    }
     func setClient(client: Client?) {
-  
         profileImageView.loadImage(with: client?.profileImageClientUrl ?? "")
         guard let name = client?.nameClient else {return}
         guard let fullName = client?.fullName else {return}
@@ -307,7 +317,6 @@ extension ClientPage: ClientPageProtocol {
         abautCient.text = textAboutClient
         let attributed = NSMutableAttributedString(string: "\(String(countVisits))", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
         countComeClient.setAttributedTitle(attributed, for: .normal)
-
     }
     func openAlertOk(message:String){
         alertOk(message: message)
@@ -322,26 +331,18 @@ extension ClientPage: ClientPageProtocol {
     }
     func changeReminder(indicatorReminder: Bool){
         guard indicatorReminder == true else {return}
-        self.navigationItem.rightBarButtonItems?[0] = UIBarButtonItem(image: #imageLiteral(resourceName: "SCOL").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))
-       
+        self.navigationItem.rightBarButtonItems?[0] = UIBarButtonItem(image: #imageLiteral(resourceName: "SCOL").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))       
     }
     func changeVisitStatisyc(countVisits: String){
        
-        
     }
     func changeFinansStatisyc(countAverageBill: String){
         let attributedTitleMonyComeClient = NSMutableAttributedString(string: countAverageBill, attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
         self.monyComeClient.setAttributedTitle(attributedTitleMonyComeClient, for: .normal)
-        
     }
     func changeGoToWorck(indicatorWorck: Bool){
         guard indicatorWorck == true else {return}
         self.goToWorckButton.layer.borderColor = UIColor.appColor(.pinkAssistant)!.cgColor
-       
     }
-    
-    
-   
-    
 
 }

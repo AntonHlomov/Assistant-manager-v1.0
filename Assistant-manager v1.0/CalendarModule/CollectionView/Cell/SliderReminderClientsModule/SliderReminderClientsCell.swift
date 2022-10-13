@@ -12,6 +12,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
     private let cellButton = "apCellButtonId"
     
     var openReminderClient: ((SliderReminderClientsCell) -> Void)?
+    var touchAddButoon: ((SliderReminderClientsCell) -> Void)?
     var openClientWitchReminder: (Reminder?)
     
     var reminderS = [Reminder]()
@@ -84,6 +85,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
              switch indexPath.section {
              case 0:
                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellButton, for: indexPath) as! ButtonCell
+                 cell.clientButton.addTarget(self, action: #selector(ationAddMasageForClient), for: .touchDown)
                  return cell
              case 1:
                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppCellСlReminder
@@ -105,10 +107,14 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
          }
           // нажатие на ячейки напоминания
           func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-              self.openClientWitchReminder = reminderS[indexPath.row]
-              openReminderClient?(self)
-              print("нажал\(indexPath)")
+            self.openClientWitchReminder = reminderS[indexPath.row]
+            openReminderClient?(self)
+            print("нажал\(indexPath)")
           }
+    @objc func ationAddMasageForClient() {
+        touchAddButoon?(self)
+        print("нажал ADD")
+    }
     // MARK: - class AppCellСlReminder
 class AppCellСlReminder: UICollectionViewCell {
     var reminder: Reminder?{

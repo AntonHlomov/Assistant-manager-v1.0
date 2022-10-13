@@ -19,18 +19,18 @@ protocol LoginRouterProtocol: RouterLogin {
     //  func showDetailUserController(user:User?)
     func showRegistrationController()
     func showLoginController()
-    func showClientsTableViewController(user: User?)
+    func showClientsTableViewController(user: User?,markAddMassageReminder: Bool)
     func showPaymentController(customerRecordent: CustomerRecord?, master: Team?,user: User?)
     func showPrice(newVisitMode: Bool, client: Client?,user: User?)
     func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?,user: User?)
     func showCustomerVisitRecordConfirmationViewModule(customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?)
-    func showClientPage(client: Client?,user: User?,massage: String?)
+    func showClientPage(client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool)
     func showAddClientView(editMode: Bool, client: Client?,user: User?)
     func showAddNewServiceView(editMode: Bool, price: Price?,user: User?)
     func showOptionesViewController(user: User?)
     func initalLoginViewControler()
     func initalMainTabControler(user: User?)
-    func initalClientsTableViewController(user: User?)
+    func initalClientsTableViewController(user: User?,markAddMassageReminder: Bool)
     func popToRoot()
     func dismiss()
     func backTappedFromRight()
@@ -65,9 +65,9 @@ class Router: LoginRouterProtocol{
         }
     }
     
-    func initalClientsTableViewController(user: User?) {
+    func initalClientsTableViewController(user: User?,markAddMassageReminder: Bool) {
         if let navigationControler = navigationControler{
-            guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self, user: user) else {return}
+            guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self, user: user, markAddMassageReminder: markAddMassageReminder) else {return}
             navigationControler.viewControllers = [MainViewControler]
           
         }
@@ -117,9 +117,9 @@ class Router: LoginRouterProtocol{
         
     }
     
-    func showClientsTableViewController(user: User?) {
+    func showClientsTableViewController(user: User?,markAddMassageReminder: Bool) {
         if let navigationControler = navigationControler{
-            guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self, user: user) else {return}
+            guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self, user: user, markAddMassageReminder: markAddMassageReminder) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
@@ -142,9 +142,9 @@ class Router: LoginRouterProtocol{
             navigationControler.present(registrationControler, animated: true)
         }
     }
-    func showClientPage(client: Client?,user: User?, massage: String?){
+    func showClientPage(client: Client?,user: User?, massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool){
         if let navigationControler = navigationControler {
-            guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user, massage: massage) else {return}
+            guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user, massage: massage,idReminder:idReminder, openWithMarkAddMassageReminder: openWithMarkAddMassageReminder) else {return}
           
             navigationControler.pushViewController(registrationControler, animated: true)
         }
