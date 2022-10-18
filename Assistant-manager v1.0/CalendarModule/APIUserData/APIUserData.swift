@@ -64,7 +64,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
         switch user?.statusInGroup {
         case "Individual":
             var reminders = [Reminder]()
-            Firestore.firestore().collection("users").document(uid).collection("Reminder").whereField("dateShowReminder", isGreaterThanOrEqualTo: date).addSnapshotListener{ [] (snapshot, error) in
+            Firestore.firestore().collection("users").document(uid).collection("Reminder").whereField("dateShowReminder", isEqualTo: date).addSnapshotListener{ [] (snapshot, error) in
             if let error = error {
             completion(.failure(error))
             return
@@ -116,13 +116,13 @@ class APIUserDataService:APIUserDataServiceProtocol {
           completion(.failure(error))
           return
          }
-          calendar.removeAll()
-          filterCalendar.removeAll()
-         // пробегаемся по каждому документу
-      snapshot?.documents.forEach({ (documentSnapshot) in
-            let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
-            let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
-            calendar.append(timeCustomerRecord)
+              calendar.removeAll()
+              filterCalendar.removeAll()
+              // пробегаемся по каждому документу
+              snapshot?.documents.forEach({ (documentSnapshot) in
+              let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
+              let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
+              calendar.append(timeCustomerRecord)
         })
        filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
        completion(.success( filterCalendar))
@@ -134,7 +134,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
           guard let idGroup = user?.idGroup else {return}
           var filterCalendar = [CustomerRecord]()
           var calendar = [CustomerRecord]()
-          Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").whereField("dateStartService", isEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
+          Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
           if let error = error {
           completion(.failure(error))
           return

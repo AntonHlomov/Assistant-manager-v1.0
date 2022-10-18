@@ -48,11 +48,24 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
         //кнопка готово в клавеатуре
         addDoneButtonOnKeyboard()
+        // ente and exit to background
+        let notificationCenter = NotificationCenter.default
+         // notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+          notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+          
      }
+    @objc func appCameToForeground() {
+        self.presenter.dataTodayTomorrow()
+        print("notificationCenter appCameToForeground -> dataTodayTomorrow")
+    }
     //update on change of view orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.collectionView.collectionViewLayout.invalidateLayout()
     }
+   // override func viewWillAppear(_ animated: Bool) {
+   //     super.viewWillAppear(animated) // No need for semicolon
+   //
+   // }
     // MARK: - свайп вниз для обновления
     lazy var dataRefresher : UIRefreshControl = {
         let myRefreshControl = UIRefreshControl()

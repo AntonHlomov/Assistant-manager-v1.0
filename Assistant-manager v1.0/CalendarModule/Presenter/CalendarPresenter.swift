@@ -29,6 +29,8 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func deletCustomerRecorder(idCustomerRecorder:String,masterId: String)
     func filter(text: String)
     func openClientWithReminder(reminder: Reminder?)
+    func reloadData()
+    func dataTodayTomorrow()
     
     var user: User? { get set }
     var profit: Double? { get set } //прибыль
@@ -48,7 +50,12 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
    var calendarToday: [CustomerRecord]?
    var filterCalendarToday: [CustomerRecord]?
    var reminders: [Reminder]?
-   var today: String
+   var today: String {
+        didSet{
+            print("слушатель var today ")
+             reloadData()
+        }
+    }
    var tomorrow: String
    var team: [Team]
    weak var view: CalendadrViewProtocol?
@@ -70,15 +77,38 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.profit = 0.0
         self.calendarToday = [CustomerRecord]()
         self.filterCalendarToday = [CustomerRecord]()
-        self.today = ""
-        self.tomorrow = ""
+        self.today = Date().todayDMYFormat()
+        self.tomorrow = Date().tomorrowDMYFormat()
         self.team = [Team]()
         self.reminders = [Reminder]()
-  
-        getTeam()
-        dataTodayTomorrow()
-        getReminders()
+    
+        reloadData()
     }
+   
+    func reloadData(){
+        let meQueue = DispatchQueue(label: "reloadData")
+        meQueue.sync {
+           // print("reloadData1")
+           // dataTodayTomorrow()
+        }
+        meQueue.sync {
+            print("reloadData2")
+            getTeam()
+        }
+        meQueue.sync {
+            print("reloadData3")
+            getReminders()
+        }
+        meQueue.sync {
+            print("reloadData4")
+            getCalendarDate()
+        }
+        meQueue.sync {
+            print("reloadData5")
+            getStatistic()
+        }
+    }
+    
     func getTeam(){
         print("getTeam")
         DispatchQueue.global(qos: .utility).async {
@@ -87,7 +117,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 switch result{
                 case .success(let team):
                     self?.team = team ?? [Team]()
-                    self?.getCalendarDate()
+                   // self?.getCalendarDate()
                     print("getTeam!")
                 case .failure(_): break
                    // self?.view?.failure(error: error)
@@ -96,7 +126,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
     }
     func dataTodayTomorrow(){
-        print("dataTodayTomorrow")
+        print("!!!!dataTodayTomorrow")
         let date = Date()
         self.today = date.todayDMYFormat()
         self.tomorrow = date.tomorrowDMYFormat()
@@ -131,7 +161,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     }
     func getCalendarDate() {
         print("getCalendarDate")
-       // let today = Date().todayDMYFormat()
         DispatchQueue.main.async {
             self.networkService.getCustomerRecord(user: self.user,today: self.today,team: self.team){[weak self] result in
             guard let self = self else {return}
