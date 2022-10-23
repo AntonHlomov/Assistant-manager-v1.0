@@ -144,6 +144,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func schowTeamButoon() {
         print("schowTeamButoon")
+        self.router?.showTeam(user: self.user)
      
     }
     

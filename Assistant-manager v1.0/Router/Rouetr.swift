@@ -27,6 +27,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showClientPage(client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool)
     func showAddClientView(editMode: Bool, client: Client?,user: User?)
     func showAddNewServiceView(editMode: Bool, price: Price?,user: User?)
+    func showTeam(user: User?)
     func showOptionesViewController(user: User?)
     func initalLoginViewControler()
     func initalMainTabControler(user: User?)
@@ -115,6 +116,12 @@ class Router: LoginRouterProtocol{
             navigationControler.pushViewController(registrationControler, animated: true)
         }
         
+    }
+    func showTeam(user: User?){
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.teamModule(router: self, user: user) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
     }
     
     func showClientsTableViewController(user: User?,markAddMassageReminder: Bool) {

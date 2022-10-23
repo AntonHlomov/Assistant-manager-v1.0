@@ -32,6 +32,8 @@ protocol AsselderBuilderProtocol{
     
     func createOptionesModule(router: LoginRouterProtocol,user: User?) -> UIViewController
     
+    func teamModule(router: LoginRouterProtocol,user: User?) -> UIViewController
+    
     func createCalendarModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController)
     func createExpensesModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController)
     func createStartWorckModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController)
@@ -40,6 +42,15 @@ protocol AsselderBuilderProtocol{
 }
 // сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
+
+    func teamModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
+        let view = TeamTableViewController()
+        let networkService = ApiTeam()
+        let presenter = TeamPresenter(view: view, networkService: networkService, ruter: router, user: user)
+        view.presenter = presenter
+        return view
+    }
+    
     
     func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) -> UIViewController {
         let view = CustomerVisitRecordConfirmationView()

@@ -19,6 +19,10 @@
 		8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FBD284A9B270045FA20 /* ApiAddClient.swift */; };
 		8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */; };
 		8A3E5B59282C6DD9005BDA81 /* APIAllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */; };
+		8A661AD929044268006C7D22 /* TeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A661AD829044268006C7D22 /* TeamTableViewController.swift */; };
+		8A661ADC29044297006C7D22 /* TeamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A661ADB29044297006C7D22 /* TeamTableViewCell.swift */; };
+		8A661ADE290442E1006C7D22 /* TeamPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A661ADD290442E1006C7D22 /* TeamPresenter.swift */; };
+		8A661AE029044307006C7D22 /* ApiTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A661ADF29044307006C7D22 /* ApiTeam.swift */; };
 		8A6FBA34285A6D8500655C57 /* darkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA33285A6D8500655C57 /* darkMode.swift */; };
 		8A6FBA3A285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA39285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift */; };
 		8A6FBA3C285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */; };
@@ -129,6 +133,10 @@
 		8A308FBD284A9B270045FA20 /* ApiAddClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAddClient.swift; sourceTree = "<group>"; };
 		8A3E5B56282C6D29005BDA81 /* ClientsTabPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTabPresenter.swift; sourceTree = "<group>"; };
 		8A3E5B58282C6DD9005BDA81 /* APIAllClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAllClients.swift; sourceTree = "<group>"; };
+		8A661AD829044268006C7D22 /* TeamTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewController.swift; sourceTree = "<group>"; };
+		8A661ADB29044297006C7D22 /* TeamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewCell.swift; sourceTree = "<group>"; };
+		8A661ADD290442E1006C7D22 /* TeamPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamPresenter.swift; sourceTree = "<group>"; };
+		8A661ADF29044307006C7D22 /* ApiTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTeam.swift; sourceTree = "<group>"; };
 		8A6FBA33285A6D8500655C57 /* darkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = darkMode.swift; sourceTree = "<group>"; };
 		8A6FBA39285A7CBD00655C57 /* CustomerVisitRecordConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerVisitRecordConfirmationView.swift; sourceTree = "<group>"; };
 		8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerVisitRecordConfirmationViewPresenter.swift; sourceTree = "<group>"; };
@@ -342,6 +350,49 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8A661AD4290441F7006C7D22 /* TeamModule */ = {
+			isa = PBXGroup;
+			children = (
+				8A661AD729044231006C7D22 /* API */,
+				8A661AD629044228006C7D22 /* Presenter */,
+				8A661AD529044220006C7D22 /* View */,
+			);
+			path = TeamModule;
+			sourceTree = "<group>";
+		};
+		8A661AD529044220006C7D22 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A661ADA29044270006C7D22 /* Cell */,
+				8A661AD829044268006C7D22 /* TeamTableViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A661AD629044228006C7D22 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A661ADD290442E1006C7D22 /* TeamPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A661AD729044231006C7D22 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8A661ADF29044307006C7D22 /* ApiTeam.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8A661ADA29044270006C7D22 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A661ADB29044297006C7D22 /* TeamTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		8A6FBA35285A7C2500655C57 /* CustomerVisitRecordConfirmation */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +465,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A661AD4290441F7006C7D22 /* TeamModule */,
 				8A8F67862896F0B10078356B /* APIGlobalUserService */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
@@ -1133,8 +1185,10 @@
 				8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A8F747D285400EF00D52B4B /* СhoiceVisitDateViewController.swift in Sources */,
+				8A661AD929044268006C7D22 /* TeamTableViewController.swift in Sources */,
 				8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */,
 				8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */,
+				8A661ADE290442E1006C7D22 /* TeamPresenter.swift in Sources */,
 				8A8E45712791936500828B7E /* Expense.swift in Sources */,
 				8A8E45732791AFE700828B7E /* Reminder.swift in Sources */,
 				8A8E458F2791E5F500828B7E /* SetupTextFieldExtension.swift in Sources */,
@@ -1158,6 +1212,7 @@
 				8AAF98B227938713007315DE /* MainViewControler.swift in Sources */,
 				8AA756AF27BD3DB400E89C4E /* Rouetr.swift in Sources */,
 				8A8F6781289682BA0078356B /* Group.swift in Sources */,
+				8A661ADC29044297006C7D22 /* TeamTableViewCell.swift in Sources */,
 				8A201C852881DD100072ED75 /* DottedLine.swift in Sources */,
 				8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
@@ -1182,6 +1237,7 @@
 				8A8E45382791873900828B7E /* SceneDelegate.swift in Sources */,
 				8A8FCB542884152A00E4BABB /* PaymentPriceTableViewCell.swift in Sources */,
 				8A308FBC284A984D0045FA20 /* AddClientPresenter.swift in Sources */,
+				8A661AE029044307006C7D22 /* ApiTeam.swift in Sources */,
 				8A91A82D282D9ABB006F1FFD /* OptionesController.swift in Sources */,
 				8A916CFB284E17C800A18257 /* OptionesTableViewCell.swift in Sources */,
 				8A8E456F2791927F00828B7E /* TransactionUser.swift in Sources */,
