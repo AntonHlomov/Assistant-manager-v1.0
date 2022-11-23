@@ -13,7 +13,8 @@ protocol StartWorckViewProtocol: AnyObject {
     func failure(error:Error)
 }
 protocol StartWorckViewPresenterProtocol: AnyObject {
-    init(view: StartWorckViewProtocol,router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol,user: User?)
+    init(view: StartWorckViewProtocol,router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol,user: User?,networkServiceTeam: ApiTeamProtocol,networkServiceUser: APIGlobalUserServiceProtocol)
+    func statusCheckUser()
     func data()
     func getCustomerRecord()
     func getDataForTeam()
@@ -34,25 +35,87 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
     weak var view: StartWorckViewProtocol?
     var router: LoginRouterProtocol?
     let networkService: ApiCustomerCardPaymentTodayProtocol!
+    let networkServiceTeam: ApiTeamProtocol!
+    let networkServiceUser: APIGlobalUserServiceProtocol!
     var customersCardsPayment: [CustomerRecord]?
     var filterCustomersCardsPayment: [CustomerRecord]?
     var team: [[Team]]?
     var checkMaster: Team?
     var user: User?
+    var oldUser: User?
     
     
-    required init(view: StartWorckViewProtocol, router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol,user: User?) {
+    required init(view: StartWorckViewProtocol, router: LoginRouterProtocol,networkService: ApiCustomerCardPaymentTodayProtocol,user: User?,networkServiceTeam: ApiTeamProtocol,networkServiceUser: APIGlobalUserServiceProtocol) {
+        
         self.view = view
         self.router = router
         self.networkService = networkService
+        self.networkServiceTeam = networkServiceTeam
+        self.networkServiceUser = networkServiceUser
         self.customersCardsPayment = [CustomerRecord]()
         self.filterCustomersCardsPayment = [CustomerRecord]()
         self.team = [[Team]]()
         self.user = user
+        self.oldUser = user
        
-        getDataForTeam()
-        
+        reloadData()
     }
+    
+    func reloadData(){
+        let meQueue = DispatchQueue(label: "reloadDataStartWorck")
+        meQueue.sync {
+            getGlobalUser()
+        }
+      
+        meQueue.sync {
+            print("reloadData2")
+            getDataForTeam()
+        }
+        meQueue.sync {
+            print("reloadData6")
+            //self.view?.reloadData()
+        }
+    }
+    
+    func getGlobalUser(){
+        print("getGlobalUser")
+       
+        networkServiceUser.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                DispatchQueue.main.async {
+                    switch result{
+                    case.success(let user):
+                        if user?.statusInGroup != self.user?.statusInGroup {
+                          //  self.view?.alert(message: "Вы писоеденины к группе. Обновление.CalendarPresenter.getGlobalUser...")
+                            self.user = user
+                        }
+                       break
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+               }
+            }
+         }
+     }
+    
+    func statusCheckUser(){
+        if self.user?.statusInGroup == self.oldUser?.statusInGroup{
+            print("неизменился statusInGroup")
+        } else{
+            let meQueueStatusCheck = DispatchQueue(label: "statusCheckUserReloadData")
+           
+            meQueueStatusCheck.sync {
+                print("getDataForTeam")
+                getDataForTeam()
+            }
+            meQueueStatusCheck.sync {
+                print("reloadData6")
+                self.oldUser = self.user
+               // self.view?.reloadData()
+            }
+            
+        }
+    }
+    
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->()){
          DispatchQueue.main.async {
              var totalSum = [Double]()
@@ -80,6 +143,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
              completion(nameServicesText,pricesText, totalText)
          }
      }
+    
     func pushPayClient(indexPath: IndexPath){
         guard filterCustomersCardsPayment?.isEmpty == false else {return}
         
@@ -87,6 +151,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
         let masterWhoWork = checkMaster
         self.router?.showPaymentController(customerRecordent: clientWhoPay, master: masterWhoWork, user: self.user)
     }
+    
     func deletCustomerRecorder(idCustomerRecorder:String) {
         let idMaster = checkMaster?.idTeamMember ?? ""
         DispatchQueue.main.async {
@@ -114,21 +179,40 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
     }
     
     func getDataForTeam(){
-      
-        networkService.getTeam(user: self.user){ [weak self] result in
+        switch user?.statusInGroup {
+        case "Individual":
+            var masterUserArray = [Team]()
+            let masterUser = Team(dictionary: [
+                "id": user?.uid ?? "",
+                "categoryTeamMember": "Autonomo",
+                "idTeamMember": user?.uid ?? "",
+                "nameTeamMember": user?.name ?? "",
+                "fullnameTeamMember": user?.fullName ?? "",
+                "profileImageURLTeamMember": user?.profileImage ?? ""
+            ])
+            self.team?.removeAll()
+            masterUserArray.append(masterUser)
+            self.team?.append(masterUserArray)
+       
+        case "Master","Administrator","Boss":
+        networkServiceTeam.getTeam(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{
                 case .success(let team):
-                   let t = team?.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
-                    self?.team?.append(t ?? [Team]())
-                    self?.view?.updateDataCustomerRecord(update: true, indexSetInt: 0)
+                    let sortedTeam = team?.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
+                   // self?.team?.removeAll()
+                    self?.team?.append(sortedTeam ?? [Team]())
                 case .failure(let error):
                     self?.view?.failure(error: error)
                 }
             }
         }
+
+        default: break
+        }
     }
+    
     func getCustomerRecord(){
         let date = Date()
         let today = date.todayDMYFormat()

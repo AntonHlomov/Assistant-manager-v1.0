@@ -17,6 +17,7 @@ class User {
     var email: String!
 
     var lastСheckNumber: Int!
+    
     var statusBoss: Bool!
     var statusAdministrator: Bool!
     var statusMaster: Bool!
@@ -31,6 +32,17 @@ class User {
     
     var statusInGroup: String! // Boss / Administrator / Master / Individual
     var idGroup: String!
+    
+    // пременные для запроса на добавления в группу
+    var markerRequest: Bool!
+    var idGroupRequest: String!
+    var idUserRequest: String!
+    var profileImageUserRequest: String!
+    var nameRequest: String!
+    var fullNameRequest: String!
+    var statusInGroupRequest: String!
+    
+    
 
     
 
@@ -56,6 +68,14 @@ class User {
         
         self.statusInGroup = dictionary["statusInGroup"] as? String ?? ""
         self.idGroup = dictionary["idGroup"] as? String ?? ""
+        
+        self.markerRequest = dictionary["markerRequest"] as? Bool ?? nil
+        self.idGroupRequest = dictionary["idGroupRequest"] as? String ?? ""
+        self.idUserRequest = dictionary["idUserRequest"] as? String ?? ""
+        self.profileImageUserRequest = dictionary["profileImageUserRequest"] as? String ?? ""
+        self.nameRequest = dictionary["nameRequest"] as? String ?? ""
+        self.fullNameRequest = dictionary["fullNameRequest"] as? String ?? ""
+        self.statusInGroupRequest = dictionary["statusInGroupRequest"] as? String ?? ""
        
     }
 }

@@ -23,6 +23,7 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //presenter.getDataForTeam()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
       
@@ -52,6 +53,10 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
     //update on change of view orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.statusCheckUser()
     }
 
 

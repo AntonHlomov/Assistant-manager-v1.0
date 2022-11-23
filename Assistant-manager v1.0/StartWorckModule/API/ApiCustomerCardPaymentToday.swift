@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 protocol ApiCustomerCardPaymentTodayProtocol {
     func getCustomerRecord(masterId:String,today:String,user: User?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
-    func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void)
+   // func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void)
     func deletCustomerRecorder(idRecorder: String,idMaster: String,user: User?,completion: @escaping (Result<Bool, Error>) -> Void)
     
 }
@@ -45,46 +45,46 @@ class ApiCustomerCardPaymentToday:ApiCustomerCardPaymentTodayProtocol {
 
     }
     
-    func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
-        guard (Auth.auth().currentUser?.uid) != nil else {return}
-        
-        switch user?.statusInGroup {
-        case "Individual":
-            var masterUserArray = [Team]()
-            let masterUser = Team(dictionary: [
-                "id": user?.uid ?? "",
-                "categoryTeamMember": "master",
-                "idTeamMember": user?.uid ?? "",
-                "nameTeamMember": user?.name ?? "",
-                "fullnameTeamMember": user?.fullName ?? "",
-                "profileImageURLTeamMember": user?.profileImage ?? ""
-               // "professionName": "hair siaylist"
-            ])
-            masterUserArray.append(masterUser)
-            completion(.success(masterUserArray))
-        case "Master":break
-        case "Administrator":break
-        case "Boss":
-            let nameColection = "group"
-            guard let idGroup = user?.idGroup else {return}
-            
-            Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
-                if let error = error {
-                   completion(.failure(error))
-                   return
-                }
-                var teamCash = [Team]()
-                teamCash.removeAll()
-                snapshot?.documents.forEach({ (documentSnapshot) in
-                let teamDictionary = documentSnapshot.data()
-                let team = Team(dictionary: teamDictionary)
-                teamCash.append(team)
-                })
-                completion(.success(teamCash))
-            }
-        default: break
-        }
-    }
+  //  func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
+  //      guard (Auth.auth().currentUser?.uid) != nil else {return}
+  //
+  //      switch user?.statusInGroup {
+  //      case "Individual":
+  //          var masterUserArray = [Team]()
+  //          let masterUser = Team(dictionary: [
+  //              "id": user?.uid ?? "",
+  //              "categoryTeamMember": "master",
+  //              "idTeamMember": user?.uid ?? "",
+  //              "nameTeamMember": user?.name ?? "",
+  //              "fullnameTeamMember": user?.fullName ?? "",
+  //              "profileImageURLTeamMember": user?.profileImage ?? ""
+  //             // "professionName": "hair siaylist"
+  //          ])
+  //          masterUserArray.append(masterUser)
+  //          completion(.success(masterUserArray))
+  //      case "Master":break
+  //      case "Administrator":break
+  //      case "Boss":
+  //          let nameColection = "group"
+  //          guard let idGroup = user?.idGroup else {return}
+  //
+  //          Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
+  //              if let error = error {
+  //                 completion(.failure(error))
+  //                 return
+  //              }
+  //              var teamCash = [Team]()
+  //              teamCash.removeAll()
+  //              snapshot?.documents.forEach({ (documentSnapshot) in
+  //              let teamDictionary = documentSnapshot.data()
+  //              let team = Team(dictionary: teamDictionary)
+  //              teamCash.append(team)
+  //              })
+  //              completion(.success(teamCash))
+  //          }
+  //      default: break
+  //      }
+  //  }
     
     func getCustomerRecord(masterId:String,today:String,user: User?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}

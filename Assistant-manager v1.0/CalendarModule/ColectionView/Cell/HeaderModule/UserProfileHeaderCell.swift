@@ -156,7 +156,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         fonBlue.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
        
         addSubview(boxViewBlue)
-        boxViewBlue.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, pading: .init(top: -15, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 330))
+        boxViewBlue.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 330))
         boxViewBlue.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         zigzagContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,11 +176,11 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         profileImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true //выстовляет по середине экрана
     
         addSubview(optionButton)
-        optionButton.anchor(top: profileImageView.topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 2.5, left: 20, bottom: 0, right: 0),  size: .init(width: 25, height: 25))
+        optionButton.anchor(top: profileImageView.topAnchor, leading: safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: 2.5, left: 25, bottom: 0, right: 0),  size: .init(width: 25, height: 25))
         optionButton.layer.cornerRadius = 25 / 2
         
         addSubview(clientButton)
-        clientButton.anchor(top: profileImageView.topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,pading: .init(top: 2.5, left: 0, bottom: 0, right: 20),  size: .init(width: 16, height: 25))
+        clientButton.anchor(top: profileImageView.topAnchor, leading: nil, bottom: nil, trailing: safeAreaLayoutGuide.trailingAnchor,pading: .init(top: 2.5, left: 0, bottom: 0, right: 25),  size: .init(width: 16, height: 25))
         
         addSubview(nameLabel)
         nameLabel.anchor(top: profileImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,  pading: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 20))

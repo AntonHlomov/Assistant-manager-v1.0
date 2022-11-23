@@ -8,7 +8,10 @@
 import UIKit
 
 class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate{
-    
+    var presenter: TeamPresenterProtocol!
+    let cell = "cell"
+    let cellEmpty = "cellEmpty"
+
     let myPicker: UIPickerView = UIPickerView()
     let statusInGroup = ["Boss","Administrator","Master"]
     var selectedValue = ""
@@ -24,15 +27,9 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
         self.view.endEditing(true)
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-           return statusInGroup[row]
+        return statusInGroup[row]
     }
 
-   
-    
-
-    var presenter: TeamPresenterProtocol!
-    let cell = "cell"
-    
     fileprivate let removeTeam: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Remove the whole ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.appColor(.whiteAssistantwithAlpha)! ])
@@ -45,6 +42,7 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         tableView.register(TeamTableViewCell.self, forCellReuseIdentifier: cell)
+        tableView.register(EmptyTeamTableViewCell.self, forCellReuseIdentifier: cellEmpty)
         tableView.separatorColor = .clear //линии между ячейками цвет
         self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTeamUser))
@@ -53,7 +51,6 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
         myPicker.dataSource = self
         myPicker.delegate = self
 
-      
     }
     fileprivate func configureUI() {
         view.addSubview(removeTeam)
@@ -71,56 +68,99 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return presenter.team?.count ?? 0
+        switch presenter.team?.count {
+        case 0, nil : return 1
+        default: return presenter.team?.count ?? 0
+        }
+       // return presenter.team?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      85
+        
+        switch presenter.team?.count {
+        case 0, nil : return view.frame.height/1.5
+        default:  return 85.0
+        }
     }
+   
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! TeamTableViewCell
-        cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
-        cell.team = presenter.team?[indexPath.row]
-        cell.accessoryType = .disclosureIndicator
-        cell.addCustomDisclosureIndicator(with: UIColor.appColor(.whiteAssistant)!)
+      
+        switch presenter.team?.count {
+        case 0, nil :
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellEmpty, for: indexPath) as! EmptyTeamTableViewCell
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! TeamTableViewCell
+            cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
+            cell.team = presenter.team?[indexPath.row]
+            cell.accessoryType = .disclosureIndicator
+            cell.addCustomDisclosureIndicator(with: UIColor.appColor(.whiteAssistant)!)
+            return cell
+        }
         
-
-        return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("нажал на команду\(indexPath)")
-       self.presenter.goToPageTeamUser(indexPathRowClient: indexPath.row)
+        switch presenter.team?.count {
+        case 0, nil :   self.alertConfirm(title: "Create a team?", mode: "createTaem")
+        default: self.presenter.goToPageTeamUser(indexPathRowClient: indexPath.row)
+        }
     }
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
-        // Создать константу для работы с кнопкой
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
-            print("Delete")
-            self?.presenter.deleteTeamUser(indexPath: indexPath)
-            self!.tableView.deleteRows(at: [indexPath], with: .top)
+        switch presenter.team?.count {
+        case 0, nil :
+            return nil
+         
+        default:
+            // Создать константу для работы с кнопкой
+            let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
+                print("Delete")
+                self?.presenter.deleteTeamUser(indexPathRow: indexPath.row)
+              //  self!.tableView.deleteRows(at: [indexPath], with: .top)
+            }
+            let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
+                print("Redact")
+                self?.presenter.redactTeamUser(indexPath: indexPath)
+                //tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+            deleteAction.image = UIImage(systemName: "trash")
+            editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
+            deleteAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
+            editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
+            return configuration
         }
-        let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
-            print("Redact")
-            self?.presenter.redactTeamUser(indexPath: indexPath)
-            //tableView.reloadRows(at: [indexPath], with: .fade)
-        }
-        deleteAction.image = UIImage(systemName: "trash")
-        editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
-        deleteAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
-        editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
-        return configuration
+        
     }
     
     @objc fileprivate func addNewTeamUser(){
-        alertAddIdNewTeamUser()
+        switch presenter.team?.count {
+        case 0, nil : alertMassage(title: "The team does not exist.", message: "Before adding members, create a team.")
+        default:  alertAddIdNewTeamUser()
+        }
+       
     }
     @objc fileprivate func removeTeamAll(){
-        presenter.removeTeamAll()
+        self.alertConfirm(title: "Remove the whole team ?", mode: "removeTeamAll")
     }
 
 }
 extension TeamTableViewController{
+    func alertConfirm(title: String,mode: String){
+        let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertControler.addAction(UIAlertAction(title: title, style: .destructive, handler: { (_) in
+            switch mode {
+            case "removeTeamAll":
+                self.presenter.removeTeamAll()
+            case "createTaem":
+                self.presenter.createTaemForBossUser()
+            default: break
+            }
+        }))
+        alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertControler, animated: true, completion: nil)
+    }
     func alertMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: "Ok", style: .default)
@@ -159,9 +199,8 @@ extension TeamTableViewController{
        
            let alertController = UIAlertController(title: "Select status \n\n\n\n\n\n", message: nil, preferredStyle: .alert)
            self.myPicker.frame = CGRect(x: 10, y: 10, width: 250, height: 180)
-          // self.selectedValue = statusInGroup[0]
+           self.selectedValue = statusInGroup[0]
            alertController.view.addSubview(myPicker)
-         //  myPicker.anchor(top: alertController.view.topAnchor, leading: alertController.view.leadingAnchor, bottom: alertController.view.bottomAnchor, trailing: alertController.view.trailingAnchor,  pading: .init(top: 10, left: 30, bottom: 5, right: 30), size: .init(width:  alertController.view.frame.width - 10, height: alertController.view.frame.height - 10))
            let backAction = UIAlertAction(title: "Back", style: .default, handler: { _ in
                self.alertAddIdNewTeamUser()
            })
@@ -184,6 +223,9 @@ extension TeamTableViewController: TeamProtocol {
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertMassage(title: "Error", message: error)
+    }
+    func massage(title:String, message: String){
+        alertMassage(title: title, message: message)
     }
   
 }

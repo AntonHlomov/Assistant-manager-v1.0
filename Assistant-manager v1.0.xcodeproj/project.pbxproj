@@ -84,6 +84,7 @@
 		8A91A831282D9DC0006F1FFD /* APIOptiones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91A830282D9DC0006F1FFD /* APIOptiones.swift */; };
 		8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A927E5E27C14DC200737A8E /* APiRegistration.swift */; };
 		8A927E6127C1604300737A8E /* ExpensesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A927E6027C1604300737A8E /* ExpensesPresenter.swift */; };
+		8A97299F2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A97299E2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift */; };
 		8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */; };
 		8AA3FF08284EA5FA00604C93 /* ExitRemoveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3FF07284EA5FA00604C93 /* ExitRemoveTableViewCell.swift */; };
 		8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA756AC27BD208D00E89C4E /* APILogin.swift */; };
@@ -192,6 +193,7 @@
 		8A91A830282D9DC0006F1FFD /* APIOptiones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIOptiones.swift; sourceTree = "<group>"; };
 		8A927E5E27C14DC200737A8E /* APiRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiRegistration.swift; sourceTree = "<group>"; };
 		8A927E6027C1604300737A8E /* ExpensesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesPresenter.swift; sourceTree = "<group>"; };
+		8A97299E2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTeamTableViewCell.swift; sourceTree = "<group>"; };
 		8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchBorderView.swift; sourceTree = "<group>"; };
 		8AA3FF07284EA5FA00604C93 /* ExitRemoveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitRemoveTableViewCell.swift; sourceTree = "<group>"; };
 		8AA756AC27BD208D00E89C4E /* APILogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APILogin.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				8A661ADB29044297006C7D22 /* TeamTableViewCell.swift */,
+				8A97299E2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -465,7 +468,6 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				8A661AD4290441F7006C7D22 /* TeamModule */,
 				8A8F67862896F0B10078356B /* APIGlobalUserService */,
 				8ACD282028515E45005D993E /* Router */,
 				8AA756A827BD1F1200E89C4E /* Builder */,
@@ -481,6 +483,7 @@
 				8A8F74782854004700D52B4B /* СhoiceVisitDateModule */,
 				8A6FBA35285A7C2500655C57 /* CustomerVisitRecordConfirmation */,
 				8A91A828282D99B3006F1FFD /* Options settings */,
+				8A661AD4290441F7006C7D22 /* TeamModule */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
 				8AAF98C127977391007315DE /* StartWorckModule */,
@@ -805,13 +808,13 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		8AAF98C02797736E007315DE /* CollectionView */ = {
+		8AAF98C02797736E007315DE /* ColectionView */ = {
 			isa = PBXGroup;
 			children = (
 				8AAF98C42797740F007315DE /* View */,
 				8AD0C5F7279805BE00BE414A /* Cell */,
 			);
-			path = CollectionView;
+			path = ColectionView;
 			sourceTree = "<group>";
 		};
 		8AAF98C127977391007315DE /* StartWorckModule */ = {
@@ -911,7 +914,7 @@
 			isa = PBXGroup;
 			children = (
 				8AFFA1B727C1A3770045E3D6 /* APIUserData */,
-				8AAF98C02797736E007315DE /* CollectionView */,
+				8AAF98C02797736E007315DE /* ColectionView */,
 				8AAF98C82797743F007315DE /* Presenter */,
 			);
 			path = CalendarModule;
@@ -1215,6 +1218,7 @@
 				8A661ADC29044297006C7D22 /* TeamTableViewCell.swift in Sources */,
 				8A201C852881DD100072ED75 /* DottedLine.swift in Sources */,
 				8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */,
+				8A97299F2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
 				8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */,
 				8AA756B427BD892100E89C4E /* PresenterMainTabVC.swift in Sources */,

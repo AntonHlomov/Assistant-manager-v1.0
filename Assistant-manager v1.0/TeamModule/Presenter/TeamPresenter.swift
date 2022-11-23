@@ -8,46 +8,155 @@
 import Foundation
 
 protocol TeamProtocol: AnyObject{
-    func reloadTable ()
+    func reloadTable()
     func failure(error: Error)
+    func massage(title:String, message: String)
 }
+
 protocol TeamPresenterProtocol: AnyObject{
-    init(view: TeamProtocol, networkService:ApiTeamProtocol, ruter:LoginRouterProtocol, user: User?)
+    init(view: TeamProtocol, networkService:ApiTeamProtocol, ruter:LoginRouterProtocol, user: User?,networkServiceAPIGlobalUser:APIGlobalUserServiceProtocol)
     var team: [Team]? {get set}
     func getTeam()
     func goToPageTeamUser(indexPathRowClient: Int)
-    func deleteTeamUser(indexPath: IndexPath)
+    func deleteTeamUser(indexPathRow:Int)
     func redactTeamUser(indexPath: IndexPath)
     func confirmAddIdNewTeamUser(idNewTeamUser: String, status:String)
     func removeTeamAll()
+    func createTaemForBossUser()
 }
+
 class TeamPresenter: TeamPresenterProtocol{
     weak var view: TeamProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiTeamProtocol!
+    let networkServiceAPIGlobalUser:APIGlobalUserServiceProtocol!
     var user: User?
     var team: [Team]?
-    
-    required init(view: TeamProtocol, networkService: ApiTeamProtocol, ruter: LoginRouterProtocol, user: User?) {
+   
+    required init(view: TeamProtocol, networkService: ApiTeamProtocol, ruter: LoginRouterProtocol, user: User?,networkServiceAPIGlobalUser:APIGlobalUserServiceProtocol) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
+        self.networkServiceAPIGlobalUser = networkServiceAPIGlobalUser
         self.user = user
         getTeam()
     }
+
+    func getGlobalUser(){
+        print("getGlobalUser")
+     
+            networkServiceAPIGlobalUser.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                DispatchQueue.main.async {
+                    switch result{
+                    case.success(let user):
+                        self.user = user
+                        self.getTeam()
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                       
+               }
+            }
+         }
+     }
+    
     func removeTeamAll(){
-        print("removeTeamAll")
+        switch self.user?.statusInGroup {
+        case "Boss":
+            networkService.removeTeam(user: self.user, team: self.team){ [weak self] result in
+                guard self != nil else {return}
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success(_):
+                        print("removeTeamAll")
+                    case .failure(let error):
+                        self?.view?.failure(error: error)
+                    }
+                }
+            }
+        default:
+            self.view?.massage(title: "Operation is not possible.", message: "Deleting a group is possible only with the Boss status")
+        }
+    
+    }
+    func createTaemForBossUser(){
+        guard  let userBoss = self.user else {return}
+        networkService.setNewTeamUser(userChief: self.user, newTeamUser: userBoss, categoryTeamMember: "Boss") { [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async { [self] in
+                switch result{
+                case .success(let mark):
+                    guard mark == true else {return}
+                     self?.getGlobalUser()
+                    print("2")
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+            }
+        }
     }
     func confirmAddIdNewTeamUser(idNewTeamUser: String ,status: String){
-        print("confirmAddIdNewTeamUser idNewTeamUser: \(idNewTeamUser) status: \(status)")
+        switch self.user?.statusInGroup {
+        case "Boss","Administrator":
+            networkServiceAPIGlobalUser.addRequestAddTeam(userBoss: self.user, idNewTeamUser: idNewTeamUser, statusInGroup: status) { [weak self] result in
+                guard self != nil else {return}
+                DispatchQueue.main.async { [self] in
+                    switch result{
+                    case .success(_):
+                        self?.view?.massage(title: "Request has been sent", message: "After the request is confirmed by a new member, he will be added to the group.")
+                    case .failure(let error):
+                        self?.view?.failure(error: error)
+                    }
+                }
+            }
+        default:
+            self.view?.massage(title: "Operation is not possible.", message: "Adding a user is only possible with the Boss status")
+        }
+      
     }
+
+
     func redactTeamUser(indexPath: IndexPath){
-        print("redactTeamUser\(indexPath)")
+        switch self.user?.statusInGroup {
+        case "Boss","Administrator":
+            if self.team?[indexPath.row].categoryTeamMember == "Boss" && self.user?.statusInGroup == "Administrator"  {
+                self.view?.reloadTable()
+                self.view?.massage(title: "Operation is not possible.", message: "Editing a user with the Boss status is not possible")
+                break
+            }
+            print("redactTeamUser\(indexPath)")
+    default:
+            self.view?.reloadTable()
+            self.view?.massage(title: "Operation is not possible.", message: "User editing is possible only with the Boss status")
+     }
     }
-    func deleteTeamUser(indexPath: IndexPath){
-        print("deleteTeamUser\(indexPath)")
-     //   guard let id = self.team?[ indexPath.row].id else {return}
-        self.team?.remove(at: indexPath.row)
+    func deleteTeamUser(indexPathRow:Int){
+        switch self.user?.statusInGroup {
+        case "Boss","Administrator":
+            if self.team?[indexPathRow].categoryTeamMember == "Boss" && self.user?.statusInGroup == "Administrator"  {
+                self.view?.reloadTable()
+                self.view?.massage(title: "Operation is not possible.", message: "Deleting a user with the Boss status is not possible")
+                break
+            }
+            print("deleteTeamUser\(indexPathRow)")
+            guard let idTeamUser = self.team?[indexPathRow].id else {return}
+            networkService.deleteTeamUser(user:self.user,idTeamUser: idTeamUser){ [weak self] result in
+                guard self != nil else {return}
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success(let mark):
+                        guard mark == true else {return}
+                        self?.view?.reloadTable()
+                    case .failure(let error):
+                        self?.view?.failure(error: error)
+                    }
+                }
+           }
+        default:
+            self.view?.reloadTable()
+            self.view?.massage(title: "Operation is not possible.", message: "Deleting a user is possible only with the Boss status")
+        }
+   
     }
     func goToPageTeamUser(indexPathRowClient: Int){
         print("goToPageTeamUser\(indexPathRowClient)")
@@ -58,6 +167,7 @@ class TeamPresenter: TeamPresenterProtocol{
             DispatchQueue.main.async {
                 switch result{
                 case .success(let team):
+                    print("3")
                     self?.team = team
                     self?.view?.reloadTable()
                 case .failure(let error):

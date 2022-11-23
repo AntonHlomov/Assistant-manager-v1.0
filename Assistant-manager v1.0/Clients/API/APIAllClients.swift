@@ -85,7 +85,23 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
                 })
                 completion(.success(clientsCash))
             }
-        case "Master":break
+        case "Master":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                var clientsCash = [Client]()
+                clientsCash.removeAll()
+                snapshot?.documents.forEach({ (documentSnapshot) in
+                let clientDictionary = documentSnapshot.data()
+                let client = Client(dictionary: clientDictionary)
+                clientsCash.append(client)
+                })
+                completion(.success(clientsCash))
+            }
         case "Administrator":break
         case "Boss":
             let nameColection = "group"

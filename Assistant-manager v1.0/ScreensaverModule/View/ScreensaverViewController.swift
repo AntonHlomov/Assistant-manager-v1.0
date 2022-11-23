@@ -35,6 +35,8 @@ extension ScreensaverViewController{
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
+    
+ 
 }
 
 extension ScreensaverViewController: ScreensaverViewProtocol {

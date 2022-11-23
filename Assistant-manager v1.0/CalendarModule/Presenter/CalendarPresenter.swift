@@ -8,12 +8,16 @@
 import Foundation
 
 protocol CalendadrViewProtocol: AnyObject {
-    func successUserData(user: User?)
+    func reloadData()
     func updateDataCalendar(update: Bool, indexSetInt: Int)
     func failure(error:Error)
+    func alert(message: String)
+    func dismiss()
+    func openAlertAddInGroup(title: String, message: String)
+   
 }
 protocol CalendadrViewPresenterProtocol: AnyObject {
-    init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol, user:User?)
+    init(view: CalendadrViewProtocol, networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol, user:User?,networkServiceTeam:ApiTeamProtocol)
  
     func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
@@ -31,6 +35,11 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func openClientWithReminder(reminder: Reminder?)
     func reloadData()
     func dataTodayTomorrow()
+    func statusCheckUser()
+    
+    func goToScreen()
+    func clinAddInGroup()
+    func confirfAdInGroup()
     
     var user: User? { get set }
     var profit: Double? { get set } //прибыль
@@ -41,9 +50,12 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     var reminders: [Reminder]?{ get set }
     var today: String { get set }
     var tomorrow: String { get set }
+   
 }
 class CalendadrPresentor: CalendadrViewPresenterProtocol {
+   
    var user: User?
+   var oldUser: User?
    var revenueToday: Double?
    var expensesToday: Double?
    var profit: Double?
@@ -58,20 +70,26 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     }
    var tomorrow: String
    var team: [Team]
+   var idGroupRequest: String!
+   var idUserRequest: String!
+   var statusInGroupRequest: String!
    weak var view: CalendadrViewProtocol?
    var router: LoginRouterProtocol?
    weak var cell: CalendadrViewProtocol?
    let networkService:APIUserDataServiceProtocol!
    let networkServiceStatistic: APiStatistikMoneyServiceProtocol!
    let networkServiceUser: APIGlobalUserServiceProtocol!
+   let networkServiceTeam:ApiTeamProtocol
 
-    required init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol,user: User?) {
+    required init(view: CalendadrViewProtocol,networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol,user: User?,networkServiceTeam:ApiTeamProtocol) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.networkServiceStatistic = networkServiceStatistic
         self.networkServiceUser = networkServiceUser
+        self.networkServiceTeam = networkServiceTeam
         self.user = user
+        self.oldUser = user
         self.expensesToday = 0.0
         self.revenueToday = 0.0
         self.profit = 0.0
@@ -81,16 +99,92 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.tomorrow = Date().tomorrowDMYFormat()
         self.team = [Team]()
         self.reminders = [Reminder]()
-    
+
         reloadData()
     }
+    func confirfAdInGroup(){
+      
+        networkServiceTeam.addNewTeamUserAfterConfirm(userChief: idUserRequest, newTeamUser: self.user, categoryTeamMember: statusInGroupRequest ,idGroup: idGroupRequest) { [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async { [self] in
+                switch result{
+                case .success(_):
+                     self?.clinAddInGroup()
+                     self?.goToScreen()
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+            }
+        }
+    }
+    
+    
+    func goToScreen(){
+       
+        self.router?.initalScreensaverControler()
+        self.view?.dismiss()
+    }
+    func clinAddInGroup(){
+        networkServiceUser.cancelRequestAddTeam{[weak self] result in
+            guard let self = self else {return}
+            DispatchQueue.main.async { [] in
+                    switch result{
+                    case.success(_):
+                        self.idGroupRequest = ""
+                        self.idUserRequest = ""
+                        self.statusInGroupRequest = ""
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                       
+               }
+            }
+         }
+    }
+    
+    func statusCheckUser(){
+        if self.user?.statusInGroup == self.oldUser?.statusInGroup{
+            print("неизменился statusInGroup")
+        } else{
+            let meQueueStatusCheck = DispatchQueue(label: "statusCheckUserReloadData")
+           
+            meQueueStatusCheck.sync {
+                print("reloadData2")
+                getTeam()
+            }
+            meQueueStatusCheck.sync {
+                print("reloadData3")
+                getReminders()
+            }
+            meQueueStatusCheck.sync {
+                print("reloadData4")
+                getCalendarDate()
+            }
+            meQueueStatusCheck.sync {
+                print("reloadData5")
+                getStatistic()
+            }
+            meQueueStatusCheck.sync {
+                print("reloadData6")
+                self.oldUser = self.user
+                self.view?.reloadData()
+            }
+            
+        }
+    }
+    
+    
+    
+    
+
    
     func reloadData(){
         let meQueue = DispatchQueue(label: "reloadData")
         meQueue.sync {
+            getGlobalUser()
            // print("reloadData1")
            // dataTodayTomorrow()
         }
+      
         meQueue.sync {
             print("reloadData2")
             getTeam()
@@ -107,11 +201,49 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             print("reloadData5")
             getStatistic()
         }
+        meQueue.sync {
+            print("reloadData6")
+            self.view?.reloadData()
+        }
+     
     }
+    func getGlobalUser(){
+        print("getGlobalUser")
+       
+        networkServiceUser.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                DispatchQueue.main.async { [self] in
+                    switch result{
+                    case.success(let user):
+                        print("success user")
+                       // if user?.statusInGroup != self.user?.statusInGroup {
+                        if user?.markerRequest == true {
+                            guard user?.idGroupRequest != nil else {return}
+                            guard user?.idUserRequest != nil else {return}
+                            guard user?.statusInGroupRequest != nil else {return}
+                            self.idGroupRequest = user?.idGroupRequest
+                            self.idUserRequest = user?.idUserRequest
+                            self.statusInGroupRequest = user?.statusInGroupRequest
+                            self.view?.openAlertAddInGroup(title: "Request to be added to a group.", message: "Click OK to join the group, click Cancel to ignore this request.")
+                        }
+                        if self.user?.statusInGroup != user?.statusInGroup && user?.markerRequest == false{
+                            self.view?.alert(message: "Your status has changed")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+                                self.goToScreen()
+                               }
+                        }
+                   
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                       
+               }
+            }
+         }
+     }
     
     func getTeam(){
         print("getTeam")
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.main.async{
         self.networkService.getTeam(user: self.user){[weak self] result in
             guard self != nil else {return}
                 switch result{
@@ -119,8 +251,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                     self?.team = team ?? [Team]()
                    // self?.getCalendarDate()
                     print("getTeam!")
-                case .failure(_): break
-                   // self?.view?.failure(error: error)
+                
+                case .failure(let error):
+                   // break
+                    self?.view?.failure(error: error)
                 }
             }
         }

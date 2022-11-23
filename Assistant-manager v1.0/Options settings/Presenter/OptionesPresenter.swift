@@ -23,12 +23,12 @@ protocol OptionesViewProtocol: AnyObject {
 //inPut
 protocol OptionesViewPresenterProtocol: AnyObject {
 
-    init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol,user: User?)
+    init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol,user: User?,networkServiceAPIGlobalUser:APIGlobalUserServiceProtocol)
     var user: User?  { get set }
     var countClients: Int { get set }
     var countPrice: Int { get set }
     var countTeam: Int { get set }
-    var status: String { get set }
+   // var status: String { get set }
    // var click: Int { get set }
     func goToBackTappedViewFromRight()
     func redactUserDataButton()
@@ -52,30 +52,36 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
    weak var view: OptionesViewProtocol?
    var router: LoginRouterProtocol?
    let networkService:APIOptionesDataServiceProtocol!
+   let networkServiceAPIGlobalUser:APIGlobalUserServiceProtocol!
    var user: User?
    var countClients: Int
    var countPrice: Int
    var countTeam: Int
-   var status: String
-   
+   //var status: String
 
 
-    required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?) {
+
+
+    required init(view: OptionesViewProtocol,networkService: APIOptionesDataServiceProtocol, router: LoginRouterProtocol, user: User?,networkServiceAPIGlobalUser:APIGlobalUserServiceProtocol) {
         self.view = view
         self.router = router
         self.networkService = networkService
-      //  self.user = user
+        self.networkServiceAPIGlobalUser = networkServiceAPIGlobalUser
         self.user = user
         self.countClients = 0
         self.countPrice = 0
         self.countTeam = 0
-        self.status = user?.statusInGroup ?? ""
+       // self.status = user?.statusInGroup ?? ""
+       getGlobalUser()
       
         
-        getCountClients(user: user)
-        getCountPrice(user: user)
-        getCountTeam(user: user)
+       //getCountClients(user: user)
+     //  getCountPrice(user: user)
+      // getCountTeam(user: user)
     }
+    
+  
+ 
   
     func getCountClients(user: User?) {
         networkService.countClients(user: user){ [weak self] result in
@@ -188,7 +194,29 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func removeUser() {
         print("removeUser")
+        getGlobalUser()
+        
     }
+    func getGlobalUser(){
+        print("getGlobalUser")
+     
+            networkServiceAPIGlobalUser.fetchCurrentUser{[weak self] result in
+            guard let self = self else {return}
+                DispatchQueue.main.async {
+                    switch result{
+                    case.success(let user):
+                        self.user = user
+                        self.view?.reloadIndex(indexPath: [2, 3])
+                        self.getCountClients(user: user)
+                        self.getCountPrice(user: user)
+                        self.getCountTeam(user: user)
+                    case.failure(let error):
+                        self.view?.failure(error: error)
+                       
+               }
+            }
+         }
+     }
     
     func safeIdUserForSharing() {
         print("safeIdUserForSharing")

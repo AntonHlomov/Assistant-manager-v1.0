@@ -58,6 +58,10 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         self.presenter.dataTodayTomorrow()
         print("notificationCenter appCameToForeground -> dataTodayTomorrow")
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.statusCheckUser()
+    }
     //update on change of view orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.collectionView.collectionViewLayout.invalidateLayout()
@@ -252,11 +256,30 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
  }
 }
 extension CalendarViewController{
+    func alertAddInGroup(title: String, message: String){
+        let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { action in
+            self.presenter.confirfAdInGroup()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            self.presenter.clinAddInGroup()
+        })
+        alertControler.addAction(okAction)
+        alertControler.addAction(cancelAction)
+        present(alertControler, animated: true, completion: nil)
+    }
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: "Ok", style: .default)
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
+    }
+    func alertOk(message: String){
+        let alertControler = UIAlertController(title: "Ok", message: "\n\(message)", preferredStyle: .alert)
+        present(alertControler, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            alertControler.dismiss(animated: true, completion: nil)
+           }
     }
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
@@ -266,13 +289,25 @@ extension CalendarViewController: CalendadrViewProtocol {
         let indexSet = IndexSet(integer: indexSetInt)
         collectionView.reloadSections(indexSet)
     }
-    func successUserData(user: User?) {
-        print(user?.name ?? "")
-        print("successUserData")
+    func reloadData() {
+        print("reloadData")
         collectionView.reloadData()
     }
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)
     }
+    func alert(message: String) {
+        alertOk(message: message)
+    }
+    
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func openAlertAddInGroup(title: String, message: String){
+        alertAddInGroup(title: title, message: message)
+    }
+   
 }

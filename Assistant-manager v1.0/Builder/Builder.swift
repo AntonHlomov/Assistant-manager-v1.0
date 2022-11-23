@@ -46,7 +46,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func teamModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
         let view = TeamTableViewController()
         let networkService = ApiTeam()
-        let presenter = TeamPresenter(view: view, networkService: networkService, ruter: router, user: user)
+        let networkServiceAPIGlobalUser = APIGlobalUserService()
+        let presenter = TeamPresenter(view: view, networkService: networkService, ruter: router, user: user, networkServiceAPIGlobalUser: networkServiceAPIGlobalUser)
         view.presenter = presenter
         return view
     }
@@ -122,7 +123,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func createOptionesModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
         let view = OptionesController()
         let networkService = APIOptionesDataService()
-        let presenter = OptionesViewPresentor(view: view, networkService: networkService, router: router, user: user)
+        let networkServiceAPIGlobalUser = APIGlobalUserService()
+        let presenter = OptionesViewPresentor(view: view, networkService: networkService, router: router, user: user,networkServiceAPIGlobalUser: networkServiceAPIGlobalUser)
         view.presenter = presenter
         return view
     }
@@ -158,8 +160,9 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
        let networkService = APIUserDataService()
        let networkServiceStatistic = APiStatistikMoneyService()
        let networkServiceUser = APIGlobalUserService()
+       let networkServiceTeam = ApiTeam()
         
-        let presenter = CalendadrPresentor(view: view, networkService: networkService,networkServiceStatistic: networkServiceStatistic,networkServiceUser: networkServiceUser, router: router, user: user )
+        let presenter = CalendadrPresentor(view: view, networkService: networkService,networkServiceStatistic: networkServiceStatistic,networkServiceUser: networkServiceUser, router: router, user: user, networkServiceTeam: networkServiceTeam )
        view.presenter = presenter
         let CalendarButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
        return (view:view, buuton: CalendarButtom)
@@ -177,7 +180,9 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func createStartWorckModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController) {
        let view = StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let networkService = ApiCustomerCardPaymentToday()
-        let presenter = StartWorckPresentor(view: view, router: router, networkService: networkService, user: user)
+        let networkServiceTeam = ApiTeam()
+        let networkServiceUser = APIGlobalUserService()
+        let presenter = StartWorckPresentor(view: view, router: router, networkService: networkService, user: user, networkServiceTeam: networkServiceTeam, networkServiceUser: networkServiceUser)
         view.presenter = presenter
         let StartButtom = createNavController(viewController: view, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
        return (view:view, buuton: StartButtom)
@@ -193,9 +198,9 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     
  
     func createNavController(viewController: UIViewController, title: String, selectadImage: UIImage, unselectedImage: UIImage) -> UIViewController {
-        
+    
         let navController = UINavigationController(rootViewController: viewController)
-      //navigationController?.navigationBar.backgroundColor =  .clear
+   
         navController.tabBarItem.title = title       // название в навигешн баре в низу
         viewController.navigationItem.title = title // название в навигешн баре в верху
         navController.tabBarItem.image = unselectedImage

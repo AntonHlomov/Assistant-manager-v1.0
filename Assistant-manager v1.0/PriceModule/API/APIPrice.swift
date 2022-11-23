@@ -68,7 +68,23 @@ class APIPrice: APIPriceProtocol{
                 })
                 compleation(.success(price))
             }
-        case "Master":break
+        case "Master":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Price").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   compleation(.failure(error))
+                   return
+                }
+                var price = [Price]()
+                price.removeAll()
+                snapshot?.documents.forEach({ (documentSnapshot) in
+                let priceDictionary = documentSnapshot.data()
+                let service = Price(dictionary: priceDictionary)
+                price.append(service)
+                })
+                compleation(.success(price))
+            }
         case "Administrator":break
         case "Boss":
             let nameColection = "group"

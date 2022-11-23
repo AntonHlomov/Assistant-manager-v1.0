@@ -57,7 +57,7 @@ class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
             
                 })
                 completion(.success(proceedsToday))
-                print("ok")
+                print("ok getRevenue in APiStatistikMoneyService")
             }
         }
     }
@@ -91,7 +91,7 @@ class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
             
                 })
                 completion(.success(expensesToday))
-                print("ok")
+                print("ok getExpenses in getRevenue")
             }
         }
     }

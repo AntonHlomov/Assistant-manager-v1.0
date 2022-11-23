@@ -23,6 +23,7 @@ class ScreensaverPresentor: ScreensaverPresenterProtocol{
     weak var view: ScreensaverViewProtocol?
     var router: LoginRouterProtocol?
     let networkService:APIGlobalUserServiceProtocol!
+
     
     required init(view: ScreensaverViewProtocol, router: LoginRouterProtocol, networkService:APIGlobalUserServiceProtocol) {
        
@@ -34,16 +35,11 @@ class ScreensaverPresentor: ScreensaverPresenterProtocol{
 
     func authCheck() {
         sleep(2)
-        
         if Auth.auth().currentUser != nil{
-          //  self.router?.initalMainTabControler()
           getGlobalUser()
         } else {
             self.router?.initalLoginViewControler()
             self.view?.dismiss()
-           // self.view?.dismiss()
-           // self.router?.dismiss()
-          
         }
     }
     func getGlobalUser(){
@@ -53,6 +49,7 @@ class ScreensaverPresentor: ScreensaverPresenterProtocol{
             guard let self = self else {return}
                     switch result{
                     case.success(let user):
+                        
                         self.router?.initalMainTabControler(user: user)
                     case.failure(let error):
                         self.view?.failure(error: error)

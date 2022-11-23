@@ -42,7 +42,16 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
                 }
                 completion(.success(snapshot?.count ?? 0))
             }
-        case "Master":break
+        case "Master":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
@@ -55,6 +64,7 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
                 completion(.success(snapshot?.count ?? 0))
             }
         default:
+            print("Error ApiOptiones func countClients")
             completion(.failure("There was a problem with your status while uploading data Clients.count. Please restart the application..."+"\n" as! Error))
             break
         }
@@ -70,7 +80,16 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
                 }
                 completion(.success(snapshot?.count ?? 0))
             }
-        case "Master":break
+        case "Master":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Price").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
@@ -93,7 +112,16 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
         switch user?.statusInGroup {
         case "Individual":
                 completion(.success(0))
-        case "Master":break
+        case "Master":
+            let nameColection = "group"
+            guard let idGroup = user?.idGroup else {return}
+            Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
+                if let error = error {
+                   completion(.failure(error))
+                   return
+                }
+                completion(.success(snapshot?.count ?? 0))
+            }
         case "Administrator":break
         case "Boss":
             let nameColection = "group"
