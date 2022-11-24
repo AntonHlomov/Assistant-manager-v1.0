@@ -20,6 +20,7 @@ class Reminder {
     var nameClient: String!
     var fullNameClient: String!
     var profileImageClientUrl: String!
+    var idUserWhoIsTheMessage: String!
     
     init(dictionary: [String: Any]) {
 
@@ -34,6 +35,7 @@ class Reminder {
         self.nameClient = dictionary["nameClient"] as? String ?? ""
         self.fullNameClient = dictionary["fullNameClient"] as? String ?? ""
         self.profileImageClientUrl = dictionary["profileImageClientUrl"] as? String ?? ""
+        self.idUserWhoIsTheMessage = dictionary["idUserWhoIsTheMessage"] as? String ?? ""
     }
 }
 

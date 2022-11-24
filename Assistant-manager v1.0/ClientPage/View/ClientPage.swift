@@ -9,6 +9,7 @@ import UIKit
 
 class ClientPage: UIViewController {
     var presenter: ClientPagePresenterProtocol!
+    private let sliderTeam = "sliderTeam"
     lazy var zigzagContainerView = SketchBorderView()
     
     let fonBlue: UIImageView = {
@@ -112,6 +113,22 @@ class ClientPage: UIViewController {
         return button
     }()
     
+    let appsCollectionView: UICollectionView = {
+        
+    let layout = UICollectionViewFlowLayout()
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 65, height: 90)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+      
+    
+    return collectionView
+    }()
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
             self.circlForAvaViewBlue.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
         }
@@ -122,6 +139,13 @@ class ClientPage: UIViewController {
         configureNavigationBar()
         configureUI()
         handlers()
+        
+        appsCollectionView.delegate = self
+        appsCollectionView.dataSource = self
+        appsCollectionView.register(TeamCircleCollectionViewCell.self, forCellWithReuseIdentifier: "sliderTeam")
+     
+       
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -254,6 +278,7 @@ extension ClientPage{
            }
     }
     func alertReminderMassage(){
+        self.presenter.getTeam()
         let alertControler = UIAlertController(title: "Reminder", message: nil, preferredStyle: .alert)
         let selectDate = UIAlertAction(title: "Select date", style: .default, handler: { action in
             if let textReminder = alertControler.textFields?.first?.text {
@@ -291,15 +316,97 @@ extension ClientPage{
                self.alertReminderMassage()
            })
            let selectAction = UIAlertAction(title: "Save", style: .default, handler: { _ in
-               self.presenter.reminder(text: text, date: myDatePicker.date)
+              
+               switch self.presenter.user?.statusInGroup {
+               case "Individual","Master":
+                   self.presenter.reminder(text: text, date: myDatePicker.date)
+               case "Boss","Administrator":
+                   self.alertTableTiam(text:text, date:myDatePicker.date )
+               default: break
+               }
            })
            alertController.addAction(backAction)
            alertController.addAction(selectAction)
            present(alertController, animated: true)
     }
+    func alertTableTiam(text:String, date:Date ){
+           
+ 
+           appsCollectionView.frame = CGRect(x: 30, y: 60, width: 200, height: 90)
+        
+           let alertController = UIAlertController(title: "Who is this message for? \n\n\n\n\n", message: nil, preferredStyle: .alert)
+           alertController.view.addSubview(appsCollectionView)
+           let backAction = UIAlertAction(title: "Back", style: .default, handler: { _ in
+               self.alertDatePicker(text:text)
+           })
+           let selectAction = UIAlertAction(title: "Save", style: .default, handler: { _ in
+               if self.presenter.idUserWhoIsTheMessage != "" || self.presenter.idUserWhoIsTheMessage != nil {
+                  self.presenter.reminder(text: text, date: date)
+               }
+               
+           })
+           
+
+           alertController.addAction(backAction)
+           alertController.addAction(selectAction)
+           present(alertController, animated: true)
+    }
+}
+extension ClientPage: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    // убераем разрыв между вью по горизонтали
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return  self.presenter.team?.count ?? 0
+    }
+  
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sliderTeam", for: indexPath) as! TeamCircleCollectionViewCell
+        cell.team = self.presenter.team?[indexPath.row]
+   
+        return cell
+    }
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! TeamCircleCollectionViewCell
+        cell.nameLebel.textColor = .white
+        self.presenter.idUserWhoIsTheMessage = self.presenter.team?[indexPath.row].idTeamMember
+       // presenter.pressedMastersChoice(indexPath: indexPath)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        print("отжал\(indexPath.row)")
+        let cell = collectionView.cellForItem(at: indexPath) as! TeamCircleCollectionViewCell
+        cell.nameLebel.textColor = .darkGray
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+     let customCell = cell as! TeamCircleCollectionViewCell
+         if customCell.isSelected {
+             customCell.nameLebel.textColor = .white
+         } else {
+             customCell.nameLebel.textColor = .darkGray
+         }
+    }
+    
+ //   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, //sizeForItemAt indexPath: IndexPath) -> CGSize {
+ //
+ //       return CGSize(width: SCREEN_WIDTH , height: collection.height)
+ //   }
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientPage: ClientPageProtocol {
+    func reloadColection() {
+        self.appsCollectionView.reloadData()
+    }
+    
     func enteringAreminder() {
         alertReminderMassage()
     }

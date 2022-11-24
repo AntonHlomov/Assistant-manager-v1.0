@@ -30,14 +30,11 @@
             symbolName = "*0x7fff2010b749">
             <Locations>
                <Location
-                  uuid = "829EAFAE-9C57-4BA2-BB3A-DA3C9148D9E2 - 1a2fdeedbfecd9ac"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__abort"
-                  moduleName = "libsystem_c.dylib"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "131">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -52,14 +49,11 @@
             symbolName = "*0x7fff2010b72f">
             <Locations>
                <Location
-                  uuid = "029BBD18-076B-4EB9-B1B2-1CD15E9A263A - 1a2fdeedbfecd9ac"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__abort"
-                  moduleName = "libsystem_c.dylib"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "105">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -87,7 +81,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E841E26F-A2F1-41AC-97D5-9E7F1EA6113E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assistant-manager v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
@@ -129,6 +123,22 @@
                   offsetFromSymbolStart = "65">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "491ACA00-9973-40C9-B13B-5C79563791DE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assistant-manager v1.0/ClientPage/View/ClientPage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "alertReminderMassage()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

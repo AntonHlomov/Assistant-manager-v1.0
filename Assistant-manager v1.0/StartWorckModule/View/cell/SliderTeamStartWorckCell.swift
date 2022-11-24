@@ -84,8 +84,8 @@ class SliderTeamStartWorckCell: UICollectionViewCell, UICollectionViewDelegate, 
         
     }
     // MARK: - Ячейки
-         func numberOfSections(in collectionView: UICollectionView) -> Int {
-              // #warning Incomplete implementation, return the number of sections
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+             
               return 1
           }
     // убераем разрыв между вью по горизонтали
@@ -99,7 +99,7 @@ class SliderTeamStartWorckCell: UICollectionViewCell, UICollectionViewDelegate, 
     }
    
     
-         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TeamStartWorckCell
              cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
              cell.layer.cornerRadius = 20
@@ -108,7 +108,7 @@ class SliderTeamStartWorckCell: UICollectionViewCell, UICollectionViewDelegate, 
              return cell
          }
     
-         public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
              print("нажал\(indexPath.row)")
              let cell = collectionView.cellForItem(at: indexPath)
              cell?.layer.borderWidth = 2
@@ -119,14 +119,14 @@ class SliderTeamStartWorckCell: UICollectionViewCell, UICollectionViewDelegate, 
             // presenter.pressedMastersChoice(indexPath: indexPath)
          }
       
-         public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
              print("отжал\(indexPath.row)")
              let cell = collectionView.cellForItem(at: indexPath)
              cell?.layer.borderWidth = 0
             
          }
       
-         public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
           let customCell = cell as! TeamStartWorckCell
               if customCell.isSelected {
                   cell.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor

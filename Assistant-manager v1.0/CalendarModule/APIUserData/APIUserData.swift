@@ -83,7 +83,7 @@ class APIUserDataService:APIUserDataServiceProtocol {
         }
         
         var reminders = [Reminder]()
-        Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("Reminder").whereField("dateShowReminder", isEqualTo:date).addSnapshotListener{ [] (snapshot, error) in
+        Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("Reminder").whereField("dateShowReminder", isEqualTo:date).whereField("idUserWhoIsTheMessage", isEqualTo: uid).addSnapshotListener{ [] (snapshot, error) in
         if let error = error {
         completion(.failure(error))
         return
@@ -103,23 +103,28 @@ class APIUserDataService:APIUserDataServiceProtocol {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
+        var markFilterForId = true
       
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
             idUserOrGroup = uid
+            markFilterForId = true
         case "Master":
             guard let idGroup = user?.idGroup else {return}
             nameColection = "group"
             idUserOrGroup = idGroup
+            markFilterForId = true
         case "Administrator":
             guard let idGroup = user?.idGroup else {return}
             nameColection = "group"
             idUserOrGroup = idGroup
+            markFilterForId = false
         case "Boss":
             guard let idGroup = user?.idGroup else {return}
             nameColection = "group"
             idUserOrGroup = idGroup
+            markFilterForId = false
         default: return
         }
         
@@ -136,7 +141,13 @@ class APIUserDataService:APIUserDataServiceProtocol {
         snapshot?.documents.forEach({ (documentSnapshot) in
           let customerRecordDictionary = documentSnapshot.data() //as [String:Any]
           let timeCustomerRecord = CustomerRecord(dictionary: customerRecordDictionary)
-          calendar.append(timeCustomerRecord)
+            if markFilterForId == false {
+                calendar.append(timeCustomerRecord)
+            }
+            if markFilterForId == true && timeCustomerRecord.idUserWhoWorks == uid {
+                calendar.append(timeCustomerRecord)
+            }
+          
        })
        filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
        completion(.success( filterCalendar))

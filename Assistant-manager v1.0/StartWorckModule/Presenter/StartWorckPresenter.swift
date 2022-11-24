@@ -184,7 +184,7 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
             var masterUserArray = [Team]()
             let masterUser = Team(dictionary: [
                 "id": user?.uid ?? "",
-                "categoryTeamMember": "Autonomo",
+                "categoryTeamMember": user?.statusInGroup ?? "",
                 "idTeamMember": user?.uid ?? "",
                 "nameTeamMember": user?.name ?? "",
                 "fullnameTeamMember": user?.fullName ?? "",
@@ -193,8 +193,21 @@ class StartWorckPresentor: StartWorckViewPresenterProtocol{
             self.team?.removeAll()
             masterUserArray.append(masterUser)
             self.team?.append(masterUserArray)
+        case "Master":
+            networkServiceTeam.getTeam(user: self.user){ [weak self] result in
+                guard self != nil else {return}
+                DispatchQueue.main.async { [self] in
+                    switch result{
+                    case .success(let team):
+                        let sortedTeam = team?.filter{ $0.idTeamMember == self?.user?.uid }
+                        self?.team?.append(sortedTeam ?? [Team]())
+                    case .failure(let error):
+                        self?.view?.failure(error: error)
+                    }
+                }
+            }
        
-        case "Master","Administrator","Boss":
+        case "Administrator","Boss":
         networkServiceTeam.getTeam(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {

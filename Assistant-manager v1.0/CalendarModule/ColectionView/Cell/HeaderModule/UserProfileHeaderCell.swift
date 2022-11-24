@@ -130,7 +130,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
     
     lazy var profileImageView = CustomUIimageView(frame: .zero )
     
-    let nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "User"

@@ -19,10 +19,12 @@ protocol ClientPageProtocol: AnyObject {
     func changeGoToWorck(indicatorWorck: Bool)
     func openAlertOk(message:String)
     func enteringAreminder()
+    func reloadColection()
+    
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
-    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool)
+    init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, networkServiceTeam:ApiTeamProtocol, router:LoginRouterProtocol, client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool)
     func setClient()
     func pressСlientInvitationButton()
     func pressСallButton()
@@ -39,7 +41,9 @@ protocol ClientPagePresenterProtocol: AnyObject{
     var user: User? {get set}
     func massageClientReminder()
     func deleteReminder()
-   
+    var team: [Team]? {get set}
+    func getTeam()
+    var idUserWhoIsTheMessage: String!{get set}
 }
 
 class ClientPagePresenter: ClientPagePresenterProtocol{
@@ -47,16 +51,20 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     weak var view: ClientPageProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiAllClientPageServiceProtocol!
+    let networkServiceTeam:ApiTeamProtocol!
     var client: Client?
     var user: User?
     var massage: String?
     var idReminder: String?
     var openWithMarkAddMassageReminder: Bool
+    var team: [Team]?
+    var idUserWhoIsTheMessage: String!
     
-    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, router:LoginRouterProtocol, client: Client?, user: User?, massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) {
+    required init(view: ClientPageProtocol,networkService:ApiAllClientPageServiceProtocol, networkServiceTeam:ApiTeamProtocol, router:LoginRouterProtocol, client: Client?, user: User?, massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) {
         self.view = view
         self.router = router
         self.networkService = networkService
+        self.networkServiceTeam = networkServiceTeam
         self.client = client
         self.user = user
         self.massage = massage
@@ -65,6 +73,21 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         setClient()
         
         
+    }
+    func getTeam(){
+        networkServiceTeam.getTeam(user: self.user){ [weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let team):
+                    print("3")
+                    self?.team = team
+                    self?.view?.reloadColection()
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+            }
+        }
     }
     func deleteReminder(){
            guard let idReminderForDel = idReminder else {return}
@@ -125,15 +148,27 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         print("visitDates")
     }
     func reminder(text:String,date:Date){
-        print("Text reminder: \(text)")
-        print("Selected Date: \(date)")
         guard let idClient = client?.idClient else {return}
         guard let nameClient = client?.nameClient else {return}
         guard let fulnameClient = client?.fullName else {return}
         guard let urlImage = client?.profileImageClientUrl else {return}
         let dateDMY = date.formatterDateDMY(date: date)
+        var userWhoIsTheMessage = ""
+        
+        switch user?.statusInGroup {
+        case "Individual","Master":
+            guard let id = self.user?.uid else {return}
+            userWhoIsTheMessage =  id
+    
+        case "Administrator","Boss":
+            userWhoIsTheMessage = self.idUserWhoIsTheMessage
+           
+        default: return
+        }
+        
+    
      //   guard let idPrice = price?.idPrice else {return}
-        networkService.addReminder(text: text, date: dateDMY, user: self.user,nameClient:nameClient,fulnameClient:fulnameClient,urlImage: urlImage, userReminder: true, sistemReminderColl: false, sistemReminderPeriodNextRecord: false, idClient: idClient) { [weak self] result in
+        networkService.addReminder(text: text, date: dateDMY, user: self.user,nameClient:nameClient,fulnameClient:fulnameClient,urlImage: urlImage, userReminder: true, sistemReminderColl: false, sistemReminderPeriodNextRecord: false, idClient: idClient, idUserWhoIsTheMessage: userWhoIsTheMessage) { [weak self] result in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result{

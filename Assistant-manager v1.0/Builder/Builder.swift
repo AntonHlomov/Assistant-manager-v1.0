@@ -82,7 +82,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func craateClientPageModule(router: LoginRouterProtocol,client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) -> UIViewController {
         let view = ClientPage()
         let networkService = ApiAllClientPageDataService()
-        let presenter = ClientPagePresenter(view: view, networkService: networkService,router: router, client: client, user: user, massage: massage,idReminder:idReminder, openWithMarkAddMassageReminder: openWithMarkAddMassageReminder)
+        let networkServiceTeam = ApiTeam()
+        let presenter = ClientPagePresenter(view: view, networkService: networkService, networkServiceTeam: networkServiceTeam,router: router, client: client, user: user, massage: massage,idReminder:idReminder, openWithMarkAddMassageReminder: openWithMarkAddMassageReminder)
         view.presenter = presenter
         return view
     }
