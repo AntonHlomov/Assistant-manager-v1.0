@@ -9,7 +9,8 @@ import UIKit
 
 class OptionesTableViewCell: UITableViewCell {
 
-    lazy var optionesImageView = UIImageView(image: #imageLiteral(resourceName: "buttonAddCL").withRenderingMode(.alwaysOriginal))
+   // lazy var optionesImageView = UIImageView(image: #imageLiteral(resourceName: "buttonAddCL").withRenderingMode(.alwaysOriginal))
+    lazy var optionesImageView = CustomUIimageView(frame: .zero )
 
       let circleView: UIImageView = {
           let line = UIImageView()

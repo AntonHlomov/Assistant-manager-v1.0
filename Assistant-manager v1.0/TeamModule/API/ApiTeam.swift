@@ -53,7 +53,7 @@ class ApiTeam: ApiTeamProtocol{
             guard let teamRemove = team else {return}
             for teamUser in teamRemove {
                 guard let id = teamUser.id else {return}
-                Firestore.firestore().collection("users").document(id).updateData(["idGroup": "","statusInGroup": "Individual"])
+                Firestore.firestore().collection("users").document(id).updateData(["idGroup": "","statusInGroup": "Individual","hiddenStatus":"Individual"])
             }
             completion(.success(true))
         }
@@ -72,7 +72,7 @@ class ApiTeam: ApiTeamProtocol{
                  // Atomically increment the population of the city by 50.increment(Int64(50))
                  // Note that increment() with no arguments increments by 1.
                  Firestore.firestore().collection("group").document(uidGroup).updateData(["teamCount": FieldValue.increment(Int64(-1))])
-                 Firestore.firestore().collection("users").document(idTeamUser).updateData(["idGroup": "","statusInGroup": "Individual"])
+                 Firestore.firestore().collection("users").document(idTeamUser).updateData(["idGroup": "","statusInGroup": "Individual","hiddenStatus":"Individual"])
                  completion(.success(true))
           }
     }
@@ -108,7 +108,7 @@ class ApiTeam: ApiTeamProtocol{
             // Atomically increment the population of the city by 50.increment(Int64(50))
             // Note that increment() with no arguments increments by 1.
           Firestore.firestore().collection("group").document(uidGroup).updateData(["teamCount": FieldValue.increment(Int64(1))])
-          Firestore.firestore().collection("users").document(idTeamUser).updateData(["idGroup": uidGroup,"statusInGroup": categoryTeamMember])
+            Firestore.firestore().collection("users").document(idTeamUser).updateData(["idGroup": uidGroup,"statusInGroup": categoryTeamMember,"hiddenStatus":"Individual"])
           completion(.success(true))
         }
     }
@@ -136,7 +136,7 @@ class ApiTeam: ApiTeamProtocol{
             // Atomically increment the population of the city by 50.increment(Int64(50))
             // Note that increment() with no arguments increments by 1.
           Firestore.firestore().collection("group").document(idGroup).updateData(["teamCount": FieldValue.increment(Int64(1))])
-          Firestore.firestore().collection("users").document(idTeamUser).updateData(["idGroup": idGroup,"statusInGroup": categoryTeamMember])
+          Firestore.firestore().collection("users").document(idTeamUser).updateData(["idGroup": idGroup,"statusInGroup": categoryTeamMember,"hiddenStatus":"Individual"])
           completion(.success(true))
         }
     }

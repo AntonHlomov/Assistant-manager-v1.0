@@ -28,6 +28,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showAddClientView(editMode: Bool, client: Client?,user: User?)
     func showAddNewServiceView(editMode: Bool, price: Price?,user: User?)
     func showTeam(user: User?)
+    func statusSwitch(user: User?)
     func showOptionesViewController(user: User?)
     func initalLoginViewControler()
     func initalMainTabControler(user: User?)
@@ -41,7 +42,7 @@ protocol LoginRouterProtocol: RouterLogin {
 }
 
 class Router: LoginRouterProtocol{
- 
+   
     var navigationControler: UINavigationController?
     var tabBarControler: UITabBarController?
     var assemblyBuilder: AsselderBuilderProtocol?
@@ -51,6 +52,7 @@ class Router: LoginRouterProtocol{
         self.tabBarControler = tabBarControler
         self.assemblyBuilder = assemblyBuilder
     }
+    
 
     func initalScreensaverControler() {
         if let navigationControler = navigationControler{
@@ -120,6 +122,13 @@ class Router: LoginRouterProtocol{
     func showTeam(user: User?){
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.teamModule(router: self, user: user) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    
+    func statusSwitch(user: User?) {
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.statusSwitchModule(router: self, user: user) else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

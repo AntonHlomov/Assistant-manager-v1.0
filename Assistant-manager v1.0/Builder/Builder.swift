@@ -34,6 +34,8 @@ protocol AsselderBuilderProtocol{
     
     func teamModule(router: LoginRouterProtocol,user: User?) -> UIViewController
     
+    func statusSwitchModule(router: LoginRouterProtocol,user: User?) -> UIViewController
+    
     func createCalendarModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController)
     func createExpensesModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController)
     func createStartWorckModule(router: LoginRouterProtocol,user: User?) -> (view:UIViewController, buuton: UIViewController)
@@ -42,6 +44,15 @@ protocol AsselderBuilderProtocol{
 }
 // сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
+    
+    func statusSwitchModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
+        let view = StatusSwitchTableView()
+        let networkService = StatusSwitchApi()
+        let presenter = StatusSwitchPresenter(view: view, networkService: networkService, router: router, user: user)
+        view.presenter = presenter
+        return view
+    }
+    
 
     func teamModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
         let view = TeamTableViewController()

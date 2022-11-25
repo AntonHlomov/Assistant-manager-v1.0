@@ -31,6 +31,7 @@ class User {
    // var whoIsAdministrator: String!
     
     var statusInGroup: String! // Boss / Administrator / Master / Individual
+    var hiddenStatus: String! // Any / Individual
     var idGroup: String!
     
     // пременные для запроса на добавления в группу
@@ -68,6 +69,7 @@ class User {
         
         self.statusInGroup = dictionary["statusInGroup"] as? String ?? ""
         self.idGroup = dictionary["idGroup"] as? String ?? ""
+        self.hiddenStatus = dictionary["hiddenStatus"] as? String ?? ""
         
         self.markerRequest = dictionary["markerRequest"] as? Bool ?? nil
         self.idGroupRequest = dictionary["idGroupRequest"] as? String ?? ""

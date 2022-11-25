@@ -156,7 +156,7 @@ class OptionesViewPresentor: OptionesViewPresenterProtocol {
     
     func changeStatus() {
         print("changeStatus")
-        
+        self.router?.statusSwitch(user: self.user)
         
     }
     func changeDarkMode(click:Int){
