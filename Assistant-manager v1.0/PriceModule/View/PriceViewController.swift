@@ -27,7 +27,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
        
         navigationItem.title = "Price: "+"0.0"+"$"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.appColor(.whiteAssistant)!]
-     
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         configureUI()
         configureTable()

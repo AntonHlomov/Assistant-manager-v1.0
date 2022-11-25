@@ -17,9 +17,10 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        //self.navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
+       // self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewClient))
        // tableView.refreshControl = dataRefresher
         tableView.register(TableClientCell.self, forCellReuseIdentifier: clientCellId)
@@ -41,9 +42,13 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
          let glassIconView = textField.leftView as! UIImageView
          glassIconView.image = glassIconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
          glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
-        
+       // self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
        
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
+       }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {

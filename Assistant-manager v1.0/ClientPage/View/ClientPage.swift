@@ -137,9 +137,9 @@ class ClientPage: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         configureNavigationBar()
+       // self.navigationController?.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
         configureUI()
         handlers()
-        
         appsCollectionView.delegate = self
         appsCollectionView.dataSource = self
         appsCollectionView.register(TeamCircleCollectionViewCell.self, forCellWithReuseIdentifier: "sliderTeam")
@@ -150,6 +150,7 @@ class ClientPage: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
         checkAllIndicator()
        }
     fileprivate func handlers(){
@@ -162,6 +163,7 @@ class ClientPage: UIViewController {
         let reminderButton : UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "SB").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))
         let buttons : NSArray = [ reminderButton,visitDatesButton]
         self.navigationItem.rightBarButtonItems = (buttons as! [UIBarButtonItem])
+    
     }
     fileprivate func configureUI() {
         view.addSubview(boxViewBlue)

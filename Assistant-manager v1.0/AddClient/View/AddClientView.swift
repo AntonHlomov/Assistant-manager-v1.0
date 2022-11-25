@@ -62,6 +62,7 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
       //  navigationController?.navigationBar.isHidden = true   //что бы не появлялся навигейшен бар
         NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
         configureViewComponents()
         setupNotificationObserver()
         setupTapGesture()

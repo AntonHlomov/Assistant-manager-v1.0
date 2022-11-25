@@ -278,8 +278,8 @@
 		8A007647284351D300FF73FD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8AFD1436292FB66200F13A05 /* Cell */,
 				8A0076492843524A00FF73FD /* ClientPage.swift */,
+				8AFD1436292FB66200F13A05 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -444,6 +444,7 @@
 			children = (
 				8A91A827282D98C6006F1FFD /* API */,
 				8A91A825282D98A6006F1FFD /* View */,
+				8A9EE6D829317406005F2155 /* Cell */,
 				8A91A826282D98BA006F1FFD /* Presenter */,
 			);
 			path = Clients;
@@ -485,7 +486,6 @@
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
-				8AE627C32850D094000182A8 /* PriceModule */,
 				8ACD281628515566005D993E /* AddNewService */,
 				8A7D48EA2829C0A000017870 /* Clients */,
 				8A308FB5284A96450045FA20 /* AddClient */,
@@ -494,6 +494,7 @@
 				8A6FBA35285A7C2500655C57 /* CustomerVisitRecordConfirmation */,
 				8A91A828282D99B3006F1FFD /* Options settings */,
 				8A661AD4290441F7006C7D22 /* TeamModule */,
+				8AE627C32850D094000182A8 /* PriceModule */,
 				8AAF98D4279775E9007315DE /* CalendarModule */,
 				8AAF98C3279773C2007315DE /* ExpensesModule */,
 				8AAF98C127977391007315DE /* StartWorckModule */,
@@ -652,7 +653,6 @@
 			isa = PBXGroup;
 			children = (
 				8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */,
-				8A7AD74E2834176200B12E3F /* TableClientCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -748,6 +748,14 @@
 				8A9EE6D42930C6D4005F2155 /* StatusSwitchPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A9EE6D829317406005F2155 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A7AD74E2834176200B12E3F /* TableClientCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		8AA756A827BD1F1200E89C4E /* Builder */ = {

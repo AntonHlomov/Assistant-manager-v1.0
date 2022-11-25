@@ -129,6 +129,7 @@ class Router: LoginRouterProtocol{
     func statusSwitch(user: User?) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.statusSwitchModule(router: self, user: user) else {return}
+            navigationControler.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
@@ -136,18 +137,21 @@ class Router: LoginRouterProtocol{
     func showClientsTableViewController(user: User?,markAddMassageReminder: Bool) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self, user: user, markAddMassageReminder: markAddMassageReminder) else {return}
+           // navigationControler.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
     func showPrice(newVisitMode: Bool, client: Client?, user: User?) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createPriceModule(router: self,newVisitMode: newVisitMode, client: client, user: user) else {return}
+            
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
     func showChoiceVisitDateModule(serviceCheck: [Price]?,clientCheck: Client?,user: User?) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createChoiceVisitDateModule(router: self,serviceCheck: serviceCheck,clientCheck: clientCheck, user: user) else {return}
+          
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
@@ -161,13 +165,14 @@ class Router: LoginRouterProtocol{
     func showClientPage(client: Client?,user: User?, massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool){
         if let navigationControler = navigationControler {
             guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user, massage: massage,idReminder:idReminder, openWithMarkAddMassageReminder: openWithMarkAddMassageReminder) else {return}
-          
+           // navigationControler.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
     func showAddClientView(editMode: Bool, client: Client?,user: User?) {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createAddClientModule( router: self, editMode: editMode, client: client, user: user) else {return}
+          
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
@@ -186,6 +191,7 @@ class Router: LoginRouterProtocol{
         }
     func popToRoot() {
         if let navigationControler = navigationControler{
+           
             navigationControler.popToRootViewController(animated: true)
         }
     }

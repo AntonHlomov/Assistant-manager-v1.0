@@ -18,6 +18,7 @@ class StatusSwitchTableView: UITableViewController {
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         tableView.register(OptionesTableViewCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear //линии между ячейками цвет
+     
     }
 
     // MARK: - Table view data source

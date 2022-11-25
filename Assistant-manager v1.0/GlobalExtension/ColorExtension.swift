@@ -31,12 +31,23 @@ enum AssetsColor {
     case blueAndPink
     case whiteForDarkDarkForWhiteText
     case whiteForDarkBlueForWhite
+    case blueAndWhite
 }
 
 extension UIColor {
 
     static func appColor(_ name: AssetsColor) -> UIColor? {
         switch name {
+        case .blueAndWhite:
+            return UIColor { traitCollection in
+                switch traitCollection.userInterfaceStyle {
+                    case .dark:
+                    return UIColor.rgb(red: 255, green: 255, blue: 255)
+                default:
+                    return UIColor.rgb(red: 31, green: 152, blue: 233)
+                    }
+                }
+            
         case .blueAndPink:
             return UIColor { traitCollection in
                 switch traitCollection.userInterfaceStyle {
