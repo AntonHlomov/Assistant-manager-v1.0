@@ -57,6 +57,9 @@ class PriceCell: UITableViewCell {
         label.textColor = UIColor.appColor(.whiteAssistant)!
          return label
      }()
+    
+ 
+    
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)

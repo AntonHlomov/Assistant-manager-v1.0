@@ -7,8 +7,10 @@
 
 import Foundation
 import Firebase
+import UIKit
 
 protocol ApiTeamProtocol {
+    func createNewGroup(userCreate: User?,nameGroup: String, profileImageGroup: UIImage,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void)
     func removeTeam (user:User?,team: [Team]?, completion: @escaping (Result<Bool,Error>) -> Void)
     func deleteTeamUser(user:User?,idTeamUser: String, completion: @escaping (Result<Bool,Error>) -> Void)
     func getTeam(user:User?,completion: @escaping (Result<[Team]?,Error>) -> Void)
@@ -77,7 +79,84 @@ class ApiTeam: ApiTeamProtocol{
           }
     }
         
-    
+    func createNewGroup(userCreate: User?,nameGroup: String, profileImageGroup: UIImage,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void){
+        guard userCreate?.idGroup == nil || userCreate?.idGroup == "" else {return}
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let uidGroup = NSUUID().uuidString
+        guard let uploadData = profileImageGroup.jpegData(compressionQuality: 0.3) else {return}
+        
+        guard let idTeamUser = userCreate?.uid else { return}
+        let nameTeamMember = userCreate?.name ?? ""
+        let fullnameTeamMember = userCreate?.fullName ?? ""
+        let profileImageURLTeamMember = userCreate?.profileImage ?? ""
+       
+        
+   
+        
+        let dataTeamUser = ["id": idTeamUser,
+                            "categoryTeamMember":categoryTeamMember,
+                            "idTeamMember":idTeamUser,
+                            "nameTeamMember":nameTeamMember,
+                            "fullnameTeamMember":fullnameTeamMember,
+                            "profileImageURLTeamMember":profileImageURLTeamMember] as [String : Any]
+        
+        let dataUser = ["idGroup": uidGroup,
+                            "statusInGroup":categoryTeamMember,
+                            "hiddenStatus":"Individual",
+                            "expensesUserInGroup":0,
+                            "proceedsUserInGroup":0,
+                            "checkCountInGroup":0 ] as [String : Any]
+        
+        let storageRef = Storage.storage().reference().child("Group_avatar").child(uidGroup)
+        storageRef.putData(uploadData, metadata: nil) { (_, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            //получаем обратно адрес картинки
+            storageRef.downloadURL { (downLoardUrl, error) in
+                guard let profileImageClientUrl = downLoardUrl?.absoluteString else {return}
+               
+                if let error = error {
+                    completion(.failure(error))
+                return
+            }
+                let dataGroup = ["idGroup": uidGroup,
+                                            "nameGroup":nameGroup,
+                                            "checkCount":0,
+                                            "teamCount":1,
+                                            "whoIsBossId":  idTeamUser,
+                                            "expensesGroup":0,
+                                            "proceedsGroup":0,
+                                            "profileImageGroup": profileImageClientUrl,
+                                            "priceCount":0] as [String : Any]
+                
+                Firestore.firestore().collection("group").document(uidGroup).setData(dataGroup) { (error) in
+                    if let error = error {
+                    completion(.failure(error))
+                    return
+                    }
+                    
+                  Firestore.firestore().collection("users").document(uid).updateData(dataUser){ (error) in
+                      if let error = error {
+                      completion(.failure(error))
+                      return
+                      }
+                      Firestore.firestore().collection("group").document(uidGroup).collection("Team").document(idTeamUser).setData(dataTeamUser) { (error) in
+                          if let error = error {
+                          completion(.failure(error))
+                          return
+                          }
+                          completion(.success(true))
+                    }
+                  }
+                }
+   
+          }
+        }
+        
+    }
    
     func setNewTeamUser(userChief: User?, newTeamUser: User?,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
@@ -88,7 +167,6 @@ class ApiTeam: ApiTeamProtocol{
             uidGroup = NSUUID().uuidString
         }
         guard let idTeamUser = newTeamUser?.uid else { return}
-        
         let nameTeamMember = newTeamUser?.name ?? ""
         let fullnameTeamMember = newTeamUser?.fullName ?? ""
         let profileImageURLTeamMember = newTeamUser?.profileImage ?? ""
@@ -99,6 +177,8 @@ class ApiTeam: ApiTeamProtocol{
                             "nameTeamMember":nameTeamMember,
                             "fullnameTeamMember":fullnameTeamMember,
                             "profileImageURLTeamMember":profileImageURLTeamMember] as [String : Any]
+        
+        
         
         Firestore.firestore().collection("group").document(uidGroup).collection("Team").document(idTeamUser).setData(dataTeamUser) { (error) in
             if let error = error {

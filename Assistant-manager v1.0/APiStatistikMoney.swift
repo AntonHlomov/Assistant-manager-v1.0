@@ -10,22 +10,54 @@ import Firebase
 
 
 protocol APiStatistikMoneyServiceProtocol {
- //   //выручка revenue
- //   var proceedsToday: Double? { get set }
- //   var proceedsMonth: Double? { get set }
- //   var proceedsYar: Double? { get set }
- //   var proceedsAlltime: Double? { get set }
- //   //расходы expenses
- //   var expensesToday: Double? { get set }
- //   var expensesMonth: Double? { get set }
- //   var expensesYar: Double? { get set }
- //   var expensesAlltime: Double? { get set }
-
+    func getFinancialReport(user:User?,datePeriodMMYY: String,completion: @escaping (Result<FinancialReport?,Error>) -> Void)
+    
+    
     func getRevenue(indicatorPeriod: String,completion: @escaping (Result<Double?,Error>) -> Void)
     func getExpenses(indicatorPeriod: String, completion: @escaping (Result<Double?, Error>) -> Void) 
 }
 
 class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
+    
+    func getFinancialReport(user:User?,datePeriodMMYY: String,completion: @escaping (Result<FinancialReport?,Error>) -> Void){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        var nameColection = ""
+        var idUserOrGroup = ""
+        
+        switch user?.statusInGroup {
+        case "Individual":
+            nameColection = "users"
+            idUserOrGroup = uid
+        case "Master":
+            guard let idGroup = user?.idGroup else {return}
+            nameColection = "group"
+            idUserOrGroup = idGroup
+        case "Administrator":
+            guard let idGroup = user?.idGroup else {return}
+            nameColection = "group"
+            idUserOrGroup = idGroup
+        case "Boss":
+            guard let idGroup = user?.idGroup else {return}
+            nameColection = "group"
+            idUserOrGroup = idGroup
+        default: return
+        }
+      
+        
+        let docRef = Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("FinancialReport").document(datePeriodMMYY)
+        
+        docRef.addSnapshotListener { [] (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let dictionary = snapshot?.data() else {return}
+            let financialReporter = FinancialReport(dictionary:dictionary)
+            completion(.success(financialReporter))
+        }
+        
+      
+    }
 
 
     func getRevenue(indicatorPeriod: String, completion: @escaping (Result<Double?, Error>) -> Void) {

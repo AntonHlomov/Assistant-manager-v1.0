@@ -10,6 +10,7 @@ import UIKit
 import LocalAuthentication
 
 protocol PaymentProtocol: AnyObject {
+    
     func failure(error: Error)
     func dataLoading (customerRecord: CustomerRecord?, master: Team?)
     func relowDataBillTable(total: String)
@@ -17,11 +18,13 @@ protocol PaymentProtocol: AnyObject {
 
 protocol PaymentPresenterProtocol: AnyObject{
     init(view: PaymentProtocol,networkService:ApiPaymentServiceProtocol,router:LoginRouterProtocol, customerRecordent: CustomerRecord?, master: Team?, user: User?)
+    
     func pushPay(payCard:Bool,comment: String)
     var bill: [Price]? {get set}
 }
 
 class PaymentPresenter: PaymentPresenterProtocol{
+    
     weak var view: PaymentProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiPaymentServiceProtocol!

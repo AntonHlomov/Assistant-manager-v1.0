@@ -56,9 +56,10 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
         presenter.statusCheckUser()
     }
-
+    
 
     // MARK: UICollectionViewDataSource
 

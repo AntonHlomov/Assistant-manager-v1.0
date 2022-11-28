@@ -9,7 +9,7 @@ import Foundation
 
 protocol CalendadrViewProtocol: AnyObject {
     func reloadData()
-    func updateDataCalendar(update: Bool, indexSetInt: Int)
+    func updateDataSestion(update: Bool, indexSetInt: Int)
     func failure(error:Error)
     func alert(message: String)
     func dismiss()
@@ -19,13 +19,13 @@ protocol CalendadrViewProtocol: AnyObject {
 protocol CalendadrViewPresenterProtocol: AnyObject {
     init(view: CalendadrViewProtocol, networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol, user:User?,networkServiceTeam:ApiTeamProtocol)
  
-    func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
-    func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
+   // func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
+   // func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->())
-    func getProfitStatistic(completion: @escaping (Double?) ->())
+//    func getProfitStatistic(completion: @escaping (Double?) ->())
     func getCalendarDate()
     func getReminders()
-    func getStatistic()
+    //func getStatistic()
     func pushClientsButton()
     func touchAddButoon()
     func pushOptionsButton()
@@ -36,15 +36,19 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func reloadData()
     func dataTodayTomorrow()
     func statusCheckUser()
+    func getFinancialReport()
     
     func goToScreen()
     func clinAddInGroup()
     func confirfAdInGroup()
     
     var user: User? { get set }
-    var profit: Double? { get set } //прибыль
-    var revenueToday: Double? { get set } //выручка
-    var expensesToday: Double? { get set } //расходы
+   // var profit: Double? { get set } //прибыль
+   // var revenueToday: Double? { get set } //выручка
+   // var expensesToday: Double? { get set } //расходы
+    var profit: String? { get set } //прибыль
+    var revenueToday: String? { get set } //выручка
+    var expensesToday: String? { get set } //расходы
     var calendarToday: [CustomerRecord]?{ get set }
     var filterCalendarToday: [CustomerRecord]? { get set }
     var reminders: [Reminder]?{ get set }
@@ -53,12 +57,14 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
    
 }
 class CalendadrPresentor: CalendadrViewPresenterProtocol {
+ 
+    
    
    var user: User?
    var oldUser: User?
-   var revenueToday: Double?
-   var expensesToday: Double?
-   var profit: Double?
+   var revenueToday: String?
+   var expensesToday: String?
+   var profit: String?
    var calendarToday: [CustomerRecord]?
    var filterCalendarToday: [CustomerRecord]?
    var reminders: [Reminder]?
@@ -90,9 +96,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.networkServiceTeam = networkServiceTeam
         self.user = user
         self.oldUser = user
-        self.expensesToday = 0.0
-        self.revenueToday = 0.0
-        self.profit = 0.0
+        self.expensesToday = "0.0"
+        self.revenueToday = "0.0"
+        self.profit = "0.0"
         self.calendarToday = [CustomerRecord]()
         self.filterCalendarToday = [CustomerRecord]()
         self.today = Date().todayDMYFormat()
@@ -161,7 +167,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             }
             meQueueStatusCheck.sync {
                 print("reloadData5")
-                getStatistic()
+                getFinancialReport()
             }
             meQueueStatusCheck.sync {
                 print("reloadData6")
@@ -199,7 +205,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
         meQueue.sync {
             print("reloadData5")
-            getStatistic()
+            getFinancialReport()
         }
         meQueue.sync {
             print("reloadData6")
@@ -272,7 +278,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                     switch result{
                     case.success(let remindersToday):
                         self.reminders? = remindersToday ?? [Reminder]()
-                        self.view?.updateDataCalendar(update: true, indexSetInt: 0)
+                        self.view?.updateDataSestion(update: true, indexSetInt: 0)
                         print("reminders!")
                     case.failure(let error):
                         self.view?.failure(error: error)
@@ -286,7 +292,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             guard let self = self else {return}
                     switch result{
                     case.success(_):
-                        self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+                        self.view?.updateDataSestion(update: true, indexSetInt: 2)
                     case.failure(let error):
                         self.view?.failure(error: error)
                     }
@@ -302,7 +308,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                     case.success(let filterCalendar):
                         self.calendarToday = filterCalendar
                         self.filterCalendarToday = self.calendarToday
-                        self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+                        self.view?.updateDataSestion(update: true, indexSetInt: 2)
                         print("getCalendarDate!")
                     case.failure(let error):
                         self.view?.failure(error: error)
@@ -310,74 +316,100 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
         }
     }
-    func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
+//    func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
+//        DispatchQueue.main.async {
+//            self.networkServiceStatistic.getRevenue(indicatorPeriod: indicatorPeriod){[] result in
+//                switch result{
+//                case.success(let revenueToday):
+//                    self.revenueToday = revenueToday
+//                    completion(revenueToday)
+//                case.failure(let error):
+//                    self.view?.failure(error: error)
+//
+//                }
+//            }
+//        }
+//    }
+ //   func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
+ //       DispatchQueue.main.async {
+ //           self.networkServiceStatistic.getExpenses(indicatorPeriod: indicatorPeriod){[] result in
+ //               switch result{
+ //               case.success(let expensesToday):
+ //                   self.expensesToday = expensesToday
+ //                   completion(expensesToday)
+ //               case.failure(let error):
+ //                   self.view?.failure(error: error)
+ //
+ //               }
+ //           }
+ //       }
+ //   }
+  //  func getProfitStatistic(completion: @escaping (Double?) ->()){
+  //      DispatchQueue.main.async(flags: .barrier) { [  self] in
+  //          guard let revenueToday = self.revenueToday else {
+  //          return
+  //      }
+  //          guard let expensesToday = self.expensesToday else {
+  //          return
+  //      }
+  //      let profit = revenueToday - expensesToday
+  //      completion(profit)
+  //      }
+  //  }
+    
+    func getFinancialReport(){
+        let dateMMYY = Date().todayMonthFormat()
         DispatchQueue.main.async {
-            self.networkServiceStatistic.getRevenue(indicatorPeriod: indicatorPeriod){[] result in 
+            self.networkServiceStatistic.getFinancialReport(user: self.user, datePeriodMMYY: dateMMYY ){[weak self] result in
                 switch result{
-                case.success(let revenueToday):
-                    self.revenueToday = revenueToday
-                    completion(revenueToday)
+                case.success(let financialReport):
+                    guard let revenueToday = financialReport?.proceeds  else {return}
+                    guard let expensesToday = financialReport?.expenses else {return}
+                    self?.revenueToday = String(revenueToday)
+                    self?.expensesToday = String(expensesToday)
+                    self?.profit = String(revenueToday - expensesToday)
+                    self?.view?.updateDataSestion(update: true, indexSetInt: 0)
+                   // self?.view?.reloadData()
+                   // self.revenueToday = revenueToday
                 case.failure(let error):
-                    self.view?.failure(error: error)
-                    
+                    self?.view?.failure(error: error)
                 }
             }
-        }
+       }
     }
-    func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
-        DispatchQueue.main.async {
-            self.networkServiceStatistic.getExpenses(indicatorPeriod: indicatorPeriod){[] result in
-                switch result{
-                case.success(let expensesToday):
-                    self.expensesToday = expensesToday
-                    completion(expensesToday)
-                case.failure(let error):
-                    self.view?.failure(error: error)
-                    
-                }
-            }
-        }
-    }
-    func getProfitStatistic(completion: @escaping (Double?) ->()){
-        DispatchQueue.main.async(flags: .barrier) { [  self] in
-            guard let revenueToday = self.revenueToday else {
-            return
-        }
-            guard let expensesToday = self.expensesToday else {
-            return
-        }
-        let profit = revenueToday - expensesToday
-        completion(profit)
-        }
-    }
-    func getStatistic(){
-        DispatchQueue.main.async {
-            self.networkServiceStatistic.getRevenue(indicatorPeriod: "today"){[] result in
-                switch result{
-                case.success(let revenueToday):
-                    self.revenueToday = revenueToday
-                case.failure(let error):
-                    self.view?.failure(error: error)
-                }
-            }
-            self.networkServiceStatistic.getExpenses(indicatorPeriod: "today"){[] result in
-                switch result{
-                case.success(let expensesToday):
-                    self.expensesToday = expensesToday
-                case.failure(let error):
-                    self.view?.failure(error: error)
-                }
-        }
-            guard let revenueToday = self.revenueToday else {
-            return
-        }
-            guard let expensesToday = self.expensesToday else {
-            return
-        }
-            self.profit = revenueToday - expensesToday
-           
-      }
-    }
+    
+    
+    
+    
+    
+ //   func getStatistic(){
+ //       DispatchQueue.main.async {
+ //           self.networkServiceStatistic.getRevenue(indicatorPeriod: "today"){[] result in
+ //               switch result{
+ //               case.success(let revenueToday):
+ //                   self.revenueToday = revenueToday
+ //               case.failure(let error):
+ //                   self.view?.failure(error: error)
+ //               }
+ //           }
+ //           self.networkServiceStatistic.getExpenses(indicatorPeriod: "today"){[] result in
+ //               switch result{
+ //               case.success(let expensesToday):
+ //                   self.expensesToday = expensesToday
+ //               case.failure(let error):
+ //                   self.view?.failure(error: error)
+ //               }
+ //       }
+ //           guard let revenueToday = self.revenueToday else {
+ //           return
+ //       }
+ //           guard let expensesToday = self.expensesToday else {
+ //           return
+ //       }
+ //           self.profit = revenueToday - expensesToday
+ //
+ //     }
+ //   }
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->()){
          DispatchQueue.main.async {
              var totalSum = [Double]()
@@ -443,7 +475,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         else {
             filterCalendarToday = calendarToday?.filter( {$0.dateTimeStartService.lowercased().contains(textFilter.lowercased()) || $0.fullNameWhoWorks.lowercased().contains(textFilter.lowercased()) || $0.nameWhoWorks.lowercased().contains(textFilter.lowercased()) || $0.nameClient.lowercased().contains(textFilter.lowercased()) || $0.fullNameClient.lowercased().contains(textFilter.lowercased()) } )
         }
-        self.view?.updateDataCalendar(update: true, indexSetInt: 2)
+        self.view?.updateDataSestion(update: true, indexSetInt: 2)
     }
     
     func openClientWithReminder(reminder: Reminder?){

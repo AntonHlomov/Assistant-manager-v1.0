@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol TeamProtocol: AnyObject{
     func reloadTable()
@@ -81,19 +82,45 @@ class TeamPresenter: TeamPresenterProtocol{
     }
     func createTaemForBossUser(){
         guard  let userBoss = self.user else {return}
-        networkService.setNewTeamUser(userChief: self.user, newTeamUser: userBoss, categoryTeamMember: "Boss") { [weak self] result in
+        let nameForGroup = "Name Group"
+        let category = "Boss"
+        let avatarGroup: UIImage = #imageLiteral(resourceName: "Icon_512x512").withRenderingMode(.alwaysOriginal)
+        networkService.createNewGroup(userCreate: userBoss, nameGroup: nameForGroup , profileImageGroup: avatarGroup, categoryTeamMember: category) { [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async { [self] in
                 switch result{
                 case .success(let mark):
                     guard mark == true else {return}
                      self?.getGlobalUser()
-                    print("2")
                 case .failure(let error):
                     self?.view?.failure(error: error)
                 }
             }
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   //     guard  let userBoss = self.user else {return}
+   //     networkService.setNewTeamUser(userChief: self.user, newTeamUser: userBoss, categoryTeamMember: "Boss") { [weak self] result in
+   //         guard self != nil else {return}
+   //         DispatchQueue.main.async { [self] in
+   //             switch result{
+   //             case .success(let mark):
+   //                 guard mark == true else {return}
+   //                  self?.getGlobalUser()
+   //                 print("2")
+   //             case .failure(let error):
+   //                 self?.view?.failure(error: error)
+   //             }
+   //         }
+   //     }
     }
     func confirmAddIdNewTeamUser(idNewTeamUser: String ,status: String){
         switch self.user?.statusInGroup {

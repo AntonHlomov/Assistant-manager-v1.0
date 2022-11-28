@@ -24,8 +24,12 @@ class User {
     
     var clientsCount: Int!
     var priceCount: Int!
-    var checkCount: Int!
     var teamCount: Int!
+    
+    var expensesUser: Double? // all time information
+    var proceedsUser: Double? // all time information
+    var checkCount: Int! // all time information
+  
     
   //  var whoIsBossId: String!
    // var whoIsAdministrator: String!
@@ -33,6 +37,9 @@ class User {
     var statusInGroup: String! // Boss / Administrator / Master / Individual
     var hiddenStatus: String! // Any / Individual
     var idGroup: String!
+    var expensesUserInGroup: Double? // all time information
+    var proceedsUserInGroup: Double? // all time information
+    var checkCountInGroup: Int! // all time information
     
     // пременные для запроса на добавления в группу
     var markerRequest: Bool!
@@ -63,6 +70,11 @@ class User {
         self.priceCount = dictionary["priceCount"] as? Int ?? nil
         self.checkCount = dictionary["checkCount"] as? Int ?? nil
         self.teamCount = dictionary["teamCount"] as? Int ?? nil
+        
+        self.expensesUser = dictionary["expensesUser"] as? Double ?? nil
+        self.proceedsUser = dictionary["proceedsUser"] as? Double ?? nil
+        self.expensesUserInGroup = dictionary["expensesUserInGroup"] as? Double ?? nil
+        self.proceedsUserInGroup = dictionary["proceedsUserInGroup"] as? Double ?? nil
         
       //  self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""
       //  self.whoIsAdministrator = dictionary["whoIsAdministrator"] as? String ?? ""

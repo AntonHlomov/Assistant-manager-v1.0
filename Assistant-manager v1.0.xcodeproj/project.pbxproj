@@ -28,6 +28,7 @@
 		8A6FBA3C285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */; };
 		8A6FBA3E285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3D285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift */; };
 		8A6FBA40285AA18500655C57 /* BlurEfectExtensionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */; };
+		8A75D4602934375B00CE842E /* ExpensesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A75D45F2934375B00CE842E /* ExpensesCell.swift */; };
 		8A7AD74F2834176200B12E3F /* TableClientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AD74E2834176200B12E3F /* TableClientCell.swift */; };
 		8A7D48EC2829C15C00017870 /* ClientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */; };
 		8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */; };
@@ -88,6 +89,7 @@
 		8A9EE6D02930C673005F2155 /* StatusSwitchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9EE6CF2930C673005F2155 /* StatusSwitchTableView.swift */; };
 		8A9EE6D52930C6D4005F2155 /* StatusSwitchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9EE6D42930C6D4005F2155 /* StatusSwitchPresenter.swift */; };
 		8A9EE6D72930C6F2005F2155 /* StatusSwitchApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9EE6D62930C6F2005F2155 /* StatusSwitchApi.swift */; };
+		8AA0BDE4293386D400580B14 /* FinancialReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0BDE3293386D400580B14 /* FinancialReport.swift */; };
 		8AA3510B2799E9F100C52F39 /* SketchBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */; };
 		8AA3FF08284EA5FA00604C93 /* ExitRemoveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3FF07284EA5FA00604C93 /* ExitRemoveTableViewCell.swift */; };
 		8AA756AD27BD208D00E89C4E /* APILogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA756AC27BD208D00E89C4E /* APILogin.swift */; };
@@ -147,6 +149,7 @@
 		8A6FBA3B285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerVisitRecordConfirmationViewPresenter.swift; sourceTree = "<group>"; };
 		8A6FBA3D285A7D0B00655C57 /* APICustomerVisitRecordConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICustomerVisitRecordConfirmationView.swift; sourceTree = "<group>"; };
 		8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEfectExtensionView.swift; sourceTree = "<group>"; };
+		8A75D45F2934375B00CE842E /* ExpensesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesCell.swift; sourceTree = "<group>"; };
 		8A7AD74E2834176200B12E3F /* TableClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableClientCell.swift; sourceTree = "<group>"; };
 		8A7D48EB2829C15C00017870 /* ClientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTableViewController.swift; sourceTree = "<group>"; };
 		8A8C75072855EA6800A6F03A /* MasterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -201,6 +204,7 @@
 		8A9EE6CF2930C673005F2155 /* StatusSwitchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSwitchTableView.swift; sourceTree = "<group>"; };
 		8A9EE6D42930C6D4005F2155 /* StatusSwitchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSwitchPresenter.swift; sourceTree = "<group>"; };
 		8A9EE6D62930C6F2005F2155 /* StatusSwitchApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSwitchApi.swift; sourceTree = "<group>"; };
+		8AA0BDE3293386D400580B14 /* FinancialReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialReport.swift; sourceTree = "<group>"; };
 		8AA3510A2799E9F100C52F39 /* SketchBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchBorderView.swift; sourceTree = "<group>"; };
 		8AA3FF07284EA5FA00604C93 /* ExitRemoveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitRemoveTableViewCell.swift; sourceTree = "<group>"; };
 		8AA756AC27BD208D00E89C4E /* APILogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APILogin.swift; sourceTree = "<group>"; };
@@ -439,6 +443,14 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		8A75D45E2934372C00CE842E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A75D45F2934375B00CE842E /* ExpensesCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		8A7D48EA2829C0A000017870 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +540,7 @@
 				8A8E456E2791927F00828B7E /* TransactionUser.swift */,
 				8A8E45702791936500828B7E /* Expense.swift */,
 				8A8E45722791AFE700828B7E /* Reminder.swift */,
+				8AA0BDE3293386D400580B14 /* FinancialReport.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -891,6 +904,7 @@
 		8AAF98C3279773C2007315DE /* ExpensesModule */ = {
 			isa = PBXGroup;
 			children = (
+				8A75D45E2934372C00CE842E /* Cell */,
 				8AAF98C527977425007315DE /* View */,
 				8AAF98C927977457007315DE /* Presenter */,
 			);
@@ -1246,12 +1260,14 @@
 				8A927E5F27C14DC200737A8E /* APiRegistration.swift in Sources */,
 				8A00764C2843531A00FF73FD /* ClientPagePresenter.swift in Sources */,
 				8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */,
+				8A75D4602934375B00CE842E /* ExpensesCell.swift in Sources */,
 				8A8E45952791E8B000828B7E /* LoginPresenter.swift in Sources */,
 				8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */,
 				8A8E45852791E20D00828B7E /* LoadImageExtension.swift in Sources */,
 				8A8F747D285400EF00D52B4B /* СhoiceVisitDateViewController.swift in Sources */,
 				8A661AD929044268006C7D22 /* TeamTableViewController.swift in Sources */,
 				8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */,
+				8AA0BDE4293386D400580B14 /* FinancialReport.swift in Sources */,
 				8A8E45992791F01E00828B7E /* RegistrationController.swift in Sources */,
 				8A661ADE290442E1006C7D22 /* TeamPresenter.swift in Sources */,
 				8AFD1438292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift in Sources */,

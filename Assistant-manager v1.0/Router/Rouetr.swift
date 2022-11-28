@@ -37,8 +37,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func dismiss()
     func backTappedFromRight()
     func popViewControler()
-   // func dismiss()
-    
+
 }
 
 class Router: LoginRouterProtocol{
@@ -71,6 +70,7 @@ class Router: LoginRouterProtocol{
     func initalClientsTableViewController(user: User?,markAddMassageReminder: Bool) {
         if let navigationControler = navigationControler{
             guard let MainViewControler = assemblyBuilder?.createClientsTableModule(router: self, user: user, markAddMassageReminder: markAddMassageReminder) else {return}
+            navigationControler.navigationBar.isHidden = false
             navigationControler.viewControllers = [MainViewControler]
           
         }
@@ -78,18 +78,21 @@ class Router: LoginRouterProtocol{
 
     func initalMainTabControler(user: User?) {
         if let tabBarControler = tabBarControler , let navigationControler = navigationControler {
-            //tabBarControler.view.backgroundColor = .blue
+    
             guard let CalendarControler = assemblyBuilder?.createCalendarModule(router: self,user: user) else {return}
             guard let ExpensesControler = assemblyBuilder?.createExpensesModule(router: self,user: user) else {return}
             guard let StartControler = assemblyBuilder?.createStartWorckModule(router: self,user: user) else {return}
             guard let StatistikControler = assemblyBuilder?.createStatistikModule(router: self,user: user) else {return}
-            let controllers = [CalendarControler.buuton, ExpensesControler.buuton, StartControler.buuton, StatistikControler.buuton]
-            tabBarControler.setViewControllers(controllers, animated: true)
-           // navigationControler.navigationBar.isHidden = true
-        
             
+            let CalendarButtom = createNavController(viewController: CalendarControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
+            let ExpensesButtom = createNavController(viewController: ExpensesControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-прибыльность-96"), unselectedImage: #imageLiteral(resourceName: "icons8-прибыльность-96"))
+            let StartButtom = createNavController(viewController: StartControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
+            let StatistikButtom = createNavController(viewController: StatistikControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
+        
+            let controllers = [CalendarButtom,ExpensesButtom,StartButtom,StatistikButtom]
+            tabBarControler.setViewControllers(controllers, animated: true)
+            navigationControler.navigationBar.isHidden = true
             navigationControler.viewControllers = [tabBarControler]
-      
         }
     }
   
@@ -138,6 +141,7 @@ class Router: LoginRouterProtocol{
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createClientsTableModule(router: self, user: user, markAddMassageReminder: markAddMassageReminder) else {return}
            // navigationControler.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
+            navigationControler.navigationBar.isHidden = false
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
@@ -166,6 +170,7 @@ class Router: LoginRouterProtocol{
         if let navigationControler = navigationControler {
             guard let registrationControler = assemblyBuilder?.craateClientPageModule(router: self, client: client, user: user, massage: massage,idReminder:idReminder, openWithMarkAddMassageReminder: openWithMarkAddMassageReminder) else {return}
            // navigationControler.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
+            navigationControler.navigationBar.isHidden = false
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
@@ -184,9 +189,10 @@ class Router: LoginRouterProtocol{
     }
     func showOptionesViewController(user: User?) {
             if let navigationControler = navigationControler{
-                guard let registrationControler = assemblyBuilder?.createOptionesModule(router: self, user: user) else {return}
+                guard let optionesControler = assemblyBuilder?.createOptionesModule(router: self, user: user) else {return}
               //  navigationControler.pushViewController(registrationControler, animated: true)
-                navigationControler.customPopViewFromLeft(registrationControler)
+                navigationControler.navigationBar.isHidden = false
+                navigationControler.customPopViewFromLeft(optionesControler)
             }
         }
     func popToRoot() {
@@ -212,11 +218,17 @@ class Router: LoginRouterProtocol{
         }
     }
     
+    func createNavController(viewController: UIViewController, title: String, selectadImage: UIImage, unselectedImage: UIImage) -> UIViewController {
+        viewController.tabBarItem.title = title
+        viewController.tabBarItem.image = selectadImage
+        viewController.tabBarItem.selectedImage = unselectedImage
+        return viewController
+    }
 
-    
 }
 
 extension UINavigationController {
+    
     func customPopViewFromLeft(_ viewController: UIViewController) {
         let transition: CATransition = CATransition()
         transition.duration = 0.3
@@ -233,4 +245,5 @@ extension UINavigationController {
         view.layer.add(transition, forKey: nil)
         popToRootViewController(animated: true)
     }
+    
 }

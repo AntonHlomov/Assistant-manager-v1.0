@@ -10,17 +10,21 @@ import Foundation
 class Group {
     var idGroup: String!
     var nameGroup: String!
-    var checkCount: Int?
+    var profileImageGroup: String!
+    
+    var checkCount: Int? // all time information
     var teamCount: Int!
     var whoIsBossId: String!
-    var expensesGroup: Double?
-    var proceedsGroup: Double?
+    var expensesGroup: Double? // all time information
+    var proceedsGroup: Double? // all time information
     var priceCount: Int?
    
     
     init(dictionary: [String: Any]){
         self.idGroup = dictionary["idGroup"] as? String ?? ""
         self.nameGroup = dictionary["nameGroup"] as? String ?? ""
+        self.profileImageGroup = dictionary["profileImageGroup"] as? String ?? ""
+        
         self.checkCount = dictionary["checkCount"] as? Int ?? nil
         self.teamCount = dictionary["teamCount"] as? Int ?? nil
         self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""

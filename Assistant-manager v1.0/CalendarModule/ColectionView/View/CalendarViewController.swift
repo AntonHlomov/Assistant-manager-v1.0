@@ -60,6 +60,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
         presenter.statusCheckUser()
     }
     //update on change of view orientation
@@ -79,6 +80,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         return myRefreshControl
     }()
     @objc func updateMyCollectionView() {
+        self.presenter.getFinancialReport()
         self.collectionView.reloadData()
         dataRefresher.endRefreshing()
         print("Refresher CalendarController")
@@ -132,14 +134,15 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
           //      header.user = user
           //  }
             header.user =  presenter.user
-            header.profitCLL.text = String(format: "%.1f",presenter.profit!)
-            header.revenueCell.text = String(format: "%.1f",presenter.revenueToday!)
-            header.expensesCell.text = String(format: "%.1f",presenter.expensesToday!)
+            header.profitCLL.text = presenter.profit       //String(format: "%.1f",presenter.profit!)
+            header.revenueCell.text = presenter.revenueToday     // String(format: "%.1f",presenter.revenueToday!)
+            header.expensesCell.text = presenter.expensesToday     //String(format: "%.1f",presenter.expensesToday!)
             //связь с кнопкой запись клиента в хидере
             header.clientButton.addTarget(self, action: #selector(goToClientTable), for: .touchUpInside)
             //связь с кнопкой настройки в хидере
             header.optionButton.addTarget(self, action: #selector(goToOptions), for: .touchUpInside)
-            self.presenter.getStatistic()
+           
+          //  self.presenter.getStatistic()
    //         self.presenter.getRevenueStatistic(indicatorPeriod: "today"){ []  (revenueToday) in
    //             guard let revenueToday = revenueToday else { return }
    //             header.revenueCell.text = String(format: "%.1f",revenueToday)
@@ -287,7 +290,7 @@ extension CalendarViewController{
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension CalendarViewController: CalendadrViewProtocol {
-    func updateDataCalendar(update: Bool, indexSetInt: Int) {
+    func updateDataSestion(update: Bool, indexSetInt: Int) {
         guard update == true else {return}
         let indexSet = IndexSet(integer: indexSetInt)
         collectionView.reloadSections(indexSet)

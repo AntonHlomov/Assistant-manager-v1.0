@@ -194,7 +194,7 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     
     func checkIndicatorVisitStatisyc() {
         print("checkIndicatorVisitStatisyc")
-        self.view?.changeVisitStatisyc(countVisits: "22")
+        self.view?.changeVisitStatisyc(countVisits: "0")
     }
     
     func checkIndicatorFinansStatisyc() {
