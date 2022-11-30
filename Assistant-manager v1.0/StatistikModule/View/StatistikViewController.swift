@@ -76,7 +76,7 @@ class StatistikViewController: UICollectionViewController,UICollectionViewDelega
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.backgroundColor = .white
+        cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
         // Configure the cell
     
         return cell
@@ -84,7 +84,7 @@ class StatistikViewController: UICollectionViewController,UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
-        header.backgroundColor = .red //UIColor.appColor(.blueAssistantFon)
+        header.backgroundColor =  UIColor.appColor(.pinkAssistant) //UIColor.appColor(.blueAssistantFon)
            // header.addSubview(searchBar)
           //  searchBar.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor,pading: .init(top: 5, left: 0, bottom: 15, right: 0))
             return header

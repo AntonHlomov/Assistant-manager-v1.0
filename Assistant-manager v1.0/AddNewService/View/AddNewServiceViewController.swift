@@ -8,6 +8,7 @@
 import UIKit
 
 class AddNewServiceViewController: UIViewController {
+    
     var presenter: AddNewServicePresenterProtocol!
     
     fileprivate let nameServise = UITextField.setupTextField(title: "Name servise..", hideText: false, enabled: true)
@@ -68,9 +69,9 @@ class AddNewServiceViewController: UIViewController {
         guard let nameServise = nameServise.text?.lowercased() else {return}
         guard let timeAtWorkMin = Int(timeAtWorkMin.text ?? "0") else {return}
         guard let timeReturnServiseDays = Int(timeReturnServiseDays.text ?? "0") else {return}
-        guard let priceServies = Double(priceServies.text ?? "0.0") else {return}
+        guard let priceServies = priceServies.text?.doubleValue else {return}
      
-        presenter.addNewServies(nameServise: nameServise, priceServies: priceServies, timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
+        presenter.addNewServies(nameServise: nameServise, priceServies: Double(priceServies), timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
         addButton.isEnabled = false
   
     }

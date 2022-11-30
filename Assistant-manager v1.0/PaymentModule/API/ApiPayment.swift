@@ -63,32 +63,31 @@ class ApiPayment: ApiPaymentServiceProtocol{
                                       "proceeds":FieldValue.increment(Double(sumTotal))
                                      ] as [String : Any]
             
-           
-            // check if the report date exists, if not, create a new report month
-            Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).getDocument { (document, error) in
-                if let document = document, document.exists {
-                    // now monts for report
-                    Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).updateData(dateReportMonts)
-                } else {
-                    // new monts for report
-                    Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).setData(dateReportNewMonts) { (error) in
-                        if let error = error {
-                         completion(.failure(error))
-                         return
-                        }
-                        Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).updateData(dateReportMonts)
-                    }
-                }
-            }
-            
-            
-            
 
             Firestore.firestore().collection("users").document(uid).collection("TransactionUser").document(idTransactionUser).setData(data) { (error) in
                 if let error = error {
                  completion(.failure(error))
                  return
                 }
+                // check if the report date exists, if not, create a new report month
+                Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        // now monts for report
+                        Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).updateData(dateReportMonts)
+                    } else {
+                        // new monts for report
+                        Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).setData(dateReportNewMonts) { (error) in
+                            if let error = error {
+                             completion(.failure(error))
+                             return
+                            }
+                            Firestore.firestore().collection("users").document(uid).collection("FinancialReport").document(dateTransactionMMYYYY).updateData(dateReportMonts)
+                        }
+                    }
+                }
+                
+                
+    
             Firestore.firestore().collection("users").document(uid).updateData(["checkCount": FieldValue.increment(Int64(1))])
                
             Firestore.firestore().collection("users").document(uid).updateData(["proceedsUser": FieldValue.increment(Double(sumTotal))])

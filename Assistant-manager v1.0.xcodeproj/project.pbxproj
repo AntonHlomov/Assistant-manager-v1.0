@@ -13,7 +13,7 @@
 		8A201C7F288184320072ED75 /* PaymentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C7E288184320072ED75 /* PaymentPresenter.swift */; };
 		8A201C81288184520072ED75 /* ApiPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C80288184520072ED75 /* ApiPayment.swift */; };
 		8A201C83288184740072ED75 /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C82288184740072ED75 /* PaymentController.swift */; };
-		8A201C852881DD100072ED75 /* DottedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C842881DD100072ED75 /* DottedLine.swift */; };
+		8A201C852881DD100072ED75 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C842881DD100072ED75 /* ExtensionString.swift */; };
 		8A308FBA284A97410045FA20 /* AddClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FB9284A97410045FA20 /* AddClientView.swift */; };
 		8A308FBC284A984D0045FA20 /* AddClientPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FBB284A984D0045FA20 /* AddClientPresenter.swift */; };
 		8A308FBE284A9B280045FA20 /* ApiAddClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A308FBD284A9B270045FA20 /* ApiAddClient.swift */; };
@@ -78,6 +78,9 @@
 		8A8FCB542884152A00E4BABB /* PaymentPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8FCB532884152A00E4BABB /* PaymentPriceTableViewCell.swift */; };
 		8A8FCB56288420C300E4BABB /* CurrencyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */; };
 		8A90A85B285E7EA700C01250 /* CustomDisclosureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */; };
+		8A90F68C29351A8500A466E3 /* ExpensesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A90F68B29351A8500A466E3 /* ExpensesApi.swift */; };
+		8A90F6922935917100A466E3 /* AddNewExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A90F6912935917100A466E3 /* AddNewExpensesView.swift */; };
+		8A90F694293591B000A466E3 /* AddNewExpensesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A90F693293591B000A466E3 /* AddNewExpensesPresenter.swift */; };
 		8A916CF9284E116500A18257 /* HeaderOptinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A916CF8284E116500A18257 /* HeaderOptinesTableViewCell.swift */; };
 		8A916CFB284E17C800A18257 /* OptionesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A916CFA284E17C800A18257 /* OptionesTableViewCell.swift */; };
 		8A91A82D282D9ABB006F1FFD /* OptionesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91A82C282D9ABB006F1FFD /* OptionesController.swift */; };
@@ -134,7 +137,7 @@
 		8A201C7E288184320072ED75 /* PaymentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPresenter.swift; sourceTree = "<group>"; };
 		8A201C80288184520072ED75 /* ApiPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPayment.swift; sourceTree = "<group>"; };
 		8A201C82288184740072ED75 /* PaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentController.swift; sourceTree = "<group>"; };
-		8A201C842881DD100072ED75 /* DottedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLine.swift; sourceTree = "<group>"; };
+		8A201C842881DD100072ED75 /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
 		8A308FB9284A97410045FA20 /* AddClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientView.swift; sourceTree = "<group>"; };
 		8A308FBB284A984D0045FA20 /* AddClientPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientPresenter.swift; sourceTree = "<group>"; };
 		8A308FBD284A9B270045FA20 /* ApiAddClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAddClient.swift; sourceTree = "<group>"; };
@@ -193,6 +196,9 @@
 		8A8FCB532884152A00E4BABB /* PaymentPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPriceTableViewCell.swift; sourceTree = "<group>"; };
 		8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExtension.swift; sourceTree = "<group>"; };
 		8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDisclosureIndicator.swift; sourceTree = "<group>"; };
+		8A90F68B29351A8500A466E3 /* ExpensesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesApi.swift; sourceTree = "<group>"; };
+		8A90F6912935917100A466E3 /* AddNewExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewExpensesView.swift; sourceTree = "<group>"; };
+		8A90F693293591B000A466E3 /* AddNewExpensesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewExpensesPresenter.swift; sourceTree = "<group>"; };
 		8A916CF8284E116500A18257 /* HeaderOptinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderOptinesTableViewCell.swift; sourceTree = "<group>"; };
 		8A916CFA284E17C800A18257 /* OptionesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesTableViewCell.swift; sourceTree = "<group>"; };
 		8A91A82C282D9ABB006F1FFD /* OptionesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionesController.swift; sourceTree = "<group>"; };
@@ -490,6 +496,7 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				8A90F68D2935908F00A466E3 /* AddNewExpenses */,
 				8A9EE6CB2930C580005F2155 /* StatusSwitchModule */,
 				8A8F67862896F0B10078356B /* APIGlobalUserService */,
 				8ACD282028515E45005D993E /* Router */,
@@ -568,7 +575,7 @@
 				8A6FBA33285A6D8500655C57 /* darkMode.swift */,
 				8A6FBA3F285AA18500655C57 /* BlurEfectExtensionView.swift */,
 				8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */,
-				8A201C842881DD100072ED75 /* DottedLine.swift */,
+				8A201C842881DD100072ED75 /* ExtensionString.swift */,
 				8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */,
 			);
 			path = GlobalExtension;
@@ -650,6 +657,39 @@
 				8A8FCB532884152A00E4BABB /* PaymentPriceTableViewCell.swift */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		8A90F68A29351A1A00A466E3 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				8A90F68B29351A8500A466E3 /* ExpensesApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		8A90F68D2935908F00A466E3 /* AddNewExpenses */ = {
+			isa = PBXGroup;
+			children = (
+				8A90F690293590B900A466E3 /* Presenter */,
+				8A90F68F293590B200A466E3 /* View */,
+			);
+			path = AddNewExpenses;
+			sourceTree = "<group>";
+		};
+		8A90F68F293590B200A466E3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A90F6912935917100A466E3 /* AddNewExpensesView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A90F690293590B900A466E3 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A90F693293591B000A466E3 /* AddNewExpensesPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		8A916CF7284E112800A18257 /* Cell */ = {
@@ -904,6 +944,7 @@
 		8AAF98C3279773C2007315DE /* ExpensesModule */ = {
 			isa = PBXGroup;
 			children = (
+				8A90F68A29351A1A00A466E3 /* Api */,
 				8A75D45E2934372C00CE842E /* Cell */,
 				8AAF98C527977425007315DE /* View */,
 				8AAF98C927977457007315DE /* Presenter */,
@@ -1236,10 +1277,12 @@
 				8A9EE6D72930C6F2005F2155 /* StatusSwitchApi.swift in Sources */,
 				8AAF98B42796C1ED007315DE /* RegistrationPresenter.swift in Sources */,
 				8A6FBA3C285A7CEB00655C57 /* CustomerVisitRecordConfirmationViewPresenter.swift in Sources */,
+				8A90F694293591B000A466E3 /* AddNewExpensesPresenter.swift in Sources */,
 				8A8C75082855EA6800A6F03A /* MasterCollectionViewCell.swift in Sources */,
 				8A9EE6D52930C6D4005F2155 /* StatusSwitchPresenter.swift in Sources */,
 				8A8E55B02877397F00B99433 /* ApiCustomerCardPaymentToday.swift in Sources */,
 				8AAF98B927974642007315DE /* ScreensaverViewController.swift in Sources */,
+				8A90F6922935917100A466E3 /* AddNewExpensesView.swift in Sources */,
 				8AD0C6002798072D00BE414A /* SliderReminderClientsCell.swift in Sources */,
 				8A8E45872791E22A00828B7E /* FirestoreExtension.swift in Sources */,
 				8A201C81288184520072ED75 /* ApiPayment.swift in Sources */,
@@ -1296,7 +1339,7 @@
 				8AA756AF27BD3DB400E89C4E /* Rouetr.swift in Sources */,
 				8A8F6781289682BA0078356B /* Group.swift in Sources */,
 				8A661ADC29044297006C7D22 /* TeamTableViewCell.swift in Sources */,
-				8A201C852881DD100072ED75 /* DottedLine.swift in Sources */,
+				8A201C852881DD100072ED75 /* ExtensionString.swift in Sources */,
 				8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */,
 				8A97299F2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
@@ -1311,6 +1354,7 @@
 				8A8E458B2791E54800828B7E /* LoginControler.swift in Sources */,
 				8A8E458D2791E5B300828B7E /* ButtonExtension.swift in Sources */,
 				8A8E45652791911600828B7E /* Client.swift in Sources */,
+				8A90F68C29351A8500A466E3 /* ExpensesApi.swift in Sources */,
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
 				8A8E4563279190E100828B7E /* User.swift in Sources */,
 				8A90A85B285E7EA700C01250 /* CustomDisclosureIndicator.swift in Sources */,

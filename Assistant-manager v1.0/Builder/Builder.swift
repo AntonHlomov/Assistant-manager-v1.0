@@ -9,6 +9,9 @@ import UIKit
 
 protocol AsselderBuilderProtocol{
     
+    
+    func addNewExpensesViewModule(router: LoginRouterProtocol,user: User?) -> UIViewController
+    
     func createLoginModule(router: LoginRouterProtocol) -> UIViewController
     
     func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController
@@ -48,6 +51,14 @@ protocol AsselderBuilderProtocol{
 }
 // сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
+    
+    func addNewExpensesViewModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
+        let view = AddNewExpensesView()
+        let networkService = ExpensesApi()
+        let presenter = AddNewExpensesPresenter(view: view, networkService:networkService, ruter:router,user: user)
+        view.presenter = presenter
+        return view
+    }
     
     func statusSwitchModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
         let view = StatusSwitchTableView()
@@ -185,7 +196,7 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     
     func createExpensesModule(router: LoginRouterProtocol,user: User?) -> UIViewController  {
        let view = ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout())
-       let networkService = APILoginService()
+       let networkService = ExpensesApi()
         let presenter = ExpensesPresentor(view: view, networkService: networkService, router: router, user: user)
        view.presenter = presenter
        return view

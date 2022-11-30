@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpensesCell: UICollectionViewCell {
+class ExpensesCell: UICollectionViewCell,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    
     var expenses: Expense?{
         didSet{
@@ -53,7 +53,7 @@ class ExpensesCell: UICollectionViewCell {
         iv.layer.masksToBounds = true
         return iv
     }()
-    let nameLebel: UILabel = {
+    lazy var nameLebel: UILabel = {
         let Label = UILabel()
         Label.text = "Name"+"\n"+"User"
         Label.textAlignment = .center
@@ -62,7 +62,7 @@ class ExpensesCell: UICollectionViewCell {
         Label.numberOfLines = 2
         return Label
     }()
-    var priceLabel: UILabel = {
+    lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "0"
@@ -71,7 +71,7 @@ class ExpensesCell: UICollectionViewCell {
          return label
      }()
     
-    var priceNameCurrencyLabel: UILabel = {
+    lazy var priceNameCurrencyLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.text = String.appCurrency(.symbolSistem)
@@ -80,7 +80,7 @@ class ExpensesCell: UICollectionViewCell {
          return label
      }()
     
-    var nameServise: UILabel = {
+    lazy var nameServise: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "Name servise"
@@ -89,15 +89,15 @@ class ExpensesCell: UICollectionViewCell {
          return label
      }()
     
-    var dateServise: UILabel = {
+    lazy var dateServise: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "10.03.2022"
+        label.text = "00.00.0000"
         label.font = UIFont.boldSystemFont(ofSize: 12)
         label.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
          return label
      }()
-    var place: UILabel = {
+    lazy var place: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "Place"
@@ -106,7 +106,7 @@ class ExpensesCell: UICollectionViewCell {
          return label
      }()
     
-    var category: UILabel = {
+    lazy var category: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "Category"
@@ -118,7 +118,7 @@ class ExpensesCell: UICollectionViewCell {
     func setupViews(){
         
             addSubview(lineViewUp)
-        lineViewUp.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 12, left: frame.width/3, bottom: frame.height/2, right: 0),size: .init(width: 1, height: 0))
+        lineViewUp.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 3, left: frame.width/3, bottom: frame.height/2, right: 0),size: .init(width: 1, height: 0))
         
       
         

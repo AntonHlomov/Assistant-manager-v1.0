@@ -28,6 +28,7 @@ protocol LoginRouterProtocol: RouterLogin {
     func showAddClientView(editMode: Bool, client: Client?,user: User?)
     func showAddNewServiceView(editMode: Bool, price: Price?,user: User?)
     func showTeam(user: User?)
+    func showAddNewExpenses(user: User?)
     func statusSwitch(user: User?)
     func showOptionesViewController(user: User?)
     func initalLoginViewControler()
@@ -83,13 +84,15 @@ class Router: LoginRouterProtocol{
             guard let ExpensesControler = assemblyBuilder?.createExpensesModule(router: self,user: user) else {return}
             guard let StartControler = assemblyBuilder?.createStartWorckModule(router: self,user: user) else {return}
             guard let StatistikControler = assemblyBuilder?.createStatistikModule(router: self,user: user) else {return}
-            
+         
             let CalendarButtom = createNavController(viewController: CalendarControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-календарь-24"), unselectedImage: #imageLiteral(resourceName: "icons8-календарь-24"))
             let ExpensesButtom = createNavController(viewController: ExpensesControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-прибыльность-96"), unselectedImage: #imageLiteral(resourceName: "icons8-прибыльность-96"))
+          
             let StartButtom = createNavController(viewController: StartControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-деньги-48"), unselectedImage: #imageLiteral(resourceName: "icons8-деньги-48"))
             let StatistikButtom = createNavController(viewController: StatistikControler, title: "", selectadImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"), unselectedImage: #imageLiteral(resourceName: "icons8-статистика-48 (1)"))
         
             let controllers = [CalendarButtom,ExpensesButtom,StartButtom,StatistikButtom]
+            
             tabBarControler.setViewControllers(controllers, animated: true)
             navigationControler.navigationBar.isHidden = true
             navigationControler.viewControllers = [tabBarControler]
@@ -106,6 +109,12 @@ class Router: LoginRouterProtocol{
     func showLoginController() {
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.createLoginModule(router: self) else {return}
+            navigationControler.pushViewController(registrationControler, animated: true)
+        }
+    }
+    func showAddNewExpenses(user: User?){
+        if let navigationControler = navigationControler{
+            guard let registrationControler = assemblyBuilder?.addNewExpensesViewModule(router: self, user: user)else {return}
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }
