@@ -8,7 +8,7 @@
 import UIKit
 
 private let reuseIdentifier = "Cell"
-private let searchBarCalendarIdentifier = "searchBarCalendarIdentifier"
+//private let searchBarCalendarIdentifier = "searchBarCalendarIdentifier"
 
 class ExpensesViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     var presenter: ExpensesViewPresenterProtocol!
@@ -29,7 +29,7 @@ class ExpensesViewController: UICollectionViewController,UICollectionViewDelegat
         self.view.backgroundColor = UIColor.appColor(.blueAssistantFon)
 
         self.collectionView!.register(ExpensesCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
+      //  self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
         self.collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
         searchBar = UISearchBar()
         searchBar.placeholder = "Search"
@@ -51,7 +51,14 @@ class ExpensesViewController: UICollectionViewController,UICollectionViewDelegat
     //update on change of view orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.collectionView.collectionViewLayout.invalidateLayout()
+        
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+        } else {
+            print("Portrait")
+        }
     }
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -79,7 +86,7 @@ class ExpensesViewController: UICollectionViewController,UICollectionViewDelegat
         return presenter.filterExpenses?.count ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 70)
+        return CGSize(width: view.frame.width, height: 60)
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -89,14 +96,11 @@ class ExpensesViewController: UICollectionViewController,UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
-      //  header.backgroundColor = UIColor.appColor(.blueAssistantFon)
-      //  header.addSubview(searchBar)
-      //  searchBar.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: //header.trailingAnchor,pading: .init(top: 5, left: 0, bottom: 15, right: 0))
-            return header
-    }
+  //  override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: //IndexPath) -> UICollectionReusableView {
+  //
+  //      let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: //searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
+  //          return header
+  //  }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ExpensesCell
          cell.backgroundColor =  UIColor.appColor(.blueAssistantFon)
@@ -104,9 +108,11 @@ class ExpensesViewController: UICollectionViewController,UICollectionViewDelegat
          return cell
     }
     
-    // нажатие на ячейки календаря
+    // нажатие на ячейки
      override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       presenter.openExpenses(indexPath: indexPath)
+         
+       presenter.openCheck(indexPath: indexPath)
+      
      }
      func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
          presenter.filter(text: searchText)
@@ -130,6 +136,25 @@ class ExpensesViewController: UICollectionViewController,UICollectionViewDelegat
 
 }
 extension ExpensesViewController{
+    func imageTapped(image:CustomUIimageView){
+      
+        let newImageView = image
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black.withAlphaComponent(0.5)
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        newImageView.anchor(top:self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right:0))
+    }
+
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
+    }
+    
+
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: "Ok", style: .default)
@@ -140,6 +165,11 @@ extension ExpensesViewController{
 
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ExpensesViewController: ExpensesViewProtocol {
+    
+    func openCheckImage(image:CustomUIimageView){
+        self.imageTapped(image: image)
+    }
+    
     func updateCollectionView(){
      collectionView.reloadData()
     }

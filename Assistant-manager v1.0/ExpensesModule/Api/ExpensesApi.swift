@@ -104,9 +104,9 @@ class ExpensesApi: ExpensesApiProtocol {
                         }
                     }
                 }
-            case "Master":break
+           // case "Master":break
             case "Administrator":break
-            case "Boss":
+            case "Boss","Master":
                 let nameColection = "group"
                 guard let idGroup = user?.idGroup else {return}
                 let storageRef = Storage.storage().reference().child("Expense_image").child(idExpense)
@@ -191,7 +191,7 @@ class ExpensesApi: ExpensesApiProtocol {
             case "Master":
                 let nameColection = "group"
                 guard let idGroup = user?.idGroup else {return}
-                Firestore.firestore().collection(nameColection).document(idGroup).collection("Expense").addSnapshotListener{ (snapshot, error) in
+                Firestore.firestore().collection(nameColection).document(idGroup).collection("Expense").whereField("idUser", isEqualTo: uid).addSnapshotListener{ (snapshot, error) in
                     if let error = error {
                        completion(.failure(error))
                        return
