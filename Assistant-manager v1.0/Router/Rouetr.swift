@@ -115,6 +115,7 @@ class Router: LoginRouterProtocol{
     func showAddNewExpenses(user: User?){
         if let navigationControler = navigationControler{
             guard let registrationControler = assemblyBuilder?.addNewExpensesViewModule(router: self, user: user)else {return}
+            navigationControler.navigationBar.isHidden = false
             navigationControler.pushViewController(registrationControler, animated: true)
         }
     }

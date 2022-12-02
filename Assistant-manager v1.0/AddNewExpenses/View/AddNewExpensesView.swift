@@ -13,28 +13,15 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
     var imageSelected = false
     fileprivate let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "foto"), for: .normal)
         button.contentMode = .scaleAspectFit
         button.tintColor = UIColor(white: 1, alpha: 0.5)
         return button
     }()
-    
- //   fileprivate let selectPhotoButton: UIButton = {
- //       let button = UIButton(type: .system)
- //     //  button.setTitle("Add photo", for: .normal)
- //       button.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
- //       button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
- //       button.backgroundColor = .white
- //       button.setTitleColor(.gray, for: .normal)
- //       button.layer.borderWidth = 3
- //       button.layer.borderColor = UIColor.appColor(.blueAndPink)!.withAlphaComponent(0.7).cgColor
- //       return button
- //   }()
-    
+  
     fileprivate let expenseName = UITextField.setupTextField(title: "Name expense..", hideText: false, enabled: true)
     fileprivate let companyName = UITextField.setupTextField(title: "Name company..", hideText: false, enabled: true)
     fileprivate let category = UITextField.setupTextField(title: "Category expense..", hideText: false, enabled: true)
-    
     fileprivate let priceExpenses = UITextField.setupTextField(title: "Price expense..", hideText: false, enabled: true)
     fileprivate let addButton =    UIButton.setupButton(title: "Add expense", color: UIColor.appColor(.pinkAssistant)!, activation: false, invisibility: false, laeyerRadius: 12, alpha: 0.7, textcolor: UIColor.appColor(.whiteAssistant)!)
     lazy var stackView = UIStackView(arrangedSubviews: [expenseName,companyName,category,priceExpenses])
@@ -42,11 +29,17 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
     override func viewDidLoad(){
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(openCamera))
         configureViewComponents()
-        setupNotificationObserver()
         setupTapGesture()
         hadleres()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNotificationObserver()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -55,7 +48,7 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
     fileprivate func configureViewComponents(){
         
         view.addSubview(selectPhotoButton)
-        selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/15, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/7, height: view.frame.height/7))
+        selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/15, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/6.5, height: view.frame.height/6))
         selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true //выстовляет по середине экрана
         selectPhotoButton.layer.cornerRadius = view.frame.height/7 / 2
         
@@ -66,10 +59,9 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         stackView.spacing = view.frame.height/35
         stackView.distribution = .fillEqually  // для корректного отображения
         view.addSubview(stackView)
-        stackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing:  view.safeAreaLayoutGuide.trailingAnchor, pading: .init(top: view.frame.height/6, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/3))
+        stackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing:  view.safeAreaLayoutGuide.trailingAnchor, pading: .init(top: view.frame.height/6.5, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/3))
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
+   
     }
     fileprivate func hadleres() {
         expenseName.addTarget(self, action: #selector(formValidation), for: .editingChanged)
@@ -78,7 +70,7 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         priceExpenses.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         priceExpenses.keyboardType = .decimalPad
         addButton.addTarget(self, action: #selector(addService), for: .touchUpInside)
-        selectPhotoButton.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
+        selectPhotoButton.addTarget(self, action: #selector(openGallery), for: .touchUpInside)
     }
     @objc fileprivate func formValidation(){
         guard
@@ -103,16 +95,16 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         guard let category = category.text?.lowercased() else {return}
         guard let priceExpenses = priceExpenses.text?.doubleValue else {return}
         guard let imageСheck = self.selectPhotoButton.imageView?.image else {return}
-     
-        
+   
         presenter.add(name: expenseName, place: companyName, category: category, total: Double(priceExpenses), imageСheck:imageСheck )
      
         addButton.isEnabled = false
   
     }
     //MARK: - ImagePickerController
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let profileImage = info[.editedImage] as? UIImage else {
+        guard let profileImage = info[.originalImage] as? UIImage else {
             print("No image found")
             imageSelected = false
             return
@@ -128,15 +120,37 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         self.dismiss(animated: true, completion: nil)
         
     }
-    
-    @objc fileprivate func selectPhoto(){
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        self.present(imagePicker, animated: true, completion: nil)
-       
-        
+
+    @objc func openCamera(){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    @objc func openGallery()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have permission to access gallery.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     //MARK: - Клавиатура
     fileprivate func  setupNotificationObserver(){
@@ -169,9 +183,6 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
     @objc fileprivate func handleTapDismiss(){
         view.endEditing(true)
     }
-    
-
-    
 
 }
 extension AddNewExpensesView{

@@ -496,7 +496,6 @@
 		8A8E45342791873900828B7E /* Assistant-manager v1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				8A90F68D2935908F00A466E3 /* AddNewExpenses */,
 				8A9EE6CB2930C580005F2155 /* StatusSwitchModule */,
 				8A8F67862896F0B10078356B /* APIGlobalUserService */,
 				8ACD282028515E45005D993E /* Router */,
@@ -505,9 +504,10 @@
 				8AAF98AA279336A0007315DE /* LoginModule */,
 				8AAF98AB279336CF007315DE /* RegistrationModule */,
 				8AA756B027BD868900E89C4E /* MainTabVCModel */,
-				8ACD281628515566005D993E /* AddNewService */,
 				8A7D48EA2829C0A000017870 /* Clients */,
 				8A308FB5284A96450045FA20 /* AddClient */,
+				8A90F68D2935908F00A466E3 /* AddNewExpenses */,
+				8ACD281628515566005D993E /* AddNewService */,
 				8A007645284351AB00FF73FD /* ClientPage */,
 				8A8F74782854004700D52B4B /* СhoiceVisitDateModule */,
 				8A6FBA35285A7C2500655C57 /* CustomerVisitRecordConfirmation */,

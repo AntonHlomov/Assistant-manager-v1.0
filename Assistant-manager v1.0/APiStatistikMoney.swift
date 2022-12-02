@@ -109,7 +109,7 @@ class APiStatistikMoneyService:APiStatistikMoneyServiceProtocol {
 
         DispatchQueue.global(qos: .utility).async {
             guard let uid = Auth.auth().currentUser?.uid else {return}
-            Firestore.firestore().collection("users").document(uid).collection("Expenses").whereField("dateExpenseFormatDDMMYYYY", isEqualTo: daterevenue).getDocuments { (snapshot, error) in
+            Firestore.firestore().collection("users").document(uid).collection("Expense").whereField("dateExpenseFormatDDMMYYYY", isEqualTo: daterevenue).getDocuments { (snapshot, error) in
                 if let error = error{
                     print(error.localizedDescription)
                     completion(.failure(error))

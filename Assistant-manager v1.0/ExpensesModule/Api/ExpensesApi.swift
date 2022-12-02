@@ -34,7 +34,7 @@ class ExpensesApi: ExpensesApiProtocol {
         
         let dateReportNewMonts = ["iDdateMMYYYY": dateExpenseFormatMMYYYY,
                                   "checkCount":0,
-                                  "expenses":0,
+                                  "expenses":total,
                                   "proceeds":0
                                  ] as [String : Any]
    
@@ -93,6 +93,8 @@ class ExpensesApi: ExpensesApiProtocol {
                                          completion(.failure(error))
                                          return
                                         }
+                                        
+                                        
                                     }
                                 }
                             }
@@ -145,10 +147,10 @@ class ExpensesApi: ExpensesApiProtocol {
                             Firestore.firestore().collection(nameColection).document(idGroup).collection("FinancialReport").document(dateExpenseFormatMMYYYY).getDocument { (document, error) in
                                 if let document = document, document.exists {
                                     // now monts for report
-                                    Firestore.firestore().collection(nameColection).document(uid).collection("FinancialReport").document(dateExpenseFormatMMYYYY).updateData(["expenses":FieldValue.increment(Double(total))])
+                                    Firestore.firestore().collection(nameColection).document(idGroup).collection("FinancialReport").document(dateExpenseFormatMMYYYY).updateData(["expenses":FieldValue.increment(Double(total))])
                                 } else {
                                     // new monts for report
-                                    Firestore.firestore().collection(nameColection).document(uid).collection("FinancialReport").document(dateExpenseFormatMMYYYY).setData(dateReportNewMonts) { (error) in
+                                    Firestore.firestore().collection(nameColection).document(idGroup).collection("FinancialReport").document(dateExpenseFormatMMYYYY).setData(dateReportNewMonts) { (error) in
                                         if let error = error {
                                          completion(.failure(error))
                                          return

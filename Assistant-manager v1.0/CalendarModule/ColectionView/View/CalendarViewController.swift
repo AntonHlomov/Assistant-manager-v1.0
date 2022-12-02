@@ -179,9 +179,11 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 }
             case true:
                 cell.reminderS.removeAll()
-                cell.textEmpty.text = "You don't have active reminders yet"
+                cell.textEmpty.text = "You don't have active reminders yet."
                 cell.addSubview(cell.textEmpty)
-                cell.textEmpty.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: nil, trailing: cell.trailingAnchor, pading: .init(top: 43, left: 90, bottom: 0, right: 10))
+                cell.textEmpty.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: nil, trailing: cell.trailingAnchor, pading: .init(top: 43, left: 110, bottom: 0, right: 20))
+                cell.textEmpty.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+                
                 cell.touchAddButoon = { [weak self] _ in
                     self?.presenter.touchAddButoon()
                 }
