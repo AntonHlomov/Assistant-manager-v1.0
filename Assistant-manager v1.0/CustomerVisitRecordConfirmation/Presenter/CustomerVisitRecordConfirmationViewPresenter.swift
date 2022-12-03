@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 15/06/2022.
 //
-
 import Foundation
 import UIKit
 
@@ -50,8 +49,6 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
         self.user = user
         setDtata()
     }
-    
-    
     func setDtata(){
         let imageMaster = master?.profileImageURLTeamMember ?? ""
         let nameMaster = master?.nameTeamMember ?? ""
@@ -59,13 +56,11 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
         let profecionMaster = master?.professionName ?? ""
         let nameFullNameMaster = nameMaster.capitalized + (" ") + fullNameMaster.capitalized
         self.view?.setInfoMaster(image: imageMaster, name: nameFullNameMaster, nameProfesion: profecionMaster)
-        
         let imageClient = client?.profileImageClientUrl ?? ""
         let nameClient = client?.nameClient ?? ""
         let fullNameClient = client?.fullName ?? ""
         let nameFullNameClient = nameClient.capitalized + (" ") + fullNameClient.capitalized
         self.view?.setInfoClient(image: imageClient, name: nameFullNameClient)
-        
         let dateStart = customerVisit?.dateTimeStartService ?? ""
         self.view?.setInfoDate(dateStart: dateStart)
     }
@@ -84,6 +79,5 @@ class CustomerVisitRecordConfirmationViewPresenter: CustomerVisitRecordConfirmat
                     }
                 }
             }
-        
     }
 }

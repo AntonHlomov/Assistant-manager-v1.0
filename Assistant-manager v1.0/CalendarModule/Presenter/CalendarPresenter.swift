@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 29/01/2022.
 //
-
 import Foundation
 
 protocol CalendadrViewProtocol: AnyObject {
@@ -18,14 +17,10 @@ protocol CalendadrViewProtocol: AnyObject {
 }
 protocol CalendadrViewPresenterProtocol: AnyObject {
     init(view: CalendadrViewProtocol, networkService: APIUserDataServiceProtocol,networkServiceStatistic: APiStatistikMoneyServiceProtocol,networkServiceUser: APIGlobalUserServiceProtocol, router: LoginRouterProtocol, user:User?,networkServiceTeam:ApiTeamProtocol)
- 
-   // func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
-   // func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ())
+
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->())
-//    func getProfitStatistic(completion: @escaping (Double?) ->())
     func getCalendarDate()
     func getReminders()
-    //func getStatistic()
     func pushClientsButton()
     func touchAddButoon()
     func pushOptionsButton()
@@ -37,15 +32,11 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     func dataTodayTomorrow()
     func statusCheckUser()
     func getFinancialReport()
-    
     func goToScreen()
     func clinAddInGroup()
     func confirfAdInGroup()
     
     var user: User? { get set }
-   // var profit: Double? { get set } //прибыль
-   // var revenueToday: Double? { get set } //выручка
-   // var expensesToday: Double? { get set } //расходы
     var profit: String? { get set } //прибыль
     var revenueToday: String? { get set } //выручка
     var expensesToday: String? { get set } //расходы
@@ -54,12 +45,9 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     var reminders: [Reminder]?{ get set }
     var today: String { get set }
     var tomorrow: String { get set }
-   
 }
 class CalendadrPresentor: CalendadrViewPresenterProtocol {
- 
-    
-   
+
    var user: User?
    var oldUser: User?
    var revenueToday: String?
@@ -105,11 +93,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.tomorrow = Date().tomorrowDMYFormat()
         self.team = [Team]()
         self.reminders = [Reminder]()
-
         reloadData()
     }
     func confirfAdInGroup(){
-      
         networkServiceTeam.addNewTeamUserAfterConfirm(userChief: idUserRequest, newTeamUser: self.user, categoryTeamMember: statusInGroupRequest ,idGroup: idGroupRequest) { [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async { [self] in
@@ -122,11 +108,8 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
             }
         }
-    }
-    
-    
+    }        
     func goToScreen(){
-       
         self.router?.initalScreensaverControler()
         self.view?.dismiss()
     }
@@ -141,12 +124,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                         self.statusInGroupRequest = ""
                     case.failure(let error):
                         self.view?.failure(error: error)
-                       
                }
             }
          }
     }
-    
     func statusCheckUser(){
         if self.user?.statusInGroup == self.oldUser?.statusInGroup{
             print("неизменился statusInGroup")
@@ -177,20 +158,11 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             
         }
     }
-    
-    
-    
-    
-
-   
     func reloadData(){
         let meQueue = DispatchQueue(label: "reloadData")
         meQueue.sync {
             getGlobalUser()
-           // print("reloadData1")
-           // dataTodayTomorrow()
         }
-      
         meQueue.sync {
             print("reloadData2")
             getTeam()
@@ -215,14 +187,12 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
     }
     func getGlobalUser(){
         print("getGlobalUser")
-       
         networkServiceUser.fetchCurrentUser{[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async { [self] in
                     switch result{
                     case.success(let user):
                         print("success user")
-                       // if user?.statusInGroup != self.user?.statusInGroup {
                         if user?.markerRequest == true {
                             guard user?.idGroupRequest != nil else {return}
                             guard user?.idUserRequest != nil else {return}
@@ -238,15 +208,12 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                                 self.goToScreen()
                                }
                         }
-                   
                     case.failure(let error):
                         self.view?.failure(error: error)
-                       
                }
             }
          }
      }
-    
     func getTeam(){
         print("getTeam")
         DispatchQueue.main.async{
@@ -255,11 +222,8 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 switch result{
                 case .success(let team):
                     self?.team = team ?? [Team]()
-                   // self?.getCalendarDate()
                     print("getTeam!")
-                
                 case .failure(let error):
-                   // break
                     self?.view?.failure(error: error)
                 }
             }
@@ -316,47 +280,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
         }
     }
-//    func getRevenueStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
-//        DispatchQueue.main.async {
-//            self.networkServiceStatistic.getRevenue(indicatorPeriod: indicatorPeriod){[] result in
-//                switch result{
-//                case.success(let revenueToday):
-//                    self.revenueToday = revenueToday
-//                    completion(revenueToday)
-//                case.failure(let error):
-//                    self.view?.failure(error: error)
-//
-//                }
-//            }
-//        }
-//    }
- //   func getExpensesStatistic(indicatorPeriod: String,completion: @escaping (Double?) -> ()) {
- //       DispatchQueue.main.async {
- //           self.networkServiceStatistic.getExpenses(indicatorPeriod: indicatorPeriod){[] result in
- //               switch result{
- //               case.success(let expensesToday):
- //                   self.expensesToday = expensesToday
- //                   completion(expensesToday)
- //               case.failure(let error):
- //                   self.view?.failure(error: error)
- //
- //               }
- //           }
- //       }
- //   }
-  //  func getProfitStatistic(completion: @escaping (Double?) ->()){
-  //      DispatchQueue.main.async(flags: .barrier) { [  self] in
-  //          guard let revenueToday = self.revenueToday else {
-  //          return
-  //      }
-  //          guard let expensesToday = self.expensesToday else {
-  //          return
-  //      }
-  //      let profit = revenueToday - expensesToday
-  //      completion(profit)
-  //      }
-  //  }
-    
     func getFinancialReport(){
         let dateMMYY = Date().todayMonthFormat()
         DispatchQueue.main.async {
@@ -377,39 +300,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             }
        }
     }
-    
-    
-    
-    
-    
- //   func getStatistic(){
- //       DispatchQueue.main.async {
- //           self.networkServiceStatistic.getRevenue(indicatorPeriod: "today"){[] result in
- //               switch result{
- //               case.success(let revenueToday):
- //                   self.revenueToday = revenueToday
- //               case.failure(let error):
- //                   self.view?.failure(error: error)
- //               }
- //           }
- //           self.networkServiceStatistic.getExpenses(indicatorPeriod: "today"){[] result in
- //               switch result{
- //               case.success(let expensesToday):
- //                   self.expensesToday = expensesToday
- //               case.failure(let error):
- //                   self.view?.failure(error: error)
- //               }
- //       }
- //           guard let revenueToday = self.revenueToday else {
- //           return
- //       }
- //           guard let expensesToday = self.expensesToday else {
- //           return
- //       }
- //           self.profit = revenueToday - expensesToday
- //
- //     }
- //   }
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->()){
          DispatchQueue.main.async {
              var totalSum = [Double]()
@@ -477,7 +367,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
         self.view?.updateDataSestion(update: true, indexSetInt: 2)
     }
-    
     func openClientWithReminder(reminder: Reminder?){
         guard let idClient = reminder?.idClient  else {return}
         guard let massage = reminder?.commit  else {return}
@@ -492,8 +381,6 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                         self.view?.failure(error: error)
                     }
                 }
-        }
-        
-        
+           }
     }
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 29/05/2022.
 //
-
 import UIKit
 
 class ClientPage: UIViewController {
@@ -17,13 +16,11 @@ class ClientPage: UIViewController {
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
         return line
      }()
-    
     lazy var boxViewBlue: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
         return line
      }()
-    
     lazy var circlForAvaViewBlue: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -33,7 +30,6 @@ class ClientPage: UIViewController {
         
         return line
      }()
-    
     lazy var profileImageView = CustomUIimageView(frame: .zero )
     
     lazy var nameClient: UILabel = {
@@ -44,7 +40,6 @@ class ClientPage: UIViewController {
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
      }()
-    
     lazy var abautCient: UITextView = {
         var text = UITextView()
         text.textAlignment = .center
@@ -57,9 +52,7 @@ class ClientPage: UIViewController {
         return text
     }()
     fileprivate let clientInvitationButton =    UIButton.setupButton(title: "New visit", color: UIColor.appColor(.blueAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor:  UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
-    
     fileprivate let callButton =    UIButton.setupButton(title: "Сall", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
-    
     lazy var stackButtonMakeCall = UIStackView(arrangedSubviews: [clientInvitationButton, callButton])
     
     lazy var countComeClient: UIButton = {
@@ -69,7 +62,6 @@ class ClientPage: UIViewController {
         button.addTarget(self, action: #selector(goToVisitStatisyc), for: .touchUpInside) // переход на экран история записи
         return button
     }()
-    
      lazy var textCountComeClientLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -79,7 +71,6 @@ class ClientPage: UIViewController {
         return label
     }()
     lazy var stackVisitClient = UIStackView(arrangedSubviews: [countComeClient, textCountComeClientLabel])
-    
     lazy var monyComeClient: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "0", attributes: [.font:UIFont.systemFont (ofSize: 40), .foregroundColor: UIColor.appColor(.blueAssistant)!])
@@ -87,7 +78,6 @@ class ClientPage: UIViewController {
         button.addTarget(self, action: #selector(goToFinansStatisyc), for: .touchUpInside) // переход на экран фин статистики
         return button
     }()
-    
     lazy var textMonyComeClientLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -97,14 +87,9 @@ class ClientPage: UIViewController {
         return label
     }()
     lazy var stackMonyClient = UIStackView(arrangedSubviews: [monyComeClient, textMonyComeClientLabel])
-    
-    
     lazy var stackStatisyc = UIStackView(arrangedSubviews: [stackVisitClient, stackMonyClient])
-    
     lazy var goToWorckButton: UIButton = {
         let button = UIButton(type: .system)
-      //  button.setTitle("", for: .normal)
-      //  button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         button.setTitleColor(.gray, for: .normal)
         button.layer.borderWidth = 8
@@ -112,40 +97,30 @@ class ClientPage: UIViewController {
         button.addTarget(self, action: #selector(goToWorck), for: .touchUpInside)
         return button
     }()
-    
     let appsCollectionView: UICollectionView = {
-        
     let layout = UICollectionViewFlowLayout()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 65, height: 90)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-      
-    
     return collectionView
     }()
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
             self.circlForAvaViewBlue.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
         }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         configureNavigationBar()
-       // self.navigationController?.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
         configureUI()
         handlers()
         appsCollectionView.delegate = self
         appsCollectionView.dataSource = self
         appsCollectionView.register(TeamCircleCollectionViewCell.self, forCellWithReuseIdentifier: "sliderTeam")
-     
-       
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,7 +138,6 @@ class ClientPage: UIViewController {
         let reminderButton : UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "SB").withRenderingMode(.alwaysOriginal), style:.plain, target: self, action:#selector(reminder))
         let buttons : NSArray = [ reminderButton,visitDatesButton]
         self.navigationItem.rightBarButtonItems = (buttons as! [UIBarButtonItem])
-    
     }
     fileprivate func configureUI() {
         view.addSubview(boxViewBlue)
@@ -221,7 +195,6 @@ class ClientPage: UIViewController {
         goToWorckButton.anchor(top: nil, leading: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing:nil, pading: .init(top: 0, left: 0, bottom: 0,right: 0), size: .init(width: 80, height: 80))
         goToWorckButton.layer.cornerRadius = 80 / 2
         goToWorckButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    
     }
     @objc fileprivate func pressСlientInvitationButton(){
         presenter.pressСlientInvitationButton()
@@ -244,7 +217,6 @@ class ClientPage: UIViewController {
     @objc fileprivate func reminder(){
         alertReminderMassage()
     }
-    
     func checkAllIndicator(){
         presenter.checkIndicatorVisitDates()
         presenter.checkIndicatorReminder()
@@ -253,7 +225,6 @@ class ClientPage: UIViewController {
         presenter.checkIndicatorFinansStatisyc()
         presenter.checkIndicatorGoToWorck()
     }
-
 }
 extension ClientPage{
     func alertReminderMassage(title: String, message: String){
@@ -318,7 +289,6 @@ extension ClientPage{
                self.alertReminderMassage()
            })
            let selectAction = UIAlertAction(title: "Save", style: .default, handler: { _ in
-              
                switch self.presenter.user?.statusInGroup {
                case "Individual","Master":
                    self.presenter.reminder(text: text, date: myDatePicker.date)
@@ -332,10 +302,7 @@ extension ClientPage{
            present(alertController, animated: true)
     }
     func alertTableTiam(text:String, date:Date ){
-           
- 
            appsCollectionView.frame = CGRect(x: 30, y: 60, width: 200, height: 90)
-        
            let alertController = UIAlertController(title: "Who is this message for? \n\n\n\n\n", message: nil, preferredStyle: .alert)
            alertController.view.addSubview(appsCollectionView)
            let backAction = UIAlertAction(title: "Back", style: .default, handler: { _ in
@@ -345,17 +312,13 @@ extension ClientPage{
                if self.presenter.idUserWhoIsTheMessage != "" || self.presenter.idUserWhoIsTheMessage != nil {
                   self.presenter.reminder(text: text, date: date)
                }
-               
            })
-           
-
            alertController.addAction(backAction)
            alertController.addAction(selectAction)
            present(alertController, animated: true)
     }
 }
 extension ClientPage: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -363,32 +326,24 @@ extension ClientPage: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  self.presenter.team?.count ?? 0
     }
-  
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sliderTeam", for: indexPath) as! TeamCircleCollectionViewCell
         cell.team = self.presenter.team?[indexPath.row]
-   
         return cell
     }
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TeamCircleCollectionViewCell
         cell.nameLebel.textColor = .white
         self.presenter.idUserWhoIsTheMessage = self.presenter.team?[indexPath.row].idTeamMember
-       // presenter.pressedMastersChoice(indexPath: indexPath)
     }
-    
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("отжал\(indexPath.row)")
         let cell = collectionView.cellForItem(at: indexPath) as! TeamCircleCollectionViewCell
         cell.nameLebel.textColor = .darkGray
     }
-    
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
      let customCell = cell as! TeamCircleCollectionViewCell
          if customCell.isSelected {
@@ -397,22 +352,15 @@ extension ClientPage: UICollectionViewDelegate, UICollectionViewDataSource, UICo
              customCell.nameLebel.textColor = .darkGray
          }
     }
-    
- //   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, //sizeForItemAt indexPath: IndexPath) -> CGSize {
- //
- //       return CGSize(width: SCREEN_WIDTH , height: collection.height)
- //   }
 }
-//связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
+
 extension ClientPage: ClientPageProtocol {
     func reloadColection() {
         self.appsCollectionView.reloadData()
     }
-    
     func enteringAreminder() {
         alertReminderMassage()
     }
-    
     func massageReminder(massge: String) {
         alertReminderMassage(title: "Reminder", message: massge)
     }
@@ -453,5 +401,4 @@ extension ClientPage: ClientPageProtocol {
         guard indicatorWorck == true else {return}
         self.goToWorckButton.layer.borderColor = UIColor.appColor(.pinkAssistant)!.cgColor
     }
-
 }

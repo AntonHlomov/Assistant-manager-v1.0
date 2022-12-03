@@ -4,10 +4,8 @@
 //
 //  Created by Anton Khlomov on 19/02/2022.
 //
-
 import UIKit
 import Firebase
-
 
 protocol APIRegistrationProtocol {
     func registration(photoUser: UIImage, emailAuth: String, name: String, passwordAuth: String,completion: @escaping (Result<Bool,Error>) -> Void)
@@ -67,8 +65,6 @@ class APIRegistrationService:APIRegistrationProtocol {
                       }
                    }
                  }
-            
-    
         }
     }
 }

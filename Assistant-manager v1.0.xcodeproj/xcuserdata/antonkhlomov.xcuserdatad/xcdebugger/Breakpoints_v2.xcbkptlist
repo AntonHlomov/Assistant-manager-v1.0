@@ -64,54 +64,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E841E26F-A2F1-41AC-97D5-9E7F1EA6113E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E841E26F-A2F1-41AC-97D5-9E7F1EA6113E - f4141b46cb191027"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Assistant_manager_v1_0.CalendarViewController.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174"
-                  offsetFromSymbolStart = "1795">
-               </Location>
-               <Location
-                  uuid = "E841E26F-A2F1-41AC-97D5-9E7F1EA6113E - ca908ad1808a94bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Assistant_manager_v1_0.SliderReminderClientsCell) -&gt; () in Assistant_manager_v1_0.CalendarViewController.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
-                  moduleName = "Assistant-manager v1.0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/antonkhlomov/Desktop/Assistant-manager%20v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174"
-                  offsetFromSymbolStart = "65">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "491ACA00-9973-40C9-B13B-5C79563791DE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -119,8 +71,8 @@
             filePath = "Assistant-manager v1.0/ClientPage/View/ClientPage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "alertReminderMassage()"
             landmarkType = "7">
          </BreakpointContent>

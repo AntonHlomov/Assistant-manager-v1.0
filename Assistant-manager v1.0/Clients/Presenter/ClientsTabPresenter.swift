@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 12/05/2022.
 //
-
 import Foundation
 
 protocol ClientsTabViewProtocol: AnyObject {
@@ -25,7 +24,6 @@ protocol ClientsTabViewPresenterProtocol: AnyObject {
     func goToAddClient()
 }
 
-// заввязываемся на протоколе
 class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
    
     weak var view: ClientsTabViewProtocol?
@@ -43,8 +41,6 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
         self.user = user
         self.markAddMassageReminder = markAddMassageReminder
         getClients()
-        
- 
     }
     func deleteClient(indexPath: IndexPath){
         guard let ref = self.filterClients?[ indexPath.row].profileImageClientUrl else {return}
@@ -63,7 +59,6 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
             }
         }
     }
-  
     func filter(text: String) {
         if text == "" {
             filterClients = clients?.sorted{ $0.nameClient < $1.nameClient } }
@@ -72,7 +67,6 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
         }
         self.view?.succesReload()
     }
-    
     func getClients() {
         networkService.getClients(user: self.user){ [weak self] result in
             guard self != nil else {return}
@@ -89,7 +83,6 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
             }
         }
     }
-    
     func goToPageClient(indexPathRowClient: Int) {
         
         switch self.markAddMassageReminder{
@@ -105,5 +98,4 @@ class ClientsTabPresentor: ClientsTabViewPresenterProtocol {
     func redactClient(indexPath: IndexPath){
         self.router?.showAddClientView(editMode: true, client:  self.filterClients?[indexPath.row], user: self.user)
     }
-   
 }

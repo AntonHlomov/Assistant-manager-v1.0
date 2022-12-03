@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 22/10/2022.
 //
-
 import Foundation
 import UIKit
 
@@ -45,7 +44,6 @@ class TeamPresenter: TeamPresenterProtocol{
 
     func getGlobalUser(){
         print("getGlobalUser")
-     
             networkServiceAPIGlobalUser.fetchCurrentUser{[weak self] result in
             guard let self = self else {return}
                 DispatchQueue.main.async {
@@ -55,7 +53,6 @@ class TeamPresenter: TeamPresenterProtocol{
                         self.getTeam()
                     case.failure(let error):
                         self.view?.failure(error: error)
-                       
                }
             }
          }
@@ -97,30 +94,6 @@ class TeamPresenter: TeamPresenterProtocol{
                 }
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-   //     guard  let userBoss = self.user else {return}
-   //     networkService.setNewTeamUser(userChief: self.user, newTeamUser: userBoss, categoryTeamMember: "Boss") { [weak self] result in
-   //         guard self != nil else {return}
-   //         DispatchQueue.main.async { [self] in
-   //             switch result{
-   //             case .success(let mark):
-   //                 guard mark == true else {return}
-   //                  self?.getGlobalUser()
-   //                 print("2")
-   //             case .failure(let error):
-   //                 self?.view?.failure(error: error)
-   //             }
-   //         }
-   //     }
     }
     func confirmAddIdNewTeamUser(idNewTeamUser: String ,status: String){
         switch self.user?.statusInGroup {
@@ -141,8 +114,6 @@ class TeamPresenter: TeamPresenterProtocol{
         }
       
     }
-
-
     func redactTeamUser(indexPath: IndexPath){
         switch self.user?.statusInGroup {
         case "Boss","Administrator":
@@ -203,5 +174,4 @@ class TeamPresenter: TeamPresenterProtocol{
             }
         }
     }
-    
 }

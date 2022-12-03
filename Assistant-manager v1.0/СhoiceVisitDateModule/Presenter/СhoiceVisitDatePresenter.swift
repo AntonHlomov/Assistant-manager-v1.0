@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 11/06/2022.
 //
-
 import Foundation
 import UIKit
 
@@ -22,8 +21,6 @@ protocol СhoiceVisitDatePresenterProtocol: AnyObject{
     var checkMaster: Team? {get set}
     var customerRecordNew: CustomerRecord? {get set}
     var customerRecordPast:[CustomerRecord]? {get set}
-
-    
     func puchConfirm()
     func pressedMastersChoice(indexPath:IndexPath)
     func presedClient(indexPath:IndexPath)
@@ -58,9 +55,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var ageClient:Int!
     var commit: String!
     var anUnfulfilledRecord: Bool!
-    
-    
-    
 
     required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) {
         self.view = view
@@ -100,7 +94,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
           }
       }
     }
-    
     func puchConfirm(){
         print("puchConfirm",client?.nameClient ?? "")
         guard let user = self.user else {return}
@@ -127,7 +120,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
                 }
                 self.dateTimeEndService = Date().addMin(n: timeForWork)
             }
-  
             customerRecordNew = CustomerRecord(dictionary: [
                 "idUserWhoWorks": user.uid ?? "",
                 "nameWhoWorks": user.name ?? "",
@@ -168,7 +160,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
                 }
                 self.dateTimeEndService = Date().addMin(n: timeForWork)
             }
-         
             customerRecordNew = CustomerRecord(dictionary: [
                 "idUserWhoWorks": checkMaster?.idTeamMember ?? "",
                 "nameWhoWorks": checkMaster?.nameTeamMember ?? "",
@@ -188,7 +179,6 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             self.router?.showCustomerVisitRecordConfirmationViewModule(customerVisit: customerRecordNew, master: checkMaster, client: client, services: serviceCheck, user: self.user)
         default: break
         }
-        
     }
     func pressedMastersChoice(indexPath:IndexPath) {
         print("выбрал мастера кому записывать",indexPath)
@@ -202,11 +192,9 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     func presedClient(indexPath:IndexPath) {
         print("нажал на запись", indexPath)
     }
-    
     func dateChanged(senderDate: Date) {
         self.dateTimeStartService = senderDate.formatterDateDMYHM(date: senderDate)
         self.dateStartService = senderDate.formatterDateDMY(date: senderDate)
-        
         var timeForWork = 0 // min
         for (servic) in serviceCheck! {
             timeForWork = timeForWork + servic.timeAtWorkMin
@@ -217,8 +205,5 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             checkMaster = team?[0]
         }
         setDataCustomerRecordForMaster(idMaster: checkMaster?.idTeamMember ?? "", dateStartServiceDMY: dateStartService)
-
     }
-
-  
 }

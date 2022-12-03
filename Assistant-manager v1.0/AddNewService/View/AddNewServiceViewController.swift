@@ -4,21 +4,17 @@
 //
 //  Created by Anton Khlomov on 09/06/2022.
 //
-
 import UIKit
 
 class AddNewServiceViewController: UIViewController {
-    
     var presenter: AddNewServicePresenterProtocol!
-    
     fileprivate let nameServise = UITextField.setupTextField(title: "Name servise..", hideText: false, enabled: true)
     fileprivate let timeAtWorkMin = UITextField.setupTextField(title: "Service execution time(min)..", hideText: false, enabled: true)
     fileprivate let timeReturnServiseDays = UITextField.setupTextField(title: "After how many days to repeat the service..", hideText: false, enabled: true)
-    
     fileprivate let priceServies = UITextField.setupTextField(title: "Price servies..", hideText: false, enabled: true)
     fileprivate let addButton =    UIButton.setupButton(title: "Add", color: UIColor.appColor(.pinkAssistant)!, activation: false, invisibility: false, laeyerRadius: 12, alpha: 0.7, textcolor: UIColor.appColor(.whiteAssistant)!)
     lazy var stackView = UIStackView(arrangedSubviews: [nameServise,timeAtWorkMin,timeReturnServiseDays,priceServies])
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -30,15 +26,12 @@ class AddNewServiceViewController: UIViewController {
     fileprivate func configureViewComponents(){
         view.addSubview(addButton)
         addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
-   
         stackView.axis = .vertical
         stackView.spacing = view.frame.height/35
         stackView.distribution = .fillEqually  // для корректного отображения
         view.addSubview(stackView)
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing:  view.safeAreaLayoutGuide.trailingAnchor, pading: .init(top: view.frame.height/5, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/3))
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
     }
     fileprivate func hadleres() {
         nameServise.addTarget(self, action: #selector(formValidation), for: .editingChanged)
@@ -70,16 +63,14 @@ class AddNewServiceViewController: UIViewController {
         guard let timeAtWorkMin = Int(timeAtWorkMin.text ?? "0") else {return}
         guard let timeReturnServiseDays = Int(timeReturnServiseDays.text ?? "0") else {return}
         guard let priceServies = priceServies.text?.doubleValue else {return}
-     
         presenter.addNewServies(nameServise: nameServise, priceServies: Double(priceServies), timeAtWorkMin: timeAtWorkMin, timeReturnServiseDays: timeReturnServiseDays)
         addButton.isEnabled = false
-  
     }
     //MARK: - Клавиатура
     fileprivate func  setupNotificationObserver(){
         // следит когда подниметься клавиатура
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        // следит когда пbcxtpftn
+        // следит когда опускаеться
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwowHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
    override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
@@ -106,9 +97,6 @@ class AddNewServiceViewController: UIViewController {
     @objc fileprivate func handleTapDismiss(){
         view.endEditing(true)
     }
-
-    
-
 }
 extension AddNewServiceViewController{
     func alertMassage(title: String, message: String){
@@ -123,17 +111,14 @@ extension AddNewServiceViewController: AddNewServiceProtocol{
         guard let nameServise = price?.nameServise else {return}
         guard let timeAtWorkMin = price?.timeAtWorkMin else {return}
         guard let timeReturnServiseDays = price?.timeReturnServiseDays else {return}
-        guard let priceServies = price?.priceServies else {return}
-        
+        guard let priceServies = price?.priceServies else {return}        
         self.nameServise.text = nameServise.capitalized
         self.timeAtWorkMin.text = String(timeAtWorkMin)
         self.timeReturnServiseDays.text = String(timeReturnServiseDays)
         self.priceServies.text = String(priceServies)
-        
         self.addButton.setTitle("Save", for: .normal)
         formValidation()
     }
-    
     func succes() {
         print("succes")
     }

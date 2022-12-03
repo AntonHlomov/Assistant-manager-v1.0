@@ -4,18 +4,14 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
-
 import Foundation
 
 class User {
-    
     var uid: String!
     var name: String!
     var fullName: String!
     var profileImage: String!
-    var email: String!
-
+    var email: String!    
     var lastСheckNumber: Int!
     
     var statusBoss: Bool!
@@ -29,18 +25,13 @@ class User {
     var expensesUser: Double? // all time information
     var proceedsUser: Double? // all time information
     var checkCount: Int! // all time information
-  
-    
-  //  var whoIsBossId: String!
-   // var whoIsAdministrator: String!
-    
+
     var statusInGroup: String! // Boss / Administrator / Master / Individual
     var hiddenStatus: String! // Any / Individual
     var idGroup: String!
     var expensesUserInGroup: Double? // all time information
     var proceedsUserInGroup: Double? // all time information
-    var checkCountInGroup: Int! // all time information
-    
+    var checkCountInGroup: Int! // all time information    
     // пременные для запроса на добавления в группу
     var markerRequest: Bool!
     var idGroupRequest: String!
@@ -49,10 +40,6 @@ class User {
     var nameRequest: String!
     var fullNameRequest: String!
     var statusInGroupRequest: String!
-    
-    
-
-    
 
     init(dictionary: [String: Any]) {
         
@@ -62,10 +49,7 @@ class User {
         self.uid = dictionary["uid"] as? String ?? ""
         self.email = dictionary["email"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
-     
-       // self.statusBoss = dictionary["statusBoss"] as? Bool ?? nil
-       // self.statusAdministrator = dictionary["statusAdministrator"] as? Bool ?? nil
-       // self.statusMaster = dictionary["statusMaster"] as? Bool ?? nil
+ 
         self.clientsCount = dictionary["clientsCount"] as? Int ?? nil
         self.priceCount = dictionary["priceCount"] as? Int ?? nil
         self.checkCount = dictionary["checkCount"] as? Int ?? nil
@@ -75,10 +59,7 @@ class User {
         self.proceedsUser = dictionary["proceedsUser"] as? Double ?? nil
         self.expensesUserInGroup = dictionary["expensesUserInGroup"] as? Double ?? nil
         self.proceedsUserInGroup = dictionary["proceedsUserInGroup"] as? Double ?? nil
-        
-      //  self.whoIsBossId = dictionary["whoIsBossId"] as? String ?? ""
-      //  self.whoIsAdministrator = dictionary["whoIsAdministrator"] as? String ?? ""
-        
+
         self.statusInGroup = dictionary["statusInGroup"] as? String ?? ""
         self.idGroup = dictionary["idGroup"] as? String ?? ""
         self.hiddenStatus = dictionary["hiddenStatus"] as? String ?? ""
@@ -90,7 +71,5 @@ class User {
         self.nameRequest = dictionary["nameRequest"] as? String ?? ""
         self.fullNameRequest = dictionary["fullNameRequest"] as? String ?? ""
         self.statusInGroupRequest = dictionary["statusInGroupRequest"] as? String ?? ""
-       
     }
 }
-

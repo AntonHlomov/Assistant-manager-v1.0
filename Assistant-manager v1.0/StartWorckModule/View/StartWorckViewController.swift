@@ -4,9 +4,7 @@
 //
 //  Created by Anton Khlomov on 18/01/2022.
 //
-
 import UIKit
-
 
 private let sliderTeamStartWorckCellIdentifier = "SliderTeamStartWorckCellIdentifier"
 private let customerCardPaymentCellIndetifire = "CustomerCardPaymentCellIndetifire"
@@ -20,21 +18,15 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
       return search
     }()
     let searchController = UISearchController(searchResultsController: nil)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         //presenter.getDataForTeam()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
-      
-       
-
         self.collectionView.register(SliderTeamStartWorckCell.self, forCellWithReuseIdentifier: sliderTeamStartWorckCellIdentifier)
         self.collectionView.register(SearchCustomerCardPaymentCell.self, forCellWithReuseIdentifier: searchCustomerCardPaymentCellIndetifire)
-      
         self.collectionView.register(CustomerCardPaymentCell.self, forCellWithReuseIdentifier: customerCardPaymentCellIndetifire)
         self.collectionView.register(EmptyCustomerCardPaymentCell.self, forCellWithReuseIdentifier: emptyCustomerCardPaymentCell)
-        
         searchBar = UISearchBar()
         searchBar.placeholder = "Search"
         searchBar.delegate = self
@@ -59,51 +51,26 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         navigationController?.navigationBar.isHidden = true
         presenter.statusCheckUser()
     }
-    
-
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return presenter.team?.count ?? 0
-        
         case 1: return 1
-            
         case 2 where presenter.filterCustomersCardsPayment?.isEmpty == true:
                return 1
-          
         case 2 where presenter.filterCustomersCardsPayment?.isEmpty == false:
                return presenter.filterCustomersCardsPayment?.count ?? 0
-            
         default: return 0
         }
     }
- //   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> //CGSize {
- //       switch section {
- //           // main team
- //       case 0: return CGSize(width: view.frame.width, height: view.frame.height/8)
- //         // main search bar
- //       case 1:  return CGSize(width: view.frame.width, height: 60)
- //
- //       case 2 : return CGSize(width: 0, height: 0)
- //
- //       default: return CGSize(width: 0, height: 0)
- //       }
- //   }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0: return  CGSize(width: view.frame.width, height: 100)
-            //CGSize(width: view.frame.width, height: view.frame.height/8) //CGSize (width: 0, height: 0) //CGSize (width: view.frame.width, height: 180)
-            //
-        case 1:  return CGSize(width: view.frame.width, height: 60) //CGSize (width: 0, height: 0)
-          //
+        case 1:  return CGSize(width: view.frame.width, height: 60)
         case 2 : return  CGSize (width: view.frame.width - 30, height: view.frame.width/1.5 + 100)
-          
         default: return CGSize(width: 0, height: 0)
         }
     }
@@ -117,20 +84,6 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         if section == 0 { return 0 }
         return 15
     }
-    
-  //  override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> //UICollectionReusableView {
-  //      switch indexPath.section {
-  //      case 0:
-  //          let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sliderTeamStartWorckCellIdentifier, for: indexPath) as! //SliderTeamStartWorckCell
-  //
-  //          return header
-  //      default:
-  //          let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchCustomerCardPaymentCellIndetifire, for: //indexPath) as! SearchCustomerCardPaymentCell
-  //          header.backgroundColor = UIColor.appColor(.whiteAssistant)
-  //          return header
-  //      }
-  //  }
-
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0 where presenter.team?.isEmpty == false:
@@ -140,27 +93,17 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
                 self?.presenter.checkMaster = cell.master
                 self?.presenter.getCustomerRecord()
             }
-            // нажатие на cell программно
-          //  cell.self.collectionView(self.collectionView, didSelectItemAt: IndexPath(item: 3, section: 0))
-            
-           
-           
-            
             return cell
         case 0 where presenter.team?.isEmpty == true:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sliderTeamStartWorckCellIdentifier, for: indexPath) as! SliderTeamStartWorckCell
-           // cell.customerRecord = presenter.filterCustomersCardsPayment?[indexPath.row]
-          
             cell.textEmpty.text = "You don't have active reminders yet"
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: searchCustomerCardPaymentCellIndetifire, for: indexPath) as! SearchCustomerCardPaymentCell
             cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
-            
             cell.addSubview(searchBar)
             searchBar.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor,pading: .init(top: 5, left: 0, bottom: 15, right: 0))
             return cell
-        
         case 2 where presenter.filterCustomersCardsPayment?.isEmpty == false:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customerCardPaymentCellIndetifire, for: indexPath) as! CustomerCardPaymentCell
             cell.customerRecord = presenter.filterCustomersCardsPayment?[indexPath.row]
@@ -184,17 +127,14 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         }
     
     }
-
     // нажатие на ячейки
    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        print("нажал\(indexPath)")
        presenter.pushPayClient(indexPath: indexPath)
    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
          presenter.filter(text: searchText)
-    }
-    
+    }    
     func addDoneButtonOnKeyboard(){
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
@@ -205,7 +145,6 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         doneToolbar.sizeToFit()
         searchBar.inputAccessoryView = doneToolbar
     }
-    
     @objc func doneButtonAction(){
         searchBar.resignFirstResponder()
     }
@@ -224,10 +163,7 @@ class StartWorckViewController: UICollectionViewController,UICollectionViewDeleg
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
  }
-
-
 }
-
 extension StartWorckViewController{
     func alertRegistrationControllerMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -236,23 +172,17 @@ extension StartWorckViewController{
         present(alertControler, animated: true, completion: nil)
     }
 }
-
 extension StartWorckViewController: StartWorckViewProtocol {
 
     func updateDataCustomerRecord(update: Bool, indexSetInt: Int) {
         guard update == true else {return}
         let indexSet = IndexSet(integer: indexSetInt)
         collectionView.reloadSections(indexSet)
-       
     }
-    
     func success() {
-        
     }
-
    func failure(error: Error) {
        let error = "\(error.localizedDescription)"
        alertRegistrationControllerMassage(title: "Error", message: error)
-  
    }
 }

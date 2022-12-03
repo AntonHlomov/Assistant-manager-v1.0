@@ -14,16 +14,13 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         body.backgroundColor = UIColor.appColor(.blueAssistantFon)
         body.layer.cornerRadius = 20
         return body
-    }()
-    
+    }()    
     let lineView: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.3)
          return line
     }()
-    
     let imageView = CustomUIimageView(frame: .zero)
-    
     let nameShurname: UILabel = {
         let Label = UILabel()
         Label.text = "Name Shurname"
@@ -33,7 +30,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         Label.numberOfLines = 1
         return Label
     }()
-    
     let profession: UILabel = {
         let Label = UILabel()
         Label.text = "Hair staylist"
@@ -43,7 +39,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         Label.numberOfLines = 1
         return Label
     }()
-    
     lazy var circlForImageClient: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -52,9 +47,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         line.layer.borderWidth = 3
         return line
     }()
-    
     lazy var clientImageView = CustomUIimageView(frame: .zero )
-    
     lazy var nameClient: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -63,7 +56,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
     }()
-    
     let textAddComent: UILabel = {
         let Label = UILabel()
         Label.text = "Add a comment"
@@ -72,8 +64,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         Label.font = UIFont.systemFont(ofSize: 10)
         Label.numberOfLines = 1
         return Label
-    }()
-    
+    }()    
     lazy var commitCustomerVisitRecord: UITextView = {
         var text = UITextView()
         text.textAlignment = .center
@@ -87,7 +78,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         text.isEditable = true
         return text
     }()
-    
     var dateTextLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -96,7 +86,6 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
     }()
-    
     lazy var dataDate: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -105,9 +94,7 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
     }()
-    
     lazy var stackDate = UIStackView(arrangedSubviews: [dateTextLabel,dataDate])
-    
     fileprivate let confirmButton = UIButton.setupButton(title: "Confirm", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
 // MARK: - viewDidLoad
     
@@ -118,22 +105,18 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         setupTapGesture()
         hadleres()
     }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
 // MARK: - hadleres
-    
     fileprivate func hadleres() {
         confirmButton.addTarget(self, action: #selector(saveCustomerVisit), for: .touchUpInside)
     }
-// MARK: - configureUI
-    
+// MARK: - configureUI    
     fileprivate func configureUI() {
         view.addSubview(bodyView)
         bodyView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,pading: .init(top: view.frame.height/9, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: view.frame.height/1.3))
-      
+        
         bodyView.addSubview(lineView)
         lineView.anchor(top: bodyView.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.width/6, height: 6))
         lineView.layer.cornerRadius = 6/2
@@ -189,12 +172,10 @@ class CustomerVisitRecordConfirmationView: UIViewController {
         presenter.saveCustomerVisit(commment: commitCustomerVisitRecord.text)
         confirmButton.isEnabled = false
     }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         self.commitCustomerVisitRecord.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.withAlphaComponent(0.5).cgColor
     }
 //MARK: - Keyboard
-    
     fileprivate func  setupNotificationObserver(){
         // listener up keybord
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -242,20 +223,17 @@ extension CustomerVisitRecordConfirmationView: CustomerVisitRecordConfirmationVi
     func setInfoDate(dateStart: String) {
         dataDate.text = dateStart
     }
-    
     func setInfoMaster(image: String, name: String, nameProfesion: String) {
         print("info master")
         imageView.loadImage(with: image )
         nameShurname.text = name
         profession.text = nameProfesion
     }
-    
     func setInfoClient(image: String, name: String) {
         print("infoClient")
         clientImageView.loadImage(with: image)
         nameClient.text = name
     }
-    
     func succes() {
     }
     func failure(error: Error) {

@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 15/06/2022.
 //
-
 import Foundation
 import Firebase
 
@@ -18,7 +17,6 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let uidMaster = newCustomerVisit.idUserWhoWorks else {return}
         let idCustomerRecord = NSUUID().uuidString
-        
         var serviceData = [[String : Any]]()
         for index in 0...services!.count - 1  {
         let serv = services![index]
@@ -33,7 +31,6 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
             ] as [String : Any]
             serviceData.append(dataServ)
         }
-
         switch user?.statusInGroup {
         case "Individual":
             let data = ["idRecord": idCustomerRecord,
@@ -97,8 +94,5 @@ class APICustomerVisitRecordConfirmation: APICustomerVisitRecordConfirmationProt
             }
         default: break
         }
-
     }
-    
-    
 }

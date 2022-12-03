@@ -4,24 +4,17 @@
 //
 //  Created by Anton Khlomov on 03/06/2022.
 //
-
 import Foundation
 import Firebase
 import UIKit
-
 protocol ApiAddClientDataServiceProtocol{
     func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String,user: User?,completion: @escaping (Result<Bool,Error>) -> Void)
-    
     func editClient(changePhoto:Bool,idClient: String,olderUrlImageClient: String, nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String, user: User?,completion: @escaping (Result<Bool,Error>) -> Void)
-    
 }
 
 class ApiAddClient: ApiAddClientDataServiceProtocol{
- 
-    
-    
     func editClient(changePhoto:Bool,idClient: String, olderUrlImageClient: String, nameClient: String, fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String, user: User?, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
+
         var dataClient = ["idClient": idClient,"nameClient":nameClient,"fullName":fullName,"telefonClient":telefonClient ,"genderClient":genderClient,"ageClient":ageClient,"textAboutClient":textAboutClient] as [String : Any]
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
@@ -138,10 +131,8 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
         let remoteClient = false
         let now = Date()
         let todayDate = now.todayDMYFormat()
-        
         guard let uploadData = profileImageClient.jpegData(compressionQuality: 0.3) else {return}
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        
         switch user?.statusInGroup {
         case "Individual":
             let storageRef = Storage.storage().reference().child("Clients_image").child(idClient)
@@ -150,7 +141,6 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
                     completion(.failure(error))
                     return
                 }
-                // print("Загрузка фотографии клиента прошла успешно!")
                 //получаем обратно адрес картинки
                 storageRef.downloadURL { (downLoardUrl, error) in
                     guard let profileImageClientUrl = downLoardUrl?.absoluteString else {return}
@@ -183,7 +173,6 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
                     completion(.failure(error))
                     return
                 }
-                // print("Загрузка фотографии клиента прошла успешно!")
                 //получаем обратно адрес картинки
                 storageRef.downloadURL { (downLoardUrl, error) in
                     guard let profileImageClientUrl = downLoardUrl?.absoluteString else {return}
@@ -207,6 +196,5 @@ class ApiAddClient: ApiAddClientDataServiceProtocol{
             }
         default: break
         }
-        
   }
 }

@@ -4,21 +4,18 @@
 //
 //  Created by Anton Khlomov on 22/10/2022.
 //
-
 import UIKit
 
 class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate{
     var presenter: TeamPresenterProtocol!
     let cell = "cell"
     let cellEmpty = "cellEmpty"
-
     let myPicker: UIPickerView = UIPickerView()
     let statusInGroup = ["Boss","Administrator","Master"]
     var selectedValue = ""
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return statusInGroup.count
     }
@@ -29,7 +26,7 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return statusInGroup[row]
     }
-
+    
     fileprivate let removeTeam: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Remove the whole ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.appColor(.whiteAssistantwithAlpha)! ])
@@ -50,41 +47,27 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
         configureUI()
         myPicker.dataSource = self
         myPicker.delegate = self
-
     }
     fileprivate func configureUI() {
         view.addSubview(removeTeam)
         removeTeam.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 40, bottom: 0, right: 40))
-        removeTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-  
+        removeTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true  
     }
-
     // MARK: - Table view data source
 
-   // override func numberOfSections(in tableView: UITableView) -> Int {
-   //     // #warning Incomplete implementation, return the number of sections
-   //     return 3
-   // }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         switch presenter.team?.count {
         case 0, nil : return 1
         default: return presenter.team?.count ?? 0
         }
-       // return presenter.team?.count ?? 0
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {        
         switch presenter.team?.count {
         case 0, nil : return view.frame.height/1.5
         default:  return 85.0
         }
     }
-   
-  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      
         switch presenter.team?.count {
         case 0, nil :
             let cell = tableView.dequeueReusableCell(withIdentifier: cellEmpty, for: indexPath) as! EmptyTeamTableViewCell
@@ -97,7 +80,6 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
             cell.addCustomDisclosureIndicator(with: UIColor.appColor(.whiteAssistant)!)
             return cell
         }
-        
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("нажал на команду\(indexPath)")
@@ -111,18 +93,15 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
         switch presenter.team?.count {
         case 0, nil :
             return nil
-         
         default:
             // Создать константу для работы с кнопкой
             let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
                 print("Delete")
                 self?.presenter.deleteTeamUser(indexPathRow: indexPath.row)
-              //  self!.tableView.deleteRows(at: [indexPath], with: .top)
             }
             let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
                 print("Redact")
                 self?.presenter.redactTeamUser(indexPath: indexPath)
-                //tableView.reloadRows(at: [indexPath], with: .fade)
             }
             deleteAction.image = UIImage(systemName: "trash")
             editAction.image = UIImage(#imageLiteral(resourceName: "icons8-пользователь-без-половых-признаков-96"))
@@ -131,20 +110,16 @@ class TeamTableViewController: UITableViewController, UIPickerViewDataSource, UI
             let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
             return configuration
         }
-        
     }
-    
     @objc fileprivate func addNewTeamUser(){
         switch presenter.team?.count {
         case 0, nil : alertMassage(title: "The team does not exist.", message: "Before adding members, create a team.")
         default:  alertAddIdNewTeamUser()
         }
-       
     }
     @objc fileprivate func removeTeamAll(){
         self.alertConfirm(title: "Remove the whole team ?", mode: "removeTeamAll")
     }
-
 }
 extension TeamTableViewController{
     func alertConfirm(title: String,mode: String){
@@ -196,7 +171,6 @@ extension TeamTableViewController{
     }
     
     func alertCategoryTeamPicker(idNewTeamUser:String){
-       
            let alertController = UIAlertController(title: "Select status \n\n\n\n\n\n", message: nil, preferredStyle: .alert)
            self.myPicker.frame = CGRect(x: 10, y: 10, width: 250, height: 180)
            self.selectedValue = statusInGroup[0]
@@ -205,9 +179,7 @@ extension TeamTableViewController{
                self.alertAddIdNewTeamUser()
            })
            let selectAction = UIAlertAction(title: "Confirm", style: .default, handler: { _ in
-               self.presenter.confirmAddIdNewTeamUser(idNewTeamUser: idNewTeamUser, status: self.selectedValue)
-             //  self.presenter.reminder(text: text, date: myPicker.date)
-               //print("нажал\(self.selectedValue)")
+               self.presenter.confirmAddIdNewTeamUser(idNewTeamUser: idNewTeamUser, status: self.selectedValue)       
            })
            alertController.addAction(backAction)
            alertController.addAction(selectAction)
@@ -219,13 +191,11 @@ extension TeamTableViewController: TeamProtocol {
     func reloadTable (){
         self.tableView.reloadData()
     }
-    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertMassage(title: "Error", message: error)
     }
     func massage(title:String, message: String){
         alertMassage(title: title, message: message)
-    }
-  
+    }  
 }

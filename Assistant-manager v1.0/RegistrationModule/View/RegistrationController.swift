@@ -10,11 +10,8 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     var indicatorLogin = false
     // подключаемся к презентеру через протокол чтобы передавать нажатия итд из этого view
     var presenter: RegistrationViewPresenterProtocol!
- 
     var gradePicker: UIPickerView!
-    
 //MARK: - Propartes
-    
     var imageSelected = false
     fileprivate let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -26,22 +23,16 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         button.layer.borderColor = UIColor.rgb(red: 31, green: 152, blue: 233) .cgColor
         return button
     }()
-
     @objc fileprivate func selectPhoto(){
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)
     }
- 
     fileprivate let emailTexfield = UITextField.setupTextField(title: "Email..", hideText: false, enabled: true)
-    
     fileprivate let nameTexfield = UITextField.setupTextField(title: "Name..", hideText: false, enabled: true)
-    
     fileprivate let passwordTexfield = UITextField.setupTextField(title: "Password..", hideText: true, enabled: true)
-    
     fileprivate let sigUpButton =    UIButton.setupButton(title: "Registration", color: UIColor.appColor(.pinkAssistant)!, activation: false, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!)
-    
     fileprivate let allRedyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "I have an account  ", attributes: [.font:UIFont.systemFont (ofSize: 18), .foregroundColor: UIColor.lightGray ])
@@ -49,9 +40,7 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
     }()
-    
     lazy var stackView = UIStackView(arrangedSubviews: [emailTexfield,nameTexfield,passwordTexfield,sigUpButton])
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -62,11 +51,9 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         setupTapGesture()
         hadleres()
     }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else {
             imageSelected = false
@@ -81,7 +68,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         formValidation()
         self.dismiss(animated: true, completion: nil)
     }
-
     fileprivate func hadleres() {
         emailTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         nameTexfield.addTarget(self, action: #selector(formValidation), for: .editingChanged)
@@ -91,7 +77,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         selectPhotoButton.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
         allRedyHaveAccountButton.addTarget(self, action: #selector(goToSingIn), for: .touchUpInside)
     }
-    
     @objc fileprivate func handleSignUp(){
         guard let email = emailTexfield.text?.lowercased() else {return}
         guard let password = passwordTexfield.text else {return}
@@ -115,7 +100,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         sigUpButton.isEnabled = true
         sigUpButton.backgroundColor = UIColor.rgb(red: 170, green: 92, blue: 178)
     }
-
     fileprivate func configureViewComponents(){
         view.addSubview(selectPhotoButton)
         selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/13, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/3.9, height: view.frame.height/3.9))
@@ -134,14 +118,11 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     //MARK: - проверка
     //функция проверки регистрации если не зарегстрирован, то открыть окно логин
     fileprivate func ifUserLoginIn (){
-   
     }
-    
     @objc fileprivate func goToSingIn(){
         presenter.goToLoginControler()
     }
 //MARK: - Keyboard
-    
     fileprivate func  setupNotificationObserver(){
         // listener up keybord
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -183,15 +164,12 @@ extension RegistrationController{
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
-  
 }
 extension RegistrationController: RegistrationProtocol {
     func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
-    
     func failure(error: Error) {
         alertRegistrationControllerMassage(title: "Error", message: "\(error.localizedDescription)")
     }
 }
-

@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 22/10/2022.
 //
-
 import Foundation
 import Firebase
 import UIKit
@@ -17,12 +16,10 @@ protocol ApiTeamProtocol {
     func getUserForTeam(idNewUser:String,completion: @escaping (Result<User?,Error>) -> Void)
     func setNewTeamUser(userChief: User?, newTeamUser: User?,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void)
     func addNewTeamUserAfterConfirm(userChief: String, newTeamUser: User?,categoryTeamMember: String, idGroup: String, completion: @escaping (Result <Bool,Error>) -> Void)
-    
 }
+
 class ApiTeam: ApiTeamProtocol{
-    
     func removeColection(uidGroup: String,nameColection: String){
-        
         guard Auth.auth().currentUser?.uid != nil else {return}
         Firestore.firestore().collection("group").document(uidGroup).collection(nameColection).getDocuments() { (querySnapshot, err) in
           if let err = err {
@@ -33,9 +30,7 @@ class ApiTeam: ApiTeamProtocol{
             }
           }
         }
-        
     }
-    
     func removeTeam (user:User?,team: [Team]?, completion: @escaping (Result<Bool,Error>) -> Void){
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         guard let uidGroup = user?.idGroup  else {return}
@@ -60,12 +55,9 @@ class ApiTeam: ApiTeamProtocol{
             completion(.success(true))
         }
     }
-   
-    
     func deleteTeamUser(user:User?,idTeamUser: String, completion: @escaping (Result<Bool,Error>) -> Void){
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         guard let uidGroup = user?.idGroup  else {return}
-     
         Firestore.firestore().collection("group").document(uidGroup).collection("Team").document(idTeamUser).delete() { (error) in
             if let error = error {
                completion(.failure(error))
@@ -78,21 +70,15 @@ class ApiTeam: ApiTeamProtocol{
                  completion(.success(true))
           }
     }
-        
     func createNewGroup(userCreate: User?,nameGroup: String, profileImageGroup: UIImage,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void){
         guard userCreate?.idGroup == nil || userCreate?.idGroup == "" else {return}
-        
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let uidGroup = NSUUID().uuidString
         guard let uploadData = profileImageGroup.jpegData(compressionQuality: 0.3) else {return}
-        
         guard let idTeamUser = userCreate?.uid else { return}
         let nameTeamMember = userCreate?.name ?? ""
         let fullnameTeamMember = userCreate?.fullName ?? ""
         let profileImageURLTeamMember = userCreate?.profileImage ?? ""
-       
-        
-   
         
         let dataTeamUser = ["id": idTeamUser,
                             "categoryTeamMember":categoryTeamMember,
@@ -107,7 +93,6 @@ class ApiTeam: ApiTeamProtocol{
                             "expensesUserInGroup":0,
                             "proceedsUserInGroup":0,
                             "checkCountInGroup":0 ] as [String : Any]
-        
         let storageRef = Storage.storage().reference().child("Group_avatar").child(uidGroup)
         storageRef.putData(uploadData, metadata: nil) { (_, error) in
             if let error = error {
@@ -152,12 +137,9 @@ class ApiTeam: ApiTeamProtocol{
                     }
                   }
                 }
-   
           }
         }
-        
     }
-   
     func setNewTeamUser(userChief: User?, newTeamUser: User?,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         var uidGroup = ""
@@ -177,9 +159,6 @@ class ApiTeam: ApiTeamProtocol{
                             "nameTeamMember":nameTeamMember,
                             "fullnameTeamMember":fullnameTeamMember,
                             "profileImageURLTeamMember":profileImageURLTeamMember] as [String : Any]
-        
-        
-        
         Firestore.firestore().collection("group").document(uidGroup).collection("Team").document(idTeamUser).setData(dataTeamUser) { (error) in
             if let error = error {
             completion(.failure(error))
@@ -192,15 +171,12 @@ class ApiTeam: ApiTeamProtocol{
           completion(.success(true))
         }
     }
-    
     func addNewTeamUserAfterConfirm(userChief: String, newTeamUser: User?,categoryTeamMember: String, idGroup: String, completion: @escaping (Result <Bool,Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         guard let idTeamUser = newTeamUser?.uid else { return}
-        
         let nameTeamMember = newTeamUser?.name ?? ""
         let fullnameTeamMember = newTeamUser?.fullName ?? ""
         let profileImageURLTeamMember = newTeamUser?.profileImage ?? ""
-        
         let dataTeamUser = ["id": idTeamUser,
                             "categoryTeamMember":categoryTeamMember,
                             "idTeamMember":idTeamUser,
@@ -220,7 +196,6 @@ class ApiTeam: ApiTeamProtocol{
           completion(.success(true))
         }
     }
-    
     func getUserForTeam(idNewUser: String, completion: @escaping (Result<User?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         
@@ -235,12 +210,10 @@ class ApiTeam: ApiTeamProtocol{
       }
 
     }
-    
     func getTeam(user:User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
-        var idUserOrGroup = ""
-        
+        var idUserOrGroup = ""        
         switch user?.statusInGroup {
         case "Individual": //return
             nameColection = "users"

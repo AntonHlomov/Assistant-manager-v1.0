@@ -4,20 +4,17 @@
 //
 //  Created by Anton Khlomov on 11/06/2022.
 //
-
 import Foundation
 import Firebase
 
 protocol ApiСhoiceVisitDateProtocol {
     func getTeam(user:User?,completion: @escaping (Result<[Team]?,Error>) -> Void)
     func getCustomerRecordPast(idMaster:String,dateStartServiceDMY:String,user:User?,completion: @escaping (Result<[CustomerRecord]?,Error>) -> Void)
-
 }
 
 class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
     func getCustomerRecordPast(idMaster:String,dateStartServiceDMY:String,user:User?,completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
-        
         switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(idMaster).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo: dateStartServiceDMY).getDocuments { [] (snapshot, error) in
@@ -57,10 +54,8 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         default: break
         }
     }
-    
     func getTeam(user:User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
-        
         switch user?.statusInGroup {
         case "Individual":
             var masterUserArray = [Team]()
@@ -80,7 +75,6 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         case "Boss":
             let nameColection = "group"
             guard let idGroup = user?.idGroup else {return}
-            
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Team").addSnapshotListener{ (snapshot, error) in
                 if let error = error {
                    completion(.failure(error))
@@ -98,7 +92,4 @@ class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
         default: break
         }
     }
-
-    
-    
 }

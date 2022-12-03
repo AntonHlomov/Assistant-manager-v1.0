@@ -7,14 +7,10 @@
 
 import Foundation
 import Firebase
-
-//outPut
 protocol ScreensaverViewProtocol: AnyObject {
     func dismiss()
     func failure(error:Error)
-  
 }
-//inPut
 protocol ScreensaverPresenterProtocol: AnyObject {
     init(view: ScreensaverViewProtocol,router: LoginRouterProtocol, networkService:APIGlobalUserServiceProtocol)
     func authCheck()
@@ -23,16 +19,11 @@ class ScreensaverPresentor: ScreensaverPresenterProtocol{
     weak var view: ScreensaverViewProtocol?
     var router: LoginRouterProtocol?
     let networkService:APIGlobalUserServiceProtocol!
-
-    
     required init(view: ScreensaverViewProtocol, router: LoginRouterProtocol, networkService:APIGlobalUserServiceProtocol) {
-       
         self.view = view
         self.router = router
         self.networkService = networkService
-       
     }
-
     func authCheck() {
         sleep(2)
         if Auth.auth().currentUser != nil{

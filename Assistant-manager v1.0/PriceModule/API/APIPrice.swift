@@ -4,15 +4,12 @@
 //
 //  Created by Anton Khlomov on 08/06/2022.
 //
-
 import Foundation
 import Firebase
 
 protocol APIPriceProtocol {
     func deleteServise(id: String, user: User?,completion: @escaping (Result<Bool,Error>) -> Void)
     func getPriceAPI(user: User?,compleation: @escaping(Result<[Price]?,Error>) -> Void)
-  
-    
 }
 
 class APIPrice: APIPriceProtocol{
@@ -47,9 +44,7 @@ class APIPrice: APIPriceProtocol{
             }
         default: break
         }
-    
     }
-    
     func getPriceAPI(user: User?,compleation: @escaping (Result<[Price]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch user?.statusInGroup {
@@ -106,6 +101,4 @@ class APIPrice: APIPriceProtocol{
         default: break
         }
     }
-    
-
 }

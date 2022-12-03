@@ -4,13 +4,10 @@
 //
 //  Created by Anton Khlomov on 15/07/2022.
 //
-
 import Foundation
 
 extension String {
-    
     static let numberFormatter = NumberFormatter()
-    
     var floatValue: Float {
         String.numberFormatter.decimalSeparator = "."
         if let result = String.numberFormatter.number(from: self) {
@@ -23,8 +20,7 @@ extension String {
           }
           return 0
       }
-    
-   
+       
     var doubleValue: Double {
         String.numberFormatter.decimalSeparator = "."
         if let result =  String.numberFormatter.number(from: self) {
@@ -38,4 +34,3 @@ extension String {
         return 0
     }
 }
-

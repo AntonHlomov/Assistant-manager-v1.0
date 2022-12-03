@@ -4,13 +4,11 @@
 //
 //  Created by Anton Khlomov on 15/07/2022.
 //
-
 import Foundation
 import UIKit
 import LocalAuthentication
 
 protocol PaymentProtocol: AnyObject {
-    
     func failure(error: Error)
     func dataLoading (customerRecord: CustomerRecord?, master: Team?)
     func relowDataBillTable(total: String)
@@ -18,7 +16,6 @@ protocol PaymentProtocol: AnyObject {
 
 protocol PaymentPresenterProtocol: AnyObject{
     init(view: PaymentProtocol,networkService:ApiPaymentServiceProtocol,router:LoginRouterProtocol, customerRecordent: CustomerRecord?, master: Team?, user: User?)
-    
     func pushPay(payCard:Bool,comment: String)
     var bill: [Price]? {get set}
 }
@@ -48,7 +45,6 @@ class PaymentPresenter: PaymentPresenterProtocol{
         
         var totalSum = [Double]()
         var totalText = ""
-
         for (service) in self.customerRecord?.service ?? [[String : Any]](){
             let priceVolue = service["priceServies"] as! Double
             let nameServise = service["nameServise"] as! String
@@ -62,27 +58,20 @@ class PaymentPresenter: PaymentPresenterProtocol{
     func pushPay(payCard:Bool,comment: String){
         var cash = false
         var card = false
-      
         var cardPrice = 0.0
         var cashPrice = 0.0
-        
         let context = LAContext()
         var error: NSError?
-
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-
             let reason = "Идентифицируйте себя"
             context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
-
                 if success {
-                    DispatchQueue.main.async { [unowned self] in
-                        
+                    DispatchQueue.main.async { [unowned self] in                    
                         var totalSum = [Double]()
                         for (serv) in customerRecord!.service {
                             totalSum.append( serv["priceServies"] as! Double )
                         }
                         let total = totalSum.compactMap { Double($0) }.reduce(0, +)
-                        
                         switch payCard {
                         case false:
                             cash = true
@@ -116,9 +105,4 @@ class PaymentPresenter: PaymentPresenterProtocol{
             self.view?.failure(error: error!)
         }
     }
-    
-
-    
-
 }
-

@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 24/11/2022.
 //
-
 import UIKit
 
 class TeamCircleCollectionViewCell: UICollectionViewCell {
@@ -56,5 +55,4 @@ class TeamCircleCollectionViewCell: UICollectionViewCell {
             nameLebel.anchor(top: imageView.bottomAnchor, leading: nil,bottom: nil, trailing: nil, pading: .init(top: 3, left: 0,bottom: 0, right: 0), size: .init(width: frame.size.width + 5,height: 0))
             nameLebel.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         }
-    
 }

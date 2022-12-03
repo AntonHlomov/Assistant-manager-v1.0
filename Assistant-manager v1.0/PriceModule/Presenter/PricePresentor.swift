@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 08/06/2022.
 //
-
 import Foundation
 
 protocol PriceProtocol: AnyObject{
@@ -41,10 +40,7 @@ class PricePresenter: PricePresenterProtocol{
     var client: Client?
     var newVisitMode: Bool?
     var user: User?
-    
-    
 
-    
     required init(view: PriceProtocol, networkService: APIPriceProtocol, ruter: LoginRouterProtocol,newVisitMode: Bool, client: Client?,user: User?) {
         self.view = view
         self.router = ruter
@@ -52,7 +48,6 @@ class PricePresenter: PricePresenterProtocol{
         self.client = client
         self.newVisitMode = newVisitMode
         self.user = user
-        
         checknewVisitMode()
         getPrice()
     }
@@ -86,10 +81,7 @@ class PricePresenter: PricePresenterProtocol{
         print("deleteClient")
         self.checkmarkServises.removeAll()
         checkTotalServices()
-       // guard let id = self.price?[ indexPath.row].idPrice else {return}
         guard let id = self.filterPrice?[ indexPath.row].idPrice else {return}
-      //  self.price?.remove(at: indexPath.row)
-      //  self.filterPrice?.remove(at: indexPath.row)
         networkService.deleteServise(id: id,user: self.user) {[weak self] result in
         guard let self = self else {return}
             DispatchQueue.main.async {
@@ -101,9 +93,7 @@ class PricePresenter: PricePresenterProtocol{
                 }
             }
         }
-       //self.view?.succesReloadTable()
     }
-    
     func getPrice() {
         self.checkmarkServises.removeAll()
         networkService.getPriceAPI(user: self.user){ [weak self] result in
@@ -121,7 +111,6 @@ class PricePresenter: PricePresenterProtocol{
             }
         }
     }
-    
     func filter(text: String) {
         if text == "" {
             filterPrice = price?.sorted{ $0.nameServise < $1.nameServise } }
@@ -130,13 +119,10 @@ class PricePresenter: PricePresenterProtocol{
         }
         self.view?.succesReloadTable()
     }
-    
     func onCheckmarkSaveServise(indexPath: IndexPath){
         guard let checServies = self.filterPrice?[indexPath.row] else {return}
         self.checkmarkServises.append(checServies)
         checkTotalServices()
-        
-        
     }
     func offCheckmarkSaveServise(indexPath: IndexPath){
        guard let offChecServies = filterPrice?[indexPath.row].idPrice else {return}
@@ -146,7 +132,6 @@ class PricePresenter: PricePresenterProtocol{
        }
         checkTotalServices()
     }
-    
     func checkTotalServices(){
         guard self.checkmarkServises.isEmpty == false else {
             self.view?.succesTotalListPrice(totalList: "0.0");
@@ -156,9 +141,4 @@ class PricePresenter: PricePresenterProtocol{
         let totalString =  String(format: "%.1f", total)
         self.view?.succesTotalListPrice(totalList: totalString)
     }
-    
-    
-        
-        
 }
-

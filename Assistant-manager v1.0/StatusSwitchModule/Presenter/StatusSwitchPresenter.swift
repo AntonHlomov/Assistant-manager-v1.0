@@ -4,9 +4,7 @@
 //
 //  Created by Anton Khlomov on 25/11/2022.
 //
-
 import Foundation
-
 protocol StatusSwitchProtocol: AnyObject {
     func failure(error: Error)
     func reloadTable()
@@ -20,15 +18,12 @@ protocol StatusSwitchPresenterProtocol: AnyObject{
 }
 
 class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
-   
     weak var view: StatusSwitchProtocol?
     var router: LoginRouterProtocol?
     let networkService:StatusSwitchApiProtocol!
     var user: User?
     var statuses:[String]?
-    
     required init(view: StatusSwitchProtocol, networkService: StatusSwitchApiProtocol, router: LoginRouterProtocol,user: User?) {
-        
         self.view = view
         self.router = router
         self.networkService = networkService
@@ -36,7 +31,6 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
         self.statuses = [String]()
         getStatuses()
     }
-
     func getStatuses(){
         guard let status = self.user?.statusInGroup else {return}
         guard let hiddenStatus = self.user?.hiddenStatus else {return}
@@ -66,5 +60,4 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
             }
         }
     }
-    
 }

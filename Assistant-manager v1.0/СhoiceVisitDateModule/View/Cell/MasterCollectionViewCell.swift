@@ -4,20 +4,16 @@
 //
 //  Created by Anton Khlomov on 12/06/2022.
 //
-
 import UIKit
 
 class MasterCollectionViewCell: UICollectionViewCell {
-    
     var team: Team?{
         didSet{
-           
             imageView.loadImage(with: team?.profileImageURLTeamMember ?? "")
             guard let teamName = team?.nameTeamMember else {return}
             guard let teamFullname = team?.fullnameTeamMember else {return}
             guard let teamProfessionName = team?.professionName else {return}
             guard let categoryTeamMember = team?.categoryTeamMember else {return}
-            
             nameShurname.text = teamName.capitalized + (" ") + teamFullname.capitalized
             profession.text = teamProfessionName.capitalized
             status.text = categoryTeamMember.capitalized
@@ -31,7 +27,6 @@ class MasterCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     let  imageView = CustomUIimageView(frame: .zero)
-    
     let nameShurname: UILabel = {
         let Label = UILabel()
         Label.text = "Name Shurname"
@@ -63,18 +58,14 @@ class MasterCollectionViewCell: UICollectionViewCell {
     lazy var stackNameCityContry = UIStackView(arrangedSubviews: [status])
         
     func setupViews(){
-
     addSubview(imageView)
         imageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, pading: .init(top: 8, left: 8, bottom: 0, right: 0), size: .init(width: 25, height: 25))
         imageView.layer.cornerRadius = 25/2
-   
     addSubview(nameShurname)
         nameShurname.anchor(top: topAnchor, leading: imageView.trailingAnchor, bottom: nil, trailing: nil, pading: .init( top: 7, left: 10, bottom: 0, right: 5), size: .init(width: frame.width-30, height: 0))
-   
     addSubview(profession)
         profession.anchor(top: topAnchor, leading: imageView.trailingAnchor, bottom: nil, trailing: nil, pading: .init( top: 33, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
         profession.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-       
         stackNameCityContry.axis = .horizontal
         stackNameCityContry.spacing = 0
         stackNameCityContry.distribution = .fillEqually  // для корректного отображения

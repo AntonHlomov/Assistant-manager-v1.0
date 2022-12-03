@@ -4,11 +4,9 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
 
 class TransactionUser {
-    
     var idTransaction: String!
     var idUserAdministrator: String!
     var idUserMaster: String!
@@ -29,7 +27,6 @@ class TransactionUser {
     var cardPrice: Double!
   
     init(dictionary: [String: Any]) {
-
         self.idTransaction = dictionary["idTransaction"] as? String ?? ""
         self.idUserAdministrator = dictionary["idUserAdministrator"] as? String ?? ""
         self.idUserMaster = dictionary["idUserMaster"] as? String ?? ""
@@ -48,12 +45,5 @@ class TransactionUser {
         self.tax = dictionary["tax"] as? Double ?? nil
         self.cashPrice = dictionary["cashPrice"] as? Double ?? 0.0
         self.cardPrice = dictionary["cardPrice"] as? Double ??  0.0
-        
-        
-       
     }
-  
 }
-
-
-

@@ -4,14 +4,11 @@
 //
 //  Created by Anton Khlomov on 29/11/2022.
 //
-
 import Foundation
 import UIKit
 
-
 protocol AddNewExpensesProtocol: AnyObject{
     func failure(error: Error)
-   
 }
 
 protocol AddNewExpensesPresenterProtocol: AnyObject{
@@ -21,7 +18,6 @@ protocol AddNewExpensesPresenterProtocol: AnyObject{
 
 class AddNewExpensesPresenter:AddNewExpensesPresenterProtocol{
    
-    
     weak var view: AddNewExpensesProtocol?
     var router: LoginRouterProtocol?
     let networkService:ExpensesApiProtocol!
@@ -46,8 +42,5 @@ class AddNewExpensesPresenter:AddNewExpensesPresenterProtocol{
                     }
                 }
             }
-        }
-        
-   
-    
+        } 
 }

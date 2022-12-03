@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 06/03/2022.
 //
-
 import UIKit
 
 extension Date {
@@ -84,15 +83,5 @@ extension Date {
         let dataDMYHMFormatter = dateFormatter.string(from: date)
         return dataDMYHMFormatter
     }
-  
-    
- //   public  func today(n: Int) -> String {
- //       let calendar = Calendar.current
- //       let dateEnd = calendar.date(byAdding: .minute, value: n, to: self)!
- //       let dateFormatter = DateFormatter()
- //       dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
- //       let dataEndFormatter = dateFormatter.string(from: dateEnd)
- //       return dataEndFormatter
- //   }
-    
+
 }

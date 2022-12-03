@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
 import UIKit
 
@@ -136,6 +135,5 @@ extension UIColor {
         }
     }
 }
-
 //как использовать
 //userNameTextField.textColor = UIColor.appColor(.blueAssistant)

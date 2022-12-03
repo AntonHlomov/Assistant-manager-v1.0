@@ -4,58 +4,43 @@
 //
 //  Created by Anton Khlomov on 09/05/2022.
 //  Table clients(Таблийца клиентов)
-
-
 import UIKit
 
 class ClientsTableViewController: UITableViewController, UISearchResultsUpdating {
-    
-    
     let clientCellId = "ClientCellId"
     var presenter: ClientsTabViewPresenterProtocol!
     let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
-       // self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewClient))
-       // tableView.refreshControl = dataRefresher
         tableView.register(TableClientCell.self, forCellReuseIdentifier: clientCellId)
         tableView.separatorColor = .clear //линии между ячейками цвет
         tableView.refreshControl = dataRefresher
-        
         searchController.searchResultsUpdater = self
         searchController.searchBar.barTintColor = UIColor.appColor(.blueAssistantFon)
- 
         searchController.obscuresBackgroundDuringPresentation = false//  делает затемнение при вводе запроса а поиск
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         searchController.searchBar.placeholder = "Search"
         searchController.searchBar.searchTextField.backgroundColor = UIColor.appColor(.whiteAssistantFon)
-        //цвет кнопки отмена
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.appColor(.whiteAndBlueAssistantFon)! ], for: .normal)
              //меняем цвет лупы в поиске
          let textField = searchController.searchBar.value(forKey: "searchField") as! UITextField
          let glassIconView = textField.leftView as! UIImageView
          glassIconView.image = glassIconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
          glassIconView.tintColor = UIColor.appColor(.blueAssistantFon)
-       // self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
-       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
        }
-
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.filterClients?.count ?? 0
     }
@@ -68,7 +53,6 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
         cell.client = presenter.filterClients?[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         cell.addCustomDisclosureIndicator(with: UIColor.appColor(.whiteAssistant)!)
-
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -94,8 +78,6 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
         return configuration
     }
-
-   
     // MARK: - SearchResults
     func updateSearchResults(for searchController: UISearchController) {
         print("filter works")
@@ -118,8 +100,6 @@ class ClientsTableViewController: UITableViewController, UISearchResultsUpdating
     @objc fileprivate func addNewClient(){
         presenter.goToAddClient()
     }
-
-    
 }
 extension ClientsTableViewController{
     func alertRegistrationControllerMassage(title: String, message: String){
@@ -129,19 +109,13 @@ extension ClientsTableViewController{
         present(alertControler, animated: true, completion: nil)
     }
 }
-
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension ClientsTableViewController: ClientsTabViewProtocol {
     func succesReload() {
         tableView.reloadData()
     }
-    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertRegistrationControllerMassage(title: "Error", message: error)
     }
-    
-   
-    
-
 }

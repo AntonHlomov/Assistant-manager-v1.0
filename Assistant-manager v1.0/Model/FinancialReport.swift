@@ -4,11 +4,9 @@
 //
 //  Created by Anton Khlomov on 27/11/2022.
 //
-
 import Foundation
 
 class FinancialReport{
-    
     var iDdateMMYYYY: String! // <-- id
     var checkCount: Int?
     var expenses: Double?
@@ -18,8 +16,6 @@ class FinancialReport{
         self.iDdateMMYYYY = dictionary["iDdateMMYYYY"] as? String ?? ""
         self.checkCount = dictionary["checkCount"] as? Int ?? 0
         self.expenses = dictionary["expenses"] as? Double ?? 0
-        self.proceeds = dictionary["proceeds"] as? Double ?? 0
-        
+        self.proceeds = dictionary["proceeds"] as? Double ?? 0        
     }
 }
-

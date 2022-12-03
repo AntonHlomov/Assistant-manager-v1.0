@@ -4,54 +4,29 @@
 //
 //  Created by Anton Khlomov on 15/01/2022.
 //
-
 import UIKit
-
 protocol AsselderBuilderProtocol{
-    
-    
     func addNewExpensesViewModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func createLoginModule(router: LoginRouterProtocol) -> UIViewController
-    
     func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController
-    
     func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController
-    
     func createPaymentModule(router: LoginRouterProtocol,customerRecordent: CustomerRecord?, master: Team?, user: User?) -> UIViewController
-    
     func createClientsTableModule(router: LoginRouterProtocol, user: User?,markAddMassageReminder: Bool) -> UIViewController
-    
     func createPriceModule(router: LoginRouterProtocol,newVisitMode: Bool, client: Client?,user: User?) -> UIViewController
-    
     func addNewServiceModule(router: LoginRouterProtocol,editMode: Bool, price: Price?,user: User?) -> UIViewController
-    
     func createChoiceVisitDateModule(router:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) -> UIViewController
-    
     func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) -> UIViewController
-    
     func craateClientPageModule(router:LoginRouterProtocol,client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) -> UIViewController
-    
     func createAddClientModule(router:LoginRouterProtocol,editMode: Bool, client: Client?,user: User?) -> UIViewController
-    
     func createOptionesModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func teamModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func statusSwitchModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func createCalendarModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func createExpensesModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func createStartWorckModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-    
     func createStatistikModule(router: LoginRouterProtocol,user: User?) -> UIViewController
-   
 }
-// сборщик
 class AsselderModelBuilder: AsselderBuilderProtocol{
-    
     func addNewExpensesViewModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
         let view = AddNewExpensesView()
         let networkService = ExpensesApi()
@@ -59,7 +34,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func statusSwitchModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
         let view = StatusSwitchTableView()
         let networkService = StatusSwitchApi()
@@ -67,8 +41,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
-
     func teamModule(router: LoginRouterProtocol, user: User?) -> UIViewController {
         let view = TeamTableViewController()
         let networkService = ApiTeam()
@@ -77,8 +49,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
-    
     func crateCustomerVisitRecordConfirmationModule(router: LoginRouterProtocol,customerVisit: CustomerRecord?,master:Team?,client: Client?,services:[Price]?,user: User?) -> UIViewController {
         let view = CustomerVisitRecordConfirmationView()
         let networkService = APICustomerVisitRecordConfirmation()
@@ -86,9 +56,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
-  
-    
     func addNewServiceModule(router: LoginRouterProtocol, editMode: Bool, price: Price?,user: User?) -> UIViewController {
         let view = AddNewServiceViewController()
         let networkService = ApiAddNewService()
@@ -96,7 +63,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createAddClientModule( router: LoginRouterProtocol, editMode: Bool, client: Client?,user: User?) -> UIViewController {
         let view = AddClientView()
         let networkService = ApiAddClient()
@@ -104,7 +70,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func craateClientPageModule(router: LoginRouterProtocol,client: Client?,user: User?,massage: String?,idReminder:String?,openWithMarkAddMassageReminder: Bool) -> UIViewController {
         let view = ClientPage()
         let networkService = ApiAllClientPageDataService()
@@ -113,8 +78,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
-    
     func createClientsTableModule(router: LoginRouterProtocol, user: User?,markAddMassageReminder: Bool) -> UIViewController {
         let view = ClientsTableViewController()
         let networkService = ApiAllClientsDataService()
@@ -122,7 +85,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createPaymentModule(router: LoginRouterProtocol,customerRecordent: CustomerRecord?, master: Team?, user: User?) -> UIViewController {
         let view = PaymentController()
         let networkService = ApiPayment()
@@ -130,7 +92,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createPriceModule(router: LoginRouterProtocol,newVisitMode: Bool, client: Client?,user: User?) -> UIViewController {
         let view = PriceViewController()
         let networkService = APIPrice()
@@ -138,7 +99,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createChoiceVisitDateModule(router: LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) -> UIViewController {
         let view = ChoiceVisitDateViewController()
         let networkService = ApiСhoiceVisitDate()
@@ -146,7 +106,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createOptionesModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
         let view = OptionesController()
         let networkService = APIOptionesDataService()
@@ -155,7 +114,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createLoginModule(router: LoginRouterProtocol) -> UIViewController {
         let view = LoginControler()
         let networkService = APILoginService()
@@ -164,7 +122,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
     func createRegistrationModule(router: LoginRouterProtocol) -> UIViewController {
         let view = RegistrationController()
         let networkService = APIRegistrationService()
@@ -173,27 +130,23 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
         return view
     }
-    
-     func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController {
+    func createScreensaverModule(router: LoginRouterProtocol) -> UIViewController {
         let view = ScreensaverViewController()
         let networkService = APIGlobalUserService()
         let presenter = ScreensaverPresentor(view: view, router: router, networkService:networkService)
         view.presenter = presenter
         return view
     }
-    
     func createCalendarModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
        let view = CalendarViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let networkService = APIUserDataService()
        let networkServiceStatistic = APiStatistikMoneyService()
        let networkServiceUser = APIGlobalUserService()
        let networkServiceTeam = ApiTeam()
-        
-        let presenter = CalendadrPresentor(view: view, networkService: networkService,networkServiceStatistic: networkServiceStatistic,networkServiceUser: networkServiceUser, router: router, user: user, networkServiceTeam: networkServiceTeam )
+       let presenter = CalendadrPresentor(view: view, networkService: networkService,networkServiceStatistic: networkServiceStatistic,networkServiceUser: networkServiceUser, router: router, user: user, networkServiceTeam: networkServiceTeam )
        view.presenter = presenter
        return view
     }
-    
     func createExpensesModule(router: LoginRouterProtocol,user: User?) -> UIViewController  {
        let view = ExpensesViewController(collectionViewLayout: UICollectionViewFlowLayout())
        let networkService = ExpensesApi()
@@ -201,7 +154,6 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
        view.presenter = presenter
        return view
     }
-    
     func createStartWorckModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
        let view = StartWorckViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let networkService = ApiCustomerCardPaymentToday()
@@ -211,12 +163,10 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
         view.presenter = presenter
        return view
     }
-    
     func createStatistikModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
        let view = StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let presenter = StatistikPresentor(view: view, router: router, user: user)
         view.presenter = presenter
        return view
     }
-
 }

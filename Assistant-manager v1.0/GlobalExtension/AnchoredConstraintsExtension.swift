@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
 import UIKit
 //  структура констрейнов отступов и зависимостей(верх, лево, низ, право, ширина, высота)
@@ -71,6 +70,3 @@ extension UIView{
         }
     }
 }
-
-
-

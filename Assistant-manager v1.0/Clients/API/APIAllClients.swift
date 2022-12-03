@@ -4,24 +4,17 @@
 //
 //  Created by Anton Khlomov on 12/05/2022.
 //
-
 import Foundation
 import UIKit
 import Firebase
 
-
 protocol ApiAllClientsDataServiceProtocol {
     func deleteClient(id: String,reference: String, user: User?, completion: @escaping (Result<Bool,Error>) -> Void)
     func getClients(user: User?, completion: @escaping (Result<[Client]?,Error>) -> Void)
- 
 }
-
 class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
-   
-    
     func deleteClient(id: String,reference: String, user: User?, completion: @escaping (Result<Bool,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        
         switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Clients").document(id).delete() { (error) in
@@ -66,7 +59,6 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
         default: break
         }
     }
-    
     func getClients(user: User?,completion: @escaping (Result<[Client]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch user?.statusInGroup {
@@ -123,7 +115,4 @@ class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
         default: break
         }
     }
- 
 }
-
-

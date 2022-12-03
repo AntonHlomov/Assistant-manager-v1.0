@@ -4,12 +4,9 @@
 //
 //  Created by Anton Khlomov on 08/06/2022.
 //
-
 import UIKit
 
 class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchResultsUpdating {
-   
-    
     var presenter: PricePresenterProtocol!
     let searchController = UISearchController(searchResultsController: nil)
     let cell = "Cell"
@@ -18,13 +15,10 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-   
     fileprivate let newService =  UIButton.setupButton(title: "New service", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         navigationItem.title = "Price: "+"0.0"+"$"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.appColor(.whiteAssistant)!]
         self.navigationController?.navigationBar.tintColor = UIColor.appColor(.whiteAssistant)
@@ -32,10 +26,8 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         configureUI()
         configureTable()
         handlers()
-        
         searchController.searchResultsUpdater = self
         searchController.searchBar.barTintColor = UIColor.appColor(.blueAssistantFon)
- 
         searchController.obscuresBackgroundDuringPresentation = false//  делает затемнение при вводе запроса а поиск
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
@@ -52,12 +44,9 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     fileprivate func handlers(){
         newService.addTarget(self, action: #selector(addService), for: .touchUpInside)
     }
-    
     fileprivate func  configureUI() {
-        
         view.addSubview(newService)
         newService.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
-        
         view.addSubview(tableView)
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom:  newService.topAnchor, trailing: view.trailingAnchor,  pading: .init(top: 3, left: 10, bottom: 20, right: 10), size: .init(width: 0, height: view.frame.height))
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -71,23 +60,17 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.allowsMultipleSelection = true
         tableView.refreshControl = dataRefresher
     }
-   
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.filterPrice?.count ?? 0
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
         let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! PriceCell
         cell.tintColor = UIColor.appColor(.whiteAssistant)
         //убираем выделение
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.price = presenter.filterPrice?[indexPath.row]
-        
         return cell
-      
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
@@ -115,9 +98,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         // Создать константу для работы с кнопкой
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
             print("Delete")
-            
             self?.presenter.deleteServise(indexPath: indexPath)
-           // self!.tableView.deleteRows(at: [indexPath], with: .top)
         }
         let editAction = UIContextualAction(style: .destructive, title: "Редактировать") { [weak self] (contextualAction, view, boolValue) in
             print("Redact")
@@ -129,9 +110,7 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         editAction.backgroundColor = UIColor.appColor(.whiteAssistantwithAlpha)?.withAlphaComponent(0.4)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editAction])
         return configuration
-   
     }
-    
     // MARK: - Refresher
     lazy var dataRefresher : UIRefreshControl = {
         let myRefreshControl = UIRefreshControl()
@@ -140,7 +119,6 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
         myRefreshControl.addTarget(self, action: #selector(updateMyCategory), for: .valueChanged)
     return myRefreshControl
     }()
-    
     @objc func updateMyCategory() {
         presenter.getPrice()
         presenter.checkTotalServices()
@@ -150,13 +128,9 @@ class PriceViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func updateSearchResults(for searchController: UISearchController) {
         presenter.filter(text: searchController.searchBar.text!)
     }
- 
     @objc fileprivate func addService(){
         presenter.addNewService()
     }
-    
-
-
 }
 extension PriceViewController{
     func alertMassage(title: String, message: String){
@@ -166,30 +140,19 @@ extension PriceViewController{
         present(alertControler, animated: true, completion: nil)
     }
 }
-
 extension PriceViewController: PriceProtocol {
-  
-   
-
     func changeButton(newVisitMode: Bool) {
         guard newVisitMode == true else{return}
         self.newService.setTitle("Сhoice of visit date", for: .normal)
     }
-    
     func succesTotalListPrice(totalList: String) {
         navigationItem.title = "Price: "+totalList+"$"
-    }
-    
+    }    
     func succesReloadTable() {
         tableView.reloadData()
-    }
-    
+    }    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertMassage(title: "Error", message: error)
     }
-    
-   
-    
-
 }

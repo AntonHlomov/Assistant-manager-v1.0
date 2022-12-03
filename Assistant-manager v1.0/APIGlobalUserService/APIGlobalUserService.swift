@@ -4,20 +4,13 @@
 //
 //  Created by Anton Khlomov on 31/07/2022.
 //
-
-//var userGlobal: User?
-
-
 import Foundation
 import UIKit
 import Firebase
-
 protocol APIGlobalUserServiceProtocol {
     func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void)
     func cancelRequestAddTeam(completion: @escaping (Result <Bool,Error>) -> Void)
     func addRequestAddTeam(userBoss: User?, idNewTeamUser: String,statusInGroup: String, completion: @escaping (Result <Bool,Error>) -> Void)
-   
-   
 }
 
 class APIGlobalUserService:APIGlobalUserServiceProtocol {
@@ -27,8 +20,6 @@ class APIGlobalUserService:APIGlobalUserServiceProtocol {
         guard let profileImageUserRequest = userBoss?.profileImage  else {return}
         guard let nameRequest = userBoss?.name else {return}
         guard let fullNameRequest = userBoss?.fullName else {return}
-      
-        
         let data = ["markerRequest": true,
                     "idGroupRequest":idGroupRequest,
                     "idUserRequest":uid,
@@ -36,7 +27,6 @@ class APIGlobalUserService:APIGlobalUserServiceProtocol {
                     "nameRequest":nameRequest,
                     "fullNameRequest":fullNameRequest,
                     "statusInGroupRequest": statusInGroup] as [String : Any]
-   
         Firestore.firestore().collection("users").document(idNewTeamUser).updateData(data ){ (error) in
             if let error = error {
             completion(.failure(error))
@@ -44,11 +34,9 @@ class APIGlobalUserService:APIGlobalUserServiceProtocol {
             }
             completion(.success(true))
         }
-        
     }
     func cancelRequestAddTeam(completion: @escaping (Result <Bool,Error>) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
-       
         let data = ["markerRequest": false,
                     "idGroupRequest":"",
                     "idUserRequest":"",
@@ -56,7 +44,6 @@ class APIGlobalUserService:APIGlobalUserServiceProtocol {
                     "nameRequest":"",
                     "fullNameRequest":"",
                     "statusInGroupRequest": ""] as [String : Any]
-   
         Firestore.firestore().collection("users").document(uid).updateData(data ){ (error) in
             if let error = error {
             completion(.failure(error))
@@ -64,11 +51,7 @@ class APIGlobalUserService:APIGlobalUserServiceProtocol {
             }
             completion(.success(true))
         }
-        
     }
-
-
-   // public var userGlobal: User?
     func fetchCurrentUser(completion: @escaping (Result<User?,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         Firestore.firestore().collection("users").document(uid).addSnapshotListener { [] (snapshot, error) in

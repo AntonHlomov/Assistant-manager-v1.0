@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 28/11/2022.
 //
-
 import Foundation
 import Firebase
 import UIKit
@@ -15,35 +14,24 @@ protocol ExpensesApiProtocol {
 }
 
 class ExpensesApi: ExpensesApiProtocol {
-    
-    
     func setExpense(user: User?,name: String, place: String, category: String, total: Double, imageСheck:UIImage,completion: @escaping(Result <Bool,Error>) -> Void){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let nameUser = user?.name else {return}
         guard let fullNameUser = user?.fullName else {return}
         guard let profileImageUser = user?.profileImage else {return}
-    
-        
         let idExpense = NSUUID().uuidString
         let now = Date()
         let dateExpenseFormatDDMMYYYYHHMMSS = now.todayDMYHHMMSSFormat()
         let dateExpenseFormatDDMMYYYY = now.todayDMYFormat()
         let dateExpenseFormatMMYYYY = now.todayMonthFormat()
         let dateExpenseFormatYYYY = now.todayYarFormat()
-        
         let dateReportNewMonts = ["iDdateMMYYYY": dateExpenseFormatMMYYYY,
                                   "checkCount":0,
                                   "expenses":total,
                                   "proceeds":0
                                  ] as [String : Any]
-   
-        
-
-            
             guard let uploadData = imageСheck.jpegData(compressionQuality: 0.3) else {return}
-           
-            
             switch user?.statusInGroup {
             case "Individual":
                 let storageRef = Storage.storage().reference().child("Expense_image").child(idExpense)
@@ -93,8 +81,6 @@ class ExpensesApi: ExpensesApiProtocol {
                                          completion(.failure(error))
                                          return
                                         }
-                                        
-                                        
                                     }
                                 }
                             }
@@ -167,9 +153,7 @@ class ExpensesApi: ExpensesApiProtocol {
                 }
             default: break
             }
-            
       }
-    
     func geteExpensesAPI(user: User?,completion: @escaping(Result<[Expense]?,Error>) -> Void){
             guard let uid = Auth.auth().currentUser?.uid else {return}
             switch user?.statusInGroup {
@@ -225,7 +209,5 @@ class ExpensesApi: ExpensesApiProtocol {
                 }
             default: break
             }
-
     }
-    
 }

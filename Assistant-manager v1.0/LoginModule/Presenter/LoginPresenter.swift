@@ -4,14 +4,13 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
-
 
 protocol LoginViewProtocol: AnyObject {
     func dismiss()
     func failure(error:Error)
 }
+
 protocol LoginViewPresenterProtocol: AnyObject {
     init(view: LoginViewProtocol,networkService: APILoginServiceProtocol,router: LoginRouterProtocol,networkServiceGlobalUser: APIGlobalUserServiceProtocol)
     func authorisation(emailAuth: String, passwordAuth: String)
@@ -19,12 +18,10 @@ protocol LoginViewPresenterProtocol: AnyObject {
 }
 
 class LoginPresentor: LoginViewPresenterProtocol{
-   
     weak var view: LoginViewProtocol?
     var router: LoginRouterProtocol?
     let networkService:APILoginServiceProtocol!
     let networkServiceGlobalUser:APIGlobalUserServiceProtocol!
-    
     required init(view: LoginViewProtocol,networkService:APILoginServiceProtocol, router: LoginRouterProtocol,networkServiceGlobalUser: APIGlobalUserServiceProtocol) {
         self.view = view
         self.networkService = networkService
@@ -58,13 +55,8 @@ class LoginPresentor: LoginViewPresenterProtocol{
                         self.view?.dismiss()
                     case.failure(let error):
                         self.view?.failure(error: error)
-                       
                }
             }
          }
      }
-    
-    
-    
 }
-

@@ -5,12 +5,10 @@
 //  Created by Anton Khlomov on 14/01/2022.
 //
 //функция которая достает фото аватарки из базы кеширует ее, что бы при переключении в таб баре она не подгружалась заново
-
 import Foundation
 import UIKit
 
 var imageCache = [String: UIImage]()//переменная кеша
-
 extension UIImageView {
 func loadImage(with urlString: String)  {
     // проверка есть ли в кеше фото

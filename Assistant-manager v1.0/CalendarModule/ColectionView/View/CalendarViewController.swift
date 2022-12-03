@@ -27,7 +27,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         self.navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         collectionView.backgroundColor = UIColor.appColor(.blueAssistantFon)
-       // navigationController?.setNavigationBarHidden(true, animated: true)
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         self.collectionView.register(SliderReminderClientsCell.self, forCellWithReuseIdentifier: reminderSlaiderIdentifier)
         self.collectionView.register(SearchBarCalendarModuleCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarCalendarIdentifier)
@@ -52,7 +51,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         let notificationCenter = NotificationCenter.default
          // notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
           notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-          
      }
     @objc func appCameToForeground() {
         self.presenter.dataTodayTomorrow()
@@ -67,10 +65,6 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.collectionView.collectionViewLayout.invalidateLayout()
     }
-   // override func viewWillAppear(_ animated: Bool) {
-   //     super.viewWillAppear(animated) // No need for semicolon
-   //
-   // }
     // MARK: - свайп вниз для обновления
     lazy var dataRefresher : UIRefreshControl = {
         let myRefreshControl = UIRefreshControl()
@@ -124,37 +118,16 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         if section == 0 { return 0 }
         return 15
     }
-    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch indexPath.section {
         case 0: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
             header.backgroundColor = UIColor.appColor(.whiteAssistantFon)
-          //  self.presenter.getUserData{ []  (user) in
-          //      guard let user = user else { return }
-          //      header.user = user
-          //  }
             header.user =  presenter.user
             header.profitCLL.text = presenter.profit       //String(format: "%.1f",presenter.profit!)
             header.revenueCell.text = presenter.revenueToday     // String(format: "%.1f",presenter.revenueToday!)
             header.expensesCell.text = presenter.expensesToday     //String(format: "%.1f",presenter.expensesToday!)
-            //связь с кнопкой запись клиента в хидере
             header.clientButton.addTarget(self, action: #selector(goToClientTable), for: .touchUpInside)
-            //связь с кнопкой настройки в хидере
             header.optionButton.addTarget(self, action: #selector(goToOptions), for: .touchUpInside)
-           
-          //  self.presenter.getStatistic()
-   //         self.presenter.getRevenueStatistic(indicatorPeriod: "today"){ []  (revenueToday) in
-   //             guard let revenueToday = revenueToday else { return }
-   //             header.revenueCell.text = String(format: "%.1f",revenueToday)
-   //         }
-   //         self.presenter.getExpensesStatistic(indicatorPeriod: "today"){ []  (expensesToday) in
-   //             guard let expensesToday = expensesToday else { return }
-   //             header.expensesCell.text = String(format: "%.1f",expensesToday)
-   //         }
-   //         self.presenter.getProfitStatistic{ []  (profit) in
-   //             header.profitCLL.text = String(format: "%.1f",profit!)
-   //         }
-         // header.revenueCell.text = String(format: "%.1f",self.revenue ?? 0.0 as CVarArg)
             return header
         default: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
             header.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -308,14 +281,11 @@ extension CalendarViewController: CalendadrViewProtocol {
     func alert(message: String) {
         alertOk(message: message)
     }
-    
     func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+        
     func openAlertAddInGroup(title: String, message: String){
         alertAddInGroup(title: title, message: message)
     }
-   
 }

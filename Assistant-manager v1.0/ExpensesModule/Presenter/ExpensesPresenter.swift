@@ -4,26 +4,22 @@
 //
 //  Created by Anton Khlomov on 19/02/2022.
 //
-
 import Foundation
 
 protocol ExpensesViewProtocol: AnyObject {
     func success()
     func failure(error:Error)
     func updateCollectionView()
-   // func openCheckImage(imageUrl:String)
     func openCheckImage(image: CustomUIimageView)
 }
 protocol ExpensesViewPresenterProtocol: AnyObject {
     init(view: ExpensesViewProtocol,networkService: ExpensesApiProtocol,router: LoginRouterProtocol,user: User?)
     func addNewExpenses()
-
     func filter(text: String)
     var filterExpenses: [Expense]?{get set}
     func geteExpenses()
     func openCheck(indexPath:IndexPath)
 }
-
 class ExpensesPresentor: ExpensesViewPresenterProtocol{
 
     weak var view: ExpensesViewProtocol?
@@ -68,12 +64,10 @@ class ExpensesPresentor: ExpensesViewPresenterProtocol{
         }
         
     }
-    
     func addNewExpenses(){
         print("addNewExpenses")
         self.router?.showAddNewExpenses(user: self.user)
     }
-  
     func filter(text: String) {
         let textFilter = text
         if textFilter == "" {
@@ -85,6 +79,4 @@ class ExpensesPresentor: ExpensesViewPresenterProtocol{
         }
         self.view?.updateCollectionView()
     }
-
 }
-

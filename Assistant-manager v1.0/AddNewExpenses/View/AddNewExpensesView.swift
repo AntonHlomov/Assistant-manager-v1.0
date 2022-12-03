@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 29/11/2022.
 //
-
 import UIKit
 
 class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
@@ -18,7 +17,6 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         button.tintColor = UIColor(white: 1, alpha: 0.5)
         return button
     }()
-  
     fileprivate let expenseName = UITextField.setupTextField(title: "Name expense..", hideText: false, enabled: true)
     fileprivate let companyName = UITextField.setupTextField(title: "Name company..", hideText: false, enabled: true)
     fileprivate let category = UITextField.setupTextField(title: "Category expense..", hideText: false, enabled: true)
@@ -41,27 +39,21 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         setupNotificationObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
     }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-       // self.selectPhotoButton.layer.borderColor = UIColor.appColor(.blueAndPink)?.withAlphaComponent(0.7).cgColor
     }
     fileprivate func configureViewComponents(){
-        
         view.addSubview(selectPhotoButton)
         selectPhotoButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, pading: .init(top: view.frame.height/15, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.height/6.5, height: view.frame.height/6))
         selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true //выстовляет по середине экрана
         selectPhotoButton.layer.cornerRadius = view.frame.height/7 / 2
-        
         view.addSubview(addButton)
-        addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))
-   
+        addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 20, bottom: 5, right: 20), size: .init(width: 0, height: 40))   
         stackView.axis = .vertical
         stackView.spacing = view.frame.height/35
         stackView.distribution = .fillEqually  // для корректного отображения
         view.addSubview(stackView)
         stackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing:  view.safeAreaLayoutGuide.trailingAnchor, pading: .init(top: view.frame.height/6.5, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: view.frame.height/3))
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-   
     }
     fileprivate func hadleres() {
         expenseName.addTarget(self, action: #selector(formValidation), for: .editingChanged)
@@ -78,7 +70,6 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
             companyName.hasText,
             category.hasText,
             priceExpenses.hasText
-                
         else {
             addButton.isEnabled = false
             addButton.backgroundColor = UIColor.appColor(.pinkAssistant)!.withAlphaComponent(0.7)
@@ -95,21 +86,16 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         guard let category = category.text?.lowercased() else {return}
         guard let priceExpenses = priceExpenses.text?.doubleValue else {return}
         guard let imageСheck = self.selectPhotoButton.imageView?.image else {return}
-   
-        presenter.add(name: expenseName, place: companyName, category: category, total: Double(priceExpenses), imageСheck:imageСheck )
-     
+        presenter.add(name: expenseName, place: companyName, category: category, total: Double(priceExpenses), imageСheck:imageСheck)
         addButton.isEnabled = false
-  
     }
     //MARK: - ImagePickerController
-
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.originalImage] as? UIImage else {
             print("No image found")
             imageSelected = false
             return
         }
-      
         selectPhotoButton.layer.cornerRadius = 12
         selectPhotoButton.layer.masksToBounds = true
         selectPhotoButton.layer.backgroundColor = UIColor.appColor(.geryAssistant)?.cgColor
@@ -118,9 +104,7 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
         imageSelected = true
         formValidation()
         self.dismiss(animated: true, completion: nil)
-        
     }
-
     @objc func openCamera(){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             let imagePicker = UIImagePickerController()
@@ -156,7 +140,7 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
     fileprivate func  setupNotificationObserver(){
         // следит когда подниметься клавиатура
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        // следит когда пbcxtpftn
+        // следит когда опускаеться
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwowHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
    override func viewWillDisappear(_ animated: Bool) {      //очищает клавиатуру из памяти обязательно делать если вызываешь клаву
@@ -183,7 +167,6 @@ class AddNewExpensesView: UIViewController,UIImagePickerControllerDelegate,UINav
     @objc fileprivate func handleTapDismiss(){
         view.endEditing(true)
     }
-
 }
 extension AddNewExpensesView{
     func alertMassage(title: String, message: String){
@@ -199,4 +182,3 @@ extension AddNewExpensesView: AddNewExpensesProtocol{
         alertMassage(title: "Error", message: error)
     }
 }
-

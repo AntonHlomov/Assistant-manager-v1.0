@@ -4,10 +4,8 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
 import Firebase
-
 
 extension Firestore{
     func fetchCurrentUser(completion: @escaping (User?, Error?) ->()){

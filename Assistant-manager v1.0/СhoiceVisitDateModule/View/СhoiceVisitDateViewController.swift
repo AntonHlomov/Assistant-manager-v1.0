@@ -8,14 +8,13 @@ import UIKit
 
 class ChoiceVisitDateViewController: UIViewController {
     var presenter: СhoiceVisitDatePresenterProtocol!
-    
     let cellMaster = "cellMaster"
+    
     let scrollView: UIScrollView = {
     let scrollView = UIScrollView()
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     return scrollView
     }()
-    
     let scrollViewContainer: UIStackView = {
     let view = UIStackView()
     view.axis = .vertical
@@ -43,8 +42,8 @@ class ChoiceVisitDateViewController: UIViewController {
     }()
     
     lazy var zigzagContainerViewUp = SketchBorderView()
-    
     let cellIdTable = "cellIdTable"
+    
     var tableView:UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +60,6 @@ class ChoiceVisitDateViewController: UIViewController {
         datePicker.preferredDatePickerStyle = .inline
         return datePicker
     }()
-    
     lazy var zigzagContainerViewUDown = SketchBorderView()
     
     let greyDownView: UIView = {
@@ -69,9 +67,8 @@ class ChoiceVisitDateViewController: UIViewController {
     view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
     return view
     }()
-    
     fileprivate let addACommentButton =  UIButton.setupButton(title: "Add a comment", color: UIColor.appColor(.pinkAssistant)!, activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.appColor(.whiteAssistant)!.withAlphaComponent(0.9))
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -138,11 +135,9 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.customerRecordPast?.count ?? 0  //15 //filtersCustomerRecordAll.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdTable, for: indexPath) as! MastersScheduleTableViewCell
         cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -164,7 +159,6 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
         cell.serviesLabelClient.text = nameSev
         return cell
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
     }
@@ -182,7 +176,6 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.team?.count ?? 0
     }
-    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellMaster, for: indexPath) as! MasterCollectionViewCell
         cell.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -190,20 +183,17 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
         cell.team = presenter.team?[indexPath.row]
         return cell
     }
-    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 2
         cell?.layer.borderColor = UIColor.appColor(.pinkAssistant)?.cgColor
         presenter.pressedMastersChoice(indexPath: indexPath)
     }
-    
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("отжал\(indexPath.row)")
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 0
     }
-    
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
      let customCell = cell as! MasterCollectionViewCell
          if customCell.isSelected {
@@ -214,7 +204,6 @@ extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollection
          }
     }
 }
-
 extension ChoiceVisitDateViewController{
     func alertMassage(title: String, message: String){
         let alertControler = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -223,23 +212,18 @@ extension ChoiceVisitDateViewController{
         present(alertControler, animated: true, completion: nil)
     }
 }
-
 extension ChoiceVisitDateViewController: СhoiceVisitDateProtocol {
     func succesForTableCustomerRecordPast() {
         self.tableView.reloadData()
     }
-    
     func attentionString(error: String) {
         alertMassage(title: "Please check", message: error)
     }
-    
     func succesForTeamCollection() {
         self.masterCollectionView.reloadData()
     }
-    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertMassage(title: "Error", message: error)
     }
-
 }

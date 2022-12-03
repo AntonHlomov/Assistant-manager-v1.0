@@ -4,43 +4,32 @@
 //
 //  Created by Anton Khlomov on 25/11/2022.
 //
-
 import UIKit
-
 class StatusSwitchTableView: UITableViewController {
     var presenter: StatusSwitchPresenterProtocol!
     let cell = "Cell"
     var selectedIndexes = [[IndexPath.init(row: 0, section: 0)]]
   
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         tableView.register(OptionesTableViewCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear //линии между ячейками цвет
-     
     }
-
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  presenter?.statuses?.count ?? 0
     }
-   
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! OptionesTableViewCell
-        
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.textLabel?.text = presenter.statuses?[indexPath.row]
         cell.textLabel?.textColor = UIColor.appColor(.whiteAssistant)
-        
         let selectedSectionIndexes = self.selectedIndexes[indexPath.section]
-        
         if selectedSectionIndexes.contains(indexPath) {
             cell.accessoryType = .checkmark
             cell.optionesImageView.loadImage(with: presenter.user?.profileImage ?? "")
@@ -54,7 +43,6 @@ class StatusSwitchTableView: UITableViewController {
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let cell = tableView.cellForRow(at: indexPath)!
             // If current cell is not present in selectedIndexes
         if !self.selectedIndexes[indexPath.section].contains(indexPath) {
@@ -78,7 +66,6 @@ extension StatusSwitchTableView {
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
-    
     func alertStatus(){
         let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertControler.addAction(UIAlertAction(title: "Change status?", style: .destructive, handler: { (_) in
@@ -92,14 +79,11 @@ extension StatusSwitchTableView {
     }
 }
 extension StatusSwitchTableView: StatusSwitchProtocol {
-    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertMassage(title: "Error", message: error)
     }
-    
     func reloadTable (){
        tableView.reloadData()
     }
-  
 }

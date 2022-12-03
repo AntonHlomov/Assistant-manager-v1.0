@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 29/05/2022.
 //
-
 import Foundation
 import Firebase
 
@@ -19,7 +18,6 @@ class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
-      
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
@@ -38,7 +36,6 @@ class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
             idUserOrGroup = idGroup
         default: return
         }
-        
         Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("Reminder").document(idReminder).delete() { (error) in
             if let error = error {
             completion(.failure(error))
@@ -48,12 +45,9 @@ class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
         }
   
     }
-    
-    
     func addReminder(text: String, date: String, user: User?,nameClient:String,fulnameClient:String,urlImage: String,userReminder: Bool,sistemReminderColl: Bool,sistemReminderPeriodNextRecord: Bool,idClient: String,idUserWhoIsTheMessage: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let idReminder = NSUUID().uuidString
-        
         let dataServies = ["idReminder": idReminder,
                            "idUser":uid,
                            "idClient":idClient,
@@ -67,7 +61,6 @@ class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
                            "profileImageClientUrl": urlImage,
                            "idUserWhoIsTheMessage":idUserWhoIsTheMessage,
                            ] as [String : Any]
-        
         switch user?.statusInGroup {
         case "Individual":
             Firestore.firestore().collection("users").document(uid).collection("Reminder").document(idReminder).setData(dataServies) { (error) in
@@ -110,7 +103,4 @@ class ApiAllClientPageDataService: ApiAllClientPageServiceProtocol{
         default: break
         }
     }
-    
-   
-    
 }

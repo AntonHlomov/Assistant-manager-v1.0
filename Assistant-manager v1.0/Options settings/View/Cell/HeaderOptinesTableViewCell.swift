@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 06/06/2022.
 //
-
 import UIKit
 
 class HeaderOptinesTableViewCell: UITableViewCell {
@@ -16,7 +15,6 @@ class HeaderOptinesTableViewCell: UITableViewCell {
             nameLabel.text = name.capitalized + " " + fullname.capitalized
         }
     }
-    
     lazy var circlForAvaViewBlue: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -42,7 +40,6 @@ class HeaderOptinesTableViewCell: UITableViewCell {
         label.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
          return label
      }()
-    //Check color
     let lineView: UIImageView = {
          let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)
@@ -55,12 +52,9 @@ class HeaderOptinesTableViewCell: UITableViewCell {
        return button
    }()
     lazy var stackView = UIStackView(arrangedSubviews: [commit])
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        
-    
         addSubview(lineView)
         lineView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil,pading: .init(top: 0, left: 35, bottom: 0, right: 0),size: .init(width: 1, height: 0))
         
@@ -82,25 +76,19 @@ class HeaderOptinesTableViewCell: UITableViewCell {
 
         addSubview(stackView)
         stackView.anchor(top: nameLabel.bottomAnchor, leading:nameLabel.leadingAnchor, bottom: nil, trailing: trailingAnchor,  pading: .init(top: 3, left: 0, bottom: 0, right: 20), size: .init(width: 0, height: 0))
-
     }
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         self.circlForAvaViewBlue.layer.borderColor = UIColor.appColor(.whiteAndPinkDetailsAssistant)?.cgColor
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        
+ 
     }
-
 }

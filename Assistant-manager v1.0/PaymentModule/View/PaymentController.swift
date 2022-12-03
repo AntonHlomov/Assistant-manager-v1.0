@@ -9,18 +9,12 @@ import UIKit
 
 class PaymentController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var presenter: PaymentPresenterProtocol!
-    
     var customerRecord: CustomerRecord?{
         didSet{
             clientView.loadImage(with: customerRecord?.profileImageClient ?? "")
             guard let nameCl = customerRecord?.nameClient else {return}
             guard let surnameCl = customerRecord?.fullNameClient else {return}
-          //  guard let commentTex = customerRecord?.commit else {return}
-          //  guard let dateTimeStartService = customerRecord?.dateTimeStartService else {return}
             nameClient.text = nameCl.capitalized + " " + surnameCl.capitalized
-          //  commentTexCell.text = String(commentTex)
-          //  timeStartServiceCell.text = String(dateTimeStartService.dropFirst(11))
-            
         }
     }
     var master: Team?{
@@ -30,15 +24,12 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
             nameMasterValue.text = nameMas.capitalized + " " + surnameMas.capitalized
         }
     }
-
     let cell = "Cell"
-    
     var tableView:UITableView = {
        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
     var fonCheck: UIView = {
         let fon = UIView()
         fon.backgroundColor = UIColor.appColor(.whiteAssistantFon)
@@ -57,23 +48,17 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
     var line: UIView = {
         let line = UIView()
         line.backgroundColor = UIColor.appColor(.blueAssistantFon)
-       // line.layer.borderWidth = 3
-    
         return line
      }()
-    
     var circlForAvaClient: UIImageView = {
         let line = UIImageView()
         line.backgroundColor = UIColor.appColor(.whiteAssistantFon)
         line.layer.cornerRadius = 90
         line.layer.borderColor = UIColor.appColor(.blueAssistantFon)?.cgColor
         line.layer.borderWidth = 1
-        
         return line
      }()
-    
      var clientView = CustomUIimageView(frame: .zero )
- 
      var nameClient: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -82,7 +67,6 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
      }()
- 
      var nameMasterLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -107,7 +91,6 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
      }()
-    
      var nameCurancy: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -116,7 +99,6 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         label.textColor = UIColor.appColor(.whiteAssistant)
         return label
      }()
-    
      var totalBillValue: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -127,16 +109,13 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
      }()
     lazy var stackCurancy = UIStackView(arrangedSubviews: [nameCurancy, totalBillValue])
     lazy var stackTotal = UIStackView(arrangedSubviews: [totalBill, stackCurancy])
-    lazy var stackClientLabel = UIStackView(arrangedSubviews: [nameMasterLabel, nameMasterValue])
-    
+    lazy var stackClientLabel = UIStackView(arrangedSubviews: [nameMasterLabel, nameMasterValue])    
     lazy var stackFuterBill = UIStackView(arrangedSubviews: [stackClientLabel, stackTotal])
-    
     var fonTable: UIView = {
         let fon = UIView()
         fon.backgroundColor = UIColor.appColor(.blueAssistantFon)
         return fon
      }()
-    
     let textAddComent: UILabel = {
         let Label = UILabel()
         Label.text = "Add a comment"
@@ -146,7 +125,6 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         Label.numberOfLines = 1
         return Label
     }()
-    
     lazy var commit: UITextView = {
         var text = UITextView()
         text.textAlignment = .left
@@ -158,11 +136,7 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         text.isEditable = true
         return text
     }()
-
     fileprivate let payButton = UIButton.setupButton(title: "Pay", color: UIColor.rgb(red: 190, green: 140, blue: 196), activation: true, invisibility: false, laeyerRadius: 12, alpha: 1, textcolor: UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.9))
-    
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -172,81 +146,58 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         setupTapGesture()
         handlers()
     }
-    
     fileprivate func configureViewComponents(){
         view.addSubview(fonCheck)
         fonCheck.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top:view.frame.height/9, left: 20, bottom: view.frame.height/4, right: 20), size: .init(width: 0, height: 0))
         fonCheck.layer.cornerRadius = 12
         fonCheck.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         view.addSubview(circleL)
         circleL.anchor(top: fonCheck.topAnchor, leading: fonCheck.leadingAnchor, bottom: nil, trailing: nil,pading: .init(top: view.frame.height/8, left: -25, bottom: 0, right: 0),  size: .init(width: 50, height: 50))
         circleL.layer.cornerRadius = 50 / 2
-        
         view.addSubview(circleR)
         circleR.anchor(top: fonCheck.topAnchor, leading: nil, bottom: nil, trailing: fonCheck.trailingAnchor,pading: .init(top: view.frame.height/8, left: 0, bottom: 0, right: -25),  size: .init(width: 50, height: 50))
         circleR.layer.cornerRadius = 50 / 2
-        
         view.addSubview(line)
         line.anchor(top: circleL.topAnchor, leading: circleL.trailingAnchor, bottom: nil, trailing: circleR.leadingAnchor,pading: .init(top: 25, left: 0, bottom: 0, right: 0),  size: .init(width: 0, height: 2))
-        
         view.addSubview(circlForAvaClient)
         circlForAvaClient.anchor(top: fonCheck.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: 15, left: 0, bottom: 0, right: 0),  size: .init(width: 60, height: 60))
-         
         circlForAvaClient.layer.cornerRadius = 60 / 2
         circlForAvaClient.centerXAnchor.constraint(equalTo: fonCheck.centerXAnchor).isActive = true //выстовляет по середине экрана
-        
         view.addSubview(clientView)
         clientView.anchor(top: circlForAvaClient.topAnchor, leading: nil, bottom: nil, trailing: nil,pading: .init(top: 5, left: 0, bottom: 0, right: 0),  size: .init(width:50, height: 50))
-         
         clientView.layer.cornerRadius = 50 / 2
         clientView.centerXAnchor.constraint(equalTo: fonCheck.centerXAnchor).isActive = true //выстовляет по середине экрана
-        
         view.addSubview(nameClient)
         nameClient.anchor(top: clientView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,  pading: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 20))
         nameClient.centerXAnchor.constraint(equalTo: fonCheck.centerXAnchor).isActive = true
-        
         stackCurancy.axis = .horizontal
         stackCurancy.spacing = 0
         stackCurancy.distribution = .fillProportionally
-        
         stackTotal.axis = .vertical
         stackTotal.spacing = 8
         stackTotal.distribution = .fillEqually
-        
         stackClientLabel.axis = .vertical
         stackClientLabel.spacing = 8
         stackClientLabel.distribution = .fillEqually
-        
-      
         stackFuterBill.axis = .horizontal
-      //  stackFuterBill.spacing = 20
         stackFuterBill.distribution = .equalCentering
-        
         view.addSubview(stackFuterBill)
         stackFuterBill.anchor(top: line.bottomAnchor, leading: circleL.trailingAnchor, bottom: nil, trailing: circleR.leadingAnchor, pading: .init(top: 20, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 0))
-        
         view.addSubview(fonTable)
         fonTable.anchor(top: stackFuterBill.bottomAnchor, leading: fonCheck.leadingAnchor, bottom: fonCheck.bottomAnchor, trailing: fonCheck.trailingAnchor, pading: .init(top: 20, left: 20, bottom: 20, right: 20), size: .init(width: 0, height: 0))
         fonTable.layer.cornerRadius = 12
         fonTable.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         fonTable.addSubview(tableView)
         tableView.anchor(top: fonTable.topAnchor, leading: fonTable.leadingAnchor, bottom: fonTable.bottomAnchor, trailing: fonTable.trailingAnchor, pading: .init(top: 20, left: 0, bottom: 20, right: 0))
         tableView.layer.cornerRadius = 12
-        
         view.addSubview(payButton)
         payButton.anchor(top: nil, leading: fonCheck.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: fonCheck.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 10, right: 0))
-        
         view.addSubview(textAddComent)
         textAddComent.anchor(top: fonCheck.bottomAnchor, leading: fonCheck.leadingAnchor, bottom: nil, trailing: fonCheck.trailingAnchor, pading: .init(top: 20, left: 10, bottom: 0, right: 10))
-        
         view.addSubview(commit)
         commit.anchor(top: textAddComent.bottomAnchor, leading: fonCheck.leadingAnchor, bottom: payButton.topAnchor, trailing: fonCheck.trailingAnchor, pading: .init(top: 5, left: 0, bottom: 70, right: 0))
         commit.layer.cornerRadius = 10
-  
     }
-   
     fileprivate func handlers(){
         payButton.addTarget(self, action: #selector(pay), for: .touchUpInside)
     }
@@ -261,9 +212,7 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         tableView.register(PaymentPriceTableViewCell.self, forCellReuseIdentifier: cell)
         tableView.separatorColor = .clear
         tableView.allowsMultipleSelection = true
-       // tableView.refreshControl = dataRefresher
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.bill?.count ?? 0
     }
@@ -274,18 +223,9 @@ class PaymentController: UIViewController,UITableViewDataSource,UITableViewDeleg
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.price = presenter.bill?[indexPath.row]
-        
-        
-        
-      //  cell.nameService.text = "Under cut"
-      //  if indexPath.row == 2 {
-      //      cell.priceLabel.text = "40"
-      //  }
-       // cell.price = presenter.filterPrice?[indexPath.row]
         return cell
     }
     //MARK: - Keyboard
-        
         fileprivate func  setupNotificationObserver(){
             // listener up keybord
             NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardSwow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -352,7 +292,6 @@ extension PaymentController: PaymentProtocol {
         self.customerRecord = customerRecord
         self.master = master
     }
-    
     func failure(error: Error) {
         let error = "\(error.localizedDescription)"
         alertPaymentMassage(title: "Error", message: error)

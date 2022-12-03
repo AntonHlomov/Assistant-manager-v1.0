@@ -4,11 +4,9 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
 
 class Reminder {
-
     var idReminder: String!
     var idUser: String!
     var idClient: String!
@@ -23,7 +21,6 @@ class Reminder {
     var idUserWhoIsTheMessage: String!
     
     init(dictionary: [String: Any]) {
-
         self.idReminder = dictionary["idReminder"] as? String ?? ""
         self.idUser = dictionary["idUser"] as? String ?? ""
         self.idClient = dictionary["idClient"] as? String ?? ""
@@ -38,4 +35,3 @@ class Reminder {
         self.idUserWhoIsTheMessage = dictionary["idUserWhoIsTheMessage"] as? String ?? ""
     }
 }
-

@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 15/07/2022.
 //
-
 import Foundation
 import Firebase
 
@@ -14,22 +13,18 @@ protocol ApiPaymentServiceProtocol {
 
 class ApiPayment: ApiPaymentServiceProtocol{
     func addNewTransactionUser(user: User?,card: Bool, cash: Bool,cashPrice: Double,cardPrice: Double, comment: String, customerRecordent: CustomerRecord?, master: Team?, completion: @escaping (Result<Bool, Error>) -> Void) {
-   
+        
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let uidMaster = master?.idTeamMember else {return}
         guard let uidClient = customerRecordent?.idClient  else {return}
-        
         let tax = 0.0
         let sumTotal = cashPrice + cardPrice - tax
         let idCustomerRecordForDelite = customerRecordent?.idRecord ?? ""
         let idTransactionUser = NSUUID().uuidString
-        
         let dateTransactionDDMMYYYYHHMMSS = Date().todayDMYHHMMSSFormat()
         let dateTransactionDDMMYYYY = Date().tomorrowDMYFormat()
         let dateTransactionMMYYYY = Date().todayMonthFormat()
         let dateTransactionYYYY = Date().todayYarFormat()
-        
-        
         switch user?.statusInGroup {
         case "Individual":
             let data = ["idTransaction": idTransactionUser,
@@ -51,19 +46,15 @@ class ApiPayment: ApiPaymentServiceProtocol{
                         "cashPrice": cashPrice,
                         "cardPrice": cardPrice
                          ] as [String : Any]
-            
             let dateReportNewMonts = ["iDdateMMYYYY": dateTransactionMMYYYY,
                                       "checkCount":0,
                                       "expenses":0,
                                       "proceeds":0
                                      ] as [String : Any]
-            
             let dateReportMonts = ["iDdateMMYYYY": dateTransactionMMYYYY,
                                       "checkCount":FieldValue.increment(Int64(1)),
                                       "proceeds":FieldValue.increment(Double(sumTotal))
                                      ] as [String : Any]
-            
-
             Firestore.firestore().collection("users").document(uid).collection("TransactionUser").document(idTransactionUser).setData(data) { (error) in
                 if let error = error {
                  completion(.failure(error))
@@ -85,9 +76,6 @@ class ApiPayment: ApiPaymentServiceProtocol{
                         }
                     }
                 }
-                
-                
-    
             Firestore.firestore().collection("users").document(uid).updateData(["checkCount": FieldValue.increment(Int64(1))])
                
             Firestore.firestore().collection("users").document(uid).updateData(["proceedsUser": FieldValue.increment(Double(sumTotal))])
@@ -122,21 +110,15 @@ class ApiPayment: ApiPaymentServiceProtocol{
                         "cashPrice": cashPrice,
                         "cardPrice": cardPrice
                          ] as [String : Any]
-            
-       
-            
             let dateReportNewMonts = ["iDdateMMYYYY": dateTransactionMMYYYY,
                                       "checkCount":0,
                                       "expenses":0,
                                       "proceeds":0
                                      ] as [String : Any]
-            
             let dateReportMonts = ["iDdateMMYYYY": dateTransactionMMYYYY,
                                       "checkCount":FieldValue.increment(Int64(1)),
                                       "proceeds":FieldValue.increment(Double(sumTotal))
                                      ] as [String : Any]
-            
-           
             // check if the report date exists, if not, create a new report month
             Firestore.firestore().collection(nameColection).document(idGroup).collection("FinancialReport").document(dateTransactionMMYYYY).getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -153,29 +135,18 @@ class ApiPayment: ApiPaymentServiceProtocol{
                     }
                 }
             }
-            
-           
             Firestore.firestore().collection(nameColection).document(idGroup).collection("TransactionUser").document(idTransactionUser).setData(data) { (error) in
                 if let error = error {
                  completion(.failure(error))
                  return
                 }
             Firestore.firestore().collection(nameColection).document(idGroup).updateData(["checkCount": FieldValue.increment(Int64(1)),"proceedsGroup": FieldValue.increment(Double(sumTotal))])
-                
             Firestore.firestore().collection("users").document(uidMaster).updateData(["proceedsUserInGroup": FieldValue.increment(Double(sumTotal)),"checkCountInGroup": FieldValue.increment(Int64(1))])
-                
-                
             Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").document(uidClient).updateData(["countVisits": FieldValue.increment(Int64(1)),"sumTotal":FieldValue.increment(Double(sumTotal))])
-                
             Firestore.firestore().collection(nameColection).document(idGroup).collection("CustomerRecord").document(idCustomerRecordForDelite).delete()
             completion(.success(true))
             }
         default: break
         }
-        
-   
-        
-      
-    }
-  
+    }  
 }

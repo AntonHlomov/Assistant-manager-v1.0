@@ -4,11 +4,9 @@
 //
 //  Created by Anton Khlomov on 12/05/2022.
 //
-
 import Foundation
 import UIKit
 import Firebase
-
 
 protocol APIOptionesDataServiceProtocol {
     func signOutUser(completion: @escaping (Result<Bool,Error>) -> Void)
@@ -18,10 +16,7 @@ protocol APIOptionesDataServiceProtocol {
 }
 
 class APIOptionesDataService:APIOptionesDataServiceProtocol {
-   
-    
-    
-    
+
     func signOutUser(completion: @escaping (Result<Bool,Error>) -> Void) {
         do{
             try Auth.auth().signOut()
@@ -30,7 +25,6 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
                 completion(.failure("Faild to sign out Выйти" as! Error))
             }
     }
-    
     func countClients(user: User?,completion: @escaping (Result<Int,Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         switch user?.statusInGroup {
@@ -106,7 +100,6 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
             break
         }
     }
-    
     func countTeam(user: User?,completion: @escaping (Result<Int,Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         switch user?.statusInGroup {
@@ -137,7 +130,5 @@ class APIOptionesDataService:APIOptionesDataServiceProtocol {
             completion(.failure("There was a problem with your status while uploading data Team.count. Please restart the application..."+"\n" as! Error))
             break
         }
-    }
-  
-    
+    }   
 }

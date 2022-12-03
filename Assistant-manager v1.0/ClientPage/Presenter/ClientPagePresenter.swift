@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 29/05/2022.
 //
-
 import Foundation
 import UIKit
 
@@ -20,7 +19,6 @@ protocol ClientPageProtocol: AnyObject {
     func openAlertOk(message:String)
     func enteringAreminder()
     func reloadColection()
-    
 }
  
 protocol ClientPagePresenterProtocol: AnyObject{
@@ -71,8 +69,6 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         self.idReminder = idReminder
         self.openWithMarkAddMassageReminder = openWithMarkAddMassageReminder
         setClient()
-        
-        
     }
     func getTeam(){
         networkServiceTeam.getTeam(user: self.user){ [weak self] result in
@@ -123,7 +119,6 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
         print("pressСlientInvitationButton")
         self.router?.showPrice(newVisitMode: true, client: client, user: self.user)
     }
-    
     func pressСallButton() {
         print("pressСallButton")
         guard let numberPhone = client?.telefonClient else {return}
@@ -136,8 +131,7 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
     }
     func goToVisitStatisyc() {
         print("goToVisitStatisyc")
-    }
-       
+    }       
     func goToFinansStatisyc() {
         print("goToFinansStatisyc")
     }
@@ -165,9 +159,6 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
            
         default: return
         }
-        
-    
-     //   guard let idPrice = price?.idPrice else {return}
         networkService.addReminder(text: text, date: dateDMY, user: self.user,nameClient:nameClient,fulnameClient:fulnameClient,urlImage: urlImage, userReminder: true, sistemReminderColl: false, sistemReminderPeriodNextRecord: false, idClient: idClient, idUserWhoIsTheMessage: userWhoIsTheMessage) { [weak self] result in
             guard let self = self else {return}
             DispatchQueue.main.async {
@@ -181,22 +172,18 @@ class ClientPagePresenter: ClientPagePresenterProtocol{
             }
         }
     }
-    
     func checkIndicatorVisitDates() {
         print("checkIndicatorVisitDates")
         self.view?.changeVisitDates(indicatorVisits: true)
     }
-    
     func checkIndicatorReminder() {
         print("checkIndicatorReminder")
         self.view?.changeReminder(indicatorReminder: true)
     }
-    
     func checkIndicatorVisitStatisyc() {
         print("checkIndicatorVisitStatisyc")
         self.view?.changeVisitStatisyc(countVisits: "0")
     }
-    
     func checkIndicatorFinansStatisyc() {
         print("checkIndicatorFinansStatisyc")
         guard let countVisits = client?.countVisits else {return}

@@ -4,11 +4,9 @@
 //
 //  Created by Anton Khlomov on 14/01/2022.
 //
-
 import Foundation
 
 class CustomerRecord {
-    
     var idRecord: String!
     var idUserWhoRecorded: String!
     var idUserWhoWorks: String!
@@ -30,7 +28,6 @@ class CustomerRecord {
     var anUnfulfilledRecord: Bool!
     
     init(dictionary: [String: Any]) {
-
         self.idRecord = dictionary["idRecord"] as? String ?? ""
         self.idUserWhoRecorded = dictionary["idUserWhoRecorded"] as? String ?? ""
         self.idUserWhoWorks = dictionary["idUserWhoWorks"] as? String ?? ""
@@ -52,6 +49,3 @@ class CustomerRecord {
         self.anUnfulfilledRecord = dictionary["anUnfulfilledRecord"] as? Bool ?? nil
     }
 }
-
-
-

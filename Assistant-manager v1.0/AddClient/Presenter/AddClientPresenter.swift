@@ -4,7 +4,6 @@
 //
 //  Created by Anton Khlomov on 03/06/2022.
 //
-
 import Foundation
 import UIKit
 
@@ -15,10 +14,7 @@ protocol AddClientViewProtocol: AnyObject {
 
 protocol AddClientViewPresenterProtocol: AnyObject {
     init(view: AddClientViewProtocol,networkService: ApiAddClientDataServiceProtocol, router: LoginRouterProtocol,editMode: Bool,client: Client?, user: User?)
-    
     func addClient(nameClient: String, fullName: String,telefonClient: String, profileImageClient:UIImage,genderClient: String, ageClient: Int,textAboutClient: String)
-
-    
 }
 
 class AddClientPresenter: AddClientViewPresenterProtocol {
@@ -37,14 +33,9 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
         self.client = client
         self.editMode = editMode
         self.user = user
-        
         checkEditMode()
-        
-
        }
-    
     func addClient(nameClient: String,fullName: String, telefonClient: String, profileImageClient: UIImage, genderClient: String, ageClient: Int, textAboutClient: String) {
-        
         switch editMode{
         case true:
             guard let user = self.user else {return}
@@ -92,14 +83,8 @@ class AddClientPresenter: AddClientViewPresenterProtocol {
  
        }
     
-    
      func checkEditMode(){
          guard self.editMode == true else {return}
          view?.setClientForEditMode(client: client)
      }
-    
-    
- 
-    
 }
-

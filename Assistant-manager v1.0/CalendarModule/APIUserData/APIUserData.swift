@@ -18,12 +18,10 @@ protocol APIUserDataServiceProtocol {
 }
 
 class APIUserDataService:APIUserDataServiceProtocol {
-    
     func getClient(user: User?,idClient: String, completion: @escaping (Result<Client?, Error>) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
-        
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
@@ -42,7 +40,6 @@ class APIUserDataService:APIUserDataServiceProtocol {
             idUserOrGroup = idGroup
         default: return
         }
-        
         var client: Client?
         Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("Clients").whereField("idClient", isEqualTo: idClient).getDocuments{ [] (snapshot, error) in
             if let error = error {
@@ -57,12 +54,10 @@ class APIUserDataService:APIUserDataServiceProtocol {
      completion(.success(client))
      }
     }
-    
     func getReminder(user: User?, date: String, completion: @escaping (Result<[Reminder]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
-      
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
@@ -81,7 +76,6 @@ class APIUserDataService:APIUserDataServiceProtocol {
             idUserOrGroup = idGroup
         default: return
         }
-        
         var reminders = [Reminder]()
         Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("Reminder").whereField("dateShowReminder", isEqualTo:date).whereField("idUserWhoIsTheMessage", isEqualTo: uid).addSnapshotListener{ [] (snapshot, error) in
         if let error = error {
@@ -98,13 +92,11 @@ class APIUserDataService:APIUserDataServiceProtocol {
        completion(.success( reminders))
        }
     }
-    
     func getCustomerRecord(user: User?,today:String,team:[Team]?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
         var markFilterForId = true
-      
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
@@ -127,7 +119,6 @@ class APIUserDataService:APIUserDataServiceProtocol {
             markFilterForId = false
         default: return
         }
-        
         var filterCalendar = [CustomerRecord]()
         var calendar = [CustomerRecord]()
         Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("CustomerRecord").whereField("dateStartService", isGreaterThanOrEqualTo:today).addSnapshotListener{ [] (snapshot, error) in
@@ -147,18 +138,15 @@ class APIUserDataService:APIUserDataServiceProtocol {
             if markFilterForId == true && timeCustomerRecord.idUserWhoWorks == uid {
                 calendar.append(timeCustomerRecord)
             }
-          
        })
        filterCalendar =  calendar.sorted{ $0.dateTimeStartService < $1.dateTimeStartService}
        completion(.success( filterCalendar))
        }
     }
-    
     func deletCustomerRecorder(user: User?,idRecorder: String,masterId:String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
-      
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
@@ -177,7 +165,6 @@ class APIUserDataService:APIUserDataServiceProtocol {
             idUserOrGroup = idGroup
         default: return
         }
-        
         Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("CustomerRecord").document(idRecorder).delete() { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -186,12 +173,10 @@ class APIUserDataService:APIUserDataServiceProtocol {
             completion(.success(true))
         }
     }
-    
     func getTeam(user: User?,completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         var nameColection = ""
-        var idUserOrGroup = ""
-      
+        var idUserOrGroup = ""      
         switch user?.statusInGroup {
         case "Individual":
             return
@@ -223,14 +208,11 @@ class APIUserDataService:APIUserDataServiceProtocol {
             })
             completion(.success(teamCash))
         }
-        
     }
-    
     func fetchCurrentClient(user: User?,idClient: String,team:[Team]?, completion: @escaping (Result<Client?, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""
         var idUserOrGroup = ""
-      
         switch user?.statusInGroup {
         case "Individual":
             nameColection = "users"
@@ -249,7 +231,6 @@ class APIUserDataService:APIUserDataServiceProtocol {
             idUserOrGroup = idGroup
         default: return
         }
-        
         Firestore.firestore().collection(nameColection).document(idUserOrGroup).collection("Clients").document(idClient).getDocument { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
