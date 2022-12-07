@@ -17,7 +17,7 @@ protocol APIUserDataServiceProtocol {
     func getClient(user: User?,idClient: String, completion: @escaping (Result<Client?, Error>) -> Void)
 }
 
-class APIUserDataService:APIUserDataServiceProtocol {
+class APIUserDataService:APIUserDataServiceProtocol {    
     func getClient(user: User?,idClient: String, completion: @escaping (Result<Client?, Error>) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var nameColection = ""

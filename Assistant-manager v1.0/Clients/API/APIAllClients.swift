@@ -13,106 +13,44 @@ protocol ApiAllClientsDataServiceProtocol {
     func getClients(user: User?, completion: @escaping (Result<[Client]?,Error>) -> Void)
 }
 class ApiAllClientsDataService:ApiAllClientsDataServiceProtocol {
-    func deleteClient(id: String,reference: String, user: User?, completion: @escaping (Result<Bool,Error>) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch user?.statusInGroup {
-        case "Individual":
-            Firestore.firestore().collection("users").document(uid).collection("Clients").document(id).delete() { (error) in
-                if let error = error {
-                   completion(.failure(error))
-                   return
-                }
-                 let storageRef = Storage.storage().reference(forURL: reference)
-                 storageRef.delete { error in
-                     if let error = error {
-                         completion(.failure(error))
-                        return
-                     }
-                     // Atomically increment the population of the city by 50.increment(Int64(50))
-                     // Note that increment() with no arguments increments by 1.
-                     Firestore.firestore().collection("users").document(uid).updateData(["clientsCount": FieldValue.increment(Int64(-1))])
-                     completion(.success(true))
-              }
+    func deleteClient(id: String, reference: String, user: User?, completion: @escaping (Result<Bool, Error>) -> Void) {
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        guard let status = user?.statusInGroup else {return}
+        guard let db = Firestore.accessRights(AccessStatus(rawValue: status)!,user: user) else {return}
+        db.collection("Clients").document(id).delete() { (error) in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
-        case "Master":break
-        case "Administrator":break
-        case "Boss":
-            let nameColection = "group"
-            guard let idGroup = user?.idGroup else {return}
-            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").document(id).delete() { (error) in
+            let storageRef = Storage.storage().reference(forURL: reference)
+            storageRef.delete { error in
                 if let error = error {
-                   completion(.failure(error))
-                   return
+                    completion(.failure(error))
+                    return
                 }
-                 let storageRef = Storage.storage().reference(forURL: reference)
-                 storageRef.delete { error in
-                     if let error = error {
-                         completion(.failure(error))
-                        return
-                     }
-                     // Atomically increment the population of the city by 50.increment(Int64(50))
-                     // Note that increment() with no arguments increments by 1.
-                     Firestore.firestore().collection("users").document(uid).updateData(["clientsCount": FieldValue.increment(Int64(-1))])
-                     completion(.success(true))
-              }
+                db.updateData(["clientsCount": FieldValue.increment(Int64(-1))])
+                completion(.success(true))
             }
-        default: break
         }
     }
-    func getClients(user: User?,completion: @escaping (Result<[Client]?, Error>) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        switch user?.statusInGroup {
-        case "Individual":
-            Firestore.firestore().collection("users").document(uid).collection("Clients").addSnapshotListener{ (snapshot, error) in
-                if let error = error {
-                   completion(.failure(error))
-                   return
-                }
-                var clientsCash = [Client]()
-                clientsCash.removeAll()
-                snapshot?.documents.forEach({ (documentSnapshot) in
+    
+    func getClients(user: User?, completion: @escaping (Result<[Client]?, Error>) -> Void) {
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        guard let status = user?.statusInGroup else {return}
+        guard let db = Firestore.accessRights(AccessStatus(rawValue: status)!,user: user) else {return}
+        db.collection("Clients").addSnapshotListener{ (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            var clientsCash = [Client]()
+            clientsCash.removeAll()
+            snapshot?.documents.forEach({ (documentSnapshot) in
                 let clientDictionary = documentSnapshot.data()
                 let client = Client(dictionary: clientDictionary)
                 clientsCash.append(client)
-                })
-                completion(.success(clientsCash))
-            }
-        case "Master":
-            let nameColection = "group"
-            guard let idGroup = user?.idGroup else {return}
-            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
-                if let error = error {
-                   completion(.failure(error))
-                   return
-                }
-                var clientsCash = [Client]()
-                clientsCash.removeAll()
-                snapshot?.documents.forEach({ (documentSnapshot) in
-                let clientDictionary = documentSnapshot.data()
-                let client = Client(dictionary: clientDictionary)
-                clientsCash.append(client)
-                })
-                completion(.success(clientsCash))
-            }
-        case "Administrator":break
-        case "Boss":
-            let nameColection = "group"
-            guard let idGroup = user?.idGroup else {return}
-            Firestore.firestore().collection(nameColection).document(idGroup).collection("Clients").addSnapshotListener{ (snapshot, error) in
-                if let error = error {
-                   completion(.failure(error))
-                   return
-                }
-                var clientsCash = [Client]()
-                clientsCash.removeAll()
-                snapshot?.documents.forEach({ (documentSnapshot) in
-                let clientDictionary = documentSnapshot.data()
-                let client = Client(dictionary: clientDictionary)
-                clientsCash.append(client)
-                })
-                completion(.success(clientsCash))
-            }
-        default: break
+            })
+            completion(.success(clientsCash))
         }
     }
 }

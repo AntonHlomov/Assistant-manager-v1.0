@@ -64,16 +64,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "491ACA00-9973-40C9-B13B-5C79563791DE"
+            uuid = "BC13D190-809C-4A1A-AB19-557AE0EC6BA9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Assistant-manager v1.0/ClientPage/View/ClientPage.swift"
+            filePath = "Assistant-manager v1.0/&#x421;hoiceVisitDateModule/Presenter/&#x421;hoiceVisitDatePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "alertReminderMassage()"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "puchConfirm()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

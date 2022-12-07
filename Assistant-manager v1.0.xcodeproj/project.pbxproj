@@ -124,6 +124,7 @@
 		8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C82850D1D6000182A8 /* PricePresentor.swift */; };
 		8AE627CB2850D1EA000182A8 /* APIPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627CA2850D1EA000182A8 /* APIPrice.swift */; };
 		8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */; };
+		8AFC4F7C293E38AE0012FFE1 /* AccessRights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC4F7B293E38AE0012FFE1 /* AccessRights.swift */; };
 		8AFD1438292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFD1437292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift */; };
 		8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */; };
 		8AFFA1B627C194AF0045E3D6 /* StatistikPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */; };
@@ -242,6 +243,7 @@
 		8AE627C82850D1D6000182A8 /* PricePresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricePresentor.swift; sourceTree = "<group>"; };
 		8AE627CA2850D1EA000182A8 /* APIPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPrice.swift; sourceTree = "<group>"; };
 		8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
+		8AFC4F7B293E38AE0012FFE1 /* AccessRights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessRights.swift; sourceTree = "<group>"; };
 		8AFD1437292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckPresenter.swift; sourceTree = "<group>"; };
 		8AFFA1B527C194AF0045E3D6 /* StatistikPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistikPresenter.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				8A8E455F27918E2F00828B7E /* GoogleService-Info.plist */,
 				8A8E453E2791873900828B7E /* Assistant_manager_v1_0.xcdatamodeld */,
 				8ACB1FFE27C3A3AD00265653 /* APiStatistikMoney.swift */,
+				8AFC4F7B293E38AE0012FFE1 /* AccessRights.swift */,
 			);
 			path = "Assistant-manager v1.0";
 			sourceTree = "<group>";
@@ -1289,6 +1292,7 @@
 				8A8E55AA2876F12C00B99433 /* CustomerCardPaymentCell.swift in Sources */,
 				8A00764E284355F600FF73FD /* APIClientPage.swift in Sources */,
 				8A308FBA284A97410045FA20 /* AddClientView.swift in Sources */,
+				8AFC4F7C293E38AE0012FFE1 /* AccessRights.swift in Sources */,
 				8A6FBA40285AA18500655C57 /* BlurEfectExtensionView.swift in Sources */,
 				8A201C83288184740072ED75 /* PaymentController.swift in Sources */,
 				8A8F747F2854012400D52B4B /* СhoiceVisitDatePresenter.swift in Sources */,

@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 
 class SketchBorderView: UIView {
-    var observation: NSKeyValueObservation?
+   var observation: NSKeyValueObservation?
    lazy var borderLayer: CAShapeLayer = CAShapeLayer()
     override init(frame: CGRect) {
         super.init(frame: frame)

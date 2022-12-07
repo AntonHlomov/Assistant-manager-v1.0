@@ -15,7 +15,7 @@ protocol СhoiceVisitDateProtocol: AnyObject{
     }
 
 protocol СhoiceVisitDatePresenterProtocol: AnyObject{
-    init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?)
+    init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, networkServiceTeam:ApiTeamProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?)
     
     var team: [Team]? {get set}
     var checkMaster: Team? {get set}
@@ -34,6 +34,7 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     weak var view: СhoiceVisitDateProtocol?
     var router: LoginRouterProtocol?
     let networkService:ApiСhoiceVisitDateProtocol!
+    let networkServiceTeam:ApiTeamProtocol!
     
     var customerRecordPast:[CustomerRecord]?
     var team: [Team]?
@@ -56,17 +57,18 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
     var commit: String!
     var anUnfulfilledRecord: Bool!
 
-    required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) {
+    required init(view: СhoiceVisitDateProtocol, networkService:ApiСhoiceVisitDateProtocol,networkServiceTeam:ApiTeamProtocol, ruter:LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) {
         self.view = view
         self.router = ruter
         self.networkService = networkService
+        self.networkServiceTeam = networkServiceTeam
         self.client = clientCheck
         self.serviceCheck = serviceCheck
         self.user = user
         getDataForTeam()
     }
     func getDataForTeam(){
-        networkService.getTeam(user: self.user){ [weak self] result in
+        networkServiceTeam.getTeam(user: self.user){ [weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
                 switch result{

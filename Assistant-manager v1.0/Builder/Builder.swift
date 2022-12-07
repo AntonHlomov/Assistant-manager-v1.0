@@ -102,7 +102,8 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
     func createChoiceVisitDateModule(router: LoginRouterProtocol,serviceCheck: [Price]?,clientCheck: Client?,user: User?) -> UIViewController {
         let view = ChoiceVisitDateViewController()
         let networkService = ApiСhoiceVisitDate()
-        let presenter = СhoiceVisitDatePresenter(view: view, networkService:networkService, ruter:router,serviceCheck: serviceCheck,clientCheck: clientCheck, user: user)
+        let networkServiceTeam = ApiTeam()
+        let presenter = СhoiceVisitDatePresenter(view: view, networkService:networkService, networkServiceTeam: networkServiceTeam, ruter:router,serviceCheck: serviceCheck,clientCheck: clientCheck, user: user)
         view.presenter = presenter
         return view
     }
