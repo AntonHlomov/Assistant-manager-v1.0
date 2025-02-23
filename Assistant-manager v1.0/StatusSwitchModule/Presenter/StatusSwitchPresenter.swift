@@ -15,21 +15,26 @@ protocol StatusSwitchPresenterProtocol: AnyObject{
     func swapStatusSwitch()
     var user: User? {get set}
     var statuses: [String]? {get set}
+    var nameGroupCoWorking: String? {get set}
 }
 
 class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
+    
     weak var view: StatusSwitchProtocol?
     var router: LoginRouterProtocol?
     let networkService:StatusSwitchApiProtocol!
     var user: User?
     var statuses:[String]?
+    var nameGroupCoWorking: String?
     required init(view: StatusSwitchProtocol, networkService: StatusSwitchApiProtocol, router: LoginRouterProtocol,user: User?) {
         self.view = view
         self.router = router
         self.networkService = networkService
         self.user = user
         self.statuses = [String]()
+        getNameGroup()
         getStatuses()
+       
     }
     func getStatuses(){
         guard let status = self.user?.statusInGroup else {return}
@@ -43,6 +48,25 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
         }
         statuses?.append(status)
         self.view?.reloadTable()
+    }
+    
+    func getNameGroup(){
+        guard let idGroup = self.user?.idGroup else {return}
+        networkService.getNameGroupCoWorking(idGroup: idGroup) {[weak self] result in
+            guard self != nil else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let nameGroup):
+                    self?.nameGroupCoWorking = nameGroup
+                    self?.view?.reloadTable()
+                    
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                  
+                }
+            }
+        }
+        
     }
     func swapStatusSwitch() {
         guard let status = self.user?.statusInGroup else {return}

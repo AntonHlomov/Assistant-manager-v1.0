@@ -29,17 +29,26 @@ class StatusSwitchTableView: UITableViewController {
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
         cell.textLabel?.text = presenter.statuses?[indexPath.row]
         cell.textLabel?.textColor = UIColor.appColor(.whiteAssistant)
+        
         let selectedSectionIndexes = self.selectedIndexes[indexPath.section]
         if selectedSectionIndexes.contains(indexPath) {
             cell.accessoryType = .checkmark
             cell.optionesImageView.loadImage(with: presenter.user?.profileImage ?? "")
-            cell.detailTextLabel?.text = "Status"
+           // cell.detailTextLabel?.text = presenter.nameGroupCoWorking ?? "" 
         }
         else {
             cell.accessoryType = .none
             cell.optionesImageView.image = nil
+           // cell.detailTextLabel?.text = ""
+        }
+        
+        if presenter.statuses?[indexPath.row] != "Individual"{
+            cell.detailTextLabel?.text = presenter.nameGroupCoWorking ?? ""
+        } else {
             cell.detailTextLabel?.text = ""
         }
+        
+        
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

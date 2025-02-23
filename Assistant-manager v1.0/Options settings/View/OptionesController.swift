@@ -15,7 +15,8 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
     let cellLine = "cellLine"
     let cellExitRemove = "cellExitRemove"
     
-    var setings = ["Clients","Price","Team","Status"]
+    var setings = ["Clients","Price","Team","Co-working"]
+   // var setings = ["Clients","Price","Team","Status"]
     var exitRemove = ["Exit","Remove"]
     
     var tableView:UITableView = {
@@ -128,7 +129,7 @@ class OptionesController: UIViewController,UITableViewDataSource,UITableViewDele
                 cell.detailTextLabel?.text = String(presenter.user?.priceCount ?? 0) + " services in yuor price"
                 
             case [2, 2]:
-                cell.optionesImageView.image = #imageLiteral(resourceName: "team").withRenderingMode(.alwaysOriginal)
+                cell.optionesImageView.image = #imageLiteral(resourceName: "Image").withRenderingMode(.alwaysOriginal)
                 cell.detailTextLabel?.text = String(presenter.user?.teamCount ?? 0) + " person in yuor team"
                 
             case [2, 3]:
@@ -239,6 +240,10 @@ extension OptionesController{
 }
 //связывание вью с презентером что бы получать от него ответ и делать какие то действия в вью
 extension OptionesController: OptionesViewProtocol {
+    func reloadIndex(indexPath: IndexPath) {
+        print("reloadIndex")
+    }
+    
     func succesForAlert(title: String, message: String) {
         alertRegistrationControllerMassage(title: title, message: message)
     }
