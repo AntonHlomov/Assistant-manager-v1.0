@@ -49,9 +49,10 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
         statuses?.append(status)
         self.view?.reloadTable()
     }
-    
+    /*
     func getNameGroup(){
         guard let idGroup = self.user?.idGroup else {return}
+        
         networkService.getNameGroupCoWorking(idGroup: idGroup) {[weak self] result in
             guard self != nil else {return}
             DispatchQueue.main.async {
@@ -68,6 +69,26 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
         }
         
     }
+    */
+    func getNameGroup() {
+        guard let idGroup = self.user?.idGroup, !idGroup.isEmpty else {
+            self.view?.failure(error: NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "ID группы не найдено или пустое."]))
+            return
+        }
+        networkService.getNameGroupCoWorking(idGroup: idGroup) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let nameGroup):
+                    self.nameGroupCoWorking = nameGroup
+                    self.view?.reloadTable()
+                case .failure(let error):
+                    self.view?.failure(error: error)
+                }
+            }
+        }
+    }
+    
     func swapStatusSwitch() {
         guard let status = self.user?.statusInGroup else {return}
         guard let hiddenStatus = self.user?.hiddenStatus else {return}

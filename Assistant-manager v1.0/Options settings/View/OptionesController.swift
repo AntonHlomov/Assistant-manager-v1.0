@@ -9,6 +9,7 @@ import UIKit
 
 class OptionesController: UIViewController,UITableViewDataSource,UITableViewDelegate{
     var presenter: OptionesViewPresenterProtocol!
+    
     let cellHeaderLine = "cellHeaderLine"
     let cellHeader = "cellHeader"
     let cell = "cell"
@@ -223,7 +224,7 @@ extension OptionesController{
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
-    
+    /*
     func alertForExitOrRemove(title: String,exit: Bool){
         let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertControler.addAction(UIAlertAction(title: title, style: .destructive, handler: { (_) in
@@ -235,6 +236,33 @@ extension OptionesController{
             }
         }))
         alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertControler, animated: true, completion: nil)
+    }
+    */
+    func alertForExitOrRemove(title: String, exit: Bool) {
+        let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertControler.addAction(UIAlertAction(title: title, style: .destructive, handler: { (_) in
+            switch exit {
+            case true:
+                self.presenter.exitUser()
+            case false:
+                self.presenter.removeUser()
+            }
+        }))
+        alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        // Настройка popover для iPad
+        if let popoverController = alertControler.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 1, height: 1)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        // Устанавливаем модальное представление как поповер для iPad
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertControler.modalPresentationStyle = .popover
+        }
+        
         present(alertControler, animated: true, completion: nil)
     }
 }

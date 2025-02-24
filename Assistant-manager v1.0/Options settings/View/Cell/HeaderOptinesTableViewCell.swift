@@ -9,10 +9,16 @@ import UIKit
 class HeaderOptinesTableViewCell: UITableViewCell {
     var user: User? {
         didSet {
+            
             profileImageView.loadImage(with: user?.profileImage ?? "")
             guard let name = user?.name else {return}
             guard let fullname = user?.fullName else {return}
             nameLabel.text = name.capitalized + " " + fullname.capitalized
+            
+            
+            profileImageView.image = #imageLiteral(resourceName: "AIAgent").withRenderingMode(.alwaysOriginal)
+            nameLabel.text = "Ai Call Assistant"
+            
         }
     }
     lazy var circlForAvaViewBlue: UIImageView = {
@@ -35,7 +41,7 @@ class HeaderOptinesTableViewCell: UITableViewCell {
     let commit: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.text = "Мake changes"
+        label.text = "Your personal Ai assistant"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = UIColor.appColor(.whiteAssistantwithAlpha)!
          return label

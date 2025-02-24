@@ -27,14 +27,14 @@ class StatusSwitchTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as! OptionesTableViewCell
         cell.backgroundColor = UIColor.appColor(.blueAssistantFon)
-        cell.textLabel?.text = presenter.statuses?[indexPath.row]
+        //cell.textLabel?.text = presenter.statuses?[indexPath.row]
         cell.textLabel?.textColor = UIColor.appColor(.whiteAssistant)
         
         let selectedSectionIndexes = self.selectedIndexes[indexPath.section]
         if selectedSectionIndexes.contains(indexPath) {
             cell.accessoryType = .checkmark
             cell.optionesImageView.loadImage(with: presenter.user?.profileImage ?? "")
-           // cell.detailTextLabel?.text = presenter.nameGroupCoWorking ?? "" 
+           // cell.detailTextLabel?.text = presenter.nameGroupCoWorking ?? ""
         }
         else {
             cell.accessoryType = .none
@@ -43,9 +43,10 @@ class StatusSwitchTableView: UITableViewController {
         }
         
         if presenter.statuses?[indexPath.row] != "Individual"{
-            cell.detailTextLabel?.text = presenter.nameGroupCoWorking ?? ""
+            cell.textLabel?.text = presenter.nameGroupCoWorking ?? ""
+            cell.detailTextLabel?.text = presenter.statuses?[indexPath.row]
         } else {
-            cell.detailTextLabel?.text = ""
+            cell.textLabel?.text = presenter.statuses?[indexPath.row]
         }
         
         
@@ -63,7 +64,7 @@ class StatusSwitchTableView: UITableViewController {
             self.selectedIndexes[indexPath.section].append(indexPath)
             tableView.reloadData()
         }
-        guard presenter.user?.statusInGroup != cell.textLabel?.text ?? "" else {return}
+        guard presenter.user?.statusInGroup != cell.detailTextLabel?.text ?? "" else {return}
         alertStatus()
     }
 
@@ -75,6 +76,7 @@ extension StatusSwitchTableView {
         alertControler.addAction(alertOk)
         present(alertControler, animated: true, completion: nil)
     }
+    /*
     func alertStatus(){
         let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertControler.addAction(UIAlertAction(title: "Change status?", style: .destructive, handler: { (_) in
@@ -86,6 +88,32 @@ extension StatusSwitchTableView {
         }))
         present(alertControler, animated: true, completion: nil)
     }
+    */
+    func alertStatus() {
+        let alertControler = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertControler.addAction(UIAlertAction(title: "Change status?", style: .destructive, handler: { (_) in
+            self.presenter.swapStatusSwitch()
+        }))
+        alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+            self.selectedIndexes = [[IndexPath.init(row: 0, section: 0)]]
+            self.tableView.reloadData()
+        }))
+        
+        // Для iPad нужно настроить popoverPresentationController
+        if let popoverController = alertControler.popoverPresentationController {
+            popoverController.sourceView = self.view  // Указание view, из которой будет выведен поповер
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 1, height: 1)  // Указание расположения поповера
+            popoverController.permittedArrowDirections = []  // Отключение стрелки
+        }
+        
+        // Проверка, если экран iPad
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertControler.modalPresentationStyle = .popover
+        }
+        
+        present(alertControler, animated: true, completion: nil)
+    }
+  
 }
 extension StatusSwitchTableView: StatusSwitchProtocol {
     func failure(error: Error) {

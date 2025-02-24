@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "Dark Green Illustrative Muted Peaceful Awareness Quotes Psychedelic Tote Bag (Журналы) (Сумки) (Круглый стикер) (12) 1.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Dark Green Illustrative Muted Peaceful Awareness Quotes Psychedelic Tote Bag (Журналы) (Сумки) (Круглый стикер) (12).svg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Dark Green Illustrative Muted Peaceful Awareness Quotes Psychedelic Tote Bag (Журналы) (Сумки) (Круглый стикер) (12) 3.svg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

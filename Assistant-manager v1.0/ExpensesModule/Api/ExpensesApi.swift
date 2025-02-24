@@ -101,7 +101,7 @@ class ExpensesApi: ExpensesApiProtocol {
         }
    
     }
-    
+    /*
     func geteExpensesAPI(user: User?, completion: @escaping (Result<[Expense]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         guard let status = user?.statusInGroup else {return}
@@ -115,6 +115,54 @@ class ExpensesApi: ExpensesApiProtocol {
             var expenses = [Expense]()
             expenses.removeAll()
             snapshot?.documents.forEach({ (documentSnapshot) in
+                let expenseDictionary = documentSnapshot.data()
+                let expense = Expense(dictionary: expenseDictionary)
+                expenses.append(expense)
+            })
+            completion(.success(expenses))
+        }
+    }
+    */
+    func geteExpensesAPI(user: User?, completion: @escaping (Result<[Expense]?, Error>) -> Void) {
+        // Проверка на текущего пользователя
+        guard let currentUserId = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])))
+            return
+        }
+
+        // Проверка на статус в группе
+        guard let status = user?.statusInGroup else {
+            completion(.failure(NSError(domain: "UserError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User status is missing"])))
+            return
+        }
+
+        // Создание объекта AccessStatus с безопасным развертыванием
+        guard let accessStatus = AccessStatus(rawValue: status) else {
+            completion(.failure(NSError(domain: "AccessStatusError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid status value"])))
+            return
+        }
+
+        // Проверка на db
+        guard let db = Firestore.accessRights(accessStatus, user: user) else {
+            completion(.failure(NSError(domain: "FirestoreError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Firestore access failed"])))
+            return
+        }
+
+        // Подписка на изменения в коллекции
+        db.collection("Expense").addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            // Проверка на snapshot
+            guard let snapshot = snapshot else {
+                completion(.failure(NSError(domain: "FirestoreError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve snapshot"])))
+                return
+            }
+
+            var expenses = [Expense]()
+            snapshot.documents.forEach({ (documentSnapshot) in
                 let expenseDictionary = documentSnapshot.data()
                 let expense = Expense(dictionary: expenseDictionary)
                 expenses.append(expense)
