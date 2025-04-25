@@ -124,6 +124,7 @@
 		8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C82850D1D6000182A8 /* PricePresentor.swift */; };
 		8AE627CB2850D1EA000182A8 /* APIPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627CA2850D1EA000182A8 /* APIPrice.swift */; };
 		8AE749B427A534DB00EE8C0A /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */; };
+		8AFB0CF22DBB916C00639A2C /* StatistikAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB0CF12DBB916C00639A2C /* StatistikAPI.swift */; };
 		8AFC4F7C293E38AE0012FFE1 /* AccessRights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC4F7B293E38AE0012FFE1 /* AccessRights.swift */; };
 		8AFD1438292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFD1437292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift */; };
 		8AFFA1B427C1933D0045E3D6 /* StartWorckPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */; };
@@ -243,6 +244,7 @@
 		8AE627C82850D1D6000182A8 /* PricePresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricePresentor.swift; sourceTree = "<group>"; };
 		8AE627CA2850D1EA000182A8 /* APIPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPrice.swift; sourceTree = "<group>"; };
 		8AE749B327A534DB00EE8C0A /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
+		8AFB0CF12DBB916C00639A2C /* StatistikAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatistikAPI.swift; path = ../../../../StatistikAPI.swift; sourceTree = "<group>"; };
 		8AFC4F7B293E38AE0012FFE1 /* AccessRights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessRights.swift; sourceTree = "<group>"; };
 		8AFD1437292FB6B800F13A05 /* TeamCircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AFFA1B327C1933D0045E3D6 /* StartWorckPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorckPresenter.swift; sourceTree = "<group>"; };
@@ -938,6 +940,7 @@
 		8AAF98C2279773B2007315DE /* StatistikModule */ = {
 			isa = PBXGroup;
 			children = (
+				8AFB0CF02DBB914A00639A2C /* API */,
 				8AAF98C727977430007315DE /* View */,
 				8AAF98CB2797746A007315DE /* Presenter */,
 			);
@@ -1167,6 +1170,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		8AFB0CF02DBB914A00639A2C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8AFB0CF12DBB916C00639A2C /* StatistikAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		8AFD1436292FB66200F13A05 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1345,6 +1356,7 @@
 				8A661ADC29044297006C7D22 /* TeamTableViewCell.swift in Sources */,
 				8A201C852881DD100072ED75 /* ExtensionString.swift in Sources */,
 				8A8E55AC2876F1A800B99433 /* EmptyCustomerCardPaymentCell.swift in Sources */,
+				8AFB0CF22DBB916C00639A2C /* StatistikAPI.swift in Sources */,
 				8A97299F2917EE0E00169DE2 /* EmptyTeamTableViewCell.swift in Sources */,
 				8AD0C5FD279806CF00BE414A /* SearchBarCalendarModuleCell.swift in Sources */,
 				8A3E5B57282C6D29005BDA81 /* ClientsTabPresenter.swift in Sources */,

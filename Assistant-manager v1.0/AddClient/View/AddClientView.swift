@@ -14,7 +14,8 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
         let button = UIButton(type: .system)
         button.setTitle("Add photo", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
-        button.backgroundColor = .white
+      //  button.backgroundColor = .white
+        button.backgroundColor = UIColor.appColor(.blueAssistantFon)
         button.setTitleColor(.gray, for: .normal)
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.appColor(.blueAndPink)!.withAlphaComponent(0.7).cgColor
@@ -52,7 +53,8 @@ class AddClientView: UIViewController,UIImagePickerControllerDelegate, UINavigat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+      //  view.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
         NotificationCenter.default.addObserver(self, selector: #selector(handleTapDismiss), name: UIApplication.willResignActiveNotification, object:nil)
         self.navigationController?.navigationBar.tintColor = UIColor.appColor(.blueAndWhite)
         configureViewComponents()

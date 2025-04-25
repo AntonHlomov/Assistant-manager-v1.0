@@ -61,7 +61,8 @@ extension UIColor {
             return UIColor { traitCollection in
                 switch traitCollection.userInterfaceStyle {
                     case .dark:
-                    return UIColor.rgb(red: 21, green: 22, blue: 27)
+                    //return UIColor.rgb(red: 21, green: 22, blue: 27)
+                    return UIColor.rgb(red: 20, green: 21, blue: 37)
                 default:
                     return UIColor.rgb(red: 31, green: 152, blue: 233)
                     }
@@ -70,7 +71,8 @@ extension UIColor {
             return UIColor { traitCollection in
                 switch traitCollection.userInterfaceStyle {
                     case .dark:
-                    return UIColor.rgb(red: 41, green: 42, blue: 47)
+                    //return UIColor.rgb(red: 41, green: 42, blue: 47)
+                    return UIColor.rgb(red: 38, green: 39, blue: 58)
                 default:
                     return UIColor.rgb(red: 255, green: 255, blue: 255)
                     }
@@ -115,7 +117,8 @@ extension UIColor {
                   }
             
         case .darkAssistant:
-            return  UIColor.rgb(red: 38, green: 38, blue: 38)
+           // return  UIColor.rgb(red: 38, green: 38, blue: 38)
+            return UIColor.rgb(red: 38, green: 39, blue: 58)
             
         case .whiteAssistant:
             return  UIColor.rgb(red: 255, green: 255, blue: 255).withAlphaComponent(0.9)

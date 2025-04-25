@@ -165,9 +165,18 @@ class AsselderModelBuilder: AsselderBuilderProtocol{
        return view
     }
     func createStatistikModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
+       let view = StatistikViewController()
+       let statistikAPI = StatistikAPI()
+        let presenter = StatistikPresenter(view: view, apiService: statistikAPI, router: router, user: user)
+        view.presenter = presenter
+       return view
+    }
+    /*
+    func createStatistikModule(router: LoginRouterProtocol,user: User?) -> UIViewController {
        let view = StatistikViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let presenter = StatistikPresentor(view: view, router: router, user: user)
         view.presenter = presenter
        return view
     }
+    */
 }

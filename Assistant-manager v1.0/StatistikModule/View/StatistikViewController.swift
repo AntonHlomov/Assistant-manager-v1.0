@@ -5,7 +5,59 @@
 //  Created by Anton Khlomov on 18/01/2022.
 //
 import UIKit
+import WebKit
+
+class StatistikViewController: UIViewController {
+    
+    var presenter: StatistikViewPresenterProtocol!
+    
+    private lazy var webView: WKWebView = {
+        let config = WKWebViewConfiguration()
+        let wv = WKWebView(frame: .zero, configuration: config)
+        
+        wv.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        wv.isOpaque = false
+        wv.scrollView.backgroundColor = .clear
+        wv.translatesAutoresizingMaskIntoConstraints = false
+        
+        return wv
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        setupWebView()
+        presenter.viewDidLoad()
+    }
+    
+    private func setupWebView() {
+        view.addSubview(webView)
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+}
+
+extension StatistikViewController: StatistikViewProtocol {
+    func loadDashboardPage(url: URL) {
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
+}
+
+
+
+
+
+
+
+/*
+import UIKit
 import Firebase
+
 
 private let reuseIdentifier = "Cell"
 private let searchBarCalendarIdentifier = "searchBarCalendarIdentifier"
@@ -96,3 +148,4 @@ extension StatistikViewController: StatistikViewProtocol {
    }
 }
 
+*/
