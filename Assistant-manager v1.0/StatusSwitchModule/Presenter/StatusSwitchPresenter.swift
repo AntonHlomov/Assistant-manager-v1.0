@@ -5,6 +5,7 @@
 //  Created by Anton Khlomov on 25/11/2022.
 //
 import Foundation
+import UIKit
 protocol StatusSwitchProtocol: AnyObject {
     func failure(error: Error)
     func reloadTable()
@@ -98,6 +99,9 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
                 switch result{
                 case .success(_):
                     print("swapStatusSwitch()")
+                    if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                        sceneDelegate.restartApp()
+                    }
                     break
                 case .failure(let error):
                     self?.view?.failure(error: error)

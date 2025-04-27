@@ -90,3 +90,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate {
+    func restartApp() {
+        guard let windowScene = window?.windowScene else { return }
+        
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        
+        let navigationControler = UINavigationController()
+        let tabBarControler = UITabBarController()
+        let assemblyBuilder = AsselderModelBuilder()
+        let router = Router(navigationControler: navigationControler, tabBarControler: tabBarControler, assemblyBuilder: assemblyBuilder)
+        
+        router.initalScreensaverControler()
+        window.rootViewController = navigationControler
+        window.makeKeyAndVisible()
+        window.overrideUserInterfaceStyle = .dark
+        
+        // Подтверждение перезапуска
+        print("✅ App restarted successfully after status change")
+    }
+}
+
