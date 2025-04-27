@@ -32,11 +32,12 @@ class StatistikViewController: UIViewController {
     
     private func setupWebView() {
         view.addSubview(webView)
+        let bottomOffset = UIScreen.main.bounds.height * 0.1 //* 0.1 10% от высоты экрана
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomOffset)
         ])
     }
 }

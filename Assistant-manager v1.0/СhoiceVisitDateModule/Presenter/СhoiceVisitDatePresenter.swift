@@ -73,6 +73,45 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             DispatchQueue.main.async {
                 switch result{
                 case .success(let team):
+                    guard let team = team else { return }
+                    switch team.count{
+                    case 0:
+                        print(" вставить user в team")
+                         
+                         guard let user = self?.user else { return }
+
+                         // Преобразуем данные из user в формат, подходящий для инициализации Team
+                         let userDictionary: [String: Any] = [
+                             "id": user.uid ?? "",
+                             "categoryTeamMember": user.statusInGroup ?? "Unknown",
+                             "idTeamMember": "", // если есть
+                             "nameTeamMember": user.name ?? "",
+                             "fullnameTeamMember": user.fullName ?? "",
+                             "profileImageURLTeamMember": user.profileImage ?? "",
+                             "professionName": "" // если нужно
+                         ]
+
+                         let userAsTeam = Team(dictionary: userDictionary)
+
+                         self?.team = [userAsTeam]
+                         self?.view?.succesForTeamCollection()
+                        
+                    case 0...:
+                        
+                        self?.team = team.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
+                        self?.view?.succesForTeamCollection()
+                        
+                        
+                    default:
+                       
+                        self?.view?.failure(error: (NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "error team.count nil"])))
+                    }
+                    
+                    
+                    
+                    
+                    /*
+                  
                     if ((team?.isEmpty) != nil) {
                        print(" вставить user в team")
                         
@@ -98,7 +137,8 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
                         self?.team = team?.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
                         self?.view?.succesForTeamCollection()
                     }
-              
+                    
+              */
                 case .failure(let error):
                     self?.view?.failure(error: error)
                 }

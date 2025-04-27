@@ -93,6 +93,10 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
                  return cell
              default:
                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppCellСlReminder
+                 cell.nameLebel.text = ""
+                 cell.imageView.reloadInputViews()
+               
+       
                  return cell
              }
          }
@@ -107,9 +111,18 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
          }
           // нажатие на ячейки напоминания
           func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            self.openClientWitchReminder = reminderS[indexPath.row]
-            openReminderClient?(self)
-            print("нажал\(indexPath)")
+              
+              switch indexPath.section {
+              case 0:
+                  print("нажал на надпись  case 0 \(indexPath)")
+              case 1:
+                  self.openClientWitchReminder = reminderS[indexPath.row]
+                  openReminderClient?(self)
+                  print("нажал\(indexPath)")
+              default:
+                  print("нажал default \(indexPath)")
+              }
+              
           }
     @objc func ationAddMasageForClient() {
         touchAddButoon?(self)
@@ -146,7 +159,7 @@ class AppCellСlReminder: UICollectionViewCell {
         button.tintColor = UIColor(white: 0, alpha: 0.8)
         return button
     }()
-    let nameLebel: UILabel = {
+    var nameLebel: UILabel = {
         let Label = UILabel()
         Label.text = "Имя"+"\n"+"Клиента"
         Label.textAlignment = .center

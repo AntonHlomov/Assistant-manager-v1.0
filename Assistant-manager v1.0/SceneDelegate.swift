@@ -108,7 +108,7 @@ extension SceneDelegate {
         window.overrideUserInterfaceStyle = .dark
         
         // Подтверждение перезапуска
-        print("✅ App restarted successfully after status change")
+        print("App restarted successfully after status change")
     }
 }
 
