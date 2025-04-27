@@ -73,8 +73,32 @@ class СhoiceVisitDatePresenter: СhoiceVisitDatePresenterProtocol{
             DispatchQueue.main.async {
                 switch result{
                 case .success(let team):
-                    self?.team = team?.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
-                    self?.view?.succesForTeamCollection()
+                    if ((team?.isEmpty) != nil) {
+                       print(" вставить user в team")
+                        
+                        guard let user = self?.user else { return }
+
+                        // Преобразуем данные из user в формат, подходящий для инициализации Team
+                        let userDictionary: [String: Any] = [
+                            "id": user.uid ?? "",
+                            "categoryTeamMember": user.statusInGroup ?? "Unknown",
+                            "idTeamMember": "", // если есть
+                            "nameTeamMember": user.name ?? "",
+                            "fullnameTeamMember": user.fullName ?? "",
+                            "profileImageURLTeamMember": user.profileImage ?? "",
+                            "professionName": "" // если нужно
+                        ]
+
+                        let userAsTeam = Team(dictionary: userDictionary)
+
+                        self?.team = [userAsTeam]
+                        self?.view?.succesForTeamCollection()
+                        
+                    } else {
+                        self?.team = team?.sorted{$0.categoryTeamMember > $1.categoryTeamMember}
+                        self?.view?.succesForTeamCollection()
+                    }
+              
                 case .failure(let error):
                     self?.view?.failure(error: error)
                 }

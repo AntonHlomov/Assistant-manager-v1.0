@@ -14,10 +14,17 @@ protocol ApiСhoiceVisitDateProtocol {
 
 class ApiСhoiceVisitDate: ApiСhoiceVisitDateProtocol{
     func getCustomerRecordPast(idMaster: String, dateStartServiceDMY: String, user: User?, completion: @escaping (Result<[CustomerRecord]?, Error>) -> Void) {
-        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let status = user?.statusInGroup else {return}
         guard let db = Firestore.accessRights(AccessStatus(rawValue: status)!,user: user) else {return}
-        db.collection("CustomerRecord").whereField("dateStartService", isEqualTo: dateStartServiceDMY).whereField("idUserWhoWorks", isEqualTo: idMaster).getDocuments { [] (snapshot, error) in
+        var master = ""
+               if idMaster.isEmpty {
+                   master = uid
+               } else {
+                   master = idMaster
+               }
+        
+        db.collection("CustomerRecord").whereField("dateStartService", isEqualTo: dateStartServiceDMY).whereField("idUserWhoWorks", isEqualTo: master).getDocuments { [] (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return

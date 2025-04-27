@@ -174,7 +174,9 @@ extension ChoiceVisitDateViewController:UITableViewDelegate, UITableViewDataSour
 }
 extension ChoiceVisitDateViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.team?.count ?? 0
+         print("team count:\(presenter.team?.count ?? 0)")
+         return presenter.team?.count ?? 0
+       
     }
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellMaster, for: indexPath) as! MasterCollectionViewCell

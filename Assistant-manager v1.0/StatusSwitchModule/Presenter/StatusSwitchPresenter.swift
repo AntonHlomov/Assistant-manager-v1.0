@@ -97,6 +97,7 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
             DispatchQueue.main.async {
                 switch result{
                 case .success(_):
+                    print("swapStatusSwitch()")
                     break
                 case .failure(let error):
                     self?.view?.failure(error: error)
@@ -105,4 +106,5 @@ class StatusSwitchPresenter: StatusSwitchPresenterProtocol {
             }
         }
     }
+    
 }
