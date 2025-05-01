@@ -74,8 +74,10 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         return myRefreshControl
     }()
     @objc func updateMyCollectionView() {
-        self.presenter.getFinancialReport()
-        self.collectionView.reloadData()
+      //  self.presenter.getFinancialReport()
+      //  self.collectionView.reloadData()
+        self.presenter.reloadData()
+        //collectionView.reloadSections(IndexSet(integer: 0))
         dataRefresher.endRefreshing()
         print("Refresher CalendarController")
     }
@@ -118,6 +120,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
         if section == 0 { return 0 }
         return 15
     }
+    /*
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch indexPath.section {
         case 0: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
@@ -128,6 +131,14 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             header.expensesCell.text = presenter.expensesToday     //String(format: "%.1f",presenter.expensesToday!)
             header.clientButton.addTarget(self, action: #selector(goToClientTable), for: .touchUpInside)
             header.optionButton.addTarget(self, action: #selector(goToOptions), for: .touchUpInside)
+            if presenter.user?.hiddenStatus == "Individual" && presenter.user?.idGroup != ""{
+                print("взять имя группы и вставить в UserProfileHeaderCell")
+                guard let status =  presenter.user?.statusInGroup else {return header}
+                header.nameGroupStatus.text = status + " at  " + presenter.nameGroup
+                print( " at  " + presenter.nameGroup)
+               
+            }
+
             return header
         default: let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
             header.backgroundColor = UIColor.appColor(.blueAssistantFon)
@@ -135,7 +146,44 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
             searchBar.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor,pading: .init(top: 5, left: 0, bottom: 15, right: 0))
             return header
         }
-    } 
+    }
+    */
+    // В CalendarViewController.swift
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch indexPath.section {
+        case 0:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
+            configureHeader(header: header)
+            return header
+            
+        default:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarCalendarIdentifier, for: indexPath) as! SearchBarCalendarModuleCell
+            configureSearchBarHeader(header: header)
+            return header
+        }
+    }
+    private func configureHeader(header: UserProfileHeaderCell) {
+        header.backgroundColor = UIColor.appColor(.whiteAssistantFon)
+        header.user = presenter.user
+        header.profitCLL.text = presenter.profit
+        header.revenueCell.text = presenter.revenueToday
+        header.expensesCell.text = presenter.expensesToday
+        header.clientButton.addTarget(self, action: #selector(goToClientTable), for: .touchUpInside)
+        header.optionButton.addTarget(self, action: #selector(goToOptions), for: .touchUpInside)
+        
+        if presenter.user?.hiddenStatus == "Individual" && presenter.user?.idGroup != "" {
+            let status = presenter.user?.statusInGroup ?? ""
+            header.nameGroupStatus.text = "\(status) at \(presenter.nameGroup)"
+        } else {
+            header.nameGroupStatus.text = ""
+        }
+    }
+
+    private func configureSearchBarHeader(header: SearchBarCalendarModuleCell) {
+        header.backgroundColor = UIColor.appColor(.blueAssistantFon)
+        header.addSubview(searchBar)
+        searchBar.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor, pading: .init(top: 5, left: 0, bottom: 15, right: 0))
+    }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reminderSlaiderIdentifier, for: indexPath) as! SliderReminderClientsCell
@@ -152,6 +200,7 @@ class CalendarViewController: UICollectionViewController,UICollectionViewDelegat
                 }
             case true:
                 cell.reminderS.removeAll()
+                self.presenter.reminders?.removeAll()
                 cell.textEmpty.text = "You don't have active reminders yet."
                 cell.addSubview(cell.textEmpty)
                 cell.textEmpty.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: nil, trailing: cell.trailingAnchor, pading: .init(top: 43, left: 110, bottom: 0, right: 20))

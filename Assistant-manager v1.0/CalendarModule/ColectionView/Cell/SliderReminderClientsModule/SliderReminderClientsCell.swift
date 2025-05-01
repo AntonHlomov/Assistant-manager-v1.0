@@ -14,7 +14,24 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
     var openReminderClient: ((SliderReminderClientsCell) -> Void)?
     var touchAddButoon: ((SliderReminderClientsCell) -> Void)?
     var openClientWitchReminder: (Reminder?)
-    
+    // Используем empty array как default value
+      var reminderS = [Reminder]() {
+          didSet {
+              appsCollectionView.reloadData()
+          }
+      }
+      
+      var reminderSlaider: [Reminder]? {
+          didSet {
+              // Всегда очищаем перед установкой новых данных
+              reminderS.removeAll()
+              if let reminders = reminderSlaider, !reminders.isEmpty {
+                  reminderS = reminders
+              }
+              appsCollectionView.reloadData()
+          }
+      }
+    /*
     var reminderS = [Reminder]()
     var reminderSlaider: [Reminder]?{
         didSet{
@@ -23,6 +40,7 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
             appsCollectionView.reloadData()
         }
     }
+       */
     override init(frame: CGRect) {
         super .init(frame: frame)
         setupViews()
@@ -31,6 +49,15 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+           super.prepareForReuse()
+           // Очищаем данные при повторном использовании ячейки
+           reminderS.removeAll()
+           reminderSlaider = nil
+           openClientWitchReminder = nil
+       }
+    
     //MARK: - оформление ячейки слайдера
     let textEmpty: UILabel = {
         let Label = UILabel()
@@ -89,7 +116,9 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
                  return cell
              case 1:
                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppCellСlReminder
-                 cell.reminder = reminderS[indexPath.row]
+                 if reminderS.count > 0 {
+                     cell.reminder = reminderS[indexPath.row]
+                 }
                  return cell
              default:
                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppCellСlReminder
@@ -116,9 +145,13 @@ class SliderReminderClientsCell: UICollectionViewCell, UICollectionViewDelegate,
               case 0:
                   print("нажал на надпись  case 0 \(indexPath)")
               case 1:
-                  self.openClientWitchReminder = reminderS[indexPath.row]
-                  openReminderClient?(self)
-                  print("нажал\(indexPath)")
+                  if reminderS.count > 0 {
+                      self.openClientWitchReminder = reminderS[indexPath.row]
+                      openReminderClient?(self)
+                      print("нажал\(indexPath)")
+                  } else {
+                      print("пустой")
+                  }
               default:
                   print("нажал default \(indexPath)")
               }
@@ -134,8 +167,10 @@ class AppCellСlReminder: UICollectionViewCell {
         didSet{
             imageView.loadImage(with: reminder?.profileImageClientUrl ?? "")
             guard let clientname = reminder?.nameClient else {return}
-            guard let fullname = reminder?.fullNameClient else {return}
-            nameLebel.text = clientname.capitalized + "\n" + fullname.capitalized
+           // guard let fullname = reminder?.fullNameClient else {return}
+            guard let commit = reminder?.commit else {return}
+          //  nameLebel.text = clientname.capitalized + "\n" + fullname.capitalized
+            nameLebel.text = commit.capitalizingFirstLetter()
             }
     }
     override init(frame: CGRect) {
@@ -150,7 +185,10 @@ class AppCellСlReminder: UICollectionViewCell {
         let iv = UIImageView()
         iv.image = UIImage(named: "avaUser6")
         iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
         iv.layer.cornerRadius = 80.0/2.0
+       // iv.layer.borderWidth = 2
+       // iv.layer.borderColor = UIColor.appColor(.blueAssistant)?.cgColor
         iv.layer.masksToBounds = true
         return iv
     }()
@@ -161,9 +199,10 @@ class AppCellСlReminder: UICollectionViewCell {
     }()
     var nameLebel: UILabel = {
         let Label = UILabel()
-        Label.text = "Имя"+"\n"+"Клиента"
+        Label.text = ""
         Label.textAlignment = .center
-        Label.textColor = .darkGray
+        //Label.textColor = .darkGray
+        Label.textColor = UIColor.appColor(.whiteAssistant)
         Label.font = UIFont.boldSystemFont(ofSize: 12)
         Label.numberOfLines = 2
         return Label
@@ -173,9 +212,9 @@ class AppCellСlReminder: UICollectionViewCell {
             imageView.anchor(top: topAnchor, leading: nil, bottom: nil,trailing: nil, pading: .init(top: 0, left: 0, bottom: 0,right: 0), size: .init(width: 80, height: 80))
             imageView.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
             addSubview(reminderSign)
-            reminderSign.anchor(top: imageView.topAnchor, leading: nil,bottom: nil, trailing: imageView.trailingAnchor, pading:.init(top: -8, left: -8, bottom: 0, right: 0), size:.init(width: 22, height: 22))
+            reminderSign.anchor(top: imageView.topAnchor, leading: nil,bottom: nil, trailing: imageView.trailingAnchor, pading:.init(top: -8, left: 0, bottom: 0, right: 0), size:.init(width: 22, height: 22))
             addSubview(nameLebel)
-            nameLebel.anchor(top: imageView.bottomAnchor, leading: nil,bottom: nil, trailing: nil, pading: .init(top: 3, left: 0,bottom: 0, right: 0), size: .init(width: frame.size.width + 5,height: 0))
+            nameLebel.anchor(top: imageView.bottomAnchor, leading: leadingAnchor,bottom: nil, trailing: nil, pading: .init(top: 3, left: 2,bottom: 0, right: 2), size: .init(width: frame.size.width + 5,height: 0))
             nameLebel.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         }
     }
@@ -206,6 +245,7 @@ class AppCellСlReminder: UICollectionViewCell {
             addSubview(clientButton)
             clientButton.anchor(top: topAnchor, leading: nil, bottom: nil,trailing: nil, pading: .init(top: 0, left: 0, bottom: 0,right: 0), size: .init(width: 80, height: 80))
             clientButton.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+           // clientButton.layer.cornerRadius = 18
             addSubview(nameLebelCB)
             nameLebelCB.anchor(top: clientButton.bottomAnchor, leading: nil,bottom: nil, trailing: nil, pading: .init(top: 5, left: 0,bottom: 0, right: 0), size: .init(width: frame.size.width + 5,height: 0))
             nameLebelCB.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true

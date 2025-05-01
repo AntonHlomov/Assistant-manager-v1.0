@@ -16,6 +16,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
             guard let name = user?.name else {return}
             guard let fullname = user?.fullName else {return}
             nameLabel.text = name.capitalized + " " + fullname.capitalized
+        
            
         }
     }
@@ -133,11 +134,22 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
     var nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "User"
+        label.text = ""
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .white
          return label
      }()
+    
+    // название
+    lazy var nameGroupStatus: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = ""
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .white
+         return label
+     }()
+
 
     
     override init(frame: CGRect) {
@@ -186,6 +198,15 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         nameLabel.anchor(top: profileImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,  pading: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 20))
         nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true //выстовляет по середине экрана
         
+        addSubview(nameGroupStatus)
+      
+        nameGroupStatus.anchor(top: nameLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,  pading: .init(top: 10, left: 10, bottom: 0, right: 10), size: .init(width: frame.width, height: 14))
+        nameGroupStatus.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+      
+    
+        
+    
+        
       
         
         
@@ -207,7 +228,7 @@ class UserProfileHeaderCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         stackMony.spacing = 25
         stackMony.distribution = .fillEqually  // для корректного отображения
         addSubview(stackMony)
-        stackMony.anchor(top: nameLabel.bottomAnchor, leading: safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: safeAreaLayoutGuide.trailingAnchor,  pading: .init(top: 70, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        stackMony.anchor(top: nameGroupStatus.bottomAnchor, leading: safeAreaLayoutGuide.leadingAnchor, bottom: bottomAnchor, trailing: safeAreaLayoutGuide.trailingAnchor,  pading: .init(top: 60, left: 0, bottom: 30, right: 0), size: .init(width: 0, height: 0))
     
     }
     

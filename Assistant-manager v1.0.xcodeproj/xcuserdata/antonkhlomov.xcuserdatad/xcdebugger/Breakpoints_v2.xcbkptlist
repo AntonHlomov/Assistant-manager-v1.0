@@ -20,5 +20,176 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7C9F0FDC-C333-46AC-B960-9555D8276EB2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assistant-manager v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "CalendarViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "7C9F0FDC-C333-46AC-B960-9555D8276EB2 - 7aa4b865488067ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.CalendarViewController.collectionView(_: __C.UICollectionView, viewForSupplementaryElementOfKind: Swift.String, at: Foundation.IndexPath) -&gt; __C.UICollectionReusableView"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "135"
+                  endingLineNumber = "135"
+                  offsetFromSymbolStart = "6028">
+               </Location>
+               <Location
+                  uuid = "7C9F0FDC-C333-46AC-B960-9555D8276EB2 - 7aa4b8654880678c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.CalendarViewController.collectionView(_: __C.UICollectionView, viewForSupplementaryElementOfKind: Swift.String, at: Foundation.IndexPath) -&gt; __C.UICollectionReusableView"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "134"
+                  endingLineNumber = "134"
+                  offsetFromSymbolStart = "6068">
+               </Location>
+               <Location
+                  uuid = "7C9F0FDC-C333-46AC-B960-9555D8276EB2 - 7aa4b865488067ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.CalendarViewController.collectionView(_: __C.UICollectionView, viewForSupplementaryElementOfKind: Swift.String, at: Foundation.IndexPath) -&gt; __C.UICollectionReusableView"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/View/CalendarViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "135"
+                  endingLineNumber = "135"
+                  offsetFromSymbolStart = "6692">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assistant-manager v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "SliderReminderClientsCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21 - fe5d924b572a6069"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.SliderReminderClientsCell.reminderS.getter : Swift.Array&lt;Assistant_manager_v1_0.Reminder&gt;"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21 - 1f5949b46080701d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.SliderReminderClientsCell.reminderS.setter : Swift.Array&lt;Assistant_manager_v1_0.Reminder&gt;"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21 - 614b707f4654f46c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.SliderReminderClientsCell.reminderS.modify : Swift.Array&lt;Assistant_manager_v1_0.Reminder&gt;"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21 - c3c1c656e6c8c106"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.SliderReminderClientsCell.reminderS.modify : Swift.Array&lt;Assistant_manager_v1_0.Reminder&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21 - ef6418ad3581112f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.SliderReminderClientsCell.init(frame: __C.CGRect) -&gt; Assistant_manager_v1_0.SliderReminderClientsCell"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "408">
+               </Location>
+               <Location
+                  uuid = "1E3EEC3A-7A8A-4739-9BBE-3C1EAA53BE21 - c07b06f0a40fbec2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Assistant_manager_v1_0.SliderReminderClientsCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Assistant_manager_v1_0.SliderReminderClientsCell&gt;"
+                  moduleName = "Assistant-manager v1.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Assistant-manager-v1.0/Assistant-manager%20v1.0/CalendarModule/ColectionView/Cell/SliderReminderClientsModule/SliderReminderClientsCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "396">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

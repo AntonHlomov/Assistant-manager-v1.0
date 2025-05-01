@@ -9,6 +9,7 @@ import Firebase
 import UIKit
 
 protocol ApiTeamProtocol {
+    func getGroup(idGroup:String, completion: @escaping (Result<Group?, Error>) -> Void)
     func createNewGroup(userCreate: User?,nameGroup: String, profileImageGroup: UIImage,categoryTeamMember: String, completion: @escaping (Result <Bool,Error>) -> Void)
     func removeTeam (user:User?,team: [Team]?, completion: @escaping (Result<Bool,Error>) -> Void)
     func deleteTeamUser(user:User?,idTeamUser: String, completion: @escaping (Result<Bool,Error>) -> Void)
@@ -19,6 +20,22 @@ protocol ApiTeamProtocol {
 }
 
 class ApiTeam: ApiTeamProtocol{
+    
+    func getGroup(idGroup:String, completion: @escaping (Result<Group?, Error>) -> Void) {
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        
+        Firestore.firestore().collection("group").document(idGroup).getDocument{ [] (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let dictionary = snapshot?.data() else {return}
+            let group = Group(dictionary:dictionary)
+            completion(.success(group))
+        }
+        
+    }
+    
     func getTeam(user: User?, completion: @escaping (Result<[Team]?, Error>) -> Void) {
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         guard let status = user?.statusInGroup else {return}

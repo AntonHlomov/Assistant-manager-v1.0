@@ -190,11 +190,12 @@ class ClientPage: UIViewController {
         stackStatisyc.distribution = .fillEqually
         view.addSubview(stackStatisyc)
         stackStatisyc.anchor(top: stackButtonMakeCall.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, pading: .init(top: 60, left: 10, bottom: 0, right: 5), size: .init(width: 0, height: view.frame.height/7))
-        
+        /*
         view.addSubview(goToWorckButton) // кнопка в работу
         goToWorckButton.anchor(top: nil, leading: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing:nil, pading: .init(top: 0, left: 0, bottom: 0,right: 0), size: .init(width: 80, height: 80))
         goToWorckButton.layer.cornerRadius = 80 / 2
         goToWorckButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        */
     }
     @objc fileprivate func pressСlientInvitationButton(){
         presenter.pressСlientInvitationButton()

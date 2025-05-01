@@ -119,6 +119,7 @@
 		8AD0C6032798078100BE414A /* CalendarForDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C6022798078100BE414A /* CalendarForDayCell.swift */; };
 		8AD0C606279807D300BE414A /* EmptyCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */; };
 		8AD1508927D4EA3100FE8AB0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */; };
+		8ADFB9282DC2BC510064290A /* СapitalizingFirstLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFB9272DC2BC510064290A /* СapitalizingFirstLetter.swift */; };
 		8AE627C52850D191000182A8 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C42850D191000182A8 /* PriceViewController.swift */; };
 		8AE627C72850D1AC000182A8 /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C62850D1AC000182A8 /* PriceCell.swift */; };
 		8AE627C92850D1D6000182A8 /* PricePresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE627C82850D1D6000182A8 /* PricePresentor.swift */; };
@@ -239,6 +240,7 @@
 		8AD0C6022798078100BE414A /* CalendarForDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForDayCell.swift; sourceTree = "<group>"; };
 		8AD0C605279807D300BE414A /* EmptyCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCalendarCell.swift; sourceTree = "<group>"; };
 		8AD1508827D4EA3100FE8AB0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		8ADFB9272DC2BC510064290A /* СapitalizingFirstLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СapitalizingFirstLetter.swift"; sourceTree = "<group>"; };
 		8AE627C42850D191000182A8 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		8AE627C62850D1AC000182A8 /* PriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
 		8AE627C82850D1D6000182A8 /* PricePresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricePresentor.swift; sourceTree = "<group>"; };
@@ -582,6 +584,7 @@
 				8A90A85A285E7EA700C01250 /* CustomDisclosureIndicator.swift */,
 				8A201C842881DD100072ED75 /* ExtensionString.swift */,
 				8A8FCB55288420C300E4BABB /* CurrencyExtension.swift */,
+				8ADFB9272DC2BC510064290A /* СapitalizingFirstLetter.swift */,
 			);
 			path = GlobalExtension;
 			sourceTree = "<group>";
@@ -1372,6 +1375,7 @@
 				8A8E45652791911600828B7E /* Client.swift in Sources */,
 				8A90F68C29351A8500A466E3 /* ExpensesApi.swift in Sources */,
 				8A8E45362791873900828B7E /* AppDelegate.swift in Sources */,
+				8ADFB9282DC2BC510064290A /* СapitalizingFirstLetter.swift in Sources */,
 				8A8E4563279190E100828B7E /* User.swift in Sources */,
 				8A90A85B285E7EA700C01250 /* CustomDisclosureIndicator.swift in Sources */,
 				8ACD281F28515653005D993E /* ApiAddNewService.swift in Sources */,

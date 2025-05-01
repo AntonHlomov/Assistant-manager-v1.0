@@ -4,6 +4,8 @@
 //
 //  Created by Anton Khlomov on 29/01/2022.
 //
+
+
 import Foundation
 
 protocol CalendadrViewProtocol: AnyObject {
@@ -45,8 +47,11 @@ protocol CalendadrViewPresenterProtocol: AnyObject {
     var reminders: [Reminder]?{ get set }
     var today: String { get set }
     var tomorrow: String { get set }
+    var nameGroup: String { get set }
 }
 class CalendadrPresentor: CalendadrViewPresenterProtocol {
+ 
+    
 
    var user: User?
    var oldUser: User?
@@ -63,6 +68,16 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
     }
    var tomorrow: String
+        //  var nameGroup: String
+    
+    var nameGroup: String {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                // Явно обновляем только хидер (секцию 0)
+                self?.view?.updateDataSestion(update: true, indexSetInt: 0)
+            }
+        }
+    }
    var team: [Team]
    var idGroupRequest: String!
    var idUserRequest: String!
@@ -93,6 +108,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         self.tomorrow = Date().tomorrowDMYFormat()
         self.team = [Team]()
         self.reminders = [Reminder]()
+        self.nameGroup = ""
         reloadData()
     }
     func confirfAdInGroup(){
@@ -128,6 +144,8 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             }
          }
     }
+   
+       
     func statusCheckUser(){
         if self.user?.statusInGroup == self.oldUser?.statusInGroup{
             print("неизменился statusInGroup")
@@ -137,6 +155,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             meQueueStatusCheck.sync {
                 print("reloadData2")
                 getTeam()
+            }
+            meQueueStatusCheck.sync {
+                print("reloadData2")
+                getGroup()
             }
             meQueueStatusCheck.sync {
                 print("reloadData3")
@@ -158,6 +180,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             
         }
     }
+      
+   
+ 
     func reloadData(){
         let meQueue = DispatchQueue(label: "reloadData")
         meQueue.sync {
@@ -166,6 +191,10 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         meQueue.sync {
             print("reloadData2")
             getTeam()
+        }
+        meQueue.sync {
+            print("reloadData2")
+            getGroup()
         }
         meQueue.sync {
             print("reloadData3")
@@ -185,6 +214,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
         }
      
     }
+    
+   
+ 
     func getGlobalUser(){
         print("getGlobalUser")
         networkServiceUser.fetchCurrentUser{[weak self] result in
@@ -214,6 +246,9 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             }
          }
      }
+   
+   
+   
     func getTeam(){
         print("getTeam")
         DispatchQueue.main.async{
@@ -229,12 +264,48 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             }
         }
     }
+    // MARK: - Group Observer Implementation
+    private func getGroup() {
+        print("getGroup")
+        guard let idGroup = user?.idGroup else { return }
+        
+        networkServiceTeam.getGroup(idGroup: idGroup) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let group):
+                    self?.nameGroup = group?.nameGroup ?? "" // Здесь сработает didSet
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+            }
+        }
+    }
+    /*
+    func getGroup(){
+        print("getGroup")
+        DispatchQueue.main.async{
+            guard let idGroup = self.user?.idGroup else {return}
+            self.networkServiceTeam.getGroup(idGroup: idGroup){[weak self] result in
+            guard self != nil else {return}
+                switch result{
+                case .success(let group):
+                    self?.nameGroup = group?.nameGroup ?? ""
+                    print(group?.nameGroup ?? "")
+                    self?.view?.reloadData()
+                case .failure(let error):
+                    self?.view?.failure(error: error)
+                }
+            }
+        }
+    }
+  */
     func dataTodayTomorrow(){
         print("!!!!dataTodayTomorrow")
         let date = Date()
         self.today = date.todayDMYFormat()
         self.tomorrow = date.tomorrowDMYFormat()
     }
+  
     func getReminders(){
         DispatchQueue.main.async {
             self.networkService.getReminder(user: self.user,date: self.today){[weak self] result in
@@ -250,6 +321,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
          }
     }
+  
     func deletCustomerRecorder(idCustomerRecorder:String,masterId: String) {
         DispatchQueue.main.async {
             self.networkService.deletCustomerRecorder(user: self.user,idRecorder: idCustomerRecorder,masterId: masterId){[weak self] result in
@@ -263,6 +335,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
         }
     }
+
     func getCalendarDate() {
         print("getCalendarDate")
         DispatchQueue.main.async {
@@ -280,6 +353,8 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
                 }
         }
     }
+        
+
     func getFinancialReport(){
         let dateMMYY = Date().todayMonthFormat()
         DispatchQueue.main.async {
@@ -300,6 +375,7 @@ class CalendadrPresentor: CalendadrViewPresenterProtocol {
             }
        }
     }
+    
     func completeArrayServicesPrices(indexPath:IndexPath,completion: @escaping (_ services:String?,_ prices:String?,_ total:String?) ->()){
          DispatchQueue.main.async {
              var totalSum = [Double]()
